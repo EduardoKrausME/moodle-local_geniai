@@ -26,7 +26,6 @@ use external_api;
 use external_value;
 use external_single_structure;
 use external_function_parameters;
-use tool_brickfield\local\areas\core_course\fullname;
 
 class chat extends external_api {
     /**
@@ -68,10 +67,14 @@ class chat extends external_api {
         if (isset($_SESSION["messages-{$courseid}"][0])) {
             $messages = $_SESSION["messages-{$courseid}"];
         } else {
+
+            $content = get_config('local_geniai', 'prompt');
+            $content = str_replace("{user-lang}", $USER->lang, $content);
+
             $messages = [
                 [
                     'role' => 'system',
-                    'content' => get_config('local_geniai', 'prompt')
+                    'content' => $content
                 ], [
                     'role' => 'system',
                     'content' => get_string('url_moodle', 'local_geniai',
