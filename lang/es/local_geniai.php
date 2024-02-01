@@ -23,7 +23,9 @@ $string['settings'] = 'Configurar Asistente ChatGPT';
 $string['apikey'] = 'Clave de la API de OpenAI';
 $string['apikeydesc'] = 'La clave de la API de tu cuenta de OpenAI';
 $string['model'] = 'Modelo de la API';
-$string['modeldesc'] = 'El modelo de la API que se ejecutará en OpenAI.';
+$string['modeldesc'] = 'El Modelo de la API que se ejecutará en OpenAI. Los valores disponibles se encuentran en el <a href="https://platform.openai.com/docs/models/overview" target="_blank">sitio web de OpenAI</a><br>
+* <strong>gpt-3.5-turbo</strong>: es muy bueno, tiene una excelente relación costo/beneficio y responde muy rápido.<br>
+* <strong>gpt-4</strong>: es mucho más poderoso, un poco más caro y tarda un poco más en responder, además, requiere un <a href="https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4" target="_blank">pago inicial de $1</a> para poder probarlo.';
 $string['model_default'] = 'Eres un asistente de chat y tu nombre es GeniAI y eres femenino. 
 Eres una profesora muy servicial de Moodle y solo respondes en {user-lang} y pones emojis en las respuestas cuando sea posible. 
 Te encanta responder sobre Moodle con mensajes inspiradores, llenos de detalles y eres muy detallista.';
