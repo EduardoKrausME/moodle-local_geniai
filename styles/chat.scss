@@ -35,6 +35,7 @@
                 font-weight: 500;
                 text-align: center;
                 background-color: #028be5;
+                background-color: var(--color_primary);
                 background-size: cover;
                 padding: 13px 20px;
                 position: absolute;
@@ -89,7 +90,7 @@
                         opacity: 1;
                     }
                 }
-                #geniai-clear-history{
+                #geniai-clear-history {
                     position: absolute;
                     cursor: pointer;
                     opacity: .5;
@@ -165,6 +166,7 @@
                 letter-spacing: .3px;
                 width: 100%;
                 //height: 34px;
+                max-height: 100px;
                 font-size: 16px;
                 min-height: 0 !important;
                 padding: 5px !important;
@@ -194,10 +196,11 @@
                     transition: all 0.4s;
                     path {
                         fill: #028be5;
+                        fill: var(--color_primary);
                     }
                 }
             }
-            &.geniai-active{
+            &.geniai-active {
                 #geniai-icon-send {
                     opacity: 1;
                 }
@@ -217,6 +220,7 @@
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 3px 32px rgba(0, 0, 0, 0.16);
         transition: all 0.4s;
         background-color: #028be5;
+        background-color: var(--color_primary);
         z-index: 999995;
         .count-icon {
             position: absolute;
