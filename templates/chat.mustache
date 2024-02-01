@@ -1,0 +1,182 @@
+<link rel="stylesheet" type="text/css"
+      href="{{{config.wwwroot}}}/local/geniai/styles/chat.css">
+
+<div id="geniai-chat" style="display: none">
+    <div class="geniai-popup">
+        <div id="geniai-scrollarea">
+            <div class="geniai-header">
+                <div class="geniai-info">
+                    {{#pix}}icon,local_geniai{{/pix}}
+                    <div class="geniai-infoname">
+                        <span class="geniai-name">GeniAI</span>
+                        <span class="geniai-status">{{#str}}online,local_geniai{{/str}}</span>
+                    </div>
+                </div>
+                <div id="geniai-icon-close">
+                    {{#pix}}icons/close,local_geniai{{/pix}}
+                </div>
+                <div id="geniai-clear-history"
+                     title="{{#str}}clear_history_title,local_geniai{{/str}}">
+                    {{#str}}clear_history,local_geniai{{/str}}
+                </div>
+            </div>
+            <div id="geniai-area-mensagens">
+            </div>
+        </div>
+        <div id="geniai-sendarea">
+            <div id="geniai-textarea" contenteditable="true"
+                 data-placeholder="{{#str}}write_message,local_geniai{{/str}}"></div>
+            <div id="geniai-icon-send" title="{{#str}}send_message,local_geniai{{/str}}">
+                {{#pix}}icons/send,local_geniai{{/pix}}
+            </div>
+        </div>
+    </div>
+
+    <div id="geniai-chat-btn">
+        <span class="count-icon" data-count="0">0</span>
+        <span class="geniai-icon geniai-open-icon">
+            {{#pix}}chat/open, local_geniai{{/pix}}
+        </span>
+        <span class="geniai-icon geniai-close-icon">
+            {{#pix}}chat/close,local_geniai{{/pix}}
+        </span>
+    </div>
+</div>
+
+{{#js}}
+    require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
+
+        var courseid = "{{{courseid}}}";
+        var geniaiScrollarea = document.getElementById("geniai-scrollarea");
+        var geniaiChat = $("#geniai-chat");
+        var geniaiAreaMensagens = $("#geniai-area-mensagens");
+
+        startChat();
+
+        ajax.call([{
+            methodname : 'local_geniai_history',
+            args       : {
+                courseid : courseid,
+                action   : "history"
+            }
+        }])[0].then(function(data) {
+
+            var history = JSON.parse(data.content);
+            $.each(history, function(id, message) {
+
+                if (message.role == "user") {
+                    geniaiAreaMensagens.append(
+                            `<div class="geniai-messagem">${message.content}</div>`);
+                }
+                if (message.role == "system") {
+                    geniaiAreaMensagens.append(
+                            `<div class="geniai-messagem geniai-server">${message.content}</div>`);
+                }
+            });
+
+            geniaiScrollarea.scrollTop = 10000000000000;
+        }).catch(notification.exception);
+
+        geniaiChat.show(200);
+        $("#geniai-textarea").keypress(function(e) {
+            setTimeout(function() {
+                var messageSend = $("#geniai-textarea").text();
+                if (messageSend.length > 1) {
+                    $("#geniai-sendarea").addClass("geniai-active");
+                } else {
+                    $("#geniai-sendarea").removeClass("geniai-active");
+                }
+            }, 100);
+
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                sendMessage();
+            }
+        });
+
+        $("#geniai-icon-send").click(sendMessage);
+
+        $("#geniai-sendarea").click(function() {
+            $("#geniai-textarea").focus();
+        });
+
+        function sendMessage() {
+            var $geniaiTextarea = $("#geniai-textarea");
+            var messageSend = $geniaiTextarea.text();
+            if (messageSend.length > 1) {
+                $("#geniai-sendarea").removeClass("geniai-active");
+                setTimeout(function() {
+                    $geniaiTextarea.text("");
+                }, 200);
+
+                var geniaiServerId = "id" + Math.random().toString(16).slice(2);
+                geniaiAreaMensagens.append(
+                        `<div class="geniai-messagem">${messageSend}</div>
+                         <div class="geniai-messagem geniai-server"
+                              id="${geniaiServerId}"><svg height="40" class="loader">
+                                 <circle class="dot" cx="10" cy="20" r="3" style="fill:#777;" />
+                                 <circle class="dot" cx="20" cy="20" r="3" style="fill:#777;" />
+                                 <circle class="dot" cx="30" cy="20" r="3" style="fill:#777;" />
+                             </svg></div>`);
+                geniaiScrollarea.scrollTop = 10000000000000;
+
+                ajax.call([{
+                    methodname : 'local_geniai_chat',
+                    args       : {
+                        message  : messageSend,
+                        courseid : courseid
+                    }
+                }])[0].then(function(data) {
+
+                    if (data.result) {
+                        $("#" + geniaiServerId).text(data.content);
+                    } else {
+                        $("#" + geniaiServerId)
+                                .text(data.content)
+                                .addClass("geniai-error");
+                    }
+
+                    geniaiScrollarea.scrollTop = 10000000000000;
+                }).catch(notification.exception);
+            }
+        }
+
+        function resizeScrollarea() {
+            var height = $(window).innerHeight() - 165;
+            $("#geniai-scrollarea").css({
+                "max-height" : height + "px"
+            })
+        }
+
+        $(window).resize(resizeScrollarea);
+        resizeScrollarea();
+
+
+        $("#geniai-chat-btn,#geniai-icon-close").click(function() {
+            geniaiChat.toggleClass("geniai-active");
+
+            localStorage.setItem('geniai-chat-isopen', geniaiChat.hasClass("geniai-active"));
+        });
+        if (localStorage.getItem('geniai-chat-isopen') == 'true') {
+            geniaiChat.addClass("geniai-active");
+        }
+
+        $("#geniai-clear-history").click(function() {
+            geniaiAreaMensagens.html("");
+            startChat();
+
+            ajax.call([{
+                methodname : 'local_geniai_history',
+                args       : {
+                    courseid : courseid,
+                    action   : "clear"
+                }
+            }]);
+        });
+
+        function startChat() {
+            geniaiAreaMensagens.append(`<div class="geniai-messagem geniai-server">{{{message_01}}}</div>`);
+            geniaiAreaMensagens.append(`<div class="geniai-messagem geniai-server">{{{message_02}}}</div>`);
+        }
+    });
+{{/js}}
