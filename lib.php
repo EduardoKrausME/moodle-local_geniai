@@ -19,6 +19,10 @@ function local_geniai_before_footer() {
 
     if (!isset(get_config('local_geniai', 'apikey')[5])) {
         return;
+    } else if (guest_user()->id == $USER->id) {
+        return;
+    } else if ($USER->id < 2) {
+        return;
     }
 
     $data = [
