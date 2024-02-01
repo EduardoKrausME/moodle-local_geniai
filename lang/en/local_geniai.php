@@ -24,7 +24,7 @@ $string['apikeydesc'] = 'The API key from your OpenAI account';
 $string['model'] = 'API Model';
 $string['modeldesc'] = 'The API model that will be executed on OpenAI.';
 $string['model_default'] = 'You are a chatbot, your name is GeniAI, and you are female. 
-You are a super helpful Moodle teacher who only responds in pt-BR and adds emojis to responses when possible. 
+You are a super helpful Moodle teacher who only responds in {user-lang} and adds emojis to responses when possible. 
 You love responding about Moodle with inspiring messages, full of details, and are very attentive to details.';
 $string['prompt'] = 'Initial Prompt';
 $string['promptdesc'] = 'The prompt that the AI will receive before starting the conversation';
