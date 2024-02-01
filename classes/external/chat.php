@@ -46,9 +46,7 @@ class chat extends external_api {
     public static function api_returns() {
         return new external_single_structure([
             'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_TEXT, 'The content result', VALUE_REQUIRED),
-            'return-send' => new external_value(PARAM_RAW, 'The content result', VALUE_OPTIONAL),
-            'return-receive' => new external_value(PARAM_RAW, 'The content result', VALUE_OPTIONAL),
+            'content' => new external_value(PARAM_TEXT, 'The content result', VALUE_REQUIRED)
         ]);
     }
 
@@ -102,27 +100,38 @@ class chat extends external_api {
             'content' => trim($message)
         ];
 
+        if (count($messages) > 10) {
+            unset($messages[4]);
+            unset($messages[3]);
+            $messages = array_values($messages);
+        }
+
         $gpt = self::chat_completions($messages);
         if (isset($gpt['error'])) {
             return [
                 'result' => false,
-                'content' => $gpt['error']['message'],
-                'return-send' => $gpt['$post'],
-                'return-receive' => $gpt['$result']
+                'content' => $gpt['error']['message']
             ];
         }
 
-        $content = $gpt['choices'][0]['message']['content'];
+        if (isset($gpt['choices'][0]['message']['content'])) {
+            $content = $gpt['choices'][0]['message']['content'];
 
-        $messages[] = [
-            'role' => 'system',
-            'content' => $content
-        ];
-        $_SESSION["messages-{$courseid}"] = $messages;
+            $messages[] = [
+                'role' => 'system',
+                'content' => $content
+            ];
+            $_SESSION["messages-{$courseid}"] = $messages;
+
+            return [
+                'result' => true,
+                'content' => $content,
+            ];
+        }
 
         return [
-            'result' => true,
-            'content' => $content,
+            'result' => false,
+            'content' => "Error..."
         ];
     }
 
@@ -144,7 +153,7 @@ class chat extends external_api {
             "max_tokens" => 200,
             "top_p" => 1,
             "frequency_penalty" => 1,
-            "presence_penalty" => 1,
+            "presence_penalty" => 1
         ];
 
         $ch = curl_init();
@@ -160,7 +169,11 @@ class chat extends external_api {
 
         $result = curl_exec($ch);
         if (curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+            return [
+                'error' => [
+                    'message' => 'http error: ' . curl_error($ch)
+                ]
+            ];
         }
         curl_close($ch);
 

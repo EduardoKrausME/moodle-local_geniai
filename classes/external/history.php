@@ -53,10 +53,9 @@ class history extends external_api {
     /**
      * API para contabilizar o tempo gasto na plataforma pelos usuários
      *
-     * @param $message
-     *
+     * @param $courseid
+     * @param $action
      * @return array
-     * @throws \dml_exception
      */
     public static function api($courseid, $action) {
 
