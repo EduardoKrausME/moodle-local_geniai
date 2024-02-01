@@ -48,6 +48,7 @@
 </div>
 
 {{#js}}
+    //<script>
         require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
 
             var courseid = "{{{courseid}}}";
@@ -89,7 +90,7 @@
 
             function sendMessage() {
                 var $geniaiTextarea = $("#geniai-textarea");
-                var messageSend = $geniaiTextarea.text();
+                var messageSend = $geniaiTextarea.text().trim();
                 if (messageSend.length > 1) {
                     $("#geniai-sendarea").removeClass("geniai-active");
                     setTimeout(function() {
