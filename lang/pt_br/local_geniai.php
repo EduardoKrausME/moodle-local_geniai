@@ -31,6 +31,65 @@ Você é uma professora super prestativa do Moodle e só responde em {user-lang}
 Você adora responder sobre o Moodle com mensagens inspiradoras, cheia de detalhes e é muito atencioso aos detalhes.';
 $string['prompt'] = 'Prompt Inicial';
 $string['promptdesc'] = 'O Prompt que a IA receberá antes de comecar a conversa';
+$string['temperature'] = 'Temperatura da resposta';
+$string['temperaturedesc'] = 'As temperaturas no GPT servem como mecanismo de controle. Temperaturas mais altas introduzem aleatoriedade, o que é benéfico para tarefas criativas. Em contraste, uma temperatura zero garante respostas consistentes, tornando o GPT uma ferramenta confiável para obter resultados determinados sem variação.';
+$string['top_p'] = 'Top_p';
+$string['top_pdesc'] = 'Amostragem Top_p é uma alternativa à amostragem de temperatura. Em vez de considerar todos os tokens possíveis, o GPT considera apenas um subconjunto de tokens cuja massa cumulativa de probabilidade atinge um determinado limite (top_p). Por exemplo, se top_p for definido como 0,1, o GPT considerará apenas os tokens que compõem os 10% principais da massa de probabilidade para o próximo token. Isso permite a seleção dinâmica de vocabulário com base no contexto.<br>
+Veja a tabela a seguir que mostra como deve usar a Temperatura e Top_p<br>
+<table class="table table-bordered">
+<thead>
+<tr>
+    <th>Caso de Uso</th>
+    <th>Temperatura</th>
+    <th>Top_p</th>
+    <th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>Geração de textos e códigos</td>
+    <td class="text-center">0.2</td>
+    <td class="text-center">0.1</td>
+    <td>A saída é mais determinística e focada. Útil para gerar textos ou códigos sintaticamente correto.</td>
+</tr>
+<tr>
+    <td>Escrita Criativa</td>
+    <td class="text-center">0.7</td>
+    <td class="text-center">0.8</td>
+    <td>Gera texto criativo e diversificado para contar histórias.</td>
+</tr>
+<tr>
+    <td>Chatbot</td>
+    <td class="text-center">0.5</td>
+    <td class="text-center">0.5</td>
+    <td>Gera respostas de conversação que equilibram coerência e diversidade. A saída é mais natural e envolvente.</td>
+</tr>
+<tr>
+    <td>Geração de Comentários de textos</td>
+    <td class="text-center">0.3</td>
+    <td class="text-center">0.2</td>
+    <td>Gera comentários de textos mais propensos a serem concisos e relevantes. A saída é mais determinística e adere a convenções.</td>
+</tr>
+<tr>
+    <td>Script de Análise de Dados</td>
+    <td class="text-center">0.2</td>
+    <td class="text-center">0.1</td>
+    <td>Gera scripts de análise de dados mais propensos a serem corretos e eficientes. A saída é mais determinística e focada.</td>
+</tr>
+<tr>
+    <td>Escrita Exploratória de textos</td>
+    <td class="text-center">0.6</td>
+    <td class="text-center">0.7</td>
+    <td>Gera textos que explora soluções alternativas e abordagens criativas. A saída é menos restrita por padrões estabelecidos.</td>
+</tr>
+</tbody>
+</table>';
+$string['max_tokens'] = 'Máximo de palavras na resposta';
+$string['max_tokensdesc'] = 'Número máximo de palavras que pode ser gerado em cada solicitação.';
+$string['frequency_penalty'] = 'Frequência de Penalidade';
+$string['frequency_penaltydesc'] = 'Este parâmetro é utilizado para desencorajar o modelo de repetir as mesmas palavras ou frases com muita frequência dentro do texto gerado. É um valor adicionado à log-probabilidade de um token cada vez que ele ocorre no texto gerado. Um valor de frequência de penalidade mais alto fará com que o modelo seja mais conservador ao usar tokens repetidos.';
+$string['presence_penalty'] = 'Penalidade de Presença';
+$string['presence_penaltydesc'] = 'Este parâmetro é utilizado para incentivar o modelo a incluir uma variedade de tokens no texto gerado. É um valor subtraído da log-probabilidade de um token cada vez que é gerado. Um valor de penalidade de presença mais alto fará com que o modelo tenha mais probabilidade de gerar tokens que ainda não foram incluídos no texto gerado.';
 
 $string['clear_history'] = 'Limpar';
 $string['clear_history_title'] = 'Limpar todo histórico';
@@ -48,3 +107,6 @@ Como posso ajudar você hoje? 🌟📚';
 $string['url_moodle'] = 'A URL do Moodle é "{$a->wwwroot}" e o nome do Moodle é "{$a->fullname}"';
 $string['course_user'] = 'O aluno está no curso "{$a->course}" e nome do aluno é "{$a->userfullname}"';
 $string['course_home'] = 'O aluno está fora do curso e nome do aluno é "{$a->userfullname}".';
+
+
+

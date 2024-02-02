@@ -145,15 +145,20 @@ class chat extends external_api {
 
         $apikey = get_config('local_geniai', 'apikey');
         $model = get_config('local_geniai', 'model');
+        $temperature = get_config('local_geniai', 'temperature');
+        $top_p = get_config('local_geniai', 'top_p');
+        $max_tokens = get_config('local_geniai', 'max_tokens');
+        $frequency_penalty = get_config('local_geniai', 'frequency_penalty');
+        $presence_penalty = get_config('local_geniai', 'presence_penalty');
 
         $post = (object)[
             "model" => $model,
             "messages" => $messages,
-            "temperature" => 0.2,
-            "max_tokens" => 200,
-            "top_p" => 1,
-            "frequency_penalty" => 1,
-            "presence_penalty" => 1
+            "temperature" => floatval($temperature),
+            "top_p" => floatval($top_p),
+            "max_tokens" => intval($max_tokens),
+            "frequency_penalty" => floatval($frequency_penalty),
+            "presence_penalty" => floatval($presence_penalty)
         ];
 
         $ch = curl_init();

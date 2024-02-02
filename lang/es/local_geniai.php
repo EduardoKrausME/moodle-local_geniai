@@ -31,6 +31,65 @@ Eres una profesora muy servicial de Moodle y solo respondes en {user-lang} y pon
 Te encanta responder sobre Moodle con mensajes inspiradores, llenos de detalles y eres muy detallista.';
 $string['prompt'] = 'Prompt Inicial';
 $string['promptdesc'] = 'El prompt que la IA recibirá antes de comenzar la conversación';
+$string['temperature'] = 'Temperatura de respuesta';
+$string['temperaturedesc'] = 'Las temperaturas en GPT sirven como mecanismo de control. Temperaturas más altas introducen aleatoriedad, lo cual es beneficioso para tareas creativas. En contraste, una temperatura cero garantiza respuestas consistentes, haciendo que GPT sea una herramienta confiable para obtener resultados determinados sin variación.';
+$string['top_p'] = 'Top_p';
+$string['top_pdesc'] = 'Muestreo Top_p es una alternativa al muestreo de temperatura. En lugar de considerar todos los tokens posibles, GPT solo considera un subconjunto de tokens cuya masa acumulativa de probabilidad alcanza un límite específico (top_p). Por ejemplo, si top_p se establece en 0.1, GPT solo considerará los tokens que conforman el 10% superior de la masa de probabilidad para el siguiente token. Esto permite la selección dinámica de vocabulario basada en el contexto.<br>
+Consulte la siguiente tabla que muestra cómo debe usar la Temperatura y Top_p<br>
+<table class="table table-bordered">
+<thead>
+<tr>
+    <th>Caso de Uso</th>
+    <th>Temperatura</th>
+    <th>Top_p</th>
+    <th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>Generación de textos y códigos</td>
+    <td class="text-center">0.2</td>
+    <td class="text-center">0.1</td>
+    <td>La salida es más determinista y enfocada. Útil para generar textos o códigos sintácticamente correctos.</td>
+</tr>
+<tr>
+    <td>Escritura Creativa</td>
+    <td class="text-center">0.7</td>
+    <td class="text-center">0.8</td>
+    <td>Genera texto creativo y diverso para contar historias.</td>
+</tr>
+<tr>
+    <td>Chatbot</td>
+    <td class="text-center">0.5</td>
+    <td class="text-center">0.5</td>
+    <td>Genera respuestas de conversación que equilibran coherencia y diversidad. La salida es más natural y atractiva.</td>
+</tr>
+<tr>
+    <td>Generación de Comentarios de textos</td>
+    <td class="text-center">0.3</td>
+    <td class="text-center">0.2</td>
+    <td>Genera comentarios de textos más propensos a ser concisos y relevantes. La salida es más determinista y sigue convenciones.</td>
+</tr>
+<tr>
+    <td>Script de Análisis de Datos</td>
+    <td class="text-center">0.2</td>
+    <td class="text-center">0.1</td>
+    <td>Genera scripts de análisis de datos más propensos a ser correctos y eficientes. La salida es más determinista y enfocada.</td>
+</tr>
+<tr>
+    <td>Escritura Exploratoria de textos</td>
+    <td class="text-center">0.6</td>
+    <td class="text-center">0.7</td>
+    <td>Genera textos que exploran soluciones alternativas y enfoques creativos. La salida está menos restringida por patrones establecidos.</td>
+</tr>
+</tbody>
+</table>';
+$string['max_tokens'] = 'Máximo de palabras en la respuesta';
+$string['max_tokensdesc'] = 'Número máximo de palabras que pueden generarse en cada solicitud.';
+$string['frequency_penalty'] = 'Penalización de Frecuencia';
+$string['frequency_penaltydesc'] = 'Este parámetro se utiliza para desalentar al modelo a repetir las mismas palabras o frases con demasiada frecuencia dentro del texto generado. Es un valor agregado a la log-probabilidad de un token cada vez que ocurre en el texto generado. Un valor de penalización de frecuencia más alto hará que el modelo sea más conservador al usar tokens repetidos.';
+$string['presence_penalty'] = 'Penalización de Presencia';
+$string['presence_penaltydesc'] = 'Este parámetro se utiliza para incentivar al modelo a incluir una variedad de tokens en el texto generado. Es un valor restado de la log-probabilidad de un token cada vez que se genera. Un valor de penalización de presencia más alto hará que el modelo tenga más probabilidad de generar tokens que aún no han sido incluidos en el texto generado.';
 
 $string['clear_history'] = 'Limpiar';
 $string['clear_history_title'] = 'Limpiar todo el historial';
