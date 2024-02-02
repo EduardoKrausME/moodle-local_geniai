@@ -37,7 +37,7 @@
     </div>
 
     <div id="geniai-chat-btn">
-        <span class="count-icon" data-count="0">0</span>
+        <span id="geniai-count-icon" data-count="0">0</span>
         <span class="geniai-icon geniai-open-icon">
             {{#pix}}chat/open, local_geniai{{/pix}}
         </span>
@@ -48,7 +48,6 @@
 </div>
 
 {{#js}}
-    //<script>
         require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
 
             var courseid = "{{{courseid}}}";
@@ -85,7 +84,7 @@
             $("#geniai-icon-send").click(sendMessage);
 
             $("#geniai-sendarea").click(function() {
-                $("#geniai-textarea").focus();
+                document.getElementById('geniai-textarea').focus();
             });
 
             function sendMessage() {
