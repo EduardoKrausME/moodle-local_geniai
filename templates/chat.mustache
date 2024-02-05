@@ -12,6 +12,12 @@
                         <span class="geniai-status">{{#str}}online,local_geniai{{/str}}</span>
                     </div>
                 </div>
+                {{#manage_capability}}
+                    <a id="geniai-icon-report"
+                       target="_blank"
+                       href="{{{config.wwwroot}}}/local/geniai/report.php">
+                        {{#str}}report_title,local_geniai{{/str}}</a>
+                {{/manage_capability}}
                 <div id="geniai-icon-close">
                     {{#pix}}icons/close,local_geniai{{/pix}}
                 </div>

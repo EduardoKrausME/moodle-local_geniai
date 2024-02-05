@@ -107,6 +107,7 @@ $string['url_moodle'] = 'The Moodle URL is "{$a->wwwroot}" and the Moodle name i
 $string['course_user'] = 'The student is in the "{$a->course}" course, and the student\'s name is "{$a->userfullname}"';
 $string['course_home'] = 'The student is outside of any course, and the student\'s name is "{$a->userfullname}".';
 
+$string['report_title'] = 'Informe';
 $string['report_filename'] = 'GPT Assistance Usage Report';
 $string['report_info'] = 'In the report below, only the first 100 lines are shown. To get all records, please download the full report!';
 $string['report_prompt_tokens'] = 'Number of Sent Prompts';

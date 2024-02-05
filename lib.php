@@ -28,6 +28,7 @@ function local_geniai_before_footer() {
     $data = [
         'courseid' => \local_geniai\events\event_observers::$courseid,
         'message_01' => get_string('message_01', 'local_geniai', fullname($USER)),
+        'manage_capability' => has_capability('local/geniai:manage', context_system::instance())
     ];
     if (\local_geniai\events\event_observers::$courseid) {
         $course = $DB->get_record('course', ['id' => \local_geniai\events\event_observers::$courseid]);
