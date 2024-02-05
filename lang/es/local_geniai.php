@@ -106,3 +106,9 @@ Soy GeniAI y estoy aquí para hacer tu viaje de aprendizaje lo más increíble p
 $string['url_moodle'] = 'La URL de Moodle es "{$a->wwwroot}" y el nombre de Moodle es "{$a->fullname}"';
 $string['course_user'] = 'El estudiante está en el curso "{$a->course}" y el nombre del estudiante es "{$a->userfullname}"';
 $string['course_home'] = 'El estudiante está fuera del curso y el nombre del estudiante es "{$a->userfullname}".';
+
+$string['report_filename'] = 'Informe de uso de GPT Assistence';
+$string['report_info'] = 'En el informe a continuación, solo se muestran las primeras 100 líneas. ¡Para obtener todos los registros, descárguelo!';
+$string['report_prompt_tokens'] = 'Cantidad de Prompts enviados';
+$string['report_completion_tokens'] = 'Cantidad de Prompts recibidos';
+$string['report_datecreated'] = 'Día';

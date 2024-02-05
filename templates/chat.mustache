@@ -56,7 +56,7 @@
             var geniaiAreaMensagens = $("#geniai-area-mensagens");
 
             startChat();
-            showHistory();
+            setTimeout(showHistory, 0);
 
             geniaiChat.show(200);
             $("#geniai-textarea").keypress(function(e) {

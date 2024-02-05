@@ -106,3 +106,10 @@ How can I help you today? 🌟📚';
 $string['url_moodle'] = 'The Moodle URL is "{$a->wwwroot}" and the Moodle name is "{$a->fullname}"';
 $string['course_user'] = 'The student is in the "{$a->course}" course, and the student\'s name is "{$a->userfullname}"';
 $string['course_home'] = 'The student is outside of any course, and the student\'s name is "{$a->userfullname}".';
+
+$string['report_filename'] = 'GPT Assistance Usage Report';
+$string['report_info'] = 'In the report below, only the first 100 lines are shown. To get all records, please download the full report!';
+$string['report_prompt_tokens'] = 'Number of Sent Prompts';
+$string['report_completion_tokens'] = 'Number of Received Prompts';
+$string['report_datecreated'] = 'Day';
+
