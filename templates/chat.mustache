@@ -30,8 +30,8 @@
             </div>
         </div>
         <div id="geniai-sendarea">
-            <div id="geniai-textarea" contenteditable="true"
-                 data-placeholder="{{#str}}write_message,local_geniai{{/str}}"></div>
+            <textarea id="geniai-textarea" contenteditable="true"
+                      placeholder="{{#str}}write_message,local_geniai{{/str}}"></textarea>
             <div id="geniai-icon-send" title="{{#str}}send_message,local_geniai{{/str}}">
                 <svg enable-background="new 0 0 116 116" viewBox="0 0 116 116"
                      xmlns="http://www.w3.org/2000/svg">
@@ -54,34 +54,38 @@
 </div>
 
 {{#js}}
+    //<script>
         require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
 
             var courseid = "{{{courseid}}}";
             var geniaiScrollarea = document.getElementById("geniai-scrollarea");
             var geniaiChat = $("#geniai-chat");
             var geniaiAreaMensagens = $("#geniai-area-mensagens");
-
-            startChat();
-            setTimeout(showHistory, 0);
+            var geniaiSendarea = $("#geniai-sendarea");
+            var geniaiTextarea = $("#geniai-textarea");
 
             geniaiChat.show(200);
-            $("#geniai-textarea").keypress(function(e) {
-                setTimeout(function() {
-                    var messageSend = $("#geniai-textarea").text();
-                    if (messageSend.length > 1) {
-                        $("#geniai-sendarea").addClass("geniai-active");
-                    } else {
-                        $("#geniai-sendarea").removeClass("geniai-active");
-                    }
-                }, 100);
+            geniaiTextarea
+                    .keydown(function(e) {
+                        setTimeout(function() {
+                            var messageSend = geniaiTextarea.val();
+                            if (messageSend.length > 1) {
+                                geniaiSendarea.addClass("geniai-active");
+                            } else {
+                                geniaiSendarea.removeClass("geniai-active");
+                            }
+                        }, 10);
 
-                var code = (e.keyCode ? e.keyCode : e.which);
-                if (code == 13) {
-                    sendMessage();
-                }
-            });
-            var editableDiv = document.querySelector('#geniai-textarea');
-            editableDiv.addEventListener("paste", function(e) {
+                        var code = (e.keyCode ? e.keyCode : e.which);
+                        if (code == 13) {
+                            sendMessage();
+                        }
+                    })
+                    .on('input', function(event) {
+                        event.currentTarget.style.height = "34px";
+                        event.currentTarget.style.height = (event.currentTarget.scrollHeight) + "px";
+                    });
+            document.getElementById('geniai-textarea').addEventListener("paste", function(e) {
                 e.preventDefault();
                 var text = e.clipboardData.getData("text/plain");
                 document.execCommand("insertHTML", false, text);
@@ -89,28 +93,30 @@
 
             $("#geniai-icon-send").click(sendMessage);
 
-            $("#geniai-sendarea").click(function() {
+            geniaiSendarea.click(function() {
                 document.getElementById('geniai-textarea').focus();
             });
 
             function sendMessage() {
-                var $geniaiTextarea = $("#geniai-textarea");
-                var messageSend = $geniaiTextarea.text().trim();
+                var messageSend = geniaiTextarea.val().trim();
                 if (messageSend.length > 1) {
-                    $("#geniai-sendarea").removeClass("geniai-active");
                     setTimeout(function() {
-                        $geniaiTextarea.text("");
-                    }, 200);
+                        geniaiTextarea.val("");
+                        geniaiTextarea.css({height : 34});
+                        geniaiSendarea.removeClass("geniai-active");
+                    }, 20);
 
                     var geniaiServerId = "id" + Math.random().toString(16).slice(2);
                     geniaiAreaMensagens.append(
                             `<div class="geniai-messagem">${messageSend}</div>
                              <div class="geniai-messagem geniai-server"
-                                  id="${geniaiServerId}"><svg height="40" class="loader">
+                                  id="${geniaiServerId}">
+                                  <svg height="40" class="loader">
                                      <circle class="dot" cx="10" cy="20" r="3" style="fill:#777;" />
                                      <circle class="dot" cx="20" cy="20" r="3" style="fill:#777;" />
                                      <circle class="dot" cx="30" cy="20" r="3" style="fill:#777;" />
-                                 </svg></div>`);
+                                 </svg>
+                             </div>`);
                     geniaiScrollarea.scrollTop = 10000000000000;
 
                     ajax.call([{
@@ -119,20 +125,21 @@
                             message  : messageSend,
                             courseid : courseid
                         }
-                    }])[0].then(function(data) {
+                    }])[0].done(function(data) {
 
                         if (data.result) {
-                            $("#" + geniaiServerId).text(data.content);
+                            $("#" + geniaiServerId)
+                                    .addClass("format-" + data.format)
+                                    .html(data.content);
                         } else {
                             $("#" + geniaiServerId)
-                                    .text(data.content)
+                                    .addClass("format-" + data.format)
+                                    .html(data.content)
                                     .addClass("geniai-error");
                         }
 
                         geniaiScrollarea.scrollTop = 10000000000000;
-                    }).then(function(msg) {
-                        console.error(msg);
-                    }).catch(notification.exception);
+                    }.bind(this)).fail(notification.exception);
                 }
             }
 
@@ -146,14 +153,25 @@
             $(window).resize(resizeScrollarea);
             resizeScrollarea();
 
-
             $("#geniai-chat-btn,#geniai-icon-close").click(function() {
                 geniaiChat.toggleClass("geniai-active");
 
-                localStorage.setItem('geniai-chat-isopen', geniaiChat.hasClass("geniai-active"));
+                if (geniaiChat.hasClass("geniai-active")) {
+                    localStorage.setItem('geniai-chat-isopen', 'true');
+                    openChat();
+                } else {
+                    localStorage.removeItem('geniai-chat-isopen');
+                }
             });
             if (localStorage.getItem('geniai-chat-isopen') == 'true') {
                 geniaiChat.addClass("geniai-active");
+                openChat()
+            }
+
+            function openChat() {
+                geniaiAreaMensagens.html("");
+                setTimeout(showHistory, 0);
+                startChat();
             }
 
             $("#geniai-clear-history").click(function() {
@@ -170,8 +188,8 @@
             });
 
             function startChat() {
-                geniaiAreaMensagens.append(`<div class="geniai-messagem geniai-server">{{{message_01}}}</div>`);
-                geniaiAreaMensagens.append(`<div class="geniai-messagem geniai-server">{{{message_02}}}</div>`);
+                geniaiAreaMensagens.append(`<div class="geniai-messagem geniai-server format-text">{{{message_01}}}</div>`);
+                geniaiAreaMensagens.append(`<div class="geniai-messagem geniai-server format-text">{{{message_02}}}</div>`);
             }
 
             function showHistory() {
@@ -181,21 +199,19 @@
                         courseid : courseid,
                         action   : "history"
                     }
-                }])[0].then(function(data) {
+                }])[0].done(function(data) {
                     var history = JSON.parse(data.content);
                     $.each(history, function(id, message) {
                         if (message.role == "user") {
                             geniaiAreaMensagens.append(
-                                    `<div class="geniai-messagem">${message.content}</div>`);
+                                    `<div class="geniai-messagem format-${message.format}">${message.content}</div>`);
                         } else if (message.role == "system") {
                             geniaiAreaMensagens.append(
                                     `<div class="geniai-messagem geniai-server">${message.content}</div>`);
                         }
                     });
                     geniaiScrollarea.scrollTop = 10000000000000;
-                }).then(function(msg) {
-                    console.error(msg);
-                }).catch(notification.exception);
+                }.bind(this)).fail(notification.exception);
             }
         });
 {{/js}}

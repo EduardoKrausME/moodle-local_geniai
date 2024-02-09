@@ -109,8 +109,9 @@ $string['course_home'] = 'The student is outside of any course, and the student\
 
 $string['report_title'] = 'Informe';
 $string['report_filename'] = 'GPT Assistance Usage Report';
-$string['report_info'] = 'In the report below, only the first 100 lines are shown. To get all records, please download the full report!';
-$string['report_prompt_tokens'] = 'Number of Sent Prompts';
-$string['report_completion_tokens'] = 'Number of Received Prompts';
+$string['report_info'] = '<p>In the presented report, only the first 100 lines are available. To access all records, please download the complete document.</p><p>Regarding tokens, a practical rule is that a token typically corresponds to about 4 characters of common English text. This translates to approximately ¾ of a word (thus, 100 tokens ~= 75 words). Learn more on the <a href="https://platform.openai.com/tokenizer" target="_blank">Model Language Tokenization page</a>.</p>';
 $string['report_datecreated'] = 'Day';
+$string['report_model'] = 'ChatGPT Model';
+$string['report_prompt_tokens'] = 'Number of Sent Tokens';
+$string['report_completion_tokens'] = 'Number of Received Tokens';
 

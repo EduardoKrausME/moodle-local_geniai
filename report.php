@@ -32,19 +32,21 @@ require_capability('local/geniai:manage', context_system::instance());
 $table = new \local_geniai\report\geniai_view("geniai_report");
 
 if (!$table->is_downloading()) {
-    $PAGE->set_context($context);
-    $PAGE->set_url('/local/geniai/report.php', array('id' => $cm->id));
-    $PAGE->set_title("{$course->shortname}: {$geniai->name}");
-    $PAGE->set_heading($course->fullname);
+    $PAGE->set_context(context_system::instance());
+    $PAGE->set_url('/local/geniai/report.php');
+    $PAGE->set_title(get_string('modulename', 'local_geniai'));
+    $PAGE->set_heading(get_string('modulename', 'local_geniai'));
     echo $OUTPUT->header();
 
     echo $OUTPUT->heading(get_string('report_filename', 'local_geniai'), 2, 'main', 'geniaiheading');
     echo get_string('report_info', 'local_geniai');
 }
 
-$table->define_baseurl("{$CFG->wwwroot}/local/geniai/report.php?id={$cm->id}");
+$table->define_baseurl("{$CFG->wwwroot}/local/geniai/report.php");
 $table->out(40, true);
 
 if (!$table->is_downloading()) {
     echo $OUTPUT->footer();
 }
+
+//redirect();

@@ -34,7 +34,7 @@ class chat extends external_api {
      */
     public static function api_parameters() {
         return new external_function_parameters([
-            'message' => new external_value(PARAM_TEXT, 'The message value'),
+            'message' => new external_value(PARAM_RAW, 'The message value'),
             'courseid' => new external_value(PARAM_TEXT, 'The Course ID'),
         ]);
     }
@@ -46,7 +46,8 @@ class chat extends external_api {
     public static function api_returns() {
         return new external_single_structure([
             'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_TEXT, 'The content result', VALUE_REQUIRED)
+            'format' => new external_value(PARAM_TEXT, 'Formato da resposta', VALUE_REQUIRED),
+            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED)
         ]);
     }
 
@@ -72,7 +73,7 @@ class chat extends external_api {
             $messages = [
                 [
                     'role' => 'system',
-                    'content' => $content
+                    'content' => $content . ' and you only reply in HTML'
                 ], [
                     'role' => 'system',
                     'content' => get_string('url_moodle', 'local_geniai',
@@ -110,6 +111,7 @@ class chat extends external_api {
         if (isset($gpt['error'])) {
             return [
                 'result' => false,
+                'format' => 'text',
                 'content' => $gpt['error']['message']
             ];
         }
@@ -123,15 +125,22 @@ class chat extends external_api {
             ];
             $_SESSION["messages-{$courseid}"] = $messages;
 
+
+            $format = 'text';
+            if (preg_match('/<\w+>/', $content)) {
+                $format = 'html';
+            }
             return [
                 'result' => true,
+                'format' => $format,
                 'content' => $content,
             ];
         }
 
         return [
             'result' => false,
-            'content' => "Error..."
+            'format' => 'text',
+            'content' => 'Error...'
         ];
     }
 
@@ -152,13 +161,13 @@ class chat extends external_api {
         $presence_penalty = get_config('local_geniai', 'presence_penalty');
 
         $post = (object)[
-            "model" => $model,
-            "messages" => $messages,
-            "temperature" => floatval($temperature),
-            "top_p" => floatval($top_p),
-            "max_tokens" => intval($max_tokens),
-            "frequency_penalty" => floatval($frequency_penalty),
-            "presence_penalty" => floatval($presence_penalty)
+            'model' => $model,
+            'messages' => $messages,
+            'temperature' => floatval($temperature),
+            'top_p' => floatval($top_p),
+            'max_tokens' => intval($max_tokens),
+            'frequency_penalty' => floatval($frequency_penalty),
+            'presence_penalty' => floatval($presence_penalty)
         ];
 
         $ch = curl_init();
@@ -168,7 +177,7 @@ class chat extends external_api {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
+            'Content-Type: application/json',
             "Authorization: Bearer {$apikey}"
         ]);
 
@@ -187,11 +196,12 @@ class chat extends external_api {
         $usage = (object)[
             'send' => json_encode($post, JSON_PRETTY_PRINT),
             'receive' => $result,
+            'model' => $model,
             'prompt_tokens' => $gpt['usage']['prompt_tokens'],
             'completion_tokens' => $gpt['usage']['completion_tokens'],
             'timecreated' => time()
         ];
-        $DB->insert_record("local_geniai_usage", $usage);
+        $DB->insert_record('local_geniai_usage', $usage);
 
         return $gpt;
     }

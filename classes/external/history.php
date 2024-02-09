@@ -46,7 +46,7 @@ class history extends external_api {
     public static function api_returns() {
         return new external_single_structure([
             'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_TEXT, 'The content result', VALUE_REQUIRED),
+            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED),
         ]);
     }
 
@@ -76,9 +76,18 @@ class history extends external_api {
             $messages = [];
         }
 
+        $returnmessage = [];
+        foreach ($messages as $message) {
+            $message->format = 'text';
+            if (preg_match('/<\w+>/', $message->content)) {
+                $message->format = 'html';
+            }
+            $returnmessage[] = $message;
+        }
+
         return [
             'result' => true,
-            'content' => json_encode($messages),
+            'content' => json_encode($returnmessage),
         ];
 
     }

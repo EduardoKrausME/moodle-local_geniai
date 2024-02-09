@@ -42,11 +42,13 @@ class geniai_view extends \table_sql {
 
         $columns = [
             'datecreated',
+            'model',
             'prompt_tokens',
             'completion_tokens',
         ];
         $headers = [
             get_string('report_datecreated', 'local_geniai'),
+            get_string('report_model', 'local_geniai'),
             get_string('report_prompt_tokens', 'local_geniai'),
             get_string('report_completion_tokens', 'local_geniai'),
         ];
@@ -81,7 +83,7 @@ class geniai_view extends \table_sql {
         }
 
         $limit = "LIMIT 100";
-        if(optional_param('download', null, PARAM_ALPHA)){
+        if (optional_param('download', null, PARAM_ALPHA)) {
             $limit = "";
         }
 
@@ -91,9 +93,9 @@ class geniai_view extends \table_sql {
                       SELECT SUM(prompt_tokens)                                  AS prompt_tokens,
                              SUM(completion_tokens)                              AS completion_tokens,
                              DATE_FORMAT(FROM_UNIXTIME(timecreated), '%Y-%m-%d') AS datecreated,
-                             timecreated
+                             model, timecreated
                         FROM {local_geniai_usage}  
-                    GROUP BY datecreated 
+                    GROUP BY model, datecreated 
                     ORDER BY datecreated DESC
                        {$limit}
                 ) AS t

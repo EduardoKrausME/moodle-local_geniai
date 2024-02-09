@@ -143,7 +143,9 @@
                     line-height: 21px;
                     letter-spacing: 0.3px;
                     outline: none;
-                    white-space: break-spaces;
+                    &.format-text {
+                        white-space: break-spaces;
+                    }
                     &.geniai-server {
                         float: right;
                         margin: 2px 20px 5px 10px;
@@ -185,12 +187,10 @@
                 border: none;
                 color: #566069;
                 background: #fff;
-                transition: all .4s;
-                overflow: hidden;
+                overflow-x: hidden;
                 display: block;
-                &:empty:not(:focus)::before {
-                    content: attr(data-placeholder)
-                }
+                max-width: 1000px;
+                height: 34px;
             }
             #geniai-icon-send {
                 opacity: .5;

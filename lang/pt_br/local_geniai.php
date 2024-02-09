@@ -110,7 +110,8 @@ $string['course_home'] = 'O aluno está fora do curso e nome do aluno é "{$a->u
 
 $string['report_title'] = 'Relatório';
 $string['report_filename'] = 'Relatório de uso do GPT Assistence';
-$string['report_info'] = 'No relatório abaixo somente as primerias 100 linhas. Para ter todos os registros faça o download!';
-$string['report_prompt_tokens'] = 'Quantidade de Prompts enviados';
-$string['report_completion_tokens'] = 'Quantidade de Prompts recebidos';
+$string['report_info'] = '<p>No relatório apresentado, somente as primeiras 100 linhas estão disponíveis. Para acessar todos os registros, por favor, realize o download completo do documento.</p><p>Quanto aos tokens, uma regra prática é que um token geralmente corresponde a aproximadamente 4 caracteres de texto comum em inglês. Isso equivale a aproximadamente ¾ de uma palavra (portanto, 100 tokens ~= 75 palavras). Saiba mais na página <a href="https://platform.openai.com/tokenizer" target="_blank">Saiba mais sobre a tokenização do modelo de linguagem</a>.</p>';
 $string['report_datecreated'] = 'Dia';
+$string['report_model'] = 'Modelo do ChatGPT';
+$string['report_prompt_tokens'] = 'Quantidade de Tokens enviados';
+$string['report_completion_tokens'] = 'Quantidade de Tokens recebidos';

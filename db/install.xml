@@ -5,6 +5,7 @@
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
                 <FIELD NAME="send" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="receive" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="model" TYPE="char" LENGTH="40" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="prompt_tokens" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="completion_tokens" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
                 <FIELD NAME="timecreated" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
