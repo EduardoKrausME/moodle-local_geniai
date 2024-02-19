@@ -14,6 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * @package    local_geniai
+ * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die;
 ob_start();
 
@@ -79,7 +85,7 @@ if ($hassiteconfig) {
         $temperatures
     ));
 
-    $top_p = [
+    $topp = [
         "0.1" => "0.1",
         "0.2" => "0.2",
         "0.3" => "0.3",
@@ -96,7 +102,7 @@ if ($hassiteconfig) {
         get_string('top_p', 'local_geniai'),
         get_string('top_pdesc', 'local_geniai'),
         "0.5",
-        $top_p
+        $topp
     ));
 
     $setting = new admin_setting_configtext(
@@ -162,9 +168,4 @@ if ($hassiteconfig) {
         get_string('presence_penaltydesc', 'local_geniai'),
         "0.0", $penalty);
     $settings->add($setting);
-
-
-
-
-
 }

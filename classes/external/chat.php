@@ -15,9 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * User: Eduardo Kraus
- * Date: 31/01/2024
- * Time: 20:35
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @Date        31/01/2024 20:35
  */
 
 namespace local_geniai\external;
@@ -125,7 +126,6 @@ class chat extends external_api {
             ];
             $_SESSION["messages-{$courseid}"] = $messages;
 
-
             $format = 'text';
             if (preg_match('/<\w+>/', $content)) {
                 $format = 'html';
@@ -155,19 +155,19 @@ class chat extends external_api {
         $apikey = get_config('local_geniai', 'apikey');
         $model = get_config('local_geniai', 'model');
         $temperature = get_config('local_geniai', 'temperature');
-        $top_p = get_config('local_geniai', 'top_p');
-        $max_tokens = get_config('local_geniai', 'max_tokens');
-        $frequency_penalty = get_config('local_geniai', 'frequency_penalty');
-        $presence_penalty = get_config('local_geniai', 'presence_penalty');
+        $topp = get_config('local_geniai', 'top_p');
+        $maxtokens = get_config('local_geniai', 'max_tokens');
+        $frequencypenalty = get_config('local_geniai', 'frequency_penalty');
+        $presencepenalty = get_config('local_geniai', 'presence_penalty');
 
         $post = (object)[
             'model' => $model,
             'messages' => $messages,
             'temperature' => floatval($temperature),
-            'top_p' => floatval($top_p),
-            'max_tokens' => intval($max_tokens),
-            'frequency_penalty' => floatval($frequency_penalty),
-            'presence_penalty' => floatval($presence_penalty)
+            'top_p' => floatval($topp),
+            'max_tokens' => intval($maxtokens),
+            'frequency_penalty' => floatval($frequencypenalty),
+            'presence_penalty' => floatval($presencepenalty)
         ];
 
         $ch = curl_init();

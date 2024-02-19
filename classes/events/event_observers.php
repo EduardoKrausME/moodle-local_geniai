@@ -15,9 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * User: Eduardo Kraus
- * Date: 26/10/17
- * Time: 22:46
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @Date        26/10/17 22:46
  */
 
 namespace local_geniai\events;
@@ -29,9 +30,6 @@ class event_observers {
 
     /**
      * @param \core\event\base $event
-     *
-     * @throws \coding_exception
-     * @throws \dml_exception
      */
     public static function course_viewed(\core\event\base $event) {
         $data = $event->get_data();

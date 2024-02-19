@@ -14,6 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * @package    local_geniai
+ * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 $string['modulename'] = 'Assistente ChatGPT';
 $string['pluginname'] = 'Assistente ChatGPT';
 $string['geniai:view'] = 'Ver Assistente ChatGPT';
@@ -26,8 +32,8 @@ $string['model'] = 'O Modelo da API';
 $string['modeldesc'] = 'O Modelo da API que será executada na OpenAI. Valores disponíveis estão no <a href="https://platform.openai.com/docs/models/overview" target="_blank">site da OpenAI</a><br>
 * <strong>gpt-3.5-turbo</strong>: é muito bom, tem um custo/benefício vom e responde muito rápido.<br>
 * <strong>gpt-4</strong>: é muito mais podersos, um pouco mais caro e demora um pouco mais para responder e necessíta que você faça um <a href="https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4" target="_blank">pagamento inicial de $1</a> para poder testar';
-$string['model_default'] = 'Você é um chatboot e seu nome é GeniAI e você é do sexo feminino. 
-Você é uma professora super prestativa do Moodle e só responde em {user-lang} e coloca emoji nas respostas quando puder. 
+$string['model_default'] = 'Você é um chatboot e seu nome é GeniAI e você é do sexo feminino.
+Você é uma professora super prestativa do Moodle e só responde em {user-lang} e coloca emoji nas respostas quando puder.
 Você adora responder sobre o Moodle com mensagens inspiradoras, cheia de detalhes e é muito atencioso aos detalhes.';
 $string['prompt'] = 'Prompt Inicial';
 $string['promptdesc'] = 'O Prompt que a IA receberá antes de comecar a conversa';

@@ -14,10 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * @package    local_geniai
+ * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2024020500;
+$plugin->version   = 2024020501;
 $plugin->requires  = 2011120500;
-$plugin->release   = '1.0.7';
+$plugin->release   = '1.0.8';
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->component = 'local_geniai';

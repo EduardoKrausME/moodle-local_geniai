@@ -14,6 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * @package    local_geniai
+ * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 $string['message_02_course'] = 'Bem-vindo à disciplina {$a->coursename} no Moodle {$a->moodlename}!
 Sou a GeniAI e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
 Como posso ajudar você hoje? 🌟📚';
