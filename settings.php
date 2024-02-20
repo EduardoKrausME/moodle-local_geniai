@@ -26,10 +26,6 @@ if ($hassiteconfig) {
 
     global $CFG, $PAGE;
 
-    if (!$PAGE->requires->is_head_done()) {
-        $PAGE->requires->jquery();
-    }
-
     $settings = new admin_settingpage('local_geniai', get_string('pluginname', 'local_geniai'));
 
     $ADMIN->add('localplugins', $settings);
