@@ -21,7 +21,6 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
-ob_start();
 
 if ($hassiteconfig) {
 
