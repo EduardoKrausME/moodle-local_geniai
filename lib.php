@@ -31,6 +31,7 @@ function local_geniai_before_footer() {
         return;
     }
 
+    require_once(__DIR__ . "/classes/events/event_observers.php");
     $data = [
         'courseid' => \local_geniai\events\event_observers::$courseid,
         'message_01' => get_string('message_01', 'local_geniai', fullname($USER)),
