@@ -34,8 +34,7 @@
                 line-height: 26px;
                 font-weight: 500;
                 text-align: center;
-                background-color: #1e88e5;
-                background-color: var(--color_primary);
+                background-color: rgb(var(--color_primary, 30, 136, 229));
                 background-size: cover;
                 padding: 13px 20px;
                 position: absolute;
@@ -200,8 +199,7 @@
                     height: 31px;
                     transition: all .4s;
                     path {
-                        fill: #1e88e5;
-                        fill: var(--color_primary);
+                        fill: rgb(var(--color_primary, 30, 136, 229));
                     }
                 }
             }
@@ -224,8 +222,7 @@
         cursor: pointer;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 3px 32px rgba(0, 0, 0, 0.16);
         transition: all 0.4s;
-        background-color: #1e88e5;
-        background-color: var(--color_primary);
+        background-color: rgb(var(--color_primary, 30, 136, 229));
         z-index: 999995;
         #geniai-count-icon {
             position: absolute;
