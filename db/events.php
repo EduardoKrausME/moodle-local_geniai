@@ -26,11 +26,11 @@ $observers = array(
     array(
         'eventname' => '\core\event\course_viewed',
         'callback' => '\local_geniai\events\event_observers::course_viewed',
-        'includefile' => 'local/geniai/classes/events/event_observers.php'
+        'includefile' => '/local/geniai/classes/events/event_observers.php'
     ),
     array(
         'eventname' => '\core\event\course_module_viewed',
         'callback' => '\local_geniai\events\event_observers::course_viewed',
-        'includefile' => 'local/geniai/classes/events/event_observers.php'
+        'includefile' => '/local/geniai/classes/events/event_observers.php'
     )
 );
