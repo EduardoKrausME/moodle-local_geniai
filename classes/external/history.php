@@ -28,6 +28,9 @@ use external_value;
 use external_single_structure;
 use external_function_parameters;
 
+global $CFG;
+require_once("{$CFG->dirroot}/lib/externallib.php");
+
 class history extends external_api {
     /**
      * Parâmetros recebidos pelo webservice
