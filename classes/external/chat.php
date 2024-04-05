@@ -59,6 +59,7 @@ class chat extends external_api {
      * API para contabilizar o tempo gasto na plataforma pelos usuários
      *
      * @param $message
+     * @param $courseid
      *
      * @return array
      * @throws \dml_exception
@@ -102,7 +103,7 @@ class chat extends external_api {
         }
         $messages[] = [
             'role' => 'user',
-            'content' => trim($message)
+            'content' => htmlentities(trim($message))
         ];
 
         if (count($messages) > 10) {
@@ -149,7 +150,9 @@ class chat extends external_api {
 
     /**
      * @param $messages
+     *
      * @return mixed
+     *
      * @throws \dml_exception
      */
     public static function chat_completions($messages) {
