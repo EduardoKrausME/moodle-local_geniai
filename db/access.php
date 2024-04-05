@@ -22,12 +22,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
-    'local/geniai:manage' => array(
+$capabilities = [
+    'local/geniai:manage' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
+        'archetypes' => [
             'manager' => CAP_ALLOW
-        )
-    )
-);
+        ]
+    ]
+];
