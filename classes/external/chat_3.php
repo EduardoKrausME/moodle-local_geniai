@@ -18,7 +18,7 @@
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @Date        31/01/2024 22:43
+ * @Date        31/01/2024 20:35
  */
 
 namespace local_geniai\external;
@@ -31,15 +31,15 @@ use external_function_parameters;
 global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 
-class history extends external_api {
+class chat_3 extends external_api {
     /**
      * Parâmetros recebidos pelo webservice
      * @return external_function_parameters
      */
     public static function api_parameters() {
         return new external_function_parameters([
+            'message' => new external_value(PARAM_RAW, 'The message value'),
             'courseid' => new external_value(PARAM_TEXT, 'The Course ID'),
-            'action' => new external_value(PARAM_TEXT, 'The action'),
         ]);
     }
 
@@ -50,49 +50,22 @@ class history extends external_api {
     public static function api_returns() {
         return new external_single_structure([
             'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED),
+            'format' => new external_value(PARAM_TEXT, 'Formato da resposta', VALUE_REQUIRED),
+            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED)
         ]);
     }
 
     /**
      * API para contabilizar o tempo gasto na plataforma pelos usuários
      *
+     * @param $message
      * @param $courseid
-     * @param $action
+     *
      * @return array
+     * @throws \dml_exception
+     * @throws \coding_exception
      */
-    public static function api($courseid, $action) {
-
-        if ($action == "clear") {
-            $_SESSION["messages-{$courseid}"] = [];
-            return [
-                'result' => true,
-                'content' => "[]",
-            ];
-        }
-
-        if (isset($_SESSION["messages-{$courseid}"])) {
-            $messages = $_SESSION["messages-{$courseid}"];
-            unset($messages[0]);
-            unset($messages[1]);
-            unset($messages[2]);
-        } else {
-            $messages = [];
-        }
-
-        $returnmessage = [];
-        foreach ($messages as $message) {
-            $message->format = 'text';
-            if (preg_match('/<\w+>/', $message->content)) {
-                $message->format = 'html';
-            }
-            $returnmessage[] = $message;
-        }
-
-        return [
-            'result' => true,
-            'content' => json_encode($returnmessage),
-        ];
-
+    public static function api($message, $courseid) {
+        return geniai_external_api::chat_api($message, $courseid);
     }
 }

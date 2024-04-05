@@ -20,6 +20,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_geniai\events\event_observers;
+use local_geniai\util\release;
+
+/**
+ * @throws coding_exception
+ * @throws dml_exception
+ * @throws moodle_exception
+ */
 function local_geniai_before_footer() {
     global $OUTPUT, $USER, $DB, $SITE;
 
@@ -33,12 +41,13 @@ function local_geniai_before_footer() {
 
     require_once(__DIR__ . "/classes/events/event_observers.php");
     $data = [
-        'courseid' => \local_geniai\events\event_observers::$courseid,
+        'courseid' => event_observers::$courseid,
         'message_01' => get_string('message_01', 'local_geniai', fullname($USER)),
-        'manage_capability' => has_capability('local/geniai:manage', context_system::instance())
+        'manage_capability' => has_capability('local/geniai:manage', context_system::instance()),
+        'release' => release::version()
     ];
-    if (\local_geniai\events\event_observers::$courseid) {
-        $course = $DB->get_record('course', ['id' => \local_geniai\events\event_observers::$courseid]);
+    if (event_observers::$courseid) {
+        $course = $DB->get_record('course', ['id' => event_observers::$courseid]);
         $data['message_02'] = get_string('message_02_course', 'local_geniai',
             ['moodlename' => $SITE->fullname, 'coursename' => $course->fullname]);
     } else {

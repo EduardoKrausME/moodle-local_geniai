@@ -18,54 +18,61 @@
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @Date        31/01/2024 20:35
+ * @Date        05/04/2024 14:05
  */
 
 namespace local_geniai\external;
 
-use external_api;
-use external_value;
-use external_single_structure;
-use external_function_parameters;
-
-global $CFG;
-require_once("{$CFG->dirroot}/lib/externallib.php");
-
-class chat extends external_api {
+class geniai_external_api {
     /**
-     * Parâmetros recebidos pelo webservice
-     * @return external_function_parameters
-     */
-    public static function api_parameters() {
-        return new external_function_parameters([
-            'message' => new external_value(PARAM_RAW, 'The message value'),
-            'courseid' => new external_value(PARAM_TEXT, 'The Course ID'),
-        ]);
-    }
-
-    /**
-     * Identificador do retorno do webservice
-     * @return external_single_structure
-     */
-    public static function api_returns() {
-        return new external_single_structure([
-            'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
-            'format' => new external_value(PARAM_TEXT, 'Formato da resposta', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED)
-        ]);
-    }
-
-    /**
-     * API para contabilizar o tempo gasto na plataforma pelos usuários
+     * @param $courseid
+     * @param $action
      *
+     * @return array
+     */
+    public static function history_api($courseid, $action) {
+        if ($action == "clear") {
+            $_SESSION["messages-{$courseid}"] = [];
+            return [
+                'result' => true,
+                'content' => "[]",
+            ];
+        }
+
+        if (isset($_SESSION["messages-{$courseid}"])) {
+            $messages = $_SESSION["messages-{$courseid}"];
+            unset($messages[0]);
+            unset($messages[1]);
+            unset($messages[2]);
+        } else {
+            $messages = [];
+        }
+
+        $returnmessage = [];
+        foreach ($messages as $message) {
+            $message->format = 'text';
+            if (preg_match('/<\w+>/', $message->content)) {
+                $message->format = 'html';
+            }
+            $returnmessage[] = $message;
+        }
+
+        return [
+            'result' => true,
+            'content' => json_encode($returnmessage),
+        ];
+    }
+
+    /**
      * @param $message
      * @param $courseid
      *
      * @return array
-     * @throws \dml_exception
+     *
      * @throws \coding_exception
+     * @throws \dml_exception
      */
-    public static function api($message, $courseid) {
+    public static function chat_api($message, $courseid) {
         global $CFG, $DB, $USER, $SITE;
 
         if (isset($_SESSION["messages-{$courseid}"][0])) {
@@ -78,7 +85,7 @@ class chat extends external_api {
             $messages = [
                 [
                     'role' => 'system',
-                    'content' => $content . ' and you only reply in HTML'
+                    'content' => $content . ' and you only respond in HTML, and do not return any kind of JavaScript.'
                 ], [
                     'role' => 'system',
                     'content' => get_string('url_moodle', 'local_geniai',
@@ -103,7 +110,7 @@ class chat extends external_api {
         }
         $messages[] = [
             'role' => 'user',
-            'content' => htmlentities(trim($message))
+            'content' => strip_tags(trim($message))
         ];
 
         if (count($messages) > 10) {

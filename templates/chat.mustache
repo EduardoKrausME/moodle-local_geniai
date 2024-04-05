@@ -93,7 +93,8 @@
     //<script>
         require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
 
-            var courseid = "{{{courseid}}}";
+            var courseid = parseInt("{{{courseid}}}");
+            var release = parseFloat("{{{release}}}");
             var geniaiScrollarea = document.getElementById("geniai-scrollarea");
             var geniaiChat = $("#geniai-chat");
             var geniaiAreaMensagens = $("#geniai-area-mensagens");
@@ -142,9 +143,9 @@
                         geniaiSendarea.removeClass("geniai-active");
                     }, 20);
 
-                    var geniaiServerId = "id" + Math.random().toString(16).slice(2);
+                    var geniaiServerId = "id-" + Math.random().toString(16).slice(2);
                     geniaiAreaMensagens.append(
-                            `<div class="geniai-messagem">${messageSend}</div>
+                            `<div class="geniai-messagem" id="${geniaiServerId}-send"></div>
                              <div class="geniai-messagem geniai-server"
                                   id="${geniaiServerId}">
                                   <svg height="40" class="geniai-loader">
@@ -153,10 +154,16 @@
                                      <circle class="dot" cx="30" cy="20" r="3" style="fill:#777;" />
                                  </svg>
                              </div>`);
+                    $(`#${geniaiServerId}-send`).text(messageSend);
                     geniaiScrollarea.scrollTop = 10000000000000;
 
+                    var methodname = 'local_geniai_chat_3';
+                    if (release >= 4.2) {
+                        methodname = 'local_geniai_chat_4';
+                    }
+
                     ajax.call([{
-                        methodname : 'local_geniai_chat',
+                        methodname : methodname,
                         args       : {
                             message  : messageSend,
                             courseid : courseid
@@ -214,8 +221,13 @@
                 geniaiAreaMensagens.html("");
                 startChat();
 
+                var methodname = 'local_geniai_history_3';
+                if (release >= 4.2) {
+                    methodname = 'local_geniai_history_4';
+                }
+
                 ajax.call([{
-                    methodname : 'local_geniai_history',
+                    methodname : methodname,
                     args       : {
                         courseid : courseid,
                         action   : "clear"
@@ -229,8 +241,14 @@
             }
 
             function showHistory() {
+
+                var methodname = 'local_geniai_history_3';
+                if (release >= 4.2) {
+                    methodname = 'local_geniai_history_4';
+                }
+
                 ajax.call([{
-                    methodname : 'local_geniai_history',
+                    methodname : methodname,
                     args       : {
                         courseid : courseid,
                         action   : "history"
