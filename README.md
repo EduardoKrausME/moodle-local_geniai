@@ -6,6 +6,14 @@ Ao facilitar a interação entre alunos e a plataforma, o plugin promove uma com
 
 Para otimizar a utilização do "ChatGPT Assistant," é necessário possuir a Chave da API da OpenAI. Vale ressaltar que, para usufruir da versão GPT-4, é requerido um pagamento inicial no valor de $1.
 
+### Como obter a API de acesso
+
+Para criar uma API, acesse [API keys](https://platform.openai.com/api-keys).
+
+### Como posso acessar o GPT-4?
+
+Depois de efetuar um pagamento bem-sucedido de US$ 5 ou mais (nível de uso 1), você poderá acessar o [GPT-4 e o GPT-4 Turbo](https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo) por meio da API OpenAI. [Saiba mais sobre como adicionar crédito à sua conta OpenAI](https://help.openai.com/en/articles/8264644-what-is-prepaid-billing).
+
 ### Prints
 
 ![Alt text](pix/print/captura-01.png?raw=true "Imagem 1")
