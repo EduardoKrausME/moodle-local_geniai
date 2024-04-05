@@ -210,12 +210,15 @@ class geniai_external_api {
             'send' => json_encode($post, JSON_PRETTY_PRINT),
             'receive' => $result,
             'model' => $model,
-            'prompt_tokens' => $gpt['usage']['prompt_tokens'],
-            'completion_tokens' => $gpt['usage']['completion_tokens'],
+            'prompt_tokens' => intval($gpt['usage']['prompt_tokens']),
+            'completion_tokens' => intval($gpt['usage']['completion_tokens']),
             'timecreated' => time(),
             'datecreated' => date("Y-m-d", time())
         ];
-        $DB->insert_record('local_geniai_usage', $usage);
+        try {
+            $DB->insert_record('local_geniai_usage', $usage);
+        } catch (\dml_exception $e) {
+        }
 
         return $gpt;
     }
