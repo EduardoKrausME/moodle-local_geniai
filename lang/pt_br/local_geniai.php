@@ -26,7 +26,7 @@ $string['geniai:view'] = 'Ver Assistente ChatGPT';
 $string['geniai:manage'] = 'Gerenciar Assistente ChatGPT';
 $string['settings'] = 'Configurar Assistente ChatGPT';
 
-$string['privacy:metadata'] = 'O plugin GeniAl armazena o histórico das conversas que você envia e transmitirá à OpenAI apenas o nome do curso e a URL, sem compartilhar qualquer dado pessoal seu.';
+$string['privacy:metadata'] = 'O plugin GeniAI armazena o histórico das conversas que você envia e transmitirá à OpenAI apenas o o nome completo, nome do curso e a URL, sem compartilhar qualquer outro dado pessoal seu.';
 
 $string['apikey'] = 'API da OpenAI';
 $string['apikeydesc'] = 'A chave da API da sua conta OpenAI';
