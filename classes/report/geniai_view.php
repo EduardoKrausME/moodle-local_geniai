@@ -104,9 +104,9 @@ class geniai_view extends \table_sql {
         $this->sql = "
                 SELECT *
                   FROM (
-                      SELECT SUM(prompt_tokens)                                  AS prompt_tokens,
-                             SUM(completion_tokens)                              AS completion_tokens,
-                             DATE_FORMAT(FROM_UNIXTIME(timecreated), '%Y-%m-%d') AS datecreated,
+                      SELECT SUM(prompt_tokens)     AS prompt_tokens,
+                             SUM(completion_tokens) AS completion_tokens,
+                             datecreated,
                              model, timecreated
                         FROM {local_geniai_usage}
                     GROUP BY model, datecreated

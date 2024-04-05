@@ -46,5 +46,22 @@ function xmldb_local_geniai_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2024020501, 'local', 'geniai');
     }
 
+    if ($oldversion < 2024040500) {
+        $table = new xmldb_table('local_geniai_usage');
+        $field = new xmldb_field('datecreated', XMLDB_TYPE_CHAR, '10', null, true, null, null, 'timecreated');
+
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        $local_geniai_usages = $DB->get_records('local_geniai_usage');
+        foreach ($local_geniai_usages as $local_geniai_usage) {
+            $local_geniai_usage->datecreated = date("Y-m-d", $local_geniai_usage->timecreated);
+            $DB->update_record("local_geniai_usage", $local_geniai_usage);
+        }
+
+        upgrade_plugin_savepoint(true, 2024040500, 'local', 'geniai');
+    }
+
     return true;
 }

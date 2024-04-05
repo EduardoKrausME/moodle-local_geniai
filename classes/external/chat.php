@@ -202,7 +202,8 @@ class chat extends external_api {
             'model' => $model,
             'prompt_tokens' => $gpt['usage']['prompt_tokens'],
             'completion_tokens' => $gpt['usage']['completion_tokens'],
-            'timecreated' => time()
+            'timecreated' => time(),
+            'datecreated' => date("Y-m-d", time())
         ];
         $DB->insert_record('local_geniai_usage', $usage);
 
