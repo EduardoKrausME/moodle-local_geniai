@@ -14,19 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace local_geniai\external;
+
 /**
+ * Global external_api file.
+ *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @Date        05/04/2024 14:05
  */
-
-namespace local_geniai\external;
-
 class geniai_external_api {
     /**
-     * @param $courseid
-     * @param $action
+     * History api function.
+     *
+     * @param int $courseid
+     * @param string $action
      *
      * @return array
      */
@@ -64,8 +66,10 @@ class geniai_external_api {
     }
 
     /**
-     * @param $message
-     * @param $courseid
+     * Chat api function.
+     *
+     * @param string $message
+     * @param int $courseid
      *
      * @return array
      *
@@ -82,35 +86,37 @@ class geniai_external_api {
             $content = get_config('local_geniai', 'prompt');
             $content = str_replace("{user-lang}", $USER->lang, $content);
 
+            $replace = [
+                'wwwroot' => $CFG->wwwroot,
+                'fullname' => $SITE->fullname,
+            ];
             $messages = [
                 [
                     'role' => 'system',
-                    'content' => $content . ' and you only respond in HTML, and do not return any kind of JavaScript.'
+                    'content' => $content . ' and you only respond in HTML, and do not return any kind of JavaScript.',
                 ], [
                     'role' => 'system',
-                    'content' => get_string('url_moodle', 'local_geniai',
-                        ['wwwroot' => $CFG->wwwroot, 'fullname' => $SITE->fullname])
-                ]
+                    'content' => get_string('url_moodle', 'local_geniai', $replace),
+                ],
             ];
             if ($courseid) {
                 if ($course = $DB->get_record('course', ['id' => $courseid])) {
                     $messages[] = [
                         'role' => 'system',
                         'content' => get_string('course_user', 'local_geniai',
-                            ['course' => $course->fullname, 'userfullname' => fullname($USER)])
+                            ['course' => $course->fullname, 'userfullname' => fullname($USER)]),
                     ];
                 }
             } else {
                 $messages[] = [
                     'role' => 'system',
-                    'content' => get_string('course_home', 'local_geniai',
-                        ['userfullname' => fullname($USER)])
+                    'content' => get_string('course_home', 'local_geniai', ['userfullname' => fullname($USER)]),
                 ];
             }
         }
         $messages[] = [
             'role' => 'user',
-            'content' => strip_tags(trim($message))
+            'content' => strip_tags(trim($message)),
         ];
 
         if (count($messages) > 10) {
@@ -124,7 +130,7 @@ class geniai_external_api {
             return [
                 'result' => false,
                 'format' => 'text',
-                'content' => $gpt['error']['message']
+                'content' => $gpt['error']['message'],
             ];
         }
 
@@ -133,7 +139,7 @@ class geniai_external_api {
 
             $messages[] = [
                 'role' => 'system',
-                'content' => $content
+                'content' => $content,
             ];
             $_SESSION["messages-{$courseid}"] = $messages;
 
@@ -151,12 +157,14 @@ class geniai_external_api {
         return [
             'result' => false,
             'format' => 'text',
-            'content' => 'Error...'
+            'content' => 'Error...',
         ];
     }
 
     /**
-     * @param $messages
+     * Chat completions function.
+     *
+     * @param array $messages
      *
      * @return mixed
      *
@@ -180,7 +188,7 @@ class geniai_external_api {
             'top_p' => floatval($topp),
             'max_tokens' => intval($maxtokens),
             'frequency_penalty' => floatval($frequencypenalty),
-            'presence_penalty' => floatval($presencepenalty)
+            'presence_penalty' => floatval($presencepenalty),
         ];
 
         $ch = curl_init();
@@ -191,15 +199,15 @@ class geniai_external_api {
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            "Authorization: Bearer {$apikey}"
+            "Authorization: Bearer {$apikey}",
         ]);
 
         $result = curl_exec($ch);
         if (curl_errno($ch)) {
             return [
                 'error' => [
-                    'message' => 'http error: ' . curl_error($ch)
-                ]
+                    'message' => 'http error: ' . curl_error($ch),
+                ],
             ];
         }
         curl_close($ch);
@@ -213,11 +221,12 @@ class geniai_external_api {
             'prompt_tokens' => intval($gpt['usage']['prompt_tokens']),
             'completion_tokens' => intval($gpt['usage']['completion_tokens']),
             'timecreated' => time(),
-            'datecreated' => date("Y-m-d", time())
+            'datecreated' => date("Y-m-d", time()),
         ];
         try {
             $DB->insert_record('local_geniai_usage', $usage);
         } catch (\dml_exception $e) {
+            echo $e->getMessage();
         }
 
         return $gpt;

@@ -14,13 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @package     local_geniai
- * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @Date        31/01/2024 22:43
- */
-
 namespace local_geniai\external;
 
 use core_external\external_api;
@@ -28,12 +21,21 @@ use core_external\external_value;
 use core_external\external_single_structure;
 use core_external\external_function_parameters;
 
+defined('MOODLE_INTERNAL') || die;
 global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 
+/**
+ * History_4 file.
+ *
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class history_4 extends external_api {
     /**
      * Parâmetros recebidos pelo webservice
+     *
      * @return external_function_parameters
      */
     public static function api_parameters() {
@@ -45,6 +47,7 @@ class history_4 extends external_api {
 
     /**
      * Identificador do retorno do webservice
+     *
      * @return external_single_structure
      */
     public static function api_returns() {
@@ -57,12 +60,12 @@ class history_4 extends external_api {
     /**
      * API para contabilizar o tempo gasto na plataforma pelos usuários
      *
-     * @param $courseid
-     * @param $action
+     * @param int $courseid
+     * @param string $action
      *
      * @return array
      */
     public static function api($courseid, $action) {
-       return geniai_external_api::history_api($courseid, $action);
+        return geniai_external_api::history_api($courseid, $action);
     }
 }

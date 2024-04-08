@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * version file.
+ *
  * @package    local_geniai
  * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -22,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2024040501;
+$plugin->version   = 2024040607;
 $plugin->requires  = 2014051220;
 $plugin->release   = '1.0.12';
 $plugin->maturity  = MATURITY_STABLE;

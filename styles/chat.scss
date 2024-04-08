@@ -238,7 +238,6 @@
             top: 0;
             left: -3px;
             z-index: 2;
-            animation: geniai-fade-animation 0.3s;
             &[data-count="0"] {
                 display: none;
             }
@@ -248,14 +247,14 @@
             img {
                 max-width: 60px;
                 max-height: 60px;
+                min-height: 60px !important;
+                min-width: 60px !important;
                 width: 60px;
                 height: 60px;
                 position: absolute;
                 left: 0;
                 top: 0;
                 margin: 0;
-                min-height: 0 !important;
-                min-width: 0 !important;
                 z-index: 0;
                 transition: all 0.4s;
             }
@@ -298,13 +297,13 @@
     }
 }
 .geniai-loader {
-    @keyframes walkingpoints {
+    @keyframes geniai-popup-walkingpoints {
         50% {
             fill: transparent
         }
     }
     .dot {
-        animation: 1s walkingpoints infinite;
+        animation: 1s geniai-popup-walkingpoints infinite;
         fill: grey;
     }
     .dot:nth-child(2) {

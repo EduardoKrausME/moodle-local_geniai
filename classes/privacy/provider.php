@@ -16,6 +16,10 @@
 
 /**
  * Privacy Subsystem implementation for local_geniai.
+ *
+ * @package  local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace local_geniai\privacy;
@@ -23,9 +27,7 @@ namespace local_geniai\privacy;
 /**
  * The local_geniai module does not store any data.
  *
- * @package  local_geniai
- * @copyright 2017 Eduardo Kraus {@link http://eduardokraus.com}
- * @license  http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+
  */
 class provider implements \core_privacy\local\metadata\null_provider {
     /**
@@ -34,7 +36,7 @@ class provider implements \core_privacy\local\metadata\null_provider {
      *
      * @return  string
      */
-    public static function get_reason() : string {
+    public static function get_reason(): string {
         return 'privacy:metadata';
     }
 }

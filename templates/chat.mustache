@@ -27,10 +27,10 @@
 
     Example context (json):
     {
-        manage_capability : true
-        courseid          : 123
-        message_01        : "string"
-        message_02        : "string"
+        "manage_capability": true,
+        "courseid": 123,
+        "message_01": "string",
+        "message_02": "string"
     }
 }}
 
@@ -68,7 +68,7 @@
         <div id="geniai-sendarea">
             <textarea id="geniai-textarea" contenteditable="true"
                       placeholder="{{#str}}write_message,local_geniai{{/str}}"></textarea>
-            <div id="geniai-icon-send" title="{{#str}}send_message,local_geniai{{/str}}">
+            <div id="geniai-icon-send" title="{{#str}}sendMessage,local_geniai{{/str}}">
                 <svg enable-background="new 0 0 116 116" viewBox="0 0 116 116"
                      xmlns="http://www.w3.org/2000/svg">
                     <path d="m13.66 1.583c-7.024-3.625-11.328-.453-9.516 7.477l7.477 33.305c.906 3.852 4.758 7.477 8.836 7.93l44.859 5.211c12.008 1.359 12.008 3.625 0 4.984l-44.859 5.21c-4.078.453-7.93 3.852-8.836 7.703l-7.477 33.758c-1.812 7.703 2.492 10.875 9.516 7.25l93.343-49.617c7.023-3.852 7.023-9.742 0-13.593z"
@@ -90,182 +90,181 @@
 </div>
 
 {{#js}}
-    //<script>
-        require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
+    require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
 
-            var courseid = parseInt("{{{courseid}}}");
-            var release = parseFloat("{{{release}}}");
-            var geniaiScrollarea = document.getElementById("geniai-scrollarea");
-            var geniaiChat = $("#geniai-chat");
-            var geniaiAreaMensagens = $("#geniai-area-mensagens");
-            var geniaiSendarea = $("#geniai-sendarea");
-            var geniaiTextarea = $("#geniai-textarea");
+        var courseid = parseInt("{{{courseid}}}");
+        var release = parseFloat("{{{release}}}");
+        var geniaiscrollarea = document.getElementById("geniai-scrollarea");
+        var geniaichat = $("#geniai-chat");
+        var geniaiareamensagens = $("#geniai-area-mensagens");
+        var geniaisendarea = $("#geniai-sendarea");
+        var geniaitextarea = $("#geniai-textarea");
 
-            geniaiChat.show(200);
-            geniaiTextarea
-                    .keydown(function(e) {
-                        setTimeout(function() {
-                            var messageSend = geniaiTextarea.val();
-                            if (messageSend.length > 1) {
-                                geniaiSendarea.addClass("geniai-active");
-                            } else {
-                                geniaiSendarea.removeClass("geniai-active");
-                            }
-                        }, 10);
-
-                        var code = (e.keyCode ? e.keyCode : e.which);
-                        if (code == 13) {
-                            sendMessage();
-                        }
-                    })
-                    .on('input', function(event) {
-                        event.currentTarget.style.height = "34px";
-                        event.currentTarget.style.height = (event.currentTarget.scrollHeight) + "px";
-                    });
-            document.getElementById('geniai-textarea').addEventListener("paste", function(e) {
-                e.preventDefault();
-                var text = e.clipboardData.getData("text/plain");
-                document.execCommand("insertHTML", false, text);
-            });
-
-            $("#geniai-icon-send").click(sendMessage);
-
-            geniaiSendarea.click(function() {
-                document.getElementById('geniai-textarea').focus();
-            });
-
-            function sendMessage() {
-                var messageSend = geniaiTextarea.val().trim();
-                if (messageSend.length > 1) {
+        geniaichat.show(200);
+        geniaitextarea
+                .keydown(function(e) {
                     setTimeout(function() {
-                        geniaiTextarea.val("");
-                        geniaiTextarea.css({height : 34});
-                        geniaiSendarea.removeClass("geniai-active");
-                    }, 20);
-
-                    var geniaiServerId = "id-" + Math.random().toString(16).slice(2);
-                    geniaiAreaMensagens.append(
-                            `<div class="geniai-messagem" id="${geniaiServerId}-send"></div>
-                             <div class="geniai-messagem geniai-server"
-                                  id="${geniaiServerId}">
-                                  <svg height="40" class="geniai-loader">
-                                     <circle class="dot" cx="10" cy="20" r="3" style="fill:#777;" />
-                                     <circle class="dot" cx="20" cy="20" r="3" style="fill:#777;" />
-                                     <circle class="dot" cx="30" cy="20" r="3" style="fill:#777;" />
-                                 </svg>
-                             </div>`);
-                    $(`#${geniaiServerId}-send`).text(messageSend);
-                    geniaiScrollarea.scrollTop = 10000000000000;
-
-                    var methodname = 'local_geniai_chat_3';
-                    if (release >= 4.2) {
-                        methodname = 'local_geniai_chat_4';
-                    }
-
-                    ajax.call([{
-                        methodname : methodname,
-                        args       : {
-                            message  : messageSend,
-                            courseid : courseid
-                        }
-                    }])[0].done(function(data) {
-
-                        if (data.result) {
-                            $("#" + geniaiServerId)
-                                    .addClass("format-" + data.format)
-                                    .html(data.content);
+                        var messagesend = geniaitextarea.val();
+                        if (messagesend.length > 1) {
+                            geniaisendarea.addClass("geniai-active");
                         } else {
-                            $("#" + geniaiServerId)
-                                    .addClass("format-" + data.format)
-                                    .html(data.content)
-                                    .addClass("geniai-error");
+                            geniaisendarea.removeClass("geniai-active");
                         }
+                    }, 10);
 
-                        geniaiScrollarea.scrollTop = 10000000000000;
-                    }.bind(this)).fail(notification.exception);
-                }
-            }
-
-            function resizeScrollarea() {
-                var height = $(window).innerHeight() - 165;
-                $("#geniai-scrollarea").css({
-                    "max-height" : height + "px"
-                })
-            }
-
-            $(window).resize(resizeScrollarea);
-            resizeScrollarea();
-
-            $("#geniai-chat-btn,#geniai-icon-close").click(function() {
-                geniaiChat.toggleClass("geniai-active");
-
-                if (geniaiChat.hasClass("geniai-active")) {
-                    localStorage.setItem('geniai-chat-isopen', 'true');
-                    openChat();
-                } else {
-                    localStorage.removeItem('geniai-chat-isopen');
-                }
-            });
-            if (localStorage.getItem('geniai-chat-isopen') == 'true') {
-                geniaiChat.addClass("geniai-active");
-                openChat()
-            }
-
-            function openChat() {
-                geniaiAreaMensagens.html("");
-                setTimeout(showHistory, 0);
-                startChat();
-            }
-
-            $("#geniai-clear-history").click(function() {
-                geniaiAreaMensagens.html("");
-                startChat();
-
-                var methodname = 'local_geniai_history_3';
-                if (release >= 4.2) {
-                    methodname = 'local_geniai_history_4';
-                }
-
-                ajax.call([{
-                    methodname : methodname,
-                    args       : {
-                        courseid : courseid,
-                        action   : "clear"
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if (code == 13) {
+                        sendMessage();
                     }
-                }]);
-            });
+                })
+                .on('input', function(event) {
+                    event.currentTarget.style.height = "34px";
+                    event.currentTarget.style.height = (event.currentTarget.scrollHeight) + "px";
+                });
+        document.getElementById('geniai-textarea').addEventListener("paste", function(e) {
+            e.preventDefault();
+            var text = e.clipboardData.getData("text/plain");
+            document.execCommand("insertHTML", false, text);
+        });
 
-            function startChat() {
-                geniaiAreaMensagens.append(`<div class="geniai-messagem geniai-server format-text">{{{message_01}}}</div>`);
-                geniaiAreaMensagens.append(`<div class="geniai-messagem geniai-server format-text">{{{message_02}}}</div>`);
-            }
+        $("#geniai-icon-send").click(sendMessage);
 
-            function showHistory() {
+        geniaisendarea.click(function() {
+            document.getElementById('geniai-textarea').focus();
+        });
 
-                var methodname = 'local_geniai_history_3';
+        function sendMessage() {
+            var messagesend = geniaitextarea.val().trim();
+            if (messagesend.length > 1) {
+                setTimeout(function() {
+                    geniaitextarea.val("");
+                    geniaitextarea.css({height: 34});
+                    geniaisendarea.removeClass("geniai-active");
+                }, 20);
+
+                var geniaiServerId = "id-" + Math.random().toString(16).slice(2);
+                geniaiareamensagens.append(
+                        `<div class="geniai-messagem" id="${geniaiServerId}-send"></div>
+                         <div class="geniai-messagem geniai-server"
+                              id="${geniaiServerId}">
+                              <svg height="40" class="geniai-loader">
+                                 <circle class="dot" cx="10" cy="20" r="3" style="fill:#777;" />
+                                 <circle class="dot" cx="20" cy="20" r="3" style="fill:#777;" />
+                                 <circle class="dot" cx="30" cy="20" r="3" style="fill:#777;" />
+                             </svg>
+                         </div>`);
+                $(`#${geniaiServerId}-send`).text(messagesend);
+                geniaiscrollarea.scrollTop = 10000000000000;
+
+                var methodname = 'local_geniai_chat_3';
                 if (release >= 4.2) {
-                    methodname = 'local_geniai_history_4';
+                    methodname = 'local_geniai_chat_4';
                 }
 
                 ajax.call([{
-                    methodname : methodname,
-                    args       : {
-                        courseid : courseid,
-                        action   : "history"
+                    methodname: methodname,
+                    args: {
+                        message: messagesend,
+                        courseid: courseid
                     }
                 }])[0].done(function(data) {
-                    var history = JSON.parse(data.content);
-                    $.each(history, function(id, message) {
-                        if (message.role == "user") {
-                            geniaiAreaMensagens.append(
-                                    `<div class="geniai-messagem format-${message.format}">${message.content}</div>`);
-                        } else if (message.role == "system") {
-                            geniaiAreaMensagens.append(
-                                    `<div class="geniai-messagem geniai-server">${message.content}</div>`);
-                        }
-                    });
-                    geniaiScrollarea.scrollTop = 10000000000000;
-                }.bind(this)).fail(notification.exception);
+
+                    if (data.result) {
+                        $("#" + geniaiServerId)
+                                .addClass("format-" + data.format)
+                                .html(data.content);
+                    } else {
+                        $("#" + geniaiServerId)
+                                .addClass("format-" + data.format)
+                                .html(data.content)
+                                .addClass("geniai-error");
+                    }
+
+                    geniaiscrollarea.scrollTop = 10000000000000;
+                }).fail(notification.exception);
+            }
+        }
+
+        function resizeScrollarea() {
+            var height = $(window).innerHeight() - 165;
+            $("#geniai-scrollarea").css({
+                "max-height": height + "px"
+            });
+        }
+
+        $(window).resize(resizeScrollarea);
+        resizeScrollarea();
+
+        $("#geniai-chat-btn,#geniai-icon-close").click(function() {
+            geniaichat.toggleClass("geniai-active");
+
+            if (geniaichat.hasClass("geniai-active")) {
+                localStorage.setItem('geniai-chat-isopen', 'true');
+                openChat();
+            } else {
+                localStorage.removeItem('geniai-chat-isopen');
             }
         });
+        if (localStorage.getItem('geniai-chat-isopen') == 'true') {
+            geniaichat.addClass("geniai-active");
+            openChat();
+        }
+
+        function openChat() {
+            geniaiareamensagens.html("");
+            setTimeout(showHistory, 0);
+            startChat();
+        }
+
+        $("#geniai-clear-history").click(function() {
+            geniaiareamensagens.html("");
+            startChat();
+
+            var methodname = 'local_geniai_history_3';
+            if (release >= 4.2) {
+                methodname = 'local_geniai_history_4';
+            }
+
+            ajax.call([{
+                methodname: methodname,
+                args: {
+                    courseid: courseid,
+                    action: "clear"
+                }
+            }]);
+        });
+
+        function startChat() {
+            geniaiareamensagens.append(`<div class="geniai-messagem geniai-server format-text">{{{message_01}}}</div>`);
+            geniaiareamensagens.append(`<div class="geniai-messagem geniai-server format-text">{{{message_02}}}</div>`);
+        }
+
+        function showHistory() {
+
+            var methodname = 'local_geniai_history_3';
+            if (release >= 4.2) {
+                methodname = 'local_geniai_history_4';
+            }
+
+            ajax.call([{
+                methodname: methodname,
+                args: {
+                    courseid: courseid,
+                    action: "history"
+                }
+            }])[0].done(function(data) {
+                var history = JSON.parse(data.content);
+                $.each(history, function(id, message) {
+                    if (message.role == "user") {
+                        geniaiareamensagens.append(
+                                `<div class="geniai-messagem format-${message.format}">${message.content}</div>`);
+                    } else if (message.role == "system") {
+                        geniaiareamensagens.append(
+                                `<div class="geniai-messagem geniai-server">${message.content}</div>`);
+                    }
+                });
+                geniaiscrollarea.scrollTop = 10000000000000;
+            }).fail(notification.exception);
+        }
+    });
 {{/js}}

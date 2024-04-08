@@ -14,13 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @package     local_geniai
- * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @Date        31/01/2024 20:35
- */
-
 namespace local_geniai\external;
 
 use core_external\external_api;
@@ -28,12 +21,21 @@ use core_external\external_value;
 use core_external\external_single_structure;
 use core_external\external_function_parameters;
 
+defined('MOODLE_INTERNAL') || die;
 global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 
+/**
+ * Chat_4 file.
+ *
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class chat_4 extends external_api {
     /**
      * Parâmetros recebidos pelo webservice
+     *
      * @return external_function_parameters
      */
     public static function api_parameters() {
@@ -45,21 +47,22 @@ class chat_4 extends external_api {
 
     /**
      * Identificador do retorno do webservice
+     *
      * @return external_single_structure
      */
     public static function api_returns() {
         return new external_single_structure([
             'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
             'format' => new external_value(PARAM_TEXT, 'Formato da resposta', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED)
+            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED),
         ]);
     }
 
     /**
      * API para contabilizar o tempo gasto na plataforma pelos usuários
      *
-     * @param $message
-     * @param $courseid
+     * @param string $message
+     * @param int $courseid
      *
      * @return array
      *
@@ -67,6 +70,6 @@ class chat_4 extends external_api {
      * @throws \coding_exception
      */
     public static function api($message, $courseid) {
-       return geniai_external_api::chat_api($message, $courseid);
+        return geniai_external_api::chat_api($message, $courseid);
     }
 }

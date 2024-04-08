@@ -15,15 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * upgrade file.
+ *
  * @package    local_geniai
  * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
- * @param $oldversion
+ * Upgrade file.
+ * @param int $oldversion
  *
  * @return bool
+ *
  * @throws Exception
  */
 function xmldb_local_geniai_upgrade($oldversion) {
@@ -54,10 +58,10 @@ function xmldb_local_geniai_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        $local_geniai_usages = $DB->get_records('local_geniai_usage');
-        foreach ($local_geniai_usages as $local_geniai_usage) {
-            $local_geniai_usage->datecreated = date("Y-m-d", $local_geniai_usage->timecreated);
-            $DB->update_record("local_geniai_usage", $local_geniai_usage);
+        $usages = $DB->get_records('local_geniai_usage');
+        foreach ($usages as $usage) {
+            $usage->datecreated = date("Y-m-d", $usage->timecreated);
+            $DB->update_record("local_geniai_usage", $usage);
         }
 
         upgrade_plugin_savepoint(true, 2024040500, 'local', 'geniai');

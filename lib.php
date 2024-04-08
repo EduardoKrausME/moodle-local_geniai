@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * lib file.
+ *
  * @package    local_geniai
  * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -24,6 +26,8 @@ use local_geniai\events\event_observers;
 use local_geniai\util\release;
 
 /**
+ * Before footer.
+ *
  * @throws coding_exception
  * @throws dml_exception
  * @throws moodle_exception
@@ -44,7 +48,7 @@ function local_geniai_before_footer() {
         'courseid' => event_observers::$courseid,
         'message_01' => get_string('message_01', 'local_geniai', fullname($USER)),
         'manage_capability' => has_capability('local/geniai:manage', context_system::instance()),
-        'release' => release::version()
+        'release' => release::version(),
     ];
     if (event_observers::$courseid) {
         $course = $DB->get_record('course', ['id' => event_observers::$courseid]);

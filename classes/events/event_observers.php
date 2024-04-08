@@ -15,20 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Event observers file.
+ *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @Date        26/10/17 22:46
  */
 
 namespace local_geniai\events;
 
-
+/**
+ * Class event_observers
+ *
+ * @package local_geniai\events
+ */
 class event_observers {
 
+    /**
+     * global courseid
+     *
+     * @var int
+     */
     public static $courseid = 0;
 
     /**
+     * course_viewed function.
+     *
      * @param \core\event\base $event
      */
     public static function course_viewed(\core\event\base $event) {

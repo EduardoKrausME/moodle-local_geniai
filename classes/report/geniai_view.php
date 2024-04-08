@@ -14,29 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @package     local_geniai
- * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @Date        12/01/2024 11:30
- */
-
 namespace local_geniai\report;
 
+defined('MOODLE_INTERNAL') || die;
 global $CFG;
 require_once("{$CFG->libdir}/tablelib.php");
 
 /**
- * @package   local_geniai
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Geniai view file.
+ *
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class geniai_view extends \table_sql {
 
     /**
      * local_geniai_view constructor.
      *
-     * @param $uniqueid
+     * @param string $uniqueid
      *
      * @throws \coding_exception
      * @throws \dml_exception
@@ -72,16 +68,21 @@ class geniai_view extends \table_sql {
     }
 
     /**
-     * @param $linha
+     * col datecreated.
+     *
+     * @param \stdClass $linha
+     *
      * @return string
+     *
      * @throws \coding_exception
      */
     public function col_datecreated($linha) {
-
         return userdate($linha->timecreated, get_string('strftimedate', 'langconfig'));
     }
 
     /**
+     * personal query_db.
+     *
      * @param int $pagesize
      * @param bool $useinitialsbar
      *

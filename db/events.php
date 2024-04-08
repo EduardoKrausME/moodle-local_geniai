@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * events file.
+ *
  * @package    local_geniai
  * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,10 +28,10 @@ $observers = [
     [
         'eventname' => '\core\event\course_viewed',
         'callback' => '\local_geniai\events\event_observers::course_viewed',
-        'includefile' => '/local/geniai/classes/events/event_observers.php'
+        'includefile' => '/local/geniai/classes/events/event_observers.php',
     ], [
         'eventname' => '\core\event\course_module_viewed',
         'callback' => '\local_geniai\events\event_observers::course_viewed',
-        'includefile' => '/local/geniai/classes/events/event_observers.php'
-    ]
+        'includefile' => '/local/geniai/classes/events/event_observers.php',
+    ],
 ];
