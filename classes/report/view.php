@@ -27,10 +27,10 @@ require_once("{$CFG->libdir}/tablelib.php");
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class geniai_view extends \table_sql {
+class view extends \table_sql {
 
     /**
-     * local_geniai_view constructor.
+     * local_view constructor.
      *
      * @param string $uniqueid
      *
