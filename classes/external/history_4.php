@@ -66,6 +66,6 @@ class history_4 extends external_api {
      * @return array
      */
     public static function api($courseid, $action) {
-        return geniai_external_api::history_api($courseid, $action);
+        return api::history_api($courseid, $action);
     }
 }

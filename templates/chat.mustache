@@ -90,6 +90,7 @@
 </div>
 
 {{#js}}
+    // <script>
     require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
 
         var courseid = parseInt("{{{courseid}}}");
@@ -171,11 +172,9 @@
 
                     if (data.result) {
                         $("#" + geniaiServerId)
-                                .addClass("format-" + data.format)
                                 .html(data.content);
                     } else {
                         $("#" + geniaiServerId)
-                                .addClass("format-" + data.format)
                                 .html(data.content)
                                 .addClass("geniai-error");
                     }
@@ -257,7 +256,7 @@
                 $.each(history, function(id, message) {
                     if (message.role == "user") {
                         geniaiareamensagens.append(
-                                `<div class="geniai-messagem format-${message.format}">${message.content}</div>`);
+                                `<div class="geniai-messagem">${message.content}</div>`);
                     } else if (message.role == "system") {
                         geniaiareamensagens.append(
                                 `<div class="geniai-messagem geniai-server">${message.content}</div>`);

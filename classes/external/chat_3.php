@@ -70,6 +70,6 @@ class chat_3 extends external_api {
      * @throws \coding_exception
      */
     public static function api($message, $courseid) {
-        return geniai_external_api::chat_api($message, $courseid);
+        return api::chat_api($message, $courseid);
     }
 }

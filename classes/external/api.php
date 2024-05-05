@@ -16,14 +16,16 @@
 
 namespace local_geniai\external;
 
+use local_geniai\markdown\parse_markdown;
+
 /**
- * Global external_api file.
+ * Global api file.
  *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class geniai_external_api {
+class api {
     /**
      * History api function.
      *
@@ -52,10 +54,11 @@ class geniai_external_api {
 
         $returnmessage = [];
         foreach ($messages as $message) {
-            $message->format = 'text';
-            if (preg_match('/<\w+>/', $message->content)) {
-                $message->format = 'html';
-            }
+
+            $result = new parse_markdown();
+            $message['content'] = $result->markdown_text($message['content']);
+            $message['format'] = 'html';
+
             $returnmessage[] = $message;
         }
 
@@ -93,7 +96,7 @@ class geniai_external_api {
             $messages = [
                 [
                     'role' => 'system',
-                    'content' => $content . ' and you only respond in HTML, and do not return any kind of JavaScript.',
+                    'content' => $content . ' and you only format in MARKDOWN.',
                 ], [
                     'role' => 'system',
                     'content' => get_string('url_moodle', 'local_geniai', $replace),
@@ -143,10 +146,10 @@ class geniai_external_api {
             ];
             $_SESSION["messages-{$courseid}"] = $messages;
 
-            $format = 'text';
-            if (preg_match('/<\w+>/', $content)) {
-                $format = 'html';
-            }
+            $result = new parse_markdown();
+            $content = $result->markdown_text($content);
+
+            $format = 'html';
             return [
                 'result' => true,
                 'format' => $format,

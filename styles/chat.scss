@@ -158,6 +158,11 @@
                         background-color: #e91e63;
                         color: #fff;
                     }
+                    p, ul, ol {
+                        &:last-child {
+                            margin-bottom: 0 !important;
+                        }
+                    }
                 }
             }
         }
