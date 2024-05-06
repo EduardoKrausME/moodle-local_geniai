@@ -118,7 +118,6 @@ $string['course_user'] = 'El estudiante está en el curso "{$a->course}" y el no
 $string['course_home'] = 'El estudiante está fuera del curso y el nombre del estudiante es "{$a->userfullname}".';
 
 $string['report_filename'] = 'Informe de uso de GPT Assistence';
-$string['report_filename'] = 'Informe de uso de GPT Assistence';
 $string['report_info'] = '<p>En el informe presentado, solo se encuentran disponibles las primeras 100 líneas. Para acceder a todos los registros, por favor, realiza la descarga completa del documento.</p><p>En cuanto a los tokens, una regla práctica es que un token generalmente corresponde a aproximadamente 4 caracteres de texto común en inglés. Esto equivale a aproximadamente ¾ de una palabra (por lo tanto, 100 tokens ~= 75 palabras). Obtén más información en la página <a href="https://platform.openai.com/tokenizer" target="_blank">Conoce más sobre la tokenización del modelo de lenguaje</a>.</p>';
 $string['report_datecreated'] = 'Día';
 $string['report_model'] = 'Modelo de ChatGPT';

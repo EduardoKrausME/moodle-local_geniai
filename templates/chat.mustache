@@ -90,7 +90,6 @@
 </div>
 
 {{#js}}
-    // <script>
     require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
 
         var courseid = parseInt("{{{courseid}}}");
@@ -139,21 +138,21 @@
             if (messagesend.length > 1) {
                 setTimeout(function() {
                     geniaitextarea.val("");
-                    geniaitextarea.css({height: 34});
+                    geniaitextarea.css({height : 34});
                     geniaisendarea.removeClass("geniai-active");
                 }, 20);
 
                 var geniaiServerId = "id-" + Math.random().toString(16).slice(2);
                 geniaiareamensagens.append(
                         `<div class="geniai-messagem" id="${geniaiServerId}-send"></div>
-                         <div class="geniai-messagem geniai-server"
-                              id="${geniaiServerId}">
-                              <svg height="40" class="geniai-loader">
-                                 <circle class="dot" cx="10" cy="20" r="3" style="fill:#777;" />
-                                 <circle class="dot" cx="20" cy="20" r="3" style="fill:#777;" />
-                                 <circle class="dot" cx="30" cy="20" r="3" style="fill:#777;" />
-                             </svg>
-                         </div>`);
+                     <div class="geniai-messagem geniai-server"
+                          id="${geniaiServerId}">
+                          <svg height="40" class="geniai-loader">
+                             <circle class="dot" cx="10" cy="20" r="3" style="fill:#777;" />
+                             <circle class="dot" cx="20" cy="20" r="3" style="fill:#777;" />
+                             <circle class="dot" cx="30" cy="20" r="3" style="fill:#777;" />
+                         </svg>
+                     </div>`);
                 $(`#${geniaiServerId}-send`).text(messagesend);
                 geniaiscrollarea.scrollTop = 10000000000000;
 
@@ -163,10 +162,10 @@
                 }
 
                 ajax.call([{
-                    methodname: methodname,
-                    args: {
-                        message: messagesend,
-                        courseid: courseid
+                    methodname : methodname,
+                    args       : {
+                        message  : messagesend,
+                        courseid : courseid
                     }
                 }])[0].done(function(data) {
 
@@ -187,7 +186,7 @@
         function resizeScrollarea() {
             var height = $(window).innerHeight() - 165;
             $("#geniai-scrollarea").css({
-                "max-height": height + "px"
+                "max-height" : height + "px"
             });
         }
 
@@ -225,10 +224,10 @@
             }
 
             ajax.call([{
-                methodname: methodname,
-                args: {
-                    courseid: courseid,
-                    action: "clear"
+                methodname : methodname,
+                args       : {
+                    courseid : courseid,
+                    action   : "clear"
                 }
             }]);
         });
@@ -246,10 +245,10 @@
             }
 
             ajax.call([{
-                methodname: methodname,
-                args: {
-                    courseid: courseid,
-                    action: "history"
+                methodname : methodname,
+                args       : {
+                    courseid : courseid,
+                    action   : "history"
                 }
             }])[0].done(function(data) {
                 var history = JSON.parse(data.content);
