@@ -130,10 +130,12 @@ class api {
 
         $gpt = self::chat_completions($messages);
         if (isset($gpt['error'])) {
+            $result = new parse_markdown();
+            $content = $result->markdown_text($gpt['error']['message']);
             return [
                 'result' => false,
                 'format' => 'text',
-                'content' => $gpt['error']['message'],
+                'content' => $content,
             ];
         }
 
