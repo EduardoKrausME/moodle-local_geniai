@@ -32,7 +32,7 @@ if ($hassiteconfig) {
 
     $ADMIN->add('localplugins', $settings);
 
-    $setting = new admin_setting_configtext(
+    $setting = new admin_setting_configpasswordunmask(
         'local_geniai/apikey',
         get_string('apikey', 'local_geniai'),
         get_string('apikeydesc', 'local_geniai'),
