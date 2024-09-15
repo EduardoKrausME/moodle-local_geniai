@@ -44,7 +44,7 @@
                 <div class="geniai-info">
                     {{#pix}}icon,local_geniai{{/pix}}
                     <div class="geniai-infoname">
-                        <span class="geniai-name">GeniAI</span>
+                        <span class="geniai-name">{{{geniainame}}}</span>
                         <span class="geniai-status">{{#str}}online,local_geniai{{/str}}</span>
                     </div>
                 </div>
@@ -145,14 +145,14 @@
                 var geniaiServerId = "id-" + Math.random().toString(16).slice(2);
                 geniaiareamensagens.append(
                         `<div class="geniai-messagem" id="${geniaiServerId}-send"></div>
-                     <div class="geniai-messagem geniai-server"
-                          id="${geniaiServerId}">
-                          <svg height="40" class="geniai-loader">
-                             <circle class="dot" cx="10" cy="20" r="3" style="fill:#777;" />
-                             <circle class="dot" cx="20" cy="20" r="3" style="fill:#777;" />
-                             <circle class="dot" cx="30" cy="20" r="3" style="fill:#777;" />
-                         </svg>
-                     </div>`);
+                 <div class="geniai-messagem geniai-server"
+                      id="${geniaiServerId}">
+                      <svg height="40" class="geniai-loader">
+                         <circle class="dot" cx="10" cy="20" r="3" style="fill:#777;" />
+                         <circle class="dot" cx="20" cy="20" r="3" style="fill:#777;" />
+                         <circle class="dot" cx="30" cy="20" r="3" style="fill:#777;" />
+                     </svg>
+                 </div>`);
                 $(`#${geniaiServerId}-send`).text(messagesend);
                 geniaiscrollarea.scrollTop = 10000000000000;
 
