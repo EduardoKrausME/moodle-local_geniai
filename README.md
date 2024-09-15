@@ -16,8 +16,8 @@ Depois de efetuar um pagamento bem-sucedido de US$ 5 ou mais (nível de uso 1), 
 
 ### Prints
 
-![Alt text](pix/print/captura-01.png?raw=true "Imagem 1")
+![captura-01](https://github.com/user-attachments/assets/2937d9dd-aec3-45c9-83c5-19693260a964)
 
-![Alt text](pix/print/captura-02.png?raw=true "Imagem 2")
+![captura-02](https://github.com/user-attachments/assets/518e49b4-4f15-4e2b-823d-006c8f139bf3)
 
-![Alt text](pix/print/captura-03.png?raw=true "Imagem 3")
+![captura-03](https://github.com/user-attachments/assets/b831a716-ee8c-464f-a6c7-4d7304fc5c03)
