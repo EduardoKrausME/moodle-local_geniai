@@ -35,7 +35,7 @@ use local_geniai\util\release;
 function local_geniai_before_footer() {
     global $OUTPUT, $USER, $DB, $SITE;
 
-    if (!isset(get_config('local_geniai', 'apikey')[5])) {
+    if (!isset(get_config("local_geniai", "apikey")[5])) {
         return;
     } else if (guest_user()->id == $USER->id) {
         return;
@@ -43,19 +43,32 @@ function local_geniai_before_footer() {
         return;
     }
 
+    $capability = has_capability("local/geniai:manage", context_system::instance());
+    if (!$capability) {
+        $modules = explode(",", get_config("local_geniai", "modules"));
+        foreach ($modules as $module) {
+            if (strpos($_SERVER["REQUEST_URI"], "mod/{$module}/") >= 1) {
+                return;
+            }
+        }
+    }
+
     require_once(__DIR__ . "/classes/events/event_observers.php");
     $data = [
-        'courseid' => event_observers::$courseid,
-        'message_01' => get_string('message_01', 'local_geniai', fullname($USER)),
-        'manage_capability' => has_capability('local/geniai:manage', context_system::instance()),
-        'release' => release::version(),
+        "courseid" => event_observers::$courseid,
+        "message_01" => get_string("message_01", "local_geniai", fullname($USER)),
+        "manage_capability" => $capability,
+        "release" => release::version(),
+        "geniainame" => get_config("local_geniai", "geniainame")
     ];
+
+    $geniainame = get_config("local_geniai", "geniainame");
     if (event_observers::$courseid) {
-        $course = $DB->get_record('course', ['id' => event_observers::$courseid]);
-        $data['message_02'] = get_string('message_02_course', 'local_geniai',
-            ['moodlename' => $SITE->fullname, 'coursename' => $course->fullname]);
+        $course = $DB->get_record("course", ["id" => event_observers::$courseid]);
+        $data["message_02"] = get_string("message_02_course", "local_geniai",
+            ["geniainame" => $geniainame, "moodlename" => $SITE->fullname, "coursename" => $course->fullname]);
     } else {
-        $data['message_02'] = get_string('message_02_home', 'local_geniai');
+        $data["message_02"] = get_string("message_02_home", "local_geniai", $geniainame);
     }
 
     echo $OUTPUT->render_from_template("local_geniai/chat", $data);
