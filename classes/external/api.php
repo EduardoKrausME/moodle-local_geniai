@@ -86,8 +86,10 @@ class api {
             $messages = $_SESSION["messages-{$courseid}"];
         } else {
 
-            $content = get_config('local_geniai', 'prompt');
-            $content = str_replace("{user-lang}", $USER->lang, $content);
+            $prompt = get_config('local_geniai', 'prompt');
+            $prompt = str_replace("{geniainame}", get_config('local_geniai', 'geniainame'), $prompt);
+            $prompt = str_replace("{user-lang}", $USER->lang, $prompt);
+            $prompt = str_replace("{moodle-name}", $SITE->fullname, $prompt);
 
             $replace = [
                 'wwwroot' => $CFG->wwwroot,
@@ -96,7 +98,7 @@ class api {
             $messages = [
                 [
                     'role' => 'system',
-                    'content' => $content . ' and you only format in MARKDOWN.',
+                    'content' => $prompt . ' and you only format in MARKDOWN.',
                 ], [
                     'role' => 'system',
                     'content' => get_string('url_moodle', 'local_geniai', $replace),
@@ -180,17 +182,59 @@ class api {
 
         $apikey = get_config('local_geniai', 'apikey');
         $model = get_config('local_geniai', 'model');
-        $temperature = get_config('local_geniai', 'temperature');
-        $topp = get_config('local_geniai', 'top_p');
         $maxtokens = get_config('local_geniai', 'max_tokens');
         $frequencypenalty = get_config('local_geniai', 'frequency_penalty');
         $presencepenalty = get_config('local_geniai', 'presence_penalty');
 
+        switch (get_config('local_geniai', 'case')) {
+
+
+            case 'text_code_generation':
+                $temperature = .1;
+                $topp = .1;
+                break;
+            case 'data_analysis_script':
+                $temperature = .2;
+                $topp = .1;
+                break;
+            case 'text_comment_generation':
+                $temperature = .3;
+                $topp = .2;
+                break;
+            case 'chatbot':
+                $temperature = .5;
+                $topp = .5;
+                break;
+            case 'exploratory_writing':
+                $temperature = .6;
+                $topp = .7;
+                break;
+            case 'creative_writing':
+                $temperature = .7;
+                $topp = .8;
+                break;
+            case 'idea_brainstorming':
+                $temperature = .8;
+                $topp = .9;
+                break;
+            case 'fictitious_dialogue_generation':
+                $temperature = .9;
+                $topp = .95;
+                break;
+            case 'surreal_story_generation':
+                $temperature = 1.0;
+                $topp = 1.0;
+                break;
+            default:
+                $temperature = .5;
+                $topp = .5;
+        }
+
         $post = (object)[
             'model' => $model,
             'messages' => $messages,
-            'temperature' => floatval($temperature),
-            'top_p' => floatval($topp),
+            'temperature' => $temperature,
+            'top_p' => $topp,
             'max_tokens' => intval($maxtokens),
             'frequency_penalty' => floatval($frequencypenalty),
             'presence_penalty' => floatval($presencepenalty),

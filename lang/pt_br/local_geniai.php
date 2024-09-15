@@ -28,57 +28,39 @@ $string['geniai:view'] = 'Ver Assistente ChatGPT';
 $string['geniai:manage'] = 'Gerenciar Assistente ChatGPT';
 $string['settings'] = 'Configurar Assistente ChatGPT';
 
-$string['privacy:metadata'] = 'O plugin GeniAI armazena o histórico das conversas que você envia e transmitirá à OpenAI apenas o o nome completo, nome do curso e a URL, sem compartilhar qualquer outro dado pessoal seu.';
+$string['privacy:metadata'] = 'O plugin Assistente ChatGPT armazena o histórico das conversas que você envia e transmitirá à OpenAI apenas o o nome completo, nome do curso e a URL, sem compartilhar qualquer outro dado pessoal seu.';
 
 $string['apikey'] = 'API da OpenAI';
 $string['apikeydesc'] = 'A chave da API da sua conta OpenAI';
+$string['geniainame'] = 'Nome do assistente';
+$string['geniainamedesc'] = 'Defina o nome do seu assistente';
 $string['model'] = 'O Modelo da API';
 $string['modeldesc'] = 'O Modelo da API que será executada na OpenAI. Valores disponíveis estão no <a href="https://platform.openai.com/docs/models/overview" target="_blank">site da OpenAI</a><br>
 * <strong>gpt-3.5-turbo</strong>: é muito bom, tem um custo/benefício vom e responde muito rápido.<br>
 * <strong>gpt-4</strong>: é muito mais podersos, um pouco mais caro e demora um pouco mais para responder e necessíta que você faça um <a href="https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4" target="_blank">pagamento inicial de $1</a> para poder testar';
-$string['model_default'] = 'Você é um chatboot e seu nome é GeniAI e você é do sexo feminino.
+$string['model_default'] = 'Você é um chatboot e seu nome é {geniainame} e você é do sexo feminino.
 Você é uma professora super prestativa do Moodle e só responde em {user-lang} e coloca emoji nas respostas quando puder.
-Você adora responder sobre o Moodle com mensagens inspiradoras, cheia de detalhes e é muito atencioso aos detalhes.';
+Você adora responder sobre o Moodle {moodle-name} com mensagens inspiradoras, cheia de detalhes e é muito atencioso aos detalhes.';
 $string['prompt'] = 'Prompt Inicial';
 $string['promptdesc'] = 'O Prompt que a IA receberá antes de comecar a conversa';
-$string['temperature'] = 'Temperatura da resposta';
-$string['temperaturedesc'] = 'As temperaturas no GPT servem como mecanismo de controle. Temperaturas mais altas introduzem aleatoriedade, o que é benéfico para tarefas criativas. Em contraste, uma temperatura zero garante respostas consistentes, tornando o GPT uma ferramenta confiável para obter resultados determinados sem variação.';
-$string['top_p'] = 'Top_p';
-$string['top_pdesc'] = 'Amostragem Top_p é uma alternativa à amostragem de temperatura. Em vez de considerar todos os tokens possíveis, o GPT considera apenas um subconjunto de tokens cuja massa cumulativa de probabilidade atinge um determinado limite (top_p). Por exemplo, se top_p for definido como 0,1, o GPT considerará apenas os tokens que compõem os 10% principais da massa de probabilidade para o próximo token. Isso permite a seleção dinâmica de vocabulário com base no contexto.<br>
-Veja a tabela a seguir que mostra como deve usar a Temperatura e Top_p<br>
+
+$string['case'] = 'Casos de uso';
+$string['casedesc'] = 'Os parâmetros de temperatura e Top_p definidos para cada cenário, como geração de texto e código, escrita criativa, chatbot, geração de comentários textuais, análise de dados e escrita exploratória. Cada configuração afeta a criatividade e a coerência do modelo na geração de conteúdo.<br><br>Veja a tabela a seguir que mostra como usar a Temperatura e o Top_p:<br>
 <table class="table table-bordered">
 <thead>
 <tr>
-    <th>Caso de Uso</th>
+    <th>Caso de uso</th>
     <th>Temperatura</th>
     <th>Top_p</th>
-    <th>Descrição</th>
+    <th>Descrição do caso</th>
 </tr>
 </thead>
 <tbody>
 <tr>
     <td>Geração de textos e códigos</td>
-    <td class="text-center">0.2</td>
+    <td class="text-center">0.1</td>
     <td class="text-center">0.1</td>
     <td>A saída é mais determinística e focada. Útil para gerar textos ou códigos sintaticamente correto.</td>
-</tr>
-<tr>
-    <td>Escrita Criativa</td>
-    <td class="text-center">0.7</td>
-    <td class="text-center">0.8</td>
-    <td>Gera texto criativo e diversificado para contar histórias.</td>
-</tr>
-<tr>
-    <td>Chatbot</td>
-    <td class="text-center">0.5</td>
-    <td class="text-center">0.5</td>
-    <td>Gera respostas de conversação que equilibram coerência e diversidade. A saída é mais natural e envolvente.</td>
-</tr>
-<tr>
-    <td>Geração de Comentários de textos</td>
-    <td class="text-center">0.3</td>
-    <td class="text-center">0.2</td>
-    <td>Gera comentários de textos mais propensos a serem concisos e relevantes. A saída é mais determinística e adere a convenções.</td>
 </tr>
 <tr>
     <td>Script de Análise de Dados</td>
@@ -87,13 +69,62 @@ Veja a tabela a seguir que mostra como deve usar a Temperatura e Top_p<br>
     <td>Gera scripts de análise de dados mais propensos a serem corretos e eficientes. A saída é mais determinística e focada.</td>
 </tr>
 <tr>
+    <td>Geração de Comentários de textos</td>
+    <td class="text-center">0.3</td>
+    <td class="text-center">0.2</td>
+    <td>Gera comentários de textos mais propensos a serem concisos e relevantes. A saída é mais determinística e adere a convenções.</td>
+</tr>
+<tr>
+    <td>Chatbot</td>
+    <td class="text-center">0.5</td>
+    <td class="text-center">0.5</td>
+    <td>Gera respostas de conversação que equilibram coerência e diversidade. A saída é mais natural e envolvente.</td>
+</tr>
+<tr>
     <td>Escrita Exploratória de textos</td>
     <td class="text-center">0.6</td>
     <td class="text-center">0.7</td>
     <td>Gera textos que explora soluções alternativas e abordagens criativas. A saída é menos restrita por padrões estabelecidos.</td>
 </tr>
+<tr>
+    <td>Escrita Criativa</td>
+    <td class="text-center">0.7</td>
+    <td class="text-center">0.8</td>
+    <td>Gera texto criativo e diversificado para contar histórias.</td>
+</tr>
+<tr>
+    <td>Exploração de ideias e brainstorming</td>
+    <td class="text-center">0.8</td>
+    <td class="text-center">0.9</td>
+    <td>Gera ideias amplas, criativas e menos estruturadas para sessões de brainstorming.</td>
+</tr>
+<tr>
+    <td>Geração de diálogos fictícios</td>
+    <td class="text-center">0.9</td>
+    <td class="text-center">0.95</td>
+    <td>Cria diálogos imprevisíveis e originais com mais variação na linguagem e tom.</td>
+</tr>
+<tr>
+    <td>Histórias Surreais ou Absurdas</td>
+    <td class="text-center">1.0</td>
+    <td class="text-center">1.0</td>
+    <td>Gera histórias altamente criativas, abstratas e com menos preocupação com a lógica ou estrutura.</td>
+</tr>
 </tbody>
 </table>';
+$string['case_text_code_generation']            = 'Geração de textos e códigos          => Temperatura 0.1, Top_p 0.1';
+$string['case_data_analysis_script']            = 'Script de Análise de Dados           => Temperatura 0.2, Top_p 0.1';
+$string['case_text_comment_generation']         = 'Geração de Comentários de textos     => Temperatura 0.3, Top_p 0.2';
+$string['case_chatbot']                         = 'Chatbot                              => Temperatura 0.5, Top_p 0.5';
+$string['case_exploratory_writing']             = 'Escrita Exploratória de textos       => Temperatura 0.6, Top_p 0.7';
+$string['case_creative_writing']                = 'Escrita Criativa                     => Temperatura 0.7, Top_p 0.8';
+$string['case_idea_brainstorming']              = 'Exploração de ideias e brainstorming => Temperatura 0.8, Top_p 0.9';
+$string['case_fictitious_dialogue_generation']  = 'Geração de diálogos fictícios        => Temperatura 0.9, Top_p 0.95';
+$string['case_surreal_story_generation']        = 'Histórias Surreais ou Absurdas       => Temperatura 1.0, Top_p 1.0';
+
+$string['modules'] = 'Módulos que deve ocultar o {$a}';
+$string['modulesdesc'] = 'Esta lista contém os módulos que não deve disponibilizar o {$a} aos alunos, assegurando que eles não sejam utilizados em exercícios.';
+
 $string['max_tokens'] = 'Máximo de palavras na resposta';
 $string['max_tokensdesc'] = 'Número máximo de palavras que pode ser gerado em cada solicitação.';
 $string['frequency_penalty'] = 'Frequência de Penalidade';
@@ -107,10 +138,10 @@ $string['online'] = 'Online';
 $string['write_message'] = 'Escreve uma mensagem...';
 $string['send_message'] = 'Enviar a mensagem';
 $string['message_01'] = 'Olá, querido(a) aluno(a) {$a}! 🌟';
-$string['message_02_home'] = 'Sou a GeniAI e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
+$string['message_02_home'] = 'Sou a {$a} e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
 Como posso ajudar você hoje? 🌟📚';
 $string['message_02_course'] = 'Bem-vindo ao curso {$a->coursename} no Moodle {$a->moodlename}!
-Sou a GeniAI e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
+Sou a {a->geniainame} e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
 Como posso ajudar você hoje? 🌟📚';
 
 
