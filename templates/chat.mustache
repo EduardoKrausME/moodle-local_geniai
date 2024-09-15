@@ -92,6 +92,12 @@
 {{#js}}
     require(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
 
+        if ($('.pagelayout-embedded, .pagelayout-maintenance').length) {
+            $("#geniai-chat").hide();
+            $("#geniai-chat").remove();
+            return;
+        }
+
         var courseid = parseInt("{{{courseid}}}");
         var release = parseFloat("{{{release}}}");
         var geniaiscrollarea = document.getElementById("geniai-scrollarea");
