@@ -22,8 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['course_home'] = 'O aluno está fora da disciplina e nome do aluno é "{$a->userfullname}".';
+$string['course_user'] = 'O aluno está na disciplina "{$a->course}" e nome do aluno é "{$a->userfullname}"';
 $string['message_02_course'] = 'Bem-vindo à disciplina {$a->coursename} no Moodle {$a->moodlename}!
 Sou a {a->geniainame} e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
 Como posso ajudar você hoje? 🌟📚';
-$string['course_user'] = 'O aluno está na disciplina "{$a->course}" e nome do aluno é "{$a->userfullname}"';
-$string['course_home'] = 'O aluno está fora da disciplina e nome do aluno é "{$a->userfullname}".';

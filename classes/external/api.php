@@ -187,8 +187,6 @@ class api {
         $presencepenalty = get_config('local_geniai', 'presence_penalty');
 
         switch (get_config('local_geniai', 'case')) {
-
-
             case 'text_code_generation':
                 $temperature = .1;
                 $topp = .1;

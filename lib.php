@@ -59,7 +59,7 @@ function local_geniai_before_footer() {
         "message_01" => get_string("message_01", "local_geniai", fullname($USER)),
         "manage_capability" => $capability,
         "release" => release::version(),
-        "geniainame" => get_config("local_geniai", "geniainame")
+        "geniainame" => get_config("local_geniai", "geniainame"),
     ];
 
     $geniainame = get_config("local_geniai", "geniainame");
