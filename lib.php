@@ -33,7 +33,7 @@ use local_geniai\util\release;
  * @throws moodle_exception
  */
 function local_geniai_before_footer() {
-    global $OUTPUT, $USER, $DB, $SITE;
+    global $DB, $OUTPUT, $PAGE, $COURSE, $USER, $SITE;
 
     if (!isset(get_config("local_geniai", "apikey")[5])) {
         return;
@@ -55,16 +55,14 @@ function local_geniai_before_footer() {
 
     require_once(__DIR__ . "/classes/events/event_observers.php");
     $data = [
-        "courseid" => event_observers::$courseid,
         "message_01" => get_string("message_01", "local_geniai", fullname($USER)),
         "manage_capability" => $capability,
-        "release" => release::version(),
         "geniainame" => get_config("local_geniai", "geniainame"),
     ];
 
     $geniainame = get_config("local_geniai", "geniainame");
-    if (event_observers::$courseid) {
-        $course = $DB->get_record("course", ["id" => event_observers::$courseid]);
+    if ($COURSE->id) {
+        $course = $DB->get_record("course", ["id" => $COURSE->id]);
         $data["message_02"] = get_string("message_02_course", "local_geniai",
             ["geniainame" => $geniainame, "moodlename" => $SITE->fullname, "coursename" => $course->fullname]);
     } else {
@@ -72,4 +70,5 @@ function local_geniai_before_footer() {
     }
 
     echo $OUTPUT->render_from_template("local_geniai/chat", $data);
+    $PAGE->requires->js_call_amd('local_geniai/chat', 'init', [$COURSE->id, release::version()]);
 }

@@ -27,8 +27,8 @@
 
     Example context (json):
     {
+        "geniainame"; "Name",
         "manage_capability": true,
-        "courseid": 123,
         "message_01": "string",
         "message_02": "string"
     }
@@ -36,6 +36,9 @@
 
 <link rel="stylesheet" type="text/css"
       href="{{{config.wwwroot}}}/local/geniai/styles/chat.css">
+
+<input type="hidden" id="local_geniai_message_01" value="{{message_01}}">
+<input type="hidden" id="local_geniai_message_02" value="{{message_02}}">
 
 <div id="geniai-chat" style="display: none">
     <div class="geniai-popup">
@@ -62,8 +65,7 @@
                     {{#str}}clear_history,local_geniai{{/str}}
                 </div>
             </div>
-            <div id="geniai-area-mensagens">
-            </div>
+            <div id="geniai-area-mensagens"></div>
         </div>
         <div id="geniai-sendarea">
             <textarea id="geniai-textarea" contenteditable="true"
@@ -88,7 +90,3 @@
         </span>
     </div>
 </div>
-
-{{#js}}
-    require(['local_geniai/chat']);
-{{/js}}
