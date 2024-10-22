@@ -29,9 +29,10 @@ $capabilities = [
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => [
+            'guest' => CAP_PROHIBIT,
+            'student' => CAP_ALLOW,
             'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
-            'coursecreator' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
         ],
     ],
