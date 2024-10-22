@@ -35,7 +35,6 @@ class view extends \table_sql {
      * @param string $uniqueid
      *
      * @throws \coding_exception
-     * @throws \dml_exception
      */
     public function __construct($uniqueid) {
         parent::__construct($uniqueid);
