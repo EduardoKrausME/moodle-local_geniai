@@ -64,8 +64,12 @@ class history_3 extends external_api {
      * @param string $action
      *
      * @return array
+     * @throws \required_capability_exception
      */
     public static function api($courseid, $action) {
+        $context = \context_course::instance($courseid);
+        require_capability('mod/supervideo:view', $context);
+
         return api::history_api($courseid, $action);
     }
 }

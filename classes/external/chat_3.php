@@ -68,8 +68,12 @@ class chat_3 extends external_api {
      *
      * @throws \dml_exception
      * @throws \coding_exception
+     * @throws \required_capability_exception
      */
     public static function api($message, $courseid) {
-        return api::chat_api($message, $courseid);
+        $context = \context_course::instance($courseid);
+        require_capability('mod/supervideo:view', $context);
+
+        return api::chat_api($courseid, $message);
     }
 }

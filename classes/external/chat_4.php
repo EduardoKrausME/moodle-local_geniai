@@ -66,10 +66,17 @@ class chat_4 extends external_api {
      *
      * @return array
      *
-     * @throws \dml_exception
      * @throws \coding_exception
+     * @throws \core_external\restricted_context_exception
+     * @throws \dml_exception
+     * @throws \invalid_parameter_exception
+     * @throws \required_capability_exception
      */
     public static function api($message, $courseid) {
-        return api::chat_api($message, $courseid);
+        $context = \context_course::instance($courseid);
+        self::validate_context($context);
+        require_capability('mod/supervideo:view', $context);
+
+        return api::chat_api($courseid, $message);
     }
 }
