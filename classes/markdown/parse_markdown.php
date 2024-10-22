@@ -494,6 +494,8 @@ class parse_markdown {
 
             return $markdownblock;
         }
+
+        return null;
     }
 
     /**
@@ -516,7 +518,7 @@ class parse_markdown {
      *
      * @param array $line
      *
-     * @return mixed
+     * @return array
      */
     protected function block_comment(array $line) {
         if ($this->markupescaped || $this->safemode) {
@@ -540,6 +542,8 @@ class parse_markdown {
 
             return $markdownblock;
         }
+
+        return null;
     }
 
     /**
@@ -702,6 +706,7 @@ class parse_markdown {
      * block list function.
      *
      * @param array $line
+     *
      * @return array
      */
     protected function block_list(array $line) {
@@ -737,6 +742,8 @@ class parse_markdown {
 
             return $markdownblock;
         }
+
+        return null;
     }
 
     /**
@@ -825,6 +832,7 @@ class parse_markdown {
      * block quote function.
      *
      * @param array $line
+     *
      * @return array|null
      */
     protected function block_quote(array $line) {
@@ -1202,12 +1210,15 @@ class parse_markdown {
 
             return $markdownblock;
         }
+
+        return null;
     }
 
     /**
      * paragraph function.
      *
      * @param array $line
+     *
      * @return array
      */
     protected function paragraph($line) {
@@ -1325,6 +1336,8 @@ class parse_markdown {
                 ],
             ];
         }
+
+        return null;
     }
 
     /**
@@ -1354,6 +1367,8 @@ class parse_markdown {
                 ],
             ];
         }
+
+        return null;
     }
 
     /**
@@ -1402,6 +1417,8 @@ class parse_markdown {
                 'extent' => 2,
             ];
         }
+
+        return null;
     }
 
     /**
@@ -1543,6 +1560,8 @@ class parse_markdown {
                 'extent' => strlen($matches[0]),
             ];
         }
+
+        return null;
     }
 
     /**
@@ -1568,6 +1587,8 @@ class parse_markdown {
                 'extent' => 1,
             ];
         }
+
+        return null;
     }
 
     /**
@@ -1592,6 +1613,8 @@ class parse_markdown {
                 ],
             ];
         }
+
+        return null;
     }
 
     /**
@@ -1624,6 +1647,8 @@ class parse_markdown {
 
             return $inline;
         }
+
+        return null;
     }
 
     /**
@@ -1649,6 +1674,8 @@ class parse_markdown {
                 ],
             ];
         }
+
+        return null;
     }
 
     /**
