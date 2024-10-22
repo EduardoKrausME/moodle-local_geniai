@@ -80,7 +80,7 @@ class api {
      * @throws \coding_exception
      * @throws \dml_exception
      */
-    public static function chat_api($courseid,$message) {
+    public static function chat_api($courseid, $message) {
         global $CFG, $DB, $USER, $SITE;
 
         if (isset($_SESSION["messages-{$courseid}"][0])) {
