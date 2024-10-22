@@ -108,6 +108,7 @@ $string['course_user'] = 'The student is in the "{$a->course}" course.';
 $string['frequency_penalty'] = 'Frequency Penalty';
 $string['frequency_penaltydesc'] = 'This parameter is used to discourage the model from repeating the same words or phrases too frequently within the generated text. It is a value added to the log-probability of a token each time it occurs in the generated text. A higher frequency penalty value will make the model more conservative in using repeated tokens.';
 $string['geniai:manage'] = 'Manage ChatGPT Assistant';
+$string['geniai:report'] = 'View ChatGPT Reports';
 $string['geniai:view'] = 'View ChatGPT Assistant';
 $string['geniainame'] = 'Assistant name';
 $string['geniainamedesc'] = 'Set the name of your assistant';

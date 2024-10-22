@@ -27,7 +27,7 @@ require_once($CFG->libdir . '/tablelib.php');
 require_once(__DIR__ . "/classes/report/view.php");
 
 require_login();
-require_capability('local/geniai:manage', context_system::instance());
+require_capability('local/geniai:report', context_system::instance());
 
 $table = new \local_geniai\report\view("geniai_report");
 

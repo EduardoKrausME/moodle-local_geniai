@@ -60,15 +60,17 @@ function local_geniai_before_footer() {
         "geniainame" => get_config("local_geniai", "geniainame"),
     ];
 
-    $geniainame = get_config("local_geniai", "geniainame");
-    if ($COURSE->id) {
-        $course = $DB->get_record("course", ["id" => $COURSE->id]);
-        $data["message_02"] = get_string("message_02_course", "local_geniai",
-            ["geniainame" => $geniainame, "moodlename" => $SITE->fullname, "coursename" => $course->fullname]);
-    } else {
-        $data["message_02"] = get_string("message_02_home", "local_geniai", $geniainame);
-    }
+    if (has_capability("local/geniai:view", context_system::instance())) {
+        $geniainame = get_config("local_geniai", "geniainame");
+        if ($COURSE->id) {
+            $course = $DB->get_record("course", ["id" => $COURSE->id]);
+            $data["message_02"] = get_string("message_02_course", "local_geniai",
+                ["geniainame" => $geniainame, "moodlename" => $SITE->fullname, "coursename" => $course->fullname]);
+        } else {
+            $data["message_02"] = get_string("message_02_home", "local_geniai", $geniainame);
+        }
 
-    echo $OUTPUT->render_from_template("local_geniai/chat", $data);
-    $PAGE->requires->js_call_amd('local_geniai/chat', 'init', [$COURSE->id, release::version()]);
+        echo $OUTPUT->render_from_template("local_geniai/chat", $data);
+        $PAGE->requires->js_call_amd('local_geniai/chat', 'init', [$COURSE->id, release::version()]);
+    }
 }
