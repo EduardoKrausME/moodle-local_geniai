@@ -26,6 +26,7 @@ use local_geniai\markdown\parse_markdown;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class api {
+
     /**
      * History api function.
      *
@@ -79,7 +80,7 @@ class api {
      * @throws \coding_exception
      * @throws \dml_exception
      */
-    public static function chat_api($message, $courseid) {
+    public static function chat_api($courseid,$message) {
         global $CFG, $DB, $USER, $SITE;
 
         if (isset($_SESSION["messages-{$courseid}"][0])) {
@@ -176,6 +177,7 @@ class api {
      * @return mixed
      *
      * @throws \dml_exception
+     * @throws \coding_exception
      */
     public static function chat_completions($messages) {
         global $DB;
@@ -238,27 +240,14 @@ class api {
             'presence_penalty' => floatval($presencepenalty),
         ];
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/chat/completions');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            "Authorization: Bearer {$apikey}",
+        $curl = new \curl();
+        $curl->setopt([
+            'CURLOPT_HTTPHEADER' => [
+                'Content-Type: application/json',
+                "Authorization: Bearer {$apikey}",
+            ],
         ]);
-
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            return [
-                'error' => [
-                    'message' => 'http error: ' . curl_error($ch),
-                ],
-            ];
-        }
-        curl_close($ch);
-
+        $result = $curl->get('https://api.openai.com/v1/chat/completions');
         $gpt = json_decode($result, true);
 
         $usage = (object)[
