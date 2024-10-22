@@ -109,13 +109,13 @@ class api {
                     $messages[] = [
                         'role' => 'system',
                         'content' => get_string('course_user', 'local_geniai',
-                            ['course' => $course->fullname, 'userfullname' => fullname($USER)]),
+                            ['course' => $course->fullname]),
                     ];
                 }
             } else {
                 $messages[] = [
                     'role' => 'system',
-                    'content' => get_string('course_home', 'local_geniai', ['userfullname' => fullname($USER)]),
+                    'content' => get_string('course_home', 'local_geniai'),
                 ];
             }
         }
