@@ -68,7 +68,7 @@ class history_3 extends external_api {
      */
     public static function api($courseid, $action) {
         $context = \context_course::instance($courseid);
-        require_capability('mod/supervideo:view', $context);
+        require_capability('local/geniai:view', $context);
 
         return api::history_api($courseid, $action);
     }

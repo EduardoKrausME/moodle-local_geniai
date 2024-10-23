@@ -75,7 +75,7 @@ class chat_4 extends external_api {
     public static function api($message, $courseid) {
         $context = \context_course::instance($courseid);
         self::validate_context($context);
-        require_capability('mod/supervideo:view', $context);
+        require_capability('local/geniai:view', $context);
 
         return api::chat_api($courseid, $message);
     }
