@@ -76,7 +76,7 @@ class view extends \table_sql {
      * @throws \coding_exception
      */
     public function col_datecreated($linha) {
-        return userdate($linha->timecreated, get_string('strftimedate', 'langconfig'));
+        return userdate(strtotime($linha->datecreated), get_string('strftimedate', 'langconfig'));
     }
 
     /**
@@ -106,8 +106,7 @@ class view extends \table_sql {
                   FROM (
                       SELECT SUM(prompt_tokens)     AS prompt_tokens,
                              SUM(completion_tokens) AS completion_tokens,
-                             datecreated,
-                             model, timecreated
+                             datecreated, model
                         FROM {local_geniai_usage}
                     GROUP BY model, datecreated
                     ORDER BY datecreated DESC
