@@ -247,7 +247,7 @@ class api {
                 "Authorization: Bearer {$apikey}",
             ],
         ]);
-        $result = $curl->get('https://api.openai.com/v1/chat/completions');
+        $result = $curl->post('https://api.openai.com/v1/chat/completions', json_encode($post));
         $gpt = json_decode($result, true);
 
         $usage = (object)[
