@@ -16,6 +16,7 @@
 
 namespace local_geniai\external;
 
+use curl;
 use local_geniai\markdown\parse_markdown;
 
 /**
@@ -240,7 +241,7 @@ class api {
             'presence_penalty' => floatval($presencepenalty),
         ];
 
-        $curl = new \curl();
+        $curl = new curl();
         $curl->setopt([
             'CURLOPT_HTTPHEADER' => [
                 'Content-Type: application/json',
