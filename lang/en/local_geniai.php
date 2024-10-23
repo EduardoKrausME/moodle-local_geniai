@@ -116,7 +116,7 @@ $string['max_tokens'] = 'Maximum Words in Response';
 $string['max_tokensdesc'] = 'Maximum number of words that can be generated in each request.';
 $string['message_01'] = 'Hello, dear student {$a}! 🌟';
 $string['message_02_course'] = 'Welcome to the {$a->coursename} course on Moodle {$a->moodlename}!
-I am {a->geniainame}, and I am here to make your learning journey as amazing as possible.
+I am {$a->geniainame}, and I am here to make your learning journey as amazing as possible.
 How can I help you today? 🌟📚';
 $string['message_02_home'] = 'I am {$a}, and I am here to make your learning journey as amazing as possible.
 How can I help you today? 🌟📚';
