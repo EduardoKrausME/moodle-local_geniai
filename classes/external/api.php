@@ -181,7 +181,7 @@ class api {
      * @throws \coding_exception
      */
     public static function chat_completions($messages) {
-        global $DB;
+        global $DB, $CFG;
 
         $apikey = get_config('local_geniai', 'apikey');
         $model = get_config('local_geniai', 'model');
@@ -241,6 +241,7 @@ class api {
             'presence_penalty' => floatval($presencepenalty),
         ];
 
+        require_once("{$CFG->libdir}/filelib.php");
         $curl = new curl();
         $curl->setopt([
             'CURLOPT_HTTPHEADER' => [
