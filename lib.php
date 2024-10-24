@@ -22,8 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_geniai\events\event_observers;
-use local_geniai\util\release;
+use local_geniai\local\util\release;
 
 /**
  * Before footer.

@@ -17,7 +17,7 @@
 namespace local_geniai\external;
 
 use curl;
-use local_geniai\markdown\parse_markdown;
+use local_geniai\local\markdown\parse_markdown;
 
 /**
  * Global api file.

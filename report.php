@@ -29,7 +29,7 @@ require_once(__DIR__ . "/classes/report/view.php");
 require_login();
 require_capability('local/geniai:report', context_system::instance());
 
-$table = new \local_geniai\report\view("geniai_report");
+$table = new \local_geniai\local\report\view("geniai_report");
 
 if (!$table->is_downloading()) {
     $PAGE->set_context(context_system::instance());
