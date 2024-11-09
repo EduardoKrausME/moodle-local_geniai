@@ -28,91 +28,120 @@ if ($hassiteconfig) {
 
     global $CFG, $PAGE;
 
-    $settings = new admin_settingpage('local_geniai', get_string('pluginname', 'local_geniai'));
+    $settings = new admin_settingpage("local_geniai", get_string("pluginname", "local_geniai"));
 
-    $ADMIN->add('localplugins', $settings);
-
-    $setting = new admin_setting_configpasswordunmask(
-        'local_geniai/apikey',
-        get_string('apikey', 'local_geniai'),
-        get_string('apikeydesc', 'local_geniai'),
-        '');
-    $settings->add($setting);
-
-    $geniainame = get_config('local_geniai', 'geniainame');
-    if (!isset($geniainame[2])) {
-        $geniainame = "GeniAI";
-    }
-    $setting = new admin_setting_configtext(
-        'local_geniai/geniainame',
-        get_string('geniainame', 'local_geniai'),
-        get_string('geniainamedesc', 'local_geniai'),
-        'GeniAI');
-    $settings->add($setting);
+    $ADMIN->add("localplugins", $settings);
 
     $models = [
-        'gpt-4' => 'gpt-4',
-        'gpt-4-32k' => 'gpt-4-32k',
-        'gpt-4-turbo-preview' => 'gpt-4-turbo-preview',
-        'gpt-3.5-turbo' => 'gpt-3.5-turbo',
-        'gpt-3.5-turbo-16k' => 'gpt-3.5-turbo-16k',
+        "none" => get_string("mode_name_none", "local_geniai"),
+        "assistant" => get_string("mode_name_assistant", "local_geniai"),
+        "geniai" => get_string("mode_name_geniai", "local_geniai"),
     ];
     $setting = new admin_setting_configselect(
-        'local_geniai/model',
-        get_string('model', 'local_geniai'),
-        get_string('modeldesc', 'local_geniai'),
-        'gpt-4', $models
+        "local_geniai/mode",
+        get_string("mode", "local_geniai"),
+        get_string("mode_desc", "local_geniai"),
+        "none", $models
     );
     $settings->add($setting);
 
-    $settings->add(new admin_setting_configtextarea(
-        'local_geniai/prompt',
-        get_string('prompt', 'local_geniai'),
-        get_string('promptdesc', 'local_geniai'),
-        get_string('model_default', 'local_geniai'),
-        PARAM_TEXT
-    ));
+    $setting = new admin_setting_configpasswordunmask(
+        "local_geniai/apikey",
+        get_string("apikey", "local_geniai"),
+        get_string("apikey_desc", "local_geniai"),
+        "");
+    $settings->add($setting);
+
+    $geniainame = get_config("local_geniai", "geniainame");
+    if (!isset($geniainame[2])) {
+        $geniainame = "Tutor GeniAI";
+    }
+    $setting = new admin_setting_configtext(
+        "local_geniai/geniainame",
+        get_string("geniainame", "local_geniai"),
+        get_string("geniainame_desc", "local_geniai"),
+        "Tutor GeniAI");
+    $settings->add($setting);
+
+    $models = [
+        "gpt-4" => "gpt-4",
+        "gpt-4-32k" => "gpt-4-32k",
+        "gpt-4-turbo-preview" => "gpt-4-turbo-preview",
+        "gpt-3.5-turbo" => "gpt-3.5-turbo",
+        "gpt-3.5-turbo-16k" => "gpt-3.5-turbo-16k",
+    ];
+    $setting = new admin_setting_configselect(
+        "local_geniai/model",
+        get_string("model", "local_geniai"),
+        get_string("model_desc", "local_geniai"),
+        "gpt-4", $models
+    );
+    $settings->add($setting);
+
+    $voices = [
+        "alloy" => "Alloy",
+        "echo" => "Echo",
+        "fable" => "Fable",
+        "onyx" => "Onyx",
+        "nova" => "Nova",
+        "shimmer" => "Shimmer",
+    ];
+    $setting = new admin_setting_configselect(
+        "local_geniai/voice",
+        get_string("voice", "local_geniai"),
+        get_string("voice_desc", "local_geniai"),
+        "alloy", $voices
+    );
+    $settings->add($setting);
+
+    //$settings->add(new admin_setting_configtextarea(
+    //    "local_geniai/prompt",
+    //    get_string("prompt", "local_geniai"),
+    //    get_string("prompt_desc", "local_geniai"),
+    //    get_string("prompt_default", "local_geniai"),
+    //    PARAM_TEXT
+    //));
 
     $cases = [
-        'text_code_generation' => get_string('case_text_code_generation', 'local_geniai'),
-        'data_analysis_script' => get_string('case_data_analysis_script', 'local_geniai'),
-        'text_comment_generation' => get_string('case_text_comment_generation', 'local_geniai'),
-        'chatbot' => get_string('case_chatbot', 'local_geniai'),
-        'exploratory_writing' => get_string('case_exploratory_writing', 'local_geniai'),
-        'creative_writing' => get_string('case_creative_writing', 'local_geniai'),
-        'idea_brainstorming' => get_string('case_idea_brainstorming', 'local_geniai'),
-        'fictitious_dialogue_generation' => get_string('case_fictitious_dialogue_generation', 'local_geniai'),
-        'surreal_story_generation' => get_string('case_surreal_story_generation', 'local_geniai'),
+        "text_code_generation" => get_string("case_text_code_generation", "local_geniai"),
+        "data_analysis_script" => get_string("case_data_analysis_script", "local_geniai"),
+        "text_comment_generation" => get_string("case_text_comment_generation", "local_geniai"),
+        "chatbot" => get_string("case_chatbot", "local_geniai"),
+        "exploratory_writing" => get_string("case_exploratory_writing", "local_geniai"),
+        "creative_writing" => get_string("case_creative_writing", "local_geniai"),
+        "idea_brainstorming" => get_string("case_idea_brainstorming", "local_geniai"),
+        "fictitious_dialogue_generation" => get_string("case_fictitious_dialogue_generation", "local_geniai"),
+        "surreal_story_generation" => get_string("case_surreal_story_generation", "local_geniai"),
     ];
     $settings->add(new admin_setting_configselect(
-        'local_geniai/case',
-        get_string('case', 'local_geniai'),
-        get_string('casedesc', 'local_geniai'),
+        "local_geniai/case",
+        get_string("case", "local_geniai"),
+        get_string("case_desc", "local_geniai"),
         "chatbot",
         $cases
     ));
 
     $modules = [];
-    $records = $DB->get_records('modules', ['visible' => 1], 'name', 'name');
+    $records = $DB->get_records("modules", ["visible" => 1], "name", "name");
     foreach ($records as $record) {
         if (file_exists("{$CFG->dirroot}/mod/{$record->name}/lib.php")) {
-            if (!(plugin_supports('mod', $record->name, FEATURE_MOD_ARCHETYPE) === MOD_ARCHETYPE_SYSTEM)) {
-                $modules[$record->name] = get_string('pluginname', $record->name);
+            if (!(plugin_supports("mod", $record->name, FEATURE_MOD_ARCHETYPE) === MOD_ARCHETYPE_SYSTEM)) {
+                $modules[$record->name] = get_string("pluginname", $record->name);
             }
         }
     }
     $settings->add(new admin_setting_configmultiselect(
-        'local_geniai/modules',
-        get_string('modules', 'local_geniai', $geniainame),
-        get_string('modulesdesc', 'local_geniai', $geniainame),
+        "local_geniai/modules",
+        get_string("modules", "local_geniai", $geniainame),
+        get_string("modules_desc", "local_geniai", $geniainame),
         ["glossary", "lesson", "forum", "scorm", "feedback", "survey", "quiz", "assign", "wiki", "lti", "workshop"],
         $modules
     ));
 
     $setting = new admin_setting_configtext(
-        'local_geniai/max_tokens',
-        get_string('max_tokens', 'local_geniai'),
-        get_string('max_tokensdesc', 'local_geniai'),
+        "local_geniai/max_tokens",
+        get_string("max_tokens", "local_geniai"),
+        get_string("max_tokens_desc", "local_geniai"),
         200, PARAM_INT);
     $settings->add($setting);
 
@@ -160,16 +189,16 @@ if ($hassiteconfig) {
         "2.0" => "2.0",
     ];
     $setting = new admin_setting_configselect(
-        'local_geniai/frequency_penalty',
-        get_string('frequency_penalty', 'local_geniai'),
-        get_string('frequency_penaltydesc', 'local_geniai'),
+        "local_geniai/frequency_penalty",
+        get_string("frequency_penalty", "local_geniai"),
+        get_string("frequency_penalty_desc", "local_geniai"),
         "0.0", $penalty);
     $settings->add($setting);
 
     $setting = new admin_setting_configselect(
-        'local_geniai/presence_penalty',
-        get_string('presence_penalty', 'local_geniai'),
-        get_string('presence_penaltydesc', 'local_geniai'),
+        "local_geniai/presence_penalty",
+        get_string("presence_penalty", "local_geniai"),
+        get_string("presence_penalty_desc", "local_geniai"),
         "0.0", $penalty);
     $settings->add($setting);
 }

@@ -23,28 +23,15 @@
  */
 
 require_once('../../config.php');
-require_once($CFG->libdir . '/tablelib.php');
-require_once(__DIR__ . "/classes/report/view.php");
 
 require_login();
-require_capability('local/geniai:manage', context_system::instance());
 
-$table = new \local_geniai\local\report\view("geniai_report");
+$filename = required_param("filename", PARAM_TEXT);
+$filename = preg_replace('/[\W]/', '', $filename);
 
-if (!$table->is_downloading()) {
-    $PAGE->set_context(context_system::instance());
-    $PAGE->set_url('/local/geniai/report.php');
-    $PAGE->set_title(get_string('modulename', 'local_geniai'));
-    $PAGE->set_heading(get_string('modulename', 'local_geniai'));
-    echo $OUTPUT->header();
+ob_clean();
 
-    echo $OUTPUT->heading(get_string('report_filename', 'local_geniai'), 2, 'main', 'geniaiheading');
-    echo get_string('report_info', 'local_geniai');
-}
+header('Content-Disposition: inline; filename="' . $filename . '.mp3"');
+header("Content-type: audio/mp3");
 
-$table->define_baseurl("{$CFG->wwwroot}/local/geniai/report.php");
-$table->out(40, true);
-
-if (!$table->is_downloading()) {
-    echo $OUTPUT->footer();
-}
+readfile("{$CFG->dataroot}/temp/{$filename}.mp3");

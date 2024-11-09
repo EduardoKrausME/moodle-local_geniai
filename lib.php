@@ -32,7 +32,16 @@ use local_geniai\local\util\release;
  * @throws moodle_exception
  */
 function local_geniai_before_footer() {
+    local_geniai_addchat();
+    local_geniai_addh5p();
+}
+
+function local_geniai_addchat() {
     global $DB, $OUTPUT, $PAGE, $COURSE, $USER, $SITE;
+
+    if (get_config("local_geniai", "mode") == "none") {
+        return;
+    }
 
     if (!isset(get_config("local_geniai", "apikey")[5])) {
         return;
@@ -42,7 +51,17 @@ function local_geniai_before_footer() {
         return;
     }
 
-    $capability = has_capability("local/geniai:manage", context_system::instance());
+    $context = context_system::instance();
+
+    if (!$PAGE->get_popup_notification_allowed()) {
+        return;
+    }
+
+    //if (!has_capability('moodle/site:config', $context)) {
+    //    return;
+    //}
+
+    $capability = has_capability("local/geniai:manage", $context);
     if (!$capability) {
         $modules = explode(",", get_config("local_geniai", "modules"));
         foreach ($modules as $module) {
@@ -57,10 +76,11 @@ function local_geniai_before_footer() {
         "message_01" => get_string("message_01", "local_geniai", fullname($USER)),
         "manage_capability" => $capability,
         "geniainame" => get_config("local_geniai", "geniainame"),
+        "mode" => get_config("local_geniai", "mode"),
     ];
 
-    if (has_capability("local/geniai:view", context_system::instance())) {
-        $geniainame = get_config("local_geniai", "geniainame");
+    $geniainame = get_config("local_geniai", "geniainame");
+    if (get_config("local_geniai", "mode") == "assistant") {
         if ($COURSE->id) {
             $course = $DB->get_record("course", ["id" => $COURSE->id]);
             $data["message_02"] = get_string("message_02_course", "local_geniai",
@@ -68,8 +88,19 @@ function local_geniai_before_footer() {
         } else {
             $data["message_02"] = get_string("message_02_home", "local_geniai", $geniainame);
         }
+    } else {
+        $data["message_02"] = get_string("message_02_geniai", "local_geniai", $geniainame);
+    }
 
-        echo $OUTPUT->render_from_template("local_geniai/chat", $data);
-        $PAGE->requires->js_call_amd('local_geniai/chat', 'init', [$COURSE->id, release::version()]);
+    echo $OUTPUT->render_from_template("local_geniai/chat", $data);
+    $PAGE->requires->js_call_amd('local_geniai/chat', 'init', [$COURSE->id, release::version()]);
+}
+
+function local_geniai_addh5p(){
+    $contextid =optional_param("contextid", false, PARAM_INT);
+    if($contextid && strpos($_SERVER['REQUEST_URI'], "contentbank")){
+        global $PAGE;
+        $PAGE->requires->strings_for_js(["h5p-create"], "local_geniai");
+        $PAGE->requires->js_call_amd('local_geniai/h5p', 'init', [$contextid]);
     }
 }

@@ -15,136 +15,151 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * lang en file.
+ * lang pt_br file.
  *
  * @package    local_geniai
  * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['apikey'] = 'OpenAI API Key';
-$string['apikeydesc'] = 'The API key from your OpenAI account';
-$string['case'] = 'Use Cases';
-$string['case_chatbot'] = 'Chatbot                            => Temperature 0.5, Top_p 0.5';
-$string['case_creative_writing'] = 'Creative Writing                   => Temperature 0.7, Top_p 0.8';
-$string['case_data_analysis_script'] = 'Data Analysis Script               => Temperature 0.2, Top_p 0.1';
-$string['case_exploratory_writing'] = 'Exploratory Writing                => Temperature 0.6, Top_p 0.7';
-$string['case_fictitious_dialogue_generation'] = 'Fictitious Dialogue Generation     => Temperature 0.9, Top_p 0.95';
-$string['case_idea_brainstorming'] = 'Idea Exploration and Brainstorming => Temperature 0.8, Top_p 0.9';
-$string['case_surreal_story_generation'] = 'Surreal or Absurd Stories          => Temperature 1.0, Top_p 1.0';
-$string['case_text_code_generation'] = 'Text and Code Generation           => Temperature 0.1, Top_p 0.1';
-$string['case_text_comment_generation'] = 'Text Comment Generation            => Temperature 0.3, Top_p 0.2';
-$string['casedesc'] = 'The temperature and Top_p parameters set for each scenario, such as text and code generation, creative writing, chatbot, text comment generation, data analysis, and exploratory writing. Each configuration affects the creativity and coherence of the model in content generation.<br><br>See the table below that shows how to use Temperature and Top_p:<br>
+$string['apikey'] = 'API da OpenAI';
+$string['apikey_desc'] = 'A chave da API da sua conta OpenAI';
+$string['case'] = 'Casos de uso';
+$string['case_chatbot'] = 'Chatbot                              => Temperatura 0.5, Top_p 0.5';
+$string['case_creative_writing'] = 'Escrita Criativa                     => Temperatura 0.7, Top_p 0.8';
+$string['case_data_analysis_script'] = 'Script de Análise de Dados           => Temperatura 0.2, Top_p 0.1';
+$string['case_exploratory_writing'] = 'Escrita Exploratória de textos       => Temperatura 0.6, Top_p 0.7';
+$string['case_fictitious_dialogue_generation'] = 'Geração de diálogos fictícios        => Temperatura 0.9, Top_p 0.95';
+$string['case_idea_brainstorming'] = 'Exploração de ideias e brainstorming => Temperatura 0.8, Top_p 0.9';
+$string['case_surreal_story_generation'] = 'Histórias Surreais ou Absurdas       => Temperatura 1.0, Top_p 1.0';
+$string['case_text_code_generation'] = 'Geração de textos e códigos          => Temperatura 0.1, Top_p 0.1';
+$string['case_text_comment_generation'] = 'Geração de Comentários de textos     => Temperatura 0.3, Top_p 0.2';
+$string['case_desc'] = 'Os parâmetros de temperatura e Top_p definidos para cada cenário, como geração de texto e código, escrita criativa, chatbot, geração de comentários textuais, análise de dados e escrita exploratória. Cada configuração afeta a criatividade e a coerência do modelo na geração de conteúdo.<br><br>Veja a tabela a seguir que mostra como usar a Temperatura e o Top_p:<br>
 <table class="table table-bordered">
-<thead>
-<tr>
-    <th>Use Case</th>
-    <th>Temperature</th>
-    <th>Top_p</th>
-    <th>Case Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-    <td>Text and Code Generation</td>
-    <td class="text-center">0.1</td>
-    <td class="text-center">0.1</td>
-    <td>The output is more deterministic and focused. Useful for generating syntactically correct text or code.</td>
-</tr>
-<tr>
-    <td>Data Analysis Script</td>
-    <td class="text-center">0.2</td>
-    <td class="text-center">0.1</td>
-    <td>Generates data analysis scripts more likely to be correct and efficient. The output is more deterministic and focused.</td>
-</tr>
-<tr>
-    <td>Text Comment Generation</td>
-    <td class="text-center">0.3</td>
-    <td class="text-center">0.2</td>
-    <td>Generates text comments more likely to be concise and relevant. The output is more deterministic and adheres to conventions.</td>
-</tr>
-<tr>
-    <td>Chatbot</td>
-    <td class="text-center">0.5</td>
-    <td class="text-center">0.5</td>
-    <td>Generates conversational responses that balance coherence and diversity. The output is more natural and engaging.</td>
-</tr>
-<tr>
-    <td>Exploratory Writing</td>
-    <td class="text-center">0.6</td>
-    <td class="text-center">0.7</td>
-    <td>Generates texts that explore alternative solutions and creative approaches. The output is less restricted by established patterns.</td>
-</tr>
-<tr>
-    <td>Creative Writing</td>
-    <td class="text-center">0.7</td>
-    <td class="text-center">0.8</td>
-    <td>Generates creative and diverse text for storytelling.</td>
-</tr>
-<tr>
-    <td>Idea Exploration and Brainstorming</td>
-    <td class="text-center">0.8</td>
-    <td class="text-center">0.9</td>
-    <td>Generates broad, creative, and less structured ideas for brainstorming sessions.</td>
-</tr>
-<tr>
-    <td>Fictitious Dialogue Generation</td>
-    <td class="text-center">0.9</td>
-    <td class="text-center">0.95</td>
-    <td>Creates unpredictable and original dialogues with more variation in language and tone.</td>
-</tr>
-<tr>
-    <td>Surreal or Absurd Stories</td>
-    <td class="text-center">1.0</td>
-    <td class="text-center">1.0</td>
-    <td>Generates highly creative, abstract stories with less concern for logic or structure.</td>
-</tr>
-</tbody>
+    <thead>
+        <tr>
+            <th>Caso de uso</th>
+            <th>Temperatura</th>
+            <th>Top_p</th>
+            <th>Descrição do caso</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Geração de textos e códigos</td>
+            <td class="text-center">0.1</td>
+            <td class="text-center">0.1</td>
+            <td>A saída é mais determinística e focada. Útil para gerar textos ou códigos sintaticamente correto.</td>
+        </tr>
+        <tr>
+            <td>Script de Análise de Dados</td>
+            <td class="text-center">0.2</td>
+            <td class="text-center">0.1</td>
+            <td>Gera scripts de análise de dados mais propensos a serem corretos e eficientes. A saída é mais determinística e focada.</td>
+        </tr>
+        <tr>
+            <td>Geração de Comentários de textos</td>
+            <td class="text-center">0.3</td>
+            <td class="text-center">0.2</td>
+            <td>Gera comentários de textos mais propensos a serem concisos e relevantes. A saída é mais determinística e adere a convenções.</td>
+        </tr>
+        <tr>
+            <td>Chatbot</td>
+            <td class="text-center">0.5</td>
+            <td class="text-center">0.5</td>
+            <td>Gera respostas de conversação que equilibram coerência e diversidade. A saída é mais natural e envolvente.</td>
+        </tr>
+        <tr>
+            <td>Escrita Exploratória de textos</td>
+            <td class="text-center">0.6</td>
+            <td class="text-center">0.7</td>
+            <td>Gera textos que explora soluções alternativas e abordagens criativas. A saída é menos restrita por padrões estabelecidos.</td>
+        </tr>
+        <tr>
+            <td>Escrita Criativa</td>
+            <td class="text-center">0.7</td>
+            <td class="text-center">0.8</td>
+            <td>Gera texto criativo e diversificado para contar histórias.</td>
+        </tr>
+        <tr>
+            <td>Exploração de ideias e brainstorming</td>
+            <td class="text-center">0.8</td>
+            <td class="text-center">0.9</td>
+            <td>Gera ideias amplas, criativas e menos estruturadas para sessões de brainstorming.</td>
+        </tr>
+        <tr>
+            <td>Geração de diálogos fictícios</td>
+            <td class="text-center">0.9</td>
+            <td class="text-center">0.95</td>
+            <td>Cria diálogos imprevisíveis e originais com mais variação na linguagem e tom.</td>
+        </tr>
+        <tr>
+            <td>Histórias Surreais ou Absurdas</td>
+            <td class="text-center">1.0</td>
+            <td class="text-center">1.0</td>
+            <td>Gera histórias altamente criativas, abstratas e com menos preocupação com a lógica ou estrutura.</td>
+        </tr>
+    </tbody>
 </table>';
-$string['clear_history'] = 'Clear';
-$string['clear_history_title'] = 'Clear entire history';
-$string['course_home'] = 'The student is outside of any course.';
-$string['course_user'] = 'The student is in the "{$a->course}" course.';
-$string['frequency_penalty'] = 'Frequency Penalty';
-$string['frequency_penaltydesc'] = 'This parameter is used to discourage the model from repeating the same words or phrases too frequently within the generated text. It is a value added to the log-probability of a token each time it occurs in the generated text. A higher frequency penalty value will make the model more conservative in using repeated tokens.';
-$string['geniai:manage'] = 'Manage ChatGPT Assistant';
-$string['geniai:report'] = 'View ChatGPT Reports';
-$string['geniai:view'] = 'View ChatGPT Assistant';
-$string['geniainame'] = 'Assistant name';
-$string['geniainamedesc'] = 'Set the name of your assistant';
-$string['max_tokens'] = 'Maximum Words in Response';
-$string['max_tokensdesc'] = 'Maximum number of words that can be generated in each request.';
-$string['message_01'] = 'Hello, dear student {$a}! 🌟';
-$string['message_02_course'] = 'Welcome to the {$a->coursename} course on Moodle {$a->moodlename}!
-I am {$a->geniainame}, and I am here to make your learning journey as amazing as possible.
-How can I help you today? 🌟📚';
-$string['message_02_home'] = 'I am {$a}, and I am here to make your learning journey as amazing as possible.
-How can I help you today? 🌟📚';
-$string['model'] = 'API Model';
-$string['model_default'] = 'You are a chatbot, your name is {geniainame}, and you are female.
-You are a super helpful Moodle teacher who only responds in {user-lang} and adds emojis to responses when possible.
-You love responding about Moodle {moodle-name} with inspiring messages, full of details, and are very attentive to details.';
-$string['modeldesc'] = 'The API model that will run on OpenAI. Available values can be found on the <a href="https://platform.openai.com/docs/models/overview" target="_blank">OpenAI website</a><br>
-* <strong>gpt-3.5-turbo</strong>: It is very good, has great cost-effectiveness, and responds very quickly.<br>
-* <strong>gpt-4</strong>: It is much more powerful, a bit more expensive, and takes a little longer to respond. You also need to make an <a href="https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4" target="_blank">initial payment of $1</a> to test it.';
-$string['modulename'] = 'ChatGPT Assistant';
-$string['modules'] = 'Modules that {$a} should hide';
-$string['modulesdesc'] = 'This list contains the modules that {$a} should not make available to students, ensuring that they are not used in exercises.';
+$string['clear_history_title'] = 'Limpar todo histórico';
+$string['close_title'] = 'Fechar chat';
+$string['course_home'] = 'O aluno está fora do curso e nome do aluno é "{$a->userfullname}".';
+$string['course_user'] = 'O aluno está no curso "{$a->course}" e nome do aluno é "{$a->userfullname}"';
+$string['frequency_penalty'] = 'Frequência de Penalidade';
+$string['frequency_penalty_desc'] = 'Este parâmetro é utilizado para desencorajar o modelo de repetir as mesmas palavras ou frases com muita frequência dentro do texto gerado. É um valor adicionado à log-probabilidade de um token cada vez que ele ocorre no texto gerado. Um valor de frequência de penalidade mais alto fará com que o modelo seja mais conservador ao usar tokens repetidos.';
+$string['geniai:manage'] = 'Gerenciar Tutor GeniAI';
+$string['geniai:view'] = 'Ver Tutor GeniAI';
+$string['geniainame'] = 'Nome do assistente';
+$string['geniainame_desc'] = 'Defina o nome do seu assistente';
+$string['max_tokens'] = 'Máximo de palavras na resposta';
+$string['max_tokens_desc'] = 'Número máximo de palavras que pode ser gerado em cada solicitação.';
+$string['message_01'] = 'Olá, {$a}! 🌟';
+$string['message_02_course'] = 'Bem-vindo ao curso {$a->coursename} no Moodle {$a->moodlename}!
+Sou a {$a->geniainame} e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
+Como posso ajudar você hoje? 🌟📚';
+$string['message_02_home'] = 'Sou a {$a} e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
+Como posso ajudar você hoje? 🌟📚';
+$string['message_02_geniai'] = 'Olá! Eu sou o {$a} e estou aqui para te ajudar. Se preferir, pode me enviar um áudio, e eu responderei também em áudio. Se preferir escrever, responderei por texto. Como você preferir!';
+$string['mode'] = 'Modo de uso';
+$string['mode_desc'] = 'Defina qual modo de uso do balão você deseja';
+$string['mode_name_none'] = 'Sem balão de chat';
+$string['mode_name_assistant'] = 'Assistente Moodle';
+$string['mode_name_geniai'] = 'Tutor GeniAI';
+$string['model'] = 'O Modelo da API';
+$string['model_desc'] = 'O Modelo da API que será executada na OpenAI. Valores disponíveis estão no <a href="https://platform.openai.com/docs/models/overview" target="_blank">site da OpenAI</a><br>
+* <strong>gpt-3.5-turbo</strong>: é muito bom, tem um custo/benefício vom e responde muito rápido.<br>
+* <strong>gpt-4</strong>: é muito mais podersos, um pouco mais caro e demora um pouco mais para responder e necessíta que você faça um <a href="https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4" target="_blank">pagamento inicial de $1</a> para poder testar';
+$string['modulename'] = 'Tutor GeniAI';
+$string['modules'] = 'Módulos que deve ocultar o {$a}';
+$string['modules_desc'] = 'Esta lista contém os módulos que não deve disponibilizar o {$a} aos alunos, assegurando que eles não sejam utilizados em exercícios.';
 $string['online'] = 'Online';
-$string['pluginname'] = 'ChatGPT Assistant';
-$string['presence_penalty'] = 'Presence Penalty';
-$string['presence_penaltydesc'] = 'This parameter is used to encourage the model to include a variety of tokens in the generated text. It is a value subtracted from the log-probability of a token each time it is generated. A higher presence penalty value will make the model more likely to generate tokens that have not yet been included in the generated text.';
-$string['privacy:metadata'] = 'The plugin stores conversation logs for statistical purposes and ensures that no student data is sent to external services.';
-$string['prompt'] = 'Initial Prompt';
-$string['promptdesc'] = 'The prompt that the AI will receive before starting the conversation';
-$string['report_completion_tokens'] = 'Number of Received Tokens';
-$string['report_datecreated'] = 'Day';
-$string['report_filename'] = 'GPT Assistance Usage Report';
-$string['report_info'] = '<p>In the presented report, only the first 100 lines are available. To access all records, please download the complete document.</p><p>Regarding tokens, a practical rule is that a token typically corresponds to about 4 characters of common English text. This translates to approximately ¾ of a word (thus, 100 tokens ~= 75 words). Learn more on the <a href="https://platform.openai.com/tokenizer" target="_blank">Model Language Tokenization page</a>.</p>';
-$string['report_model'] = 'ChatGPT Model';
-$string['report_prompt_tokens'] = 'Number of Sent Tokens';
-$string['report_title'] = 'Informe';
-$string['send_message'] = 'Send Message';
-$string['settings'] = 'Configure ChatGPT Assistant';
-$string['url_moodle'] = 'The Moodle URL is "{$a->wwwroot}" and the Moodle name is "{$a->fullname}"';
-$string['write_message'] = 'Write a message...';
+$string['pluginname'] = 'Tutor GeniAI';
+$string['presence_penalty'] = 'Penalidade de Presença';
+$string['presence_penalty_desc'] = 'Este parâmetro é utilizado para incentivar o modelo a incluir uma variedade de tokens no texto gerado. É um valor subtraído da log-probabilidade de um token cada vez que é gerado. Um valor de penalidade de presença mais alto fará com que o modelo tenha mais probabilidade de gerar tokens que ainda não foram incluídos no texto gerado.';
+$string['privacy:metadata'] = 'O plugin Tutor GeniAI armazena o histórico das conversas que você envia e transmitirá à OpenAI apenas o o nome completo, nome do curso e a URL, sem compartilhar qualquer outro dado pessoal seu.';
+$string['report_completion_tokens'] = 'Quantidade de Tokens recebidos';
+$string['report_datecreated'] = 'Dia';
+$string['report_filename'] = 'Relatório de uso do GPT Assistence';
+$string['report_info'] = '<p>No relatório apresentado, somente as primeiras 100 linhas estão disponíveis. Para acessar todos os registros, por favor, realize o download completo do documento.</p><p>Quanto aos tokens, uma regra prática é que um token geralmente corresponde a aproximadamente 4 caracteres de texto comum em inglês. Isso equivale a aproximadamente ¾ de uma palavra (portanto, 100 tokens ~= 75 palavras). Saiba mais na página <a href="https://platform.openai.com/tokenizer" target="_blank">Saiba mais sobre a tokenização do modelo de linguagem</a>.</p>';
+$string['report_model'] = 'Modelo do ChatGPT';
+$string['report_prompt_tokens'] = 'Quantidade de Tokens enviados';
+$string['report_title'] = 'Relatório';
+$string['send_message'] = 'Enviar a mensagem';
+$string['settings'] = 'Configurar Tutor GeniAI';
+$string['talk_geniai'] = 'Fale com seu geniai aqui';
+$string['url_moodle'] = 'A URL do Moodle é "{$a->wwwroot}" e o nome do Moodle é "{$a->fullname}"';
+$string['voice'] = 'Vóz usada na resposta com áudio';
+$string['voice_desc'] = '<p style="display:flex;align-items:center;gap:10px;">Alloy: 
+    <audio src="https://cdn.openai.com/API/docs/audio/alloy.wav" controls></audio></p>
+<p style="display:flex;align-items:center;gap:10px;">Echo: 
+    <audio src="https://cdn.openai.com/API/docs/audio/echo.wav" controls></audio></p>
+<p style="display:flex;align-items:center;gap:10px;">Fable: 
+    <audio src="https://cdn.openai.com/API/docs/audio/fable.wav" controls></audio></p>
+<p style="display:flex;align-items:center;gap:10px;">Onyx: 
+    <audio src="https://cdn.openai.com/API/docs/audio/onyx.wav" controls></audio></p>
+<p style="display:flex;align-items:center;gap:10px;">Nova: 
+    <audio src="https://cdn.openai.com/API/docs/audio/nova.wav" controls></audio></p>
+<p style="display:flex;align-items:center;gap:10px;">Shimmer: 
+    <audio src="https://cdn.openai.com/API/docs/audio/shimmer.wav" controls></audio></p>';
+$string['write_message'] = 'Escreve uma mensagem...';
+

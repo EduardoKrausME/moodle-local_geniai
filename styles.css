@@ -2,9 +2,13 @@
   position: fixed;
   bottom: 100px;
   right: 30px;
-  z-index: 99995;
+  z-index: 999999;
   color: #24272a;
   direction: ltr;
+  /* RemixDesign | woaichidapi@163.com | Redesigned by JimmyCheung */
+}
+#geniai-chat .icon {
+  margin: 0 !important;
 }
 #geniai-chat .geniai-popup {
   display: none;
@@ -52,6 +56,7 @@
   align-items: center;
   text-align: left;
   transition: all 0.4s;
+  gap: 9px;
 }
 #geniai-chat .geniai-popup #geniai-scrollarea .geniai-header .geniai-info img {
   width: 40px;
@@ -77,49 +82,26 @@
   color: rgba(255, 255, 255, 0.7);
   letter-spacing: 0.3px;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header #geniai-icon-report {
+#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header .right-icons {
   position: absolute;
-  top: 10px;
-  right: 46px;
-  color: #fff;
-  opacity: 0.5;
+  top: 20px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header #geniai-icon-report:hover {
-  opacity: 1;
-}
-#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header #geniai-icon-close {
-  position: absolute;
+#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header .right-icons a, #geniai-chat .geniai-popup #geniai-scrollarea .geniai-header .right-icons span {
+  display: inline-block;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.8;
   transition: all 0.5s;
-  top: 10px;
-  right: 14px;
-  left: auto;
-  background: none;
-  width: 20px;
-  height: 23px;
-  text-align: right;
+  margin-right: 0;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header #geniai-icon-close:hover {
+#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header .right-icons a:hover, #geniai-chat .geniai-popup #geniai-scrollarea .geniai-header .right-icons span:hover {
   opacity: 1;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header #geniai-clear-history {
-  position: absolute;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: all 0.5s;
-  top: 37px;
-  right: 14px;
-  left: auto;
-  background: none;
-  height: 23px;
-  line-height: 23px;
-  text-align: right;
-  display: block;
-  font-size: 17px;
-}
-#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header #geniai-clear-history:hover {
-  opacity: 1;
+#geniai-chat .geniai-popup #geniai-scrollarea .geniai-header .right-icons a img, #geniai-chat .geniai-popup #geniai-scrollarea .geniai-header .right-icons span img {
+  height: 24px;
+  width: auto;
 }
 #geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens {
   float: left;
@@ -130,13 +112,13 @@
   padding-top: 70px;
   margin-top: 0;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-messagem {
-  float: left;
+#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-message {
+  float: right;
   clear: both;
   position: relative;
   margin: 2px 10px 5px 10px;
   box-shadow: none;
-  background-color: whitesmoke;
+  background-color: #d9fdd3;
   border-radius: 6px;
   padding: 8px 12px;
   max-width: calc(100% - 90px);
@@ -147,32 +129,48 @@
   letter-spacing: 0.3px;
   outline: none;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-messagem.format-text {
+#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-message button {
+  -webkit-appearance: none;
+  border: none;
+  background: rgba(137, 137, 137, 0.368627451);
+  padding: 0 10px;
+  line-height: 28px;
+  border-radius: 5px;
+}
+#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-message.format-text {
   white-space: break-spaces;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-messagem.geniai-server {
-  float: right;
+#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-message.geniai-server {
+  float: left;
   margin: 2px 20px 5px 10px;
-  background-color: #d9fdd3;
+  background-color: #f2f2f2;
   transition: all 0.4s;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-messagem.geniai-server.geniai-message {
+#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-message.geniai-server.geniai-message {
   color: #004c7d;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-messagem.geniai-error {
+#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-message.geniai-error {
   background-color: #e91e63;
   color: #fff;
 }
-#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-messagem p:last-child, #geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-messagem ul:last-child, #geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-messagem ol:last-child {
+#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-message p:last-child, #geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-message ul:last-child, #geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .geniai-message ol:last-child {
   margin-bottom: 0 !important;
 }
+#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens .transcription {
+  font-style: italic;
+  margin-left: 20px;
+}
+#geniai-chat .geniai-popup #geniai-scrollarea #geniai-area-mensagens.hide-message .geniai-history {
+  display: none;
+}
 #geniai-chat .geniai-popup #geniai-sendarea {
-  background: #e9e9e9;
   position: relative;
+  display: flex;
+  gap: 15px;
+  background: #e9e9e9;
   margin: 0;
   padding: 10px 8px 10px 15px;
   border-top: 1px solid #dee5ec;
-  display: flex;
   align-items: center;
 }
 #geniai-chat .geniai-popup #geniai-sendarea #geniai-textarea {
@@ -194,20 +192,42 @@
   background: #fff;
   overflow-x: hidden;
   display: block;
-  max-width: 1000px;
   height: 34px;
+}
+#geniai-chat .geniai-popup #geniai-sendarea #geniai-icon-stop img,
+#geniai-chat .geniai-popup #geniai-sendarea #geniai-icon-mic img,
+#geniai-chat .geniai-popup #geniai-sendarea #geniai-icon-send img {
+  height: 31px;
+  width: 31px;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+#geniai-chat .geniai-popup #geniai-sendarea #geniai-icon-mic {
+  display: none;
+}
+#geniai-chat .geniai-popup #geniai-sendarea #geniai-icon-mic.recording {
+  margin: -6px;
+  padding: 6px;
+  border-radius: 8px;
+  background-color: #e91e63;
+  animation: ease geniai-pulse 2s infinite;
+}
+@keyframes geniai-pulse {
+  0% {
+    background-color: #e91e63;
+  }
+  50% {
+    background-color: #ba68c8;
+  }
+  100% {
+    background-color: #e91e63;
+  }
 }
 #geniai-chat .geniai-popup #geniai-sendarea #geniai-icon-send {
   opacity: 0.5;
 }
-#geniai-chat .geniai-popup #geniai-sendarea #geniai-icon-send svg {
-  cursor: pointer;
-  padding-left: 7px;
-  height: 31px;
-  transition: all 0.4s;
-}
-#geniai-chat .geniai-popup #geniai-sendarea #geniai-icon-send svg path {
-  fill: rgb(var(--color_primary, 30, 136, 229));
+#geniai-chat .geniai-popup #geniai-sendarea.geniai-active #geniai-icon-mic {
+  display: none !important;
 }
 #geniai-chat .geniai-popup #geniai-sendarea.geniai-active #geniai-icon-send {
   opacity: 1;
@@ -258,16 +278,107 @@
   margin: 0;
   z-index: 0;
   transition: all 0.4s;
+  border-radius: 50%;
 }
 #geniai-chat #geniai-chat-btn .geniai-icon.geniai-open-icon {
   opacity: 1;
   transform: rotate(0deg);
 }
+#geniai-chat #geniai-chat-btn .geniai-icon.geniai-open-icon::after {
+  content: "";
+  border-radius: 9px !important;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #2ecc71;
+  animation: nld-super-pop-in 0.5s cubic-bezier(0, 0.35, 0.28, 0.9) forwards;
+  animation-delay: 1s;
+  width: 15px;
+  height: 15px;
+  display: block;
+}
 #geniai-chat #geniai-chat-btn .geniai-icon.geniai-close-icon {
   opacity: 0;
   transform: rotate(90deg);
 }
-
+#geniai-chat .balloon {
+  display: none;
+}
+#geniai-chat:not(.geniai-active) #geniai-chat-btn {
+  background-color: #9e9e9e;
+}
+#geniai-chat:not(.geniai-active) .balloon {
+  display: block;
+  position: absolute;
+  right: 74px;
+  bottom: 6px;
+  border-radius: 8px !important;
+  padding: 9px;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid #d6d6d6;
+  color: #555 !important;
+  background: white;
+  white-space: nowrap;
+  -webkit-animation: hide-animation 5s forwards;
+  animation: hide-animation 8s forwards;
+  transition: all 0.4s;
+  opacity: 1;
+}
+#geniai-chat:not(.geniai-active) .balloon:after {
+  content: "";
+  width: 16px;
+  height: 32px;
+  position: absolute;
+  top: 50%;
+  margin-top: -16px;
+  right: -16px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAMvSURBVHic7ZpPi9NAGMafbKtbd6vrrn8KXqTYo5dlv4D3epBC8SuIJ2/2c4i3eigFpVfBuyctpVePS0vBq4UeSui/vB6aMZPZzGTiip1J5wcvmSaTJc+T951MZgM4HA6HY3/xwpBB/+tCdkWaASK5MySrATy5MOM6BjCsNsIDcKDRT0eklUZ4AAqSYzJBaUKtMoI3gC+FJBHiPpVQa0woInkMSBsXiOuTJFZ1zCg8ADc0+lHGtuxc4+AzQLzrsjLwhDbr50nOke03AmaArAxEcWxLCeeIhlhBEfHHoFi7aXeVFy1uk/obhywDxDRnbVVZWGnCge/775vN5iG2mSALZpL4mzdPtjUbIqLVavW90+k8AXDCxZ0wbodRBnAM4AjALQAlAIcAbmL7JCmGUQgjySjzTKGQzWbzs9/vPwNwGsbdMJgZzAhdE1TZYgweEf2pSyKaj0aj17Va7QvXhyQRKI4Rdy6/heT37qCrBNPp9F2lUnkI4D6AewDOEGUFy4Yy1JlgRxYkGEBERPP5/HOj0XgM4AEiI0QT+HJQlYJ9BhARLZfLH+12+wJ6JtiZBSoDwsHx12AweAGAlQQrhxNcLYUkA8zOgjQDiIiCIFiMx+M3iDLhDOossKcMdAxgzGaz7vn5+SNEpSBmQZYyMIMsBhAR+b7/tdVq1RDPgrQyyI8BRETr9fqy2+0+RdyAY1hoQGwilIXFYvGtVCo9RzQhCoS2amIktneGzoqwDCMEXJe/MmCz2Vz2er1X3C7j7qw2bhDMQB4fg0WdTkS0nEwmb6vV6kekD24QjkHSxwhSx4AgCKbD4fBltVr9BL3XYLvGA1XK7/XL0D6/Du/VgkhsEKR/vyRmPuy27+uiqFsW933/Q71eP0UklI8y4sKziDf/7mN7UUeQX5z4TBcnP6olcJ2PLHZOEXERSR82qARaLR7YGhBA/kWHzAgdg2R/xyj4DFB9IKFa0LBr6ivADADUFy8TqSPeaFN4A9LIKjztmBEUkPz/fJ06tlo4g58K6wpME2eNeCCeASp0RFklnCH7TDYLVgpnaC2JSbBaOCOrAbkQzZNmQO4EOxwOh8MR8RsgtSyqPuIxtgAAAABJRU5ErkJggg==);
+  background-size: 32px 32px;
+}
+@keyframes hide-animation {
+  15% {
+    opacity: 0;
+    right: 4px;
+    width: 57px;
+  }
+  20% {
+    opacity: 1;
+    width: auto;
+    right: 74px;
+  }
+  95% {
+    opacity: 1;
+    width: auto;
+    right: 74px;
+  }
+  100% {
+    opacity: 0;
+    right: 4px;
+    width: 57px;
+  }
+}
+@-webkit-keyframes hide-animation {
+  15% {
+    opacity: 0;
+    right: 4px;
+    width: 57px;
+  }
+  20% {
+    opacity: 1;
+    width: auto;
+    right: 74px;
+  }
+  95% {
+    opacity: 1;
+    width: auto;
+    right: 74px;
+  }
+  100% {
+    opacity: 0;
+    right: 4px;
+    width: 57px;
+  }
+}
 @keyframes geniai-popup-open-animation {
   0% {
     opacity: 0;
@@ -289,6 +400,247 @@
 #geniai-chat.geniai-active #geniai-chat-btn .geniai-icon.geniai-close-icon {
   opacity: 1;
   transform: rotate(0deg);
+}
+#geniai-chat::after {
+  content: "";
+  width: 15px;
+  height: 15px;
+  border-radius: 9px !important;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #2ecc71;
+  animation: nld-super-pop-in 0.5s cubic-bezier(0, 0.35, 0.28, 0.9) forwards;
+  animation-delay: 1s;
+  transform: scale(0, 0);
+}
+#geniai-chat.mode-geniai #geniai-chat-btn .geniai-icon.geniai-close-icon {
+  display: none;
+}
+#geniai-chat.mode-geniai.geniai-active {
+  top: 30px;
+  right: 30px;
+  bottom: 30px;
+  left: 30px;
+}
+#geniai-chat.mode-geniai.geniai-active .geniai-popup {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+  width: initial !important;
+  height: initial !important;
+  max-height: initial !important;
+}
+#geniai-chat.mode-geniai.geniai-active #geniai-chat-btn {
+  display: none;
+}
+#geniai-chat.mode-geniai #geniai-scrollarea #geniai-area-mensagens {
+  padding-top: 10px;
+}
+#geniai-chat.mode-geniai .geniai-popup #geniai-sendarea #geniai-icon-mic {
+  display: block;
+}
+#geniai-chat .audioplayer {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  padding: 4px 4px;
+  align-items: center;
+  border: 1px solid #dde2e6;
+  border-radius: 18px;
+  background: #fff;
+  width: 310px;
+  /* responsive | you can change the max-width value to match your theme */
+}
+#geniai-chat .audioplayer-playpause {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+#geniai-chat .audioplayer:not(.audioplayer-playing) .audioplayer-playpause {
+  background: rgba(91, 130, 255, 0);
+  border: 1px solid #5b82ff;
+}
+#geniai-chat .audioplayer:not(.audioplayer-playing) .audioplayer-playpause:hover {
+  background: rgba(91, 130, 255, 0.1);
+}
+#geniai-chat .audioplayer-playing .audioplayer-playpause {
+  background: rgba(253, 79, 26, 0);
+  border: 1px solid #fd4f1a;
+}
+#geniai-chat .audioplayer-playing .audioplayer-playpause:hover {
+  background: rgba(235, 79, 26, 0.1);
+}
+#geniai-chat .audioplayer:not(.audioplayer-playing) .audioplayer-playpause a {
+  content: "";
+  justify-content: center;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  border-top: 7px solid transparent;
+  border-right: none;
+  border-bottom: 7px solid transparent;
+  border-left: 12px solid #0059ff;
+}
+#geniai-chat .audioplayer-playing .audioplayer-playpause a {
+  content: "";
+  display: flex;
+  justify-content: space-between;
+  width: 12px;
+  height: 14px;
+}
+#geniai-chat .audioplayer-playing .audioplayer-playpause a::before, #geniai-chat .audioplayer-playing .audioplayer-playpause a::after {
+  content: "";
+  width: 4px;
+  height: 14px;
+  background-color: #fd4f1a;
+}
+#geniai-chat .audioplayer-time {
+  display: flex;
+  width: 40px;
+  justify-content: center;
+  font-size: 12px;
+  color: rgba(51, 51, 51, 0.6);
+}
+#geniai-chat .audioplayer-time-current {
+  margin-left: 9px;
+}
+#geniai-chat .audioplayer-time-duration {
+  margin-right: 24px;
+  display: none;
+}
+#geniai-chat .audioplayer-bar {
+  position: relative;
+  display: flex;
+  margin: 0 12px;
+  height: 12px;
+  flex-basis: 0;
+  flex-grow: 1;
+  cursor: pointer;
+}
+#geniai-chat .audioplayer-bar::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  width: 100%;
+  height: 2px;
+  background-color: #dde2e6;
+}
+#geniai-chat .audioplayer-bar > div {
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+#geniai-chat .audioplayer-bar-loaded {
+  z-index: 1;
+  height: 2px;
+  background: #bec8d2;
+}
+#geniai-chat .audioplayer-bar-played {
+  flex-direction: row-reverse;
+  z-index: 2;
+  height: 2px;
+  background: -webkit-linear-gradient(left, #0059ff, #09b1fa);
+}
+#geniai-chat .audioplayer-bar-played::after {
+  display: flex;
+  position: absolute;
+  content: "";
+  box-sizing: border-box;
+  top: -5px;
+  right: -1px;
+  margin-right: -5px;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+#geniai-chat .audioplayer:not(.audioplayer-playing) .audioplayer-bar-played::after {
+  border: 2px solid #bec8d2;
+}
+#geniai-chat .audioplayer-playing .audioplayer-bar-played::after {
+  border: 2px solid #0059ff;
+}
+#geniai-chat .audioplayer-volume {
+  display: flex;
+  align-items: center;
+  display: none;
+}
+#geniai-chat .audioplayer-volume-button {
+  display: flex;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+#geniai-chat .audioplayer-volume-button a {
+  display: flex;
+  width: 6px;
+  height: 8px;
+  background-color: #9a9fb0;
+  position: relative;
+}
+#geniai-chat .audioplayer-volume-button a:before, #geniai-chat .audioplayer-volume-button a:after {
+  content: "";
+  position: absolute;
+}
+#geniai-chat .audioplayer-volume-button a:before {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-right: 9px solid #9a9fb0;
+  border-bottom: 8px solid transparent;
+  border-left: none;
+  top: -4px;
+}
+#geniai-chat .audioplayer:not(.audioplayer-mute) .audioplayer-volume-button a:after {
+  left: 10px;
+  top: -2px;
+  width: 6px;
+  height: 6px;
+  border: 6px double #9a9fb0;
+  border-width: 6px 6px 0 0;
+  border-radius: 0 12px 0 0;
+  transform: rotate(45deg);
+}
+#geniai-chat .audioplayer-mute .audioplayer-volume-button a {
+  background-color: #fd4f1a;
+}
+#geniai-chat .audioplayer-mute .audioplayer-volume-button a:before {
+  border-right: 9px solid #fd4f1a;
+}
+#geniai-chat .audioplayer-volume-adjust {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+#geniai-chat .audioplayer-volume-adjust > div {
+  position: relative;
+  display: flex;
+  width: 60px;
+  height: 2px;
+  cursor: pointer;
+  background-color: #bec8d2;
+}
+#geniai-chat .audioplayer-volume-adjust div div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background-color: #0059ff;
+}
+@media screen and (max-width: 679px) {
+  #geniai-chat .audioplayer-volume-adjust {
+    display: none;
+  }
 }
 
 @keyframes geniai-popup-walkingpoints {

@@ -26,8 +26,6 @@ namespace local_geniai\local\markdown;
 
 /**
  * Class parse_markdown
- *
- * @package local_geniai\external
  */
 class parse_markdown {
     /**

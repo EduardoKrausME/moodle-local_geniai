@@ -64,12 +64,8 @@ class history_3 extends external_api {
      * @param string $action
      *
      * @return array
-     * @throws \required_capability_exception
      */
     public static function api($courseid, $action) {
-        $context = \context_course::instance($courseid);
-        require_capability('local/geniai:view', $context);
-
         return api::history_api($courseid, $action);
     }
 }

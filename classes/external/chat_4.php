@@ -42,6 +42,8 @@ class chat_4 extends external_api {
         return new external_function_parameters([
             'message' => new external_value(PARAM_RAW, 'The message value'),
             'courseid' => new external_value(PARAM_TEXT, 'The Course ID'),
+            "audio" => new external_value(PARAM_RAW, 'The message value', VALUE_OPTIONAL),
+            "lang" => new external_value(PARAM_RAW, 'The language value', VALUE_OPTIONAL),
         ]);
     }
 
@@ -55,6 +57,7 @@ class chat_4 extends external_api {
             'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
             'format' => new external_value(PARAM_TEXT, 'Formato da resposta', VALUE_REQUIRED),
             'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED),
+            'transcription' => new external_value(PARAM_RAW, 'The content transcription', VALUE_OPTIONAL),
         ]);
     }
 
@@ -63,20 +66,15 @@ class chat_4 extends external_api {
      *
      * @param string $message
      * @param int $courseid
+     * @param null $audio
+     * @param null $lang
      *
      * @return array
      *
      * @throws \coding_exception
-     * @throws \core_external\restricted_context_exception
      * @throws \dml_exception
-     * @throws \invalid_parameter_exception
-     * @throws \required_capability_exception
      */
-    public static function api($message, $courseid) {
-        $context = \context_course::instance($courseid);
-        self::validate_context($context);
-        require_capability('local/geniai:view', $context);
-
-        return api::chat_api($courseid, $message);
+    public static function api($message, $courseid, $audio = null, $lang=null) {
+        return api::chat_api($message, $courseid, $audio, $lang );
     }
 }

@@ -16,7 +16,6 @@
 
 namespace local_geniai\external;
 
-use curl;
 use local_geniai\local\markdown\parse_markdown;
 
 /**
@@ -27,7 +26,6 @@ use local_geniai\local\markdown\parse_markdown;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class api {
-
     /**
      * History api function.
      *
@@ -38,15 +36,15 @@ class api {
      */
     public static function history_api($courseid, $action) {
         if ($action == "clear") {
-            $_SESSION["messages-{$courseid}"] = [];
+            $_SESSION["messages-v3-{$courseid}"] = [];
             return [
                 'result' => true,
                 'content' => "[]",
             ];
         }
 
-        if (isset($_SESSION["messages-{$courseid}"])) {
-            $messages = $_SESSION["messages-{$courseid}"];
+        if (isset($_SESSION["messages-v3-{$courseid}"])) {
+            $messages = $_SESSION["messages-v3-{$courseid}"];
             unset($messages[0]);
             unset($messages[1]);
             unset($messages[2]);
@@ -58,7 +56,10 @@ class api {
         foreach ($messages as $message) {
 
             $result = new parse_markdown();
-            $message['content'] = $result->markdown_text($message['content']);
+
+            if (strpos($message['content'], "<audio") === false) {
+                $message['content'] = $result->markdown_text($message['content']);
+            }
             $message['format'] = 'html';
 
             $returnmessage[] = $message;
@@ -75,56 +76,80 @@ class api {
      *
      * @param string $message
      * @param int $courseid
+     * @param null $audio
      *
      * @return array
      *
      * @throws \coding_exception
      * @throws \dml_exception
      */
-    public static function chat_api($courseid, $message) {
+    public static function chat_api($message, $courseid, $audio = null, $lang = null) {
         global $CFG, $DB, $USER, $SITE;
 
-        if (isset($_SESSION["messages-{$courseid}"][0])) {
-            $messages = $_SESSION["messages-{$courseid}"];
+        if (isset($_SESSION["messages-v3-{$courseid}"][0])) {
+            $messages = $_SESSION["messages-v3-{$courseid}"];
         } else {
 
-            $prompt = get_config('local_geniai', 'prompt');
-            $prompt = str_replace("{geniainame}", get_config('local_geniai', 'geniainame'), $prompt);
-            $prompt = str_replace("{user-lang}", $USER->lang, $prompt);
-            $prompt = str_replace("{moodle-name}", $SITE->fullname, $prompt);
-
-            $replace = [
-                'wwwroot' => $CFG->wwwroot,
-                'fullname' => $SITE->fullname,
-            ];
-            $messages = [
-                [
-                    'role' => 'system',
-                    'content' => $prompt . ' and you only format in MARKDOWN.',
-                ], [
-                    'role' => 'system',
-                    'content' => get_string('url_moodle', 'local_geniai', $replace),
-                ],
-            ];
+            if (get_config("local_geniai", "mode") == "assistant") {
+                $replace = [
+                    'wwwroot' => $CFG->wwwroot,
+                    'fullname' => $SITE->fullname,
+                ];
+                $messages = [
+                    [
+                        'role' => 'system',
+                        'content' => get_config('local_geniai', 'prompt') . "\nAnd you only format in MARKDOWN.",
+                    ], [
+                        'role' => 'system',
+                        'content' => get_string('url_moodle', 'local_geniai', $replace),
+                    ],
+                ];
+            } else {
+                $geniainame = get_config('local_geniai', 'geniainame');
+                $prompt =
+                    "Você é um Tutor de conversação multilíngue e seu nome é {$geniainame} e você vai atuar como se estivesse em uma sessão de coversação.";
+                $messages = [
+                    [
+                        'role' => 'system',
+                        'content' => $prompt,
+                    ], [
+                        'role' => 'system',
+                        'content' => "Responda somente no idioma \"{$lang}\" e somente no formato MARKDOWN.",
+                    ],
+                ];
+            }
             if ($courseid) {
                 if ($course = $DB->get_record('course', ['id' => $courseid])) {
                     $messages[] = [
                         'role' => 'system',
                         'content' => get_string('course_user', 'local_geniai',
-                            ['course' => $course->fullname]),
+                            ['course' => $course->fullname, 'userfullname' => fullname($USER)]),
                     ];
                 }
             } else {
                 $messages[] = [
                     'role' => 'system',
-                    'content' => get_string('course_home', 'local_geniai'),
+                    'content' => get_string('course_home', 'local_geniai', ['userfullname' => fullname($USER)]),
                 ];
             }
         }
-        $messages[] = [
-            'role' => 'user',
-            'content' => strip_tags(trim($message)),
-        ];
+
+        $returntranscription = false;
+        if ($audio) {
+            $transcription = self::transcriptions($audio, $lang);
+            $returntranscription = $message = $transcription["text"];
+
+            $messages[] = [
+                'role' => 'user',
+                'content' => "<audio controls autoplay src='{$CFG->wwwroot}/local/geniai/load-audio-temp.php?filename={$transcription["filename"]}'></audio><div class='transcription'>{$message}</div>",
+            ];
+        } else {
+            $messages[] = [
+                'role' => 'user',
+                'content' => strip_tags(trim($message)),
+            ];
+        }
+
 
         if (count($messages) > 10) {
             unset($messages[4]);
@@ -136,30 +161,47 @@ class api {
         if (isset($gpt['error'])) {
             $result = new parse_markdown();
             $content = $result->markdown_text($gpt['error']['message']);
+
             return [
                 'result' => false,
                 'format' => 'text',
                 'content' => $content,
+                'transcription' => $returntranscription,
             ];
         }
 
         if (isset($gpt['choices'][0]['message']['content'])) {
             $content = $gpt['choices'][0]['message']['content'];
 
-            $messages[] = [
-                'role' => 'system',
-                'content' => $content,
-            ];
-            $_SESSION["messages-{$courseid}"] = $messages;
+            if ($audio) {
+                $result = new parse_markdown();
+                $content = $result->markdown_text($content);
+                $contentstrip = strip_tags($content);
+                $audiosrc = self::speech($contentstrip);
+                $content = "<audio controls autoplay src='{$audiosrc}'></audio><div class='transcription'>{$content}</div>";
 
-            $result = new parse_markdown();
-            $content = $result->markdown_text($content);
+                $messages[] = [
+                    'role' => 'system',
+                    'content' => $content,
+                ];
+            } else {
+                $messages[] = [
+                    'role' => 'system',
+                    'content' => $content,
+                ];
+
+                $result = new parse_markdown();
+                $content = $result->markdown_text($content);
+            }
+
+            $_SESSION["messages-v3-{$courseid}"] = $messages;
 
             $format = 'html';
             return [
                 'result' => true,
                 'format' => $format,
                 'content' => $content,
+                'transcription' => $returntranscription,
             ];
         }
 
@@ -178,10 +220,9 @@ class api {
      * @return mixed
      *
      * @throws \dml_exception
-     * @throws \coding_exception
      */
     public static function chat_completions($messages) {
-        global $DB, $CFG;
+        global $DB;
 
         $apikey = get_config('local_geniai', 'apikey');
         $model = get_config('local_geniai', 'model');
@@ -231,9 +272,15 @@ class api {
                 $topp = .5;
         }
 
+        $messagesok = [];
+        foreach ($messages as $message) {
+            $message["content"] = strip_tags($message["content"]);
+            $messagesok[] = $message;
+        }
+
         $post = (object)[
             'model' => $model,
-            'messages' => $messages,
+            'messages' => $messagesok,
             'temperature' => $temperature,
             'top_p' => $topp,
             'max_tokens' => intval($maxtokens),
@@ -241,15 +288,27 @@ class api {
             'presence_penalty' => floatval($presencepenalty),
         ];
 
-        require_once("{$CFG->libdir}/filelib.php");
-        $curl = new curl();
-        $curl->setopt([
-            'CURLOPT_HTTPHEADER' => [
-                'Content-Type: application/json',
-                "Authorization: Bearer {$apikey}",
-            ],
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/chat/completions');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            "Authorization: Bearer {$apikey}",
         ]);
-        $result = $curl->post('https://api.openai.com/v1/chat/completions', json_encode($post));
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            return [
+                'error' => [
+                    'message' => 'http error: ' . curl_error($ch),
+                ],
+            ];
+        }
+        curl_close($ch);
+
         $gpt = json_decode($result, true);
 
         $usage = (object)[
@@ -268,5 +327,91 @@ class api {
         }
 
         return $gpt;
+    }
+
+    /**
+     * Function transcriptions
+     *
+     * @param string $audio
+     *
+     * @return array
+     * @throws \dml_exception
+     */
+    private static function transcriptions($audio, $lang) {
+        global $CFG;
+
+        $audio = str_replace('data:audio/mp3;base64,', '', $audio);
+        $audiodata = base64_decode($audio);
+        $filename = uniqid();
+        $filepath = "{$CFG->dataroot}/temp/{$filename}.mp3";
+        file_put_contents($filepath, $audiodata);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/audio/transcriptions');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, [
+            'file' => curl_file_create($filepath),
+            'model' => 'whisper-1',
+            'response_format' => 'verbose_json',
+            'language' => $lang,
+        ]);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: multipart/form-data',
+            "Authorization: Bearer " . get_config('local_geniai', 'apikey'),
+        ]);
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $result = json_decode($result);
+
+        return [
+            "text" => $result->text,
+            "language" => $result->language,
+            "filename" => $filename,
+        ];
+    }
+
+    /**
+     * Function speech
+     *
+     * @param $input
+     *
+     * @return string
+     *
+     * @throws \dml_exception
+     */
+    private static function speech($input) {
+        global $CFG;
+
+        $json = json_encode((object)[
+            "model" => "tts-1",
+            "input" => $input,
+            "voice" => get_config("local_geniai", "voice"),
+            "response_format" => "mp3",
+        ]);
+
+        header("aaaaa:{$json}");
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/audio/speech');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            "Authorization: Bearer " . get_config('local_geniai', 'apikey'),
+        ]);
+
+        $audiodata = curl_exec($ch);
+        curl_close($ch);
+
+        $filename = uniqid();
+        $filepath = "{$CFG->dataroot}/temp/{$filename}.mp3";
+        file_put_contents($filepath, $audiodata);
+
+        return "{$CFG->wwwroot}/local/geniai/load-audio-temp.php?filename={$filename}";
     }
 }
