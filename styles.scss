@@ -460,7 +460,7 @@
             }
         }
         #geniai-scrollarea {
-           // max-height: initial !important;
+            // max-height: initial !important;
             #geniai-area-mensagens {
                 padding-top: 10px;
             }
@@ -491,5 +491,39 @@
     }
     .dot:nth-child(3) {
         animation-delay: 500ms
+    }
+}
+.h5p-manager-page {
+    .geniai-page-maxwidth-900 {
+        max-width: 900px;
+        margin: 0 auto !important;;
+    }
+    .modal-dialog {
+        min-width: 1150px;
+        @media (max-width: 1150px) {
+            min-width: 90%;
+        }
+    }
+    .h5p-create .h5p-block img.icon {
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+        margin: 15px auto 0;
+    }
+    #area_title,
+    .h5p-create{
+        display: none;
+    }
+    .h5p-block-title{
+        display: flex !important;
+        align-items: center;
+        img{
+            height: 32px;
+            width: auto;
+        }
+        h3{
+            margin: 0;
+            padding: 0;
+        }
     }
 }

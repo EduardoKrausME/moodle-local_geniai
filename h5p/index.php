@@ -15,20 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * version file.
+ * Index file.
  *
  * @package    local_geniai
  * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+use local_geniai\local\h5p\page_header;
+use local_geniai\local\h5p\types;
 
-$plugin->version = 2024110800;
-$plugin->requires = 2014051220;
-$plugin->release = '1.0.17';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_geniai';
-$plugin->dependencies = [
-    "local_kopere_dashboard" => 2024101500,
-];
+require('../../../config.php');
+
+require_login();
+
+$contextid = optional_param('contextid', \context_system::instance()->id, PARAM_INT);
+$context = context::instance_by_id($contextid, MUST_EXIST);
+
+$header = new page_header();
+$header->header($contextid, $context);
+
+echo $OUTPUT->header();
+echo $OUTPUT->heading($header->getTitle(), 2);
+
+echo $OUTPUT->render_from_template("local_geniai/h5p-index", types::getTypes($contextid));
+
+echo $OUTPUT->footer();

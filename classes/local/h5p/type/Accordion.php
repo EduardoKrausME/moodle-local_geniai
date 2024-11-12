@@ -15,20 +15,35 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * version file.
+ * base file.
  *
  * @package    local_geniai
  * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+namespace local_geniai\local\h5p\type;
 
-$plugin->version = 2024110800;
-$plugin->requires = 2014051220;
-$plugin->release = '1.0.17';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_geniai';
-$plugin->dependencies = [
-    "local_kopere_dashboard" => 2024101500,
-];
+use local_kopere_dashboard\html\form;
+use local_kopere_dashboard\html\inputs\input_checkbox;
+
+class Accordion implements base {
+
+    /**
+     * Function form
+     *
+     * @param form $form
+     *
+     * @return mixed
+     * @throws \coding_exception
+     */
+    public function form(form $form) {
+        $form->add_input(
+            input_checkbox::new_instance()
+                ->set_title( "Mostrar Glossário" )
+                ->set_name( "mostrar_glossario" )
+                ->set_value( 1 )
+                ->set_checked( 1 )
+        );
+    }
+}

@@ -659,4 +659,39 @@
   animation-delay: 500ms;
 }
 
+.h5p-manager-page .geniai-page-maxwidth-900 {
+  max-width: 900px;
+  margin: 0 auto !important;
+}
+.h5p-manager-page .modal-dialog {
+  min-width: 1150px;
+}
+@media (max-width: 1150px) {
+  .h5p-manager-page .modal-dialog {
+    min-width: 90%;
+  }
+}
+.h5p-manager-page .h5p-create .h5p-block img.icon {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  margin: 15px auto 0;
+}
+.h5p-manager-page #area_title,
+.h5p-manager-page .h5p-create {
+  display: none;
+}
+.h5p-manager-page .h5p-block-title {
+  display: flex !important;
+  align-items: center;
+}
+.h5p-manager-page .h5p-block-title img {
+  height: 32px;
+  width: auto;
+}
+.h5p-manager-page .h5p-block-title h3 {
+  margin: 0;
+  padding: 0;
+}
+
 /*# sourceMappingURL=styles.css.map */

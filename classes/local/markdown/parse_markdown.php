@@ -28,60 +28,40 @@ namespace local_geniai\local\markdown;
  * Class parse_markdown
  */
 class parse_markdown {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $breaksenabled;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $safemode;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $markupescaped;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private static $instances = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $definitiondata;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $specialcharacters = ['\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#', '+', '-', '.', '!', '|'];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $strongregex = [
         '*' => '/^[*]{2}((?:\\\\\*|[^*]|[*][^*]*[*])+?)[*]{2}(?![*])/s',
         '_' => '/^__((?:\\\\_|[^_]|_[^_]*_)+?)__(?!_)/us',
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $emregex = [
         '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
         '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
     ];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $regexhtmlattribute = '[a-zA-Z_:][\w:.-]*(?:\s*=\s*(?:[^"\'=<>`\s]+|"[^"]*"|\'[^\']*\'))?';
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $voidmarkdownelements = [
         'area',
         'base',
@@ -98,9 +78,7 @@ class parse_markdown {
         'source',
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $textlevelmarkdownelements = [
         'a',
         'br',
@@ -144,9 +122,7 @@ class parse_markdown {
         'time',
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $safelinkswhitelist = [
         'http://',
         'https://',
@@ -164,9 +140,7 @@ class parse_markdown {
         'steam:',
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $markdownblocktypes = [
         '#' => ['Header'],
         '*' => ['Rule', 'List'],
@@ -193,16 +167,12 @@ class parse_markdown {
         '~' => ['FencedCode'],
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $unmarkedmarkdownblocktypes = [
         'Code',
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $inlinetypes = [
         '"' => ['SpecialCharacter'],
         '!' => ['Image'],
@@ -218,14 +188,10 @@ class parse_markdown {
         '\\' => ['EscapeSequence'],
     ];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $inlinemarkerlist = '!"*_&[:<>`~\\';
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $urlslinked = true;
 
     /**

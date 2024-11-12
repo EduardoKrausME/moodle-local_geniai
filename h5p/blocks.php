@@ -15,20 +15,43 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * version file.
+ * Blocks file.
  *
  * @package    local_geniai
  * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+use local_geniai\h5p\local\page_create;
+use local_geniai\local\vo\local_geniai_h5p;
+use local_kopere_dashboard\html\form;
 
-$plugin->version = 2024110800;
-$plugin->requires = 2014051220;
-$plugin->release = '1.0.17';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_geniai';
-$plugin->dependencies = [
-    "local_kopere_dashboard" => 2024101500,
-];
+require("../../../config.php");
+
+require_login();
+
+$id = optional_param("type", 0, PARAM_INT);
+/** @var local_geniai_h5p $h5p */
+$h5p = $DB->get_record("local_geniai_h5p", ["id" => $id]);
+$contextid = $h5p->contextid;
+$type = $h5p->type;
+$context = context::instance_by_id($contextid, MUST_EXIST);
+
+
+
+echo $OUTPUT->header();
+echo $OUTPUT->box_start("kopere_dashboard_div geniai-page-maxwidth-900");
+echo $OUTPUT->heading($title2, 2);
+
+$page = new page_create();
+$page->setContextid($contextid);
+$page->setType($type);
+$page->setH5p($h5p);
+if (form::check_post()) {
+    $page->save();
+} else {
+    $page->create_page();
+}
+
+echo $OUTPUT->box_end();
+echo $OUTPUT->footer();

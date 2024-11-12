@@ -15,20 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * version file.
+ * h5p_base file.
  *
  * @package    local_geniai
  * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+namespace local_geniai\local\h5p\type;
 
-$plugin->version = 2024110800;
-$plugin->requires = 2014051220;
-$plugin->release = '1.0.17';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_geniai';
-$plugin->dependencies = [
-    "local_kopere_dashboard" => 2024101500,
-];
+
+use local_kopere_dashboard\html\form;
+
+/**
+ * Interface h5p_base
+ *
+ * @package local_geniai\local\h5p\type
+ */
+interface h5p_base {
+    /**
+     * Function form
+     *
+     * @param form $form
+     *
+     * @return mixed
+     */
+    public function form(form $form);
+}

@@ -100,7 +100,7 @@ function local_geniai_addh5p(){
     $contextid =optional_param("contextid", false, PARAM_INT);
     if($contextid && strpos($_SERVER['REQUEST_URI'], "contentbank")){
         global $PAGE;
-        $PAGE->requires->strings_for_js(["h5p-create"], "local_geniai");
+        $PAGE->requires->strings_for_js(["h5p-manager"], "local_geniai");
         $PAGE->requires->js_call_amd('local_geniai/h5p', 'init', [$contextid]);
     }
 }

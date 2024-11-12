@@ -1,0 +1,18 @@
+{{#js}}
+    /*
+    <script>*/
+    require(["jquery", "core/modal_factory"], function($, ModalFactory) {
+
+        var h5ps = {
+            {{#types.h5ps}}
+                "H5P.{{{id}}}" : {
+                    "title" : "{{{title}}}",
+                    "desc"  : "{{{desc}}}",
+                    "pix"   : `{{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}`,
+                },
+            {{/types.h5ps}}
+        };
+
+        {{{h5pjs}}}
+    });
+{{/js}}
