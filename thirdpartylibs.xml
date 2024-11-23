@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <libraries>
     <library>
-        <location>geniai/classes/local/markdown/parse_markdown.php</location>
+        <location>classes/local/markdown/parse_markdown.php</location>
         <name>fastvolt/markdown</name>
         <version>0.2</version>
         <license>MIT license</license>
