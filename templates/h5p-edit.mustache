@@ -1,3 +1,82 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_geniai/h5p-edit
+
+    Chat Panel.
+
+    Classes required for JS:
+    * none
+
+    Context variables required for this template:
+    * see local/geniai/lib.php
+
+    Example context (json):
+    {
+      "h5p": {
+        "id": "123",
+        "contextid": "456",
+        "type": "interactive",
+        "data": "some_data",
+        "title": "My H5P Title"
+      },
+      "h5p_data": {
+        "textbase": "/path/to/textbase",
+        "modulebase": "/path/to/modulebase",
+        "filebase": "/path/to/filebase"
+      },
+      "user": {
+        "lang": "en"
+      },
+      "pages": [
+        {
+          "id": "1",
+          "title": "Page 1 Title",
+          "type": "text",
+          "data": "page1_data"
+        },
+        {
+          "id": "2",
+          "title": "Page 2 Title",
+          "type": "video",
+          "data": "page2_data"
+        }
+      ],
+      "types": {
+        "h5ps": [
+          {
+            "id": "ExampleType1",
+            "title": "Type 1",
+            "desc": "Description for type 1"
+          },
+          {
+            "id": "ExampleType2",
+            "title": "Type 2",
+            "desc": "Description for type 2"
+          }
+        ]
+      },
+      "tyni_editor_config": {
+        "toolbar": "bold italic underline",
+        "plugins": ["lists", "link"]
+      }
+    }
+}}
+
 <form method="post"
       class="validate form-h5p-edit d-none"
       enctype="multipart/form-data"
