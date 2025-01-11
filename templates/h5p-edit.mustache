@@ -56,22 +56,20 @@
 </form>
 
 {{#js}}
-    /*<script>*/
-    require(["jquery", "core/modal_factory", "jqueryui"], function($, ModalFactory, $ui) {
+require(["jquery", "core/modal_factory", "jqueryui"], function($, ModalFactory, $ui) {
+    var tyni_editor_config = {{{tyni_editor_config}}};
+    var loading_icon = `{{#pix}}h5p/loading,local_geniai{{/pix}}`.replace("icon", "");
 
-        var tyni_editor_config = {{{tyni_editor_config}}};
-        var loading_icon = `{{#pix}}h5p/loading,local_geniai{{/pix}}`.replace("icon", "");
+    var h5ps = {
+        {{#types.h5ps}}
+            "H5P.{{{id}}}": {
+                "title": "{{{title}}}",
+                "desc": "{{{desc}}}",
+                "pix": `{{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}`.replace("icon", ""),
+            },
+        {{/types.h5ps}}
+    };
 
-        var h5ps = {
-            {{#types.h5ps}}
-                "H5P.{{{id}}}": {
-                    "title": "{{{title}}}",
-                    "desc": "{{{desc}}}",
-                    "pix": `{{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}`.replace("icon", ""),
-                },
-            {{/types.h5ps}}
-        };
-
-        {{{h5pjs}}}
-    });
+    {{{h5pjs}}}
+});
 {{/js}}
