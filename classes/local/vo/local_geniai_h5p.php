@@ -24,13 +24,12 @@
 
 namespace local_geniai\local\vo;
 
-
 /**
  * Class local_geniai_h5p
  *
  * @package local_geniai\local\vo
  */
-class local_geniai_h5p {
+class local_geniai_h5p extends \stdClass {
 
     /** @var int */
     public $id = 0;
@@ -43,18 +42,6 @@ class local_geniai_h5p {
 
     /** @var string */
     public $title = "";
-
-    /** @var int */
-    public $filebase = 0;
-
-    /** @var string */
-    public $textbase = "";
-
-    /** @var int */
-    public $modulebase = "";
-
-    /** @var string */
-    public $startbase = "";
 
     /** @var string */
     public $type = "";

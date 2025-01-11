@@ -1,0 +1,77 @@
+<form method="post"
+      class="validate form-h5p-edit d-none"
+      enctype="multipart/form-data"
+      action="edit.php?id={{h5p.id}}"
+      data-action="edit.php?id={{h5p.id}}">
+    <div class="displayErroForm alert alert-danger" style="display: none;"></div>
+    <input name="POST" type="hidden" value="true">
+    <input type="hidden" name="sessionkey" id="sessionkey" value="{{config.sesskey}}">
+    <input type="hidden" name="userlang" id="userlang" value="{{user.lang}}">
+
+    <input type="hidden" name="contextid" id="contextid" value="{{h5p.contextid}}">
+    <input type="hidden" name="type" id="type" value="{{h5p.type}}">
+    <input type="hidden" name="h5p_data" id="h5p_data" value="{{h5p.data}}">
+
+    <input type="hidden" name="textbase" id="h5p_data_textbase" value="{{h5p_data.textbase}}">
+    <input type="hidden" name="modulebase" id="h5p_data_modulebase" value="{{h5p_data.modulebase}}">
+    <input type="hidden" name="filebase" id="h5p_data_filebase" value="{{h5p_data.filebase}}">
+
+    <div id="area_title" class="form-group area_title type_text">
+        <label for="title">{{#str}}h5p-create-title, local_geniai{{/str}}</label>
+        <input id="title" name="title" type="text" value="{{h5p.title}}">
+        <div class="help-block form-text with-errors">{{#str}}h5p-create-title-desc, local_geniai{{/str}}</div>
+    </div>
+
+    <div id="config-h5p"></div>
+
+    <div id="h5ps-pages">
+        <ul>
+            {{#pages}}
+                <li>
+                    <a href="#h5ps-pages-{{id}}" title="{{title}}">
+                        {{#pix}}h5p/{{type}},local_geniai{{/pix}}
+                        <span class="title">{{title}}</span>
+                    </a>
+                </li>
+            {{/pages}}
+        </ul>
+        {{#pages}}
+            <div id="h5ps-pages-{{id}}" data-id="{{id}}">
+
+                <h2></h2>
+
+                <div id="area_page_title" class="form-group area_title type_text">
+                    <label for="pages-{{id}}-title">{{#str}}h5p-block-title, local_geniai{{/str}}</label>
+                    <input id="pages-{{id}}-title" name="pages[{{id}}][title]" type="text" value="{{title}}">
+                </div>
+
+                <div id="pages-{{id}}-config" class="pages-inputs"></div>
+
+                <input type="hidden" class="page-type" name="pages[{{id}}][type]" value="{{type}}">
+                <input type="hidden" class="page-data" value="{{data}}">
+            </div>
+        {{/pages}}
+    </div>
+
+</form>
+
+{{#js}}
+    /*<script>*/
+    require(["jquery", "core/modal_factory", "jqueryui"], function($, ModalFactory, $ui) {
+
+        var tyni_editor_config = {{{tyni_editor_config}}};
+        var loading_icon = `{{#pix}}h5p/loading,local_geniai{{/pix}}`.replace("icon", "");
+
+        var h5ps = {
+            {{#types.h5ps}}
+                "H5P.{{{id}}}": {
+                    "title": "{{{title}}}",
+                    "desc": "{{{desc}}}",
+                    "pix": `{{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}`.replace("icon", ""),
+                },
+            {{/types.h5ps}}
+        };
+
+        {{{h5pjs}}}
+    });
+{{/js}}

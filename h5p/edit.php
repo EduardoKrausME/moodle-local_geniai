@@ -27,16 +27,24 @@ use local_geniai\local\h5p\page_header;
 use local_geniai\local\vo\local_geniai_h5p;
 
 require("../../../config.php");
+require("{$CFG->libdir}/editor/tiny/lib.php");
 
 require_login();
 
-$contextid = required_param("contextid", PARAM_INT);
-$type = required_param("type", PARAM_TEXT);
-$h5p = new local_geniai_h5p();
+$id = optional_param("id", 0, PARAM_INT);
+if ($id) {
+    /** @var local_geniai_h5p $h5p */
+    $h5p = $DB->get_record("local_geniai_h5p", ["id" => $id]);
+    $contextid = $h5p->contextid;
+    $type = $h5p->type;
+} else {
+    $contextid = optional_param("contextid", \context_system::instance()->id, PARAM_INT);
+    $type = optional_param("type", "", PARAM_TEXT);
+    $h5p = new local_geniai_h5p();
 
-$h5p->type = $type;
-$h5p->contextid = $contextid;
-
+    $h5p->type = $type;
+    $h5p->contextid = $contextid;
+}
 $context = context::instance_by_id($contextid, MUST_EXIST);
 
 $apikey = get_config("local_geniai", "apikey");
@@ -50,18 +58,39 @@ if (!isset($apikey[9])) {
     die;
 }
 
-$cburl = new moodle_url("/local/geniai/h5p/create.php", $_GET);
+$cburl = new moodle_url("/local/geniai/h5p/edit.php", $_GET);
 $header = new page_header();
 $header->header($cburl, $contextid, $context, $type);
-$PAGE->set_title($header->get_title());
+$PAGE->set_title($h5p->title);
+$PAGE->requires->jquery_plugin("ui");
+$PAGE->requires->jquery_plugin("ui-css");
+
+$editor = new tiny_texteditor();
+$editor->head_setup();
 
 echo $OUTPUT->header();
-echo $OUTPUT->box_start("geniai-page-maxwidth-900");
-echo $OUTPUT->heading($header->get_title(), 2);
+echo $OUTPUT->box_start("geniai-page-maxwidth-1200");
+echo $OUTPUT->heading($h5p->title, 2);
 
 $page = new page_create();
 $page->set_h5p($h5p);
-$page->create_page();
+if (optional_param("delete", false, PARAM_INT)) {
+    require_sesskey();
+
+    $page->delete();
+    redirect(new moodle_url("/local/geniai/h5p/index.php", ["contextid" => $page->get_h5p()->contextid]),
+        get_string("h5p-delete-success", "local_geniai"));
+    die;
+}
+if (optional_param("POST", false, PARAM_TEXT)) {
+
+    $page->save();
+    if (optional_param("contentbank", false, PARAM_TEXT)) {
+        $page->send_contentbank();
+    }
+} else {
+    $page->edit();
+}
 
 echo $OUTPUT->box_end();
 echo $OUTPUT->footer();

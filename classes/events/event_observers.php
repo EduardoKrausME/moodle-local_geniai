@@ -45,6 +45,6 @@ class event_observers {
      */
     public static function course_viewed(\core\event\base $event) {
         $data = $event->get_data();
-        self::$courseid = $data['courseid'];
+        self::$courseid = $data["courseid"];
     }
 }

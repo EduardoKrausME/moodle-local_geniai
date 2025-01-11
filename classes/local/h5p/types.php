@@ -24,17 +24,21 @@
 
 namespace local_geniai\local\h5p;
 
-
+/**
+ * Class types
+ *
+ * @package local_geniai\local\h5p
+ */
 class types {
     /**
-     * Function getTypes
+     * Function get_types
      *
-     * @param $contextid
+     * @param int $contextid
      *
      * @return array
      * @throws \coding_exception
      */
-    public static function getTypes($contextid){
+    public static function get_types($contextid) {
         global $CFG;
 
         $data = [

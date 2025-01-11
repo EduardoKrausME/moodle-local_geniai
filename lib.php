@@ -35,4 +35,3 @@ function local_geniai_before_footer() {
     core_hook_output::before_footer_html_generation();
 }
 
-

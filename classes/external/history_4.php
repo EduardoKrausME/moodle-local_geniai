@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * History_4 file.
+ *
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace local_geniai\external;
 
 use core_external\external_api;
@@ -40,8 +48,8 @@ class history_4 extends external_api {
      */
     public static function api_parameters() {
         return new external_function_parameters([
-            'courseid' => new external_value(PARAM_TEXT, 'The Course ID'),
-            'action' => new external_value(PARAM_TEXT, 'The action'),
+            "courseid" => new external_value(PARAM_TEXT, "The Course ID"),
+            "action" => new external_value(PARAM_TEXT, "The action"),
         ]);
     }
 
@@ -52,8 +60,8 @@ class history_4 extends external_api {
      */
     public static function api_returns() {
         return new external_single_structure([
-            'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED),
+            "result" => new external_value(PARAM_TEXT, "Sucesso da operação", VALUE_REQUIRED),
+            "content" => new external_value(PARAM_RAW, "The content result", VALUE_REQUIRED),
         ]);
     }
 

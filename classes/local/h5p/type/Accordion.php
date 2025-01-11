@@ -27,7 +27,12 @@ namespace local_geniai\local\h5p\type;
 use local_kopere_dashboard\html\form;
 use local_kopere_dashboard\html\inputs\input_checkbox;
 
-class Accordion implements base {
+/**
+ * Class Accordion
+ *
+ * @package local_geniai\local\h5p\type
+ */
+class Accordion implements h5p_base {
 
     /**
      * Function form

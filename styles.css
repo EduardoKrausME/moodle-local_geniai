@@ -1,3 +1,4 @@
+@charset "UTF-8";
 #geniai-chat {
   position: fixed;
   bottom: 100px;
@@ -671,13 +672,28 @@
     min-width: 90%;
   }
 }
+.h5p-manager-page .h5p-index .h5p-block img.icon,
 .h5p-manager-page .h5p-create .h5p-block img.icon {
   width: 100%;
   height: auto;
   max-width: 200px;
   margin: 15px auto 0;
 }
-.h5p-manager-page #area_title,
+.h5p-manager-page .control-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  margin-left: 170px;
+  gap: 12px;
+}
+.h5p-manager-page .control-buttons > input,
+.h5p-manager-page .control-buttons > span {
+  margin-left: 0;
+  border-radius: 0;
+  border: none;
+}
 .h5p-manager-page .h5p-create {
   display: none;
 }
@@ -692,6 +708,309 @@
 .h5p-manager-page .h5p-block-title h3 {
   margin: 0;
   padding: 0;
+}
+.h5p-manager-page textarea {
+  width: 100%;
+}
+.h5p-manager-page fieldset,
+.h5p-manager-page #h5ps-pages,
+.h5p-manager-page .form-h5p-next-step {
+  padding: 0.35em 0.625em 0.75em;
+  min-width: 0;
+  border-radius: 7px;
+  border: 2px solid #b9b9b9;
+  margin: 5px 2px 27px;
+}
+.h5p-manager-page fieldset legend,
+.h5p-manager-page #h5ps-pages legend,
+.h5p-manager-page .form-h5p-next-step legend {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 21px;
+  line-height: inherit;
+  color: #333;
+  border: 0;
+  padding: 0 6px;
+  width: auto;
+  float: none;
+}
+.h5p-manager-page fieldset .btn-delete,
+.h5p-manager-page #h5ps-pages .btn-delete,
+.h5p-manager-page .form-h5p-next-step .btn-delete {
+  font-size: 0.7em;
+  background: #e91e63;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+.h5p-manager-page fieldset .form-group,
+.h5p-manager-page #h5ps-pages .form-group,
+.h5p-manager-page .form-h5p-next-step .form-group {
+  margin-bottom: 10px;
+}
+.h5p-manager-page fieldset .form-group label,
+.h5p-manager-page #h5ps-pages .form-group label,
+.h5p-manager-page .form-h5p-next-step .form-group label {
+  font-weight: 700;
+}
+.h5p-manager-page fieldset .form-group .help-block,
+.h5p-manager-page #h5ps-pages .form-group .help-block,
+.h5p-manager-page .form-h5p-next-step .form-group .help-block {
+  font-size: 0.9em;
+  color: #757575;
+}
+.h5p-manager-page fieldset .h5p-delete-block,
+.h5p-manager-page #h5ps-pages .h5p-delete-block,
+.h5p-manager-page .form-h5p-next-step .h5p-delete-block {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  padding: 2px 13px;
+  cursor: pointer;
+  margin: 0 !important;
+}
+@media (max-width: 950px) {
+  .h5p-manager-page #h5ps-pages .ui-tabs-nav {
+    min-width: 53px;
+    width: 53px;
+  }
+  .h5p-manager-page #h5ps-pages .ui-tabs-nav .title {
+    display: none;
+  }
+}
+.h5p-manager-page .tox-tinymce {
+  min-height: 600px;
+}
+.h5p-manager-page select,
+.h5p-manager-page input[type=text],
+.h5p-manager-page input[type=email],
+.h5p-manager-page input[type=number],
+.h5p-manager-page input[type=time],
+.h5p-manager-page input[type=password],
+.h5p-manager-page textarea,
+.h5p-manager-page .contentinput {
+  padding: 8px 10px;
+  line-height: 1.5;
+  border-radius: 3px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.4509803922);
+  border: 1px solid #ced4da;
+}
+.h5p-manager-page select[disable],
+.h5p-manager-page input[type=text][disable],
+.h5p-manager-page input[type=email][disable],
+.h5p-manager-page input[type=number][disable],
+.h5p-manager-page input[type=time][disable],
+.h5p-manager-page input[type=password][disable],
+.h5p-manager-page textarea[disable],
+.h5p-manager-page .contentinput[disable] {
+  background: rgba(197, 197, 197, 0.11);
+}
+.h5p-manager-page .ui-tabs-vertical {
+  background: #ebebeb;
+  display: flex;
+}
+.h5p-manager-page .ui-tabs-vertical .ui-tabs-nav {
+  padding: 0.2em 0.1em 0.2em 0.2em;
+  width: 320px;
+  min-width: 320px;
+  background: transparent !important;
+}
+.h5p-manager-page .ui-tabs-vertical .ui-tabs-nav li {
+  clear: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  white-space: normal;
+  border: none;
+  background: transparent !important;
+}
+.h5p-manager-page .ui-tabs-vertical .ui-tabs-nav li .icon {
+  width: auto;
+  height: 22px;
+  margin-right: 0;
+}
+.h5p-manager-page .ui-tabs-vertical .ui-tabs-nav li a {
+  display: block;
+  width: 100%;
+  padding: 7px 7px;
+}
+.h5p-manager-page .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+  padding-bottom: 0;
+  padding-right: 0.1em;
+  border-right-width: 1px;
+  background: #fff !important;
+}
+.h5p-manager-page .ui-tabs-vertical .ui-tabs-nav li .ui-close {
+  margin-right: 5px;
+  background: #e91e63;
+  color: #fff;
+  padding: 0 5px;
+  border-radius: 5px;
+  font-weight: 700;
+  line-height: 19px;
+  font-family: "Roboto Mono", monospace;
+}
+.h5p-manager-page .ui-tabs-vertical .ui-tabs-panel {
+  padding: 1em;
+  float: right;
+  border-radius: 10px;
+  width: 100%;
+  background: #fff;
+}
+.h5p-manager-page .ui-tabs-vertical .ui-tabs-panel h2 {
+  display: flex;
+  align-items: center;
+}
+.h5p-manager-page .ui-tabs-vertical .ui-tabs-panel h2 img {
+  height: 35px;
+  margin-right: 8px;
+}
+.h5p-manager-page .ui-accordion .ui-icon {
+  filter: brightness(0) invert(1);
+}
+.h5p-manager-page .ui-accordion .ui-state-default {
+  border: none;
+  background: #2196f3;
+  font-weight: normal;
+  color: #fff;
+  padding-left: 25px;
+}
+.h5p-manager-page .ui-accordion .ui-state-hover,
+.h5p-manager-page .ui-accordion .ui-state-active {
+  border: none;
+  background: #1d94e9;
+  font-weight: normal;
+  color: #fff;
+  padding-left: 27px;
+}
+.h5p-manager-page .ui-accordion .ui-accordion-content {
+  position: relative;
+}
+.h5p-manager-page .ui-dialog {
+  padding: 0;
+}
+.h5p-manager-page .ui-dialog .ui-widget-header {
+  background: #2196f3;
+  color: #fff;
+  border: none;
+}
+.h5p-manager-page .ui-dialog .ui-widget-header .ui-dialog-titlebar-close {
+  background: none;
+  border: none;
+}
+.h5p-manager-page .ui-dialog .ui-widget-header .ui-dialog-titlebar-close .ui-icon {
+  filter: brightness(0) invert(1);
+}
+.h5p-manager-page .ui-dialog .ui-dialog-buttonset :first-child {
+  color: #691911;
+  background: #f4d6d2;
+  border-color: #f0c5c1;
+}
+.h5p-manager-page .ui-dialog .ui-dialog-buttonset :last-child {
+  color: #405969;
+  background: #acddf4;
+  border-color: #7ecdf2;
+}
+.h5p-manager-page input.radio-select {
+  display: none;
+}
+.h5p-manager-page input.radio-select + label {
+  padding: 10px;
+  background-color: #cccccc;
+  color: #525151;
+  cursor: pointer;
+  border-radius: 3px 3px 3px 3px;
+  transition: background-color 0.25s;
+  user-select: none;
+}
+.h5p-manager-page input.radio-select:checked + label {
+  background-color: #3498db;
+  color: #fff;
+}
+.h5p-manager-page input.radio-select:disabled + label {
+  background-color: #efe9df;
+  color: #c0c0c0;
+  cursor: not-allowed;
+}
+.h5p-manager-page .el-switch {
+  display: inline-block;
+  font-size: 125% !important;
+  height: 28px;
+  position: relative;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+.h5p-manager-page .el-switch > input[type=checkbox] {
+  display: none;
+}
+.h5p-manager-page .el-switch > input[type=checkbox]:checked + .el-switch-style {
+  background: #2196f3;
+}
+.h5p-manager-page .el-switch .el-switch-style {
+  height: 28px;
+  left: 0;
+  background: #c0ccda;
+  border-radius: 14px;
+  display: inline-block;
+  position: relative;
+  top: 0;
+  transition: all 0.3s ease-in-out;
+  width: 53px;
+  cursor: pointer;
+}
+.h5p-manager-page .el-switch .el-switch-style:before {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  display: block;
+  content: "";
+  height: 24px;
+  width: 24px;
+  background: #fff;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+.h5p-manager-page .el-switch > input[type=checkbox]:checked + .el-switch-style:before {
+  right: 2px;
+  left: initial;
+}
+.h5p-manager-page .el-switch > input[type=checkbox]:disabled + .el-switch-style {
+  opacity: 0.9;
+  background: #a1b7d2;
+}
+
+.bcp-content {
+  max-width: none;
+  min-width: 400px;
+}
+.bcp-content .bcp-row {
+  display: flex;
+}
+.bcp-content .bcp-color {
+  transition: all 0.1s ease-in-out;
+  position: relative;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  min-height: 24px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  margin: 2px 5px;
+  cursor: pointer;
+  color: #fff;
+}
+.bcp-content .bcp-color.bcp-active {
+  pointer-events: none;
+}
+.bcp-content .bcp-color.bcp-active:after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 28px;
 }
 
 /*# sourceMappingURL=styles.css.map */

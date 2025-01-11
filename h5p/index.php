@@ -22,22 +22,28 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_geniai\local\h5p\itens;
 use local_geniai\local\h5p\page_header;
 use local_geniai\local\h5p\types;
 
-require('../../../config.php');
+require("../../../config.php");
 
 require_login();
 
-$contextid = optional_param('contextid', \context_system::instance()->id, PARAM_INT);
+$contextid = optional_param("contextid", \context_system::instance()->id, PARAM_INT);
 $context = context::instance_by_id($contextid, MUST_EXIST);
 
+$cburl = new moodle_url("/local/geniai/h5p/index.php", $_GET);
 $header = new page_header();
-$header->header($contextid, $context);
+$header->header($cburl, $contextid, $context);
+$PAGE->set_title($header->get_title());
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading($header->getTitle(), 2);
+echo $OUTPUT->heading($header->get_title(), 2);
 
-echo $OUTPUT->render_from_template("local_geniai/h5p-index", types::getTypes($contextid));
+echo $OUTPUT->render_from_template("local_geniai/h5p-index", [
+    "types" => types::get_types($contextid),
+    "itens" => itens::get_itens($contextid),
+]);
 
 echo $OUTPUT->footer();

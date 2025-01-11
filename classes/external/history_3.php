@@ -40,8 +40,8 @@ class history_3 extends external_api {
      */
     public static function api_parameters() {
         return new external_function_parameters([
-            'courseid' => new external_value(PARAM_TEXT, 'The Course ID'),
-            'action' => new external_value(PARAM_TEXT, 'The action'),
+            "courseid" => new external_value(PARAM_TEXT, "The Course ID"),
+            "action" => new external_value(PARAM_TEXT, "The action"),
         ]);
     }
 
@@ -52,8 +52,8 @@ class history_3 extends external_api {
      */
     public static function api_returns() {
         return new external_single_structure([
-            'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED),
+            "result" => new external_value(PARAM_TEXT, "Sucesso da operação", VALUE_REQUIRED),
+            "content" => new external_value(PARAM_RAW, "The content result", VALUE_REQUIRED),
         ]);
     }
 

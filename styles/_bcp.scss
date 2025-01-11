@@ -1,0 +1,35 @@
+.bcp-content {
+    max-width: none;
+    min-width: 400px;
+
+    .bcp-row {
+        display: flex;
+    }
+
+    .bcp-color {
+        transition: all .1s ease-in-out;
+        position: relative;
+        width: 24px;
+        min-width: 24px;
+        height: 24px;
+        min-height: 24px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        margin: 2px 5px;
+        cursor: pointer;
+        color: #fff;
+
+        &.bcp-active {
+            pointer-events: none;
+
+            &:after {
+                content: '\2713';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                font-size: 28px;
+            }
+        }
+    }
+}

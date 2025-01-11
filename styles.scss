@@ -504,26 +504,130 @@
             min-width: 90%;
         }
     }
-    .h5p-create .h5p-block img.icon {
-        width: 100%;
-        height: auto;
-        max-width: 200px;
-        margin: 15px auto 0;
+    .h5p-index,
+    .h5p-create {
+        .h5p-block {
+            img.icon {
+                width: 100%;
+                height: auto;
+                max-width: 200px;
+                margin: 15px auto 0;
+            }
+        }
     }
-    #area_title,
-    .h5p-create{
+    .control-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        margin-left: 170px;
+        gap: 12px;
+        > input,
+        > span {
+            margin-left: 0;
+            border-radius: 0;
+            border: none;
+        }
+    }
+    .h5p-create {
         display: none;
     }
-    .h5p-block-title{
+    .h5p-block-title {
         display: flex !important;
         align-items: center;
-        img{
+        img {
             height: 32px;
             width: auto;
         }
-        h3{
+        h3 {
             margin: 0;
             padding: 0;
         }
     }
+    textarea {
+        width: 100%;
+    }
+    fieldset,
+    #h5ps-pages,
+    .form-h5p-next-step {
+        padding: .35em .625em .75em;
+        min-width: 0;
+        border-radius: 7px;
+        border: 2px solid #b9b9b9;
+        margin: 5px 2px 27px;
+        legend {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 21px;
+            line-height: inherit;
+            color: #333;
+            border: 0;
+            padding: 0 6px;
+            width: auto;
+            float: none;
+        }
+        .btn-delete {
+            font-size: .7em;
+            background: #e91e63;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+            label {
+                font-weight: 700;
+            }
+            .help-block {
+                font-size: .9em;
+                color: #757575;
+            }
+        }
+        .h5p-delete-block {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            padding: 2px 13px;
+            cursor: pointer;
+            margin: 0 !important;
+        }
+    }
+    #h5ps-pages {
+        @media (max-width: 950px) {
+            .ui-tabs-nav {
+                min-width: 53px;
+                width: 53px;
+                .title {
+                    display: none;
+                }
+            }
+        }
+    }
+    .tox-tinymce {
+        min-height: 600px;
+    }
+    select,
+    input[type=text],
+    input[type=email],
+    input[type=number],
+    input[type=time],
+    input[type=password],
+    textarea,
+    .contentinput {
+        padding: 8px 10px;
+        line-height: 1.5;
+        border-radius: 3px;
+        outline: none;
+        background: #ffffff73;
+        border: 1px solid #ced4da;
+        &[disable] {
+            background: rgba(197, 197, 197, .11);
+        }
+    }
+    
+    @import "styles/jquery-ui";
+    @import "styles/radio-select";
+    @import "styles/el-switch";
 }
+@import "styles/bcp";

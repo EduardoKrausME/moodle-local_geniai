@@ -28,12 +28,6 @@ $string['case'] = 'Casos de uso';
 $string['case_chatbot'] = 'Chatbot                              => Temperatura 0.5, Top_p 0.5';
 $string['case_creative_writing'] = 'Escrita Criativa                     => Temperatura 0.7, Top_p 0.8';
 $string['case_data_analysis_script'] = 'Script de Análise de Dados           => Temperatura 0.2, Top_p 0.1';
-$string['case_exploratory_writing'] = 'Escrita Exploratória de textos       => Temperatura 0.6, Top_p 0.7';
-$string['case_fictitious_dialogue_generation'] = 'Geração de diálogos fictícios        => Temperatura 0.9, Top_p 0.95';
-$string['case_idea_brainstorming'] = 'Exploração de ideias e brainstorming => Temperatura 0.8, Top_p 0.9';
-$string['case_surreal_story_generation'] = 'Histórias Surreais ou Absurdas       => Temperatura 1.0, Top_p 1.0';
-$string['case_text_code_generation'] = 'Geração de textos e códigos          => Temperatura 0.1, Top_p 0.1';
-$string['case_text_comment_generation'] = 'Geração de Comentários de textos     => Temperatura 0.3, Top_p 0.2';
 $string['case_desc'] = 'Os parâmetros de temperatura e Top_p definidos para cada cenário, como geração de texto e código, escrita criativa, chatbot, geração de comentários textuais, análise de dados e escrita exploratória. Cada configuração afeta a criatividade e a coerência do modelo na geração de conteúdo.<br><br>Veja a tabela a seguir que mostra como usar a Temperatura e o Top_p:<br>
 <table class="table table-bordered">
     <thead>
@@ -101,6 +95,12 @@ $string['case_desc'] = 'Os parâmetros de temperatura e Top_p definidos para cad
         </tr>
     </tbody>
 </table>';
+$string['case_exploratory_writing'] = 'Escrita Exploratória de textos       => Temperatura 0.6, Top_p 0.7';
+$string['case_fictitious_dialogue_generation'] = 'Geração de diálogos fictícios        => Temperatura 0.9, Top_p 0.95';
+$string['case_idea_brainstorming'] = 'Exploração de ideias e brainstorming => Temperatura 0.8, Top_p 0.9';
+$string['case_surreal_story_generation'] = 'Histórias Surreais ou Absurdas       => Temperatura 1.0, Top_p 1.0';
+$string['case_text_code_generation'] = 'Geração de textos e códigos          => Temperatura 0.1, Top_p 0.1';
+$string['case_text_comment_generation'] = 'Geração de Comentários de textos     => Temperatura 0.3, Top_p 0.2';
 $string['clear_history_title'] = 'Limpar todo histórico';
 $string['close_title'] = 'Fechar chat';
 $string['course_home'] = 'O aluno está fora do curso e nome do aluno é "{$a->userfullname}".';
@@ -111,20 +111,54 @@ $string['geniai:manage'] = 'Gerenciar Tutor GeniAI';
 $string['geniai:view'] = 'Ver Tutor GeniAI';
 $string['geniainame'] = 'Nome do assistente';
 $string['geniainame_desc'] = 'Defina o nome do seu assistente';
+$string['h5p-accordion-desc'] = 'Crie um Glossário ou FAQ que permita aos alunos acessar rapidamente as respostas, sem se perder em um excesso de texto.';
+$string['h5p-accordion-title'] = 'Glossário/FAQ';
+$string['h5p-advancedText-desc'] = 'Crie um livro digital a partir do seu conteúdo, organizando-o em capítulos de maneira lógica e fluida, garantindo uma divisão coesa e envolvente do material.';
+$string['h5p-advancedText-title'] = 'Livro digital';
+$string['h5p-block-title'] = 'Título do bloco';
+$string['h5p-create'] = 'Criar H5P com o GeniAI';
+$string['h5p-create-new'] = 'Criar novo H5P com o GeniAI';
+$string['h5p-create-this'] = 'Criar com este recurso';
+$string['h5p-create-title'] = 'Título do H5P';
+$string['h5p-create-title-desc'] = 'Defina o título principal para o conteúdo H5P, que será exibido aos usuários na interface.';
+$string['h5p-createpage-title'] = 'Criar novo {$a}';
+$string['h5p-crossword-desc'] = 'Crie um jogo de palavras cruzadas interativo para engajar seus alunos, utilizando palavras-chave do seu conteúdo e promovendo uma aprendizagem divertida e dinâmica.';
+$string['h5p-crossword-title'] = 'Jogo de Palavras Cruzadas';
+$string['h5p-delete-success'] = 'H5P excluído com sucesso!';
+$string['h5p-dialogcards-desc'] = 'Crie cartões de memorização que funcionam como exercícios interativos para auxiliar os alunos na fixação de palavras, expressões ou conceitos-chave de textos. Na frente de cada cartão, há uma dica ou pista, e ao virá-lo, o aluno revela a informação correspondente. Esses cartões podem ser usados no aprendizado de idiomas, na resolução de problemas matemáticos ou para ajudar os alunos a memorizar fatos importantes, como eventos históricos, fórmulas ou nomes.';
+$string['h5p-dialogcards-title'] = 'Cartões de memorização';
+$string['h5p-dragtext-desc'] = 'Crie um jogo de Arraste Palavras em que o aluno deve arrastar a parte faltante do texto para o seu lugar correto, formando uma expressão completa. Esse jogo pode ser utilizado para avaliar se o aluno lembra do conteúdo que leu ou se compreende o que foi abordado. Além disso, auxilia o aluno a refletir mais profundamente sobre o texto, promovendo uma melhor assimilação do conteúdo.';
+$string['h5p-dragtext-title'] = 'Jogo de Arrastar Palavras';
+$string['h5p-example'] = 'Veja o exemplo';
+$string['h5p-findthewords-desc'] = 'Crie um jogo de caça-palavras no qual os alunos devem encontrar e selecionar as palavras em uma grade, a partir de uma lista fornecida.';
+$string['h5p-findthewords-title'] = 'Jogo de Caça-palavras';
+$string['h5p-interactivebook-desc'] = 'Crie um Livro Interativo que permite combinar diversos conteúdos interativos, como vídeos interativos, glossários, quizzes, atividades de arrastar palavras, palavras cruzadas, caça-palavras e muito mais, organizados em várias páginas. Adicione um resumo ao final, exibindo a pontuação total obtida pelo aluno ao longo do livro.';
+$string['h5p-interactivebook-title'] = 'Livro Interativo';
+$string['h5p-interactivevideo-desc'] = 'Crie um vídeo interativo com capítulos e um glossário destacando os principais pontos do conteúdo. No final, adicione um resumo interativo para reforçar o aprendizado e revisar os tópicos abordados.';
+$string['h5p-interactivevideo-title'] = 'Vídeo Interativo';
+$string['h5p-manager'] = 'Criar H5P com o GeniAI';
+$string['h5p-next-step'] = 'Próxima etapa';
+$string['h5p-no-apikey'] = '<p>É necessário configurar a chave de API do ChatGPT para que o sistema de criação de contas funcione corretamente. Isso permitirá que o sistema se comunique com o ChatGPT para realizar as operações necessárias durante o processo de criação de contas.<p><p><a href="{$a}">Clique aqui para configurar a chave de API do ChatGPT.</a></p>';
+$string['h5p-page-title'] = 'Criar um H5P com o GeniAI';
+$string['h5p-questionset-desc'] = 'Crie um Conjunto de Perguntas que permita ao aluno resolver uma sequência de questões diversificadas, incluindo tipos como múltipla escolha e verdadeiro ou falso, oferecendo uma experiência interativa e desafiadora.';
+$string['h5p-questionset-title'] = 'Quizes';
+$string['h5p-readmore'] = '...mais';
+$string['h5p-return'] = 'Voltar ao Banco de conteúdo';
+$string['h5p-title'] = 'Gerenciar banco de conteúdo do GeniAI';
 $string['max_tokens'] = 'Máximo de palavras na resposta';
 $string['max_tokens_desc'] = 'Número máximo de palavras que pode ser gerado em cada solicitação.';
 $string['message_01'] = 'Olá, {$a}! 🌟';
 $string['message_02_course'] = 'Bem-vindo ao curso {$a->coursename} no Moodle {$a->moodlename}!
 Sou a {$a->geniainame} e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
 Como posso ajudar você hoje? 🌟📚';
+$string['message_02_geniai'] = 'Olá! Eu sou o {$a} e estou aqui para te ajudar. Se preferir, pode me enviar um áudio, e eu responderei também em áudio. Se preferir escrever, responderei por texto. Como você preferir!';
 $string['message_02_home'] = 'Sou a {$a} e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
 Como posso ajudar você hoje? 🌟📚';
-$string['message_02_geniai'] = 'Olá! Eu sou o {$a} e estou aqui para te ajudar. Se preferir, pode me enviar um áudio, e eu responderei também em áudio. Se preferir escrever, responderei por texto. Como você preferir!';
 $string['mode'] = 'Modo de uso';
 $string['mode_desc'] = 'Defina qual modo de uso do balão você deseja';
-$string['mode_name_none'] = 'Sem balão de chat';
 $string['mode_name_assistant'] = 'Assistente Moodle';
 $string['mode_name_geniai'] = 'Tutor GeniAI';
+$string['mode_name_none'] = 'Sem balão de chat';
 $string['model'] = 'O Modelo da API';
 $string['model_desc'] = 'O Modelo da API que será executada na OpenAI. Valores disponíveis estão no <a href="https://platform.openai.com/docs/models/overview" target="_blank">site da OpenAI</a><br>
 * <strong>gpt-3.5-turbo</strong>: é muito bom, tem um custo/benefício vom e responde muito rápido.<br>
@@ -149,80 +183,16 @@ $string['settings'] = 'Configurar Tutor GeniAI';
 $string['talk_geniai'] = 'Fale com seu geniai aqui';
 $string['url_moodle'] = 'A URL do Moodle é "{$a->wwwroot}" e o nome do Moodle é "{$a->fullname}"';
 $string['voice'] = 'Vóz usada na resposta com áudio';
-$string['voice_desc'] = '<p style="display:flex;align-items:center;gap:10px;">Alloy: 
+$string['voice_desc'] = '<p style="display:flex;align-items:center;gap:10px;">Alloy:
     <audio src="https://cdn.openai.com/API/docs/audio/alloy.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Echo: 
+<p style="display:flex;align-items:center;gap:10px;">Echo:
     <audio src="https://cdn.openai.com/API/docs/audio/echo.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Fable: 
+<p style="display:flex;align-items:center;gap:10px;">Fable:
     <audio src="https://cdn.openai.com/API/docs/audio/fable.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Onyx: 
+<p style="display:flex;align-items:center;gap:10px;">Onyx:
     <audio src="https://cdn.openai.com/API/docs/audio/onyx.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Nova: 
+<p style="display:flex;align-items:center;gap:10px;">Nova:
     <audio src="https://cdn.openai.com/API/docs/audio/nova.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Shimmer: 
+<p style="display:flex;align-items:center;gap:10px;">Shimmer:
     <audio src="https://cdn.openai.com/API/docs/audio/shimmer.wav" controls></audio></p>';
 $string['write_message'] = 'Escreve uma mensagem...';
-
-$string['h5p-no-apikey'] = '<p>É necessário configurar a chave de API do ChatGPT para que o sistema de criação de contas funcione corretamente. Isso permitirá que o sistema se comunique com o ChatGPT para realizar as operações necessárias durante o processo de criação de contas.<p><p><a href="{$a}">Clique aqui para configurar a chave de API do ChatGPT.</a></p>';
-
-$string['h5p-title'] = 'Gerenciar banco de conteúdo do GeniAI';
-$string['h5p-create-new'] = 'Criar novo H5P com o GeniAI';
-$string['h5p-create'] = 'Criar H5P com o GeniAI';
-$string['h5p-manager'] = 'Gerenciar os H5P com o GeniAI';
-$string['h5p-page-title'] = 'Criar um H5P com o GeniAI';
-$string['h5p-return'] = 'Voltar ao Banco de conteúdo';
-$string['h5p-interactivebook-title'] = 'Livro Interativo';
-$string['h5p-interactivebook-desc'] = 'Crie um Livro Interativo que permite combinar diversos conteúdos interativos, como vídeos interativos, glossários, quizzes, atividades de arrastar palavras, palavras cruzadas, caça-palavras e muito mais, organizados em várias páginas. Adicione um resumo ao final, exibindo a pontuação total obtida pelo aluno ao longo do livro.';
-$string['h5p-interactivevideo-title'] = 'Vídeo Interativo';
-$string['h5p-interactivevideo-desc'] = 'Crie um vídeo interativo com capítulos e um glossário destacando os principais pontos do conteúdo. No final, adicione um resumo interativo para reforçar o aprendizado e revisar os tópicos abordados.';
-$string['h5p-advancedText-title'] = 'Livro digital';
-$string['h5p-advancedText-desc'] = 'Crie um livro digital a partir do seu conteúdo, organizando-o em capítulos de maneira lógica e fluida, garantindo uma divisão coesa e envolvente do material.';
-$string['h5p-accordion-title'] = 'Glossário/FAQ';
-$string['h5p-accordion-desc'] = 'Crie um Glossário ou FAQ que permita aos alunos acessar rapidamente as respostas, sem se perder em um excesso de texto.';
-$string['h5p-dialogcards-title'] = 'Cartões de memorização';
-$string['h5p-dialogcards-desc'] = 'Crie cartões de memorização que funcionam como exercícios interativos para auxiliar os alunos na fixação de palavras, expressões ou conceitos-chave de textos. Na frente de cada cartão, há uma dica ou pista, e ao virá-lo, o aluno revela a informação correspondente. Esses cartões podem ser usados no aprendizado de idiomas, na resolução de problemas matemáticos ou para ajudar os alunos a memorizar fatos importantes, como eventos históricos, fórmulas ou nomes.';
-$string['h5p-questionset-title'] = 'Quizes';
-$string['h5p-questionset-desc'] = 'Crie um Conjunto de Perguntas que permita ao aluno resolver uma sequência de questões diversificadas, incluindo tipos como múltipla escolha e verdadeiro ou falso, oferecendo uma experiência interativa e desafiadora.';
-$string['h5p-dragtext-title'] = 'Jogo de Arrastar Palavras';
-$string['h5p-dragtext-desc'] = 'Crie um jogo de Arraste Palavras em que o aluno deve arrastar a parte faltante do texto para o seu lugar correto, formando uma expressão completa. Esse jogo pode ser utilizado para avaliar se o aluno lembra do conteúdo que leu ou se compreende o que foi abordado. Além disso, auxilia o aluno a refletir mais profundamente sobre o texto, promovendo uma melhor assimilação do conteúdo.';
-$string['h5p-crossword-title'] = 'Jogo de Palavras Cruzadas';
-$string['h5p-crossword-desc'] = 'Crie um jogo de palavras cruzadas interativo para engajar seus alunos, utilizando palavras-chave do seu conteúdo e promovendo uma aprendizagem divertida e dinâmica.';
-$string['h5p-findthewords-title'] = 'Jogo de Caça-palavras';
-$string['h5p-findthewords-desc'] = 'Crie um jogo de caça-palavras no qual os alunos devem encontrar e selecionar as palavras em uma grade, a partir de uma lista fornecida.';
-$string['h5p-example'] = 'Veja o exemplo';
-$string['h5p-create-this'] = 'Criar com este recurso';
-$string['h5p-readmore'] = '...mais';
-$string['h5p-next-step'] = 'Próxima etapa';
-
-$string['h5p-create-title'] = 'Título do H5P';
-$string['h5p-create-title-desc'] = 'Defina o título principal para o conteúdo H5P, que será exibido aos usuários na interface.';
-$string['h5p-create-textbase'] = 'Texto base do H5P';
-$string['h5p-create-textbase-desc'] = 'Texto de referência para geração automática de módulos de conteúdo H5P com o auxílio do ChatGPT. Este material serve como base inicial para a criação de conteúdos personalizados.<br>Use a estrutura de marcadores para organizar o texto, onde <strong>#</strong> indica títulos principais e <strong>##</strong> indica subtítulos, facilitando a hierarquia e clareza do conteúdo a ser gerado.';
-$string['h5p-create-textbase-placeholder']='# O sistema circulatório
-
-O sistema circulatório é responsável por transportar sangue, nutrientes, oxigênio e dióxido de carbono pelo corpo.
-
-Ele é composto pelo coração, que bombeia o sangue, pelos vasos sanguíneos (artérias, veias e capilares) e pelo sangue em si, que contém plasma, glóbulos vermelhos, glóbulos brancos e plaquetas.
-
-O sistema circulatório garante que as células recebam nutrientes e oxigênio, removam resíduos, regulem a temperatura corporal e protejam contra infecções.
-
-Esse sistema é vital para o funcionamento do corpo e sua saúde está ligada à prevenção de doenças como hipertensão e infarto.';
-
-
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';
-$string['h5p-'] = '';

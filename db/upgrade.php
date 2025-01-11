@@ -36,35 +36,35 @@ function xmldb_local_geniai_upgrade($oldversion) {
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2024020501) {
-        $table = new xmldb_table('local_geniai_usage');
-        $field = new xmldb_field('model', XMLDB_TYPE_CHAR, '40', null, true, null, null, 'receive');
+        $table = new xmldb_table("local_geniai_usage");
+        $field = new xmldb_field("model", XMLDB_TYPE_CHAR, "40", null, true, null, null, "receive");
 
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
 
-        $model = get_config('local_geniai', 'model');
+        $model = get_config("local_geniai", "model");
         $sql = "UPDATE {local_geniai_usage} SET model = '{$model}'";
         $DB->execute($sql);
 
-        upgrade_plugin_savepoint(true, 2024020501, 'local', 'geniai');
+        upgrade_plugin_savepoint(true, 2024020501, "local", "geniai");
     }
 
     if ($oldversion < 2024040500) {
-        $table = new xmldb_table('local_geniai_usage');
-        $field = new xmldb_field('datecreated', XMLDB_TYPE_CHAR, '10', null, true, null, null, 'timecreated');
+        $table = new xmldb_table("local_geniai_usage");
+        $field = new xmldb_field("datecreated", XMLDB_TYPE_CHAR, "10", null, true, null, null, "timecreated");
 
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
 
-        $usages = $DB->get_records('local_geniai_usage');
+        $usages = $DB->get_records("local_geniai_usage");
         foreach ($usages as $usage) {
             $usage->datecreated = date("Y-m-d", $usage->timecreated);
             $DB->update_record("local_geniai_usage", $usage);
         }
 
-        upgrade_plugin_savepoint(true, 2024040500, 'local', 'geniai');
+        upgrade_plugin_savepoint(true, 2024040500, "local", "geniai");
     }
 
     return true;

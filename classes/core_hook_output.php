@@ -1,5 +1,5 @@
 <?php
-// This file is part of the Local Analytics plugin for Moodle
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -57,8 +57,6 @@ class core_hook_output {
 
         if (!isset(get_config("local_geniai", "apikey")[5])) {
             return;
-        } else if (guest_user()->id == $USER->id) {
-            return;
         } else if ($USER->id < 2) {
             return;
         }
@@ -68,10 +66,6 @@ class core_hook_output {
         if (!$PAGE->get_popup_notification_allowed()) {
             return;
         }
-
-        //if (!has_capability('moodle/site:config', $context)) {
-        //    return;
-        //}
 
         $capability = has_capability("local/geniai:manage", $context);
         if (!$capability) {
@@ -83,7 +77,6 @@ class core_hook_output {
             }
         }
 
-        require_once(__DIR__ . "/classes/events/event_observers.php");
         $data = [
             "message_01" => get_string("message_01", "local_geniai", fullname($USER)),
             "manage_capability" => $capability,
@@ -105,24 +98,24 @@ class core_hook_output {
         }
 
         echo $OUTPUT->render_from_template("local_geniai/chat", $data);
-        $PAGE->requires->js_call_amd('local_geniai/chat', 'init', [$COURSE->id, release::version()]);
+        $PAGE->requires->js_call_amd("local_geniai/chat", "init", [$COURSE->id, release::version()]);
     }
 
     /**
      * Function local_geniai_addh5p
      */
-    private static  function local_geniai_addh5p() {
+    private static function local_geniai_addh5p() {
         $context = context_system::instance();
-        if (!has_capability('moodle/site:config', $context)) {
+        if (!has_capability("moodle/site:config", $context)) {
             return;
         }
 
-        if (strpos($_SERVER['REQUEST_URI'], "contentbank") ||
-            strpos($_SERVER['REQUEST_URI'], "course/modedit.php")) {
+        if (strpos($_SERVER["REQUEST_URI"], "contentbank") ||
+            strpos($_SERVER["REQUEST_URI"], "course/modedit.php")) {
             global $PAGE;
 
             $PAGE->requires->strings_for_js(["h5p-manager"], "local_geniai");
-            $PAGE->requires->js_call_amd('local_geniai/h5p', 'init', []);
+            $PAGE->requires->js_call_amd("local_geniai/h5p", "init", []);
         }
     }
 }

@@ -22,16 +22,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
+require_once("../../config.php");
 
 require_login();
 
 $filename = required_param("filename", PARAM_TEXT);
-$filename = preg_replace('/[\W]/', '', $filename);
+$filename = preg_replace('/[\W]/', "", $filename);
 
 ob_clean();
 
-header('Content-Disposition: inline; filename="' . $filename . '.mp3"');
+header("Content-Disposition: inline; filename=\"{$filename}.mp3\"");
 header("Content-type: audio/mp3");
 
 readfile("{$CFG->dataroot}/temp/{$filename}.mp3");

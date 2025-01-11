@@ -1,0 +1,21 @@
+input.radio-select {
+    display: none;
+    + label {
+        padding: 10px;
+        background-color: #cccccc;
+        color: #525151;
+        cursor: pointer;
+        border-radius: 3px 3px 3px 3px;
+        transition: background-color 0.25s;
+        user-select: none;
+    }
+    &:checked + label {
+        background-color: #3498db;
+        color: #fff;
+    }
+    &:disabled + label {
+        background-color: #efe9df;
+        color: #c0c0c0;
+        cursor: not-allowed;
+    }
+}

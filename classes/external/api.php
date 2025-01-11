@@ -38,8 +38,8 @@ class api {
         if ($action == "clear") {
             $_SESSION["messages-v3-{$courseid}"] = [];
             return [
-                'result' => true,
-                'content' => "[]",
+                "result" => true,
+                "content" => "[]",
             ];
         }
 
@@ -57,17 +57,17 @@ class api {
 
             $result = new parse_markdown();
 
-            if (strpos($message['content'], "<audio") === false) {
-                $message['content'] = $result->markdown_text($message['content']);
+            if (strpos($message["content"], "<audio") === false) {
+                $message["content"] = $result->markdown_text($message["content"]);
             }
-            $message['format'] = 'html';
+            $message["format"] = "html";
 
             $returnmessage[] = $message;
         }
 
         return [
-            'result' => true,
-            'content' => json_encode($returnmessage),
+            "result" => true,
+            "content" => json_encode($returnmessage),
         ];
     }
 
@@ -92,44 +92,45 @@ class api {
 
             if (get_config("local_geniai", "mode") == "assistant") {
                 $replace = [
-                    'wwwroot' => $CFG->wwwroot,
-                    'fullname' => $SITE->fullname,
+                    "wwwroot" => $CFG->wwwroot,
+                    "fullname" => $SITE->fullname,
                 ];
                 $messages = [
                     [
-                        'role' => 'system',
-                        'content' => get_config('local_geniai', 'prompt') . "\nAnd you only format in MARKDOWN.",
+                        "role" => "system",
+                        "content" => get_config("local_geniai", "prompt") . "\nAnd you only format in MARKDOWN.",
                     ], [
-                        'role' => 'system',
-                        'content' => get_string('url_moodle', 'local_geniai', $replace),
+                        "role" => "system",
+                        "content" => get_string("url_moodle", "local_geniai", $replace),
                     ],
                 ];
             } else {
-                $geniainame = get_config('local_geniai', 'geniainame');
+                $geniainame = get_config("local_geniai", "geniainame");
                 $prompt =
-                    "Você é um Tutor de conversação multilíngue e seu nome é {$geniainame} e você vai atuar como se estivesse em uma sessão de coversação.";
+                    "Você é um Tutor de conversação multilíngue e seu nome é {$geniainame} " .
+                    "e você vai atuar como se estivesse em uma sessão de coversação.";
                 $messages = [
                     [
-                        'role' => 'system',
-                        'content' => $prompt,
+                        "role" => "system",
+                        "content" => $prompt,
                     ], [
-                        'role' => 'system',
-                        'content' => "Responda somente no idioma \"{$lang}\" e somente no formato MARKDOWN.",
+                        "role" => "system",
+                        "content" => "Responda somente no idioma \"{$lang}\" e somente no formato MARKDOWN.",
                     ],
                 ];
             }
             if ($courseid) {
-                if ($course = $DB->get_record('course', ['id' => $courseid])) {
+                if ($course = $DB->get_record("course", ["id" => $courseid])) {
                     $messages[] = [
-                        'role' => 'system',
-                        'content' => get_string('course_user', 'local_geniai',
-                            ['course' => $course->fullname, 'userfullname' => fullname($USER)]),
+                        "role" => "system",
+                        "content" => get_string("course_user", "local_geniai",
+                            ["course" => $course->fullname, "userfullname" => fullname($USER)]),
                     ];
                 }
             } else {
                 $messages[] = [
-                    'role' => 'system',
-                    'content' => get_string('course_home', 'local_geniai', ['userfullname' => fullname($USER)]),
+                    "role" => "system",
+                    "content" => get_string("course_home", "local_geniai", ["userfullname" => fullname($USER)]),
                 ];
             }
         }
@@ -139,17 +140,20 @@ class api {
             $transcription = self::transcriptions($audio, $lang);
             $returntranscription = $message = $transcription["text"];
 
+            $audiolink = "<audio controls autoplay " .
+                "src='{$CFG->wwwroot}/local/geniai/load-audio-temp.php?filename={$transcription["filename"]}'>" .
+                "</audio><div class='transcription'>{$message}</div>";
+
             $messages[] = [
-                'role' => 'user',
-                'content' => "<audio controls autoplay src='{$CFG->wwwroot}/local/geniai/load-audio-temp.php?filename={$transcription["filename"]}'></audio><div class='transcription'>{$message}</div>",
+                "role" => "user",
+                "content" => $audiolink,
             ];
         } else {
             $messages[] = [
-                'role' => 'user',
-                'content' => strip_tags(trim($message)),
+                "role" => "user",
+                "content" => strip_tags(trim($message)),
             ];
         }
-
 
         if (count($messages) > 10) {
             unset($messages[4]);
@@ -158,20 +162,20 @@ class api {
         }
 
         $gpt = self::chat_completions($messages);
-        if (isset($gpt['error'])) {
+        if (isset($gpt["error"])) {
             $result = new parse_markdown();
-            $content = $result->markdown_text($gpt['error']['message']);
+            $content = $result->markdown_text($gpt["error"]["message"]);
 
             return [
-                'result' => false,
-                'format' => 'text',
-                'content' => $content,
-                'transcription' => $returntranscription,
+                "result" => false,
+                "format" => "text",
+                "content" => $content,
+                "transcription" => $returntranscription,
             ];
         }
 
-        if (isset($gpt['choices'][0]['message']['content'])) {
-            $content = $gpt['choices'][0]['message']['content'];
+        if (isset($gpt["choices"][0]["message"]["content"])) {
+            $content = $gpt["choices"][0]["message"]["content"];
 
             if ($audio) {
                 $result = new parse_markdown();
@@ -181,13 +185,13 @@ class api {
                 $content = "<audio controls autoplay src='{$audiosrc}'></audio><div class='transcription'>{$content}</div>";
 
                 $messages[] = [
-                    'role' => 'system',
-                    'content' => $content,
+                    "role" => "system",
+                    "content" => $content,
                 ];
             } else {
                 $messages[] = [
-                    'role' => 'system',
-                    'content' => $content,
+                    "role" => "system",
+                    "content" => $content,
                 ];
 
                 $result = new parse_markdown();
@@ -196,19 +200,19 @@ class api {
 
             $_SESSION["messages-v3-{$courseid}"] = $messages;
 
-            $format = 'html';
+            $format = "html";
             return [
-                'result' => true,
-                'format' => $format,
-                'content' => $content,
-                'transcription' => $returntranscription,
+                "result" => true,
+                "format" => $format,
+                "content" => $content,
+                "transcription" => $returntranscription,
             ];
         }
 
         return [
-            'result' => false,
-            'format' => 'text',
-            'content' => 'Error...',
+            "result" => false,
+            "format" => "text",
+            "content" => "Error...",
         ];
     }
 
@@ -224,46 +228,46 @@ class api {
     public static function chat_completions($messages) {
         global $DB;
 
-        $apikey = get_config('local_geniai', 'apikey');
-        $model = get_config('local_geniai', 'model');
-        $maxtokens = get_config('local_geniai', 'max_tokens');
-        $frequencypenalty = get_config('local_geniai', 'frequency_penalty');
-        $presencepenalty = get_config('local_geniai', 'presence_penalty');
+        $apikey = get_config("local_geniai", "apikey");
+        $model = get_config("local_geniai", "model");
+        $maxtokens = get_config("local_geniai", "max_tokens");
+        $frequencypenalty = get_config("local_geniai", "frequency_penalty");
+        $presencepenalty = get_config("local_geniai", "presence_penalty");
 
-        switch (get_config('local_geniai', 'case')) {
-            case 'text_code_generation':
+        switch (get_config("local_geniai", "case")) {
+            case "text_code_generation":
                 $temperature = .1;
                 $topp = .1;
                 break;
-            case 'data_analysis_script':
+            case "data_analysis_script":
                 $temperature = .2;
                 $topp = .1;
                 break;
-            case 'text_comment_generation':
+            case "text_comment_generation":
                 $temperature = .3;
                 $topp = .2;
                 break;
-            case 'chatbot':
+            case "chatbot":
                 $temperature = .5;
                 $topp = .5;
                 break;
-            case 'exploratory_writing':
+            case "exploratory_writing":
                 $temperature = .6;
                 $topp = .7;
                 break;
-            case 'creative_writing':
+            case "creative_writing":
                 $temperature = .7;
                 $topp = .8;
                 break;
-            case 'idea_brainstorming':
+            case "idea_brainstorming":
                 $temperature = .8;
                 $topp = .9;
                 break;
-            case 'fictitious_dialogue_generation':
+            case "fictitious_dialogue_generation":
                 $temperature = .9;
                 $topp = .95;
                 break;
-            case 'surreal_story_generation':
+            case "surreal_story_generation":
                 $temperature = 1.0;
                 $topp = 1.0;
                 break;
@@ -279,31 +283,31 @@ class api {
         }
 
         $post = (object)[
-            'model' => $model,
-            'messages' => $messagesok,
-            'temperature' => $temperature,
-            'top_p' => $topp,
-            'max_tokens' => intval($maxtokens),
-            'frequency_penalty' => floatval($frequencypenalty),
-            'presence_penalty' => floatval($presencepenalty),
+            "model" => $model,
+            "messages" => $messagesok,
+            "temperature" => $temperature,
+            "top_p" => $topp,
+            "max_tokens" => intval($maxtokens),
+            "frequency_penalty" => floatval($frequencypenalty),
+            "presence_penalty" => floatval($presencepenalty),
         ];
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/chat/completions');
+        curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/chat/completions");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
+            "Content-Type: application/json",
             "Authorization: Bearer {$apikey}",
         ]);
 
         $result = curl_exec($ch);
         if (curl_errno($ch)) {
             return [
-                'error' => [
-                    'message' => 'http error: ' . curl_error($ch),
+                "error" => [
+                    "message" => "http error: " . curl_error($ch),
                 ],
             ];
         }
@@ -312,16 +316,16 @@ class api {
         $gpt = json_decode($result, true);
 
         $usage = (object)[
-            'send' => json_encode($post, JSON_PRETTY_PRINT),
-            'receive' => $result,
-            'model' => $model,
-            'prompt_tokens' => intval($gpt['usage']['prompt_tokens']),
-            'completion_tokens' => intval($gpt['usage']['completion_tokens']),
-            'timecreated' => time(),
-            'datecreated' => date("Y-m-d", time()),
+            "send" => json_encode($post, JSON_PRETTY_PRINT),
+            "receive" => $result,
+            "model" => $model,
+            "prompt_tokens" => intval($gpt["usage"]["prompt_tokens"]),
+            "completion_tokens" => intval($gpt["usage"]["completion_tokens"]),
+            "timecreated" => time(),
+            "datecreated" => date("Y-m-d", time()),
         ];
         try {
-            $DB->insert_record('local_geniai_usage', $usage);
+            $DB->insert_record("local_geniai_usage", $usage);
         } catch (\dml_exception $e) {
             echo $e->getMessage();
         }
@@ -340,25 +344,25 @@ class api {
     private static function transcriptions($audio, $lang) {
         global $CFG;
 
-        $audio = str_replace('data:audio/mp3;base64,', '', $audio);
+        $audio = str_replace("data:audio/mp3;base64,", "", $audio);
         $audiodata = base64_decode($audio);
         $filename = uniqid();
         $filepath = "{$CFG->dataroot}/temp/{$filename}.mp3";
         file_put_contents($filepath, $audiodata);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/audio/transcriptions');
+        curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/audio/transcriptions");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, [
-            'file' => curl_file_create($filepath),
-            'model' => 'whisper-1',
-            'response_format' => 'verbose_json',
-            'language' => $lang,
+            "file" => curl_file_create($filepath),
+            "model" => "whisper-1",
+            "response_format" => "verbose_json",
+            "language" => $lang,
         ]);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: multipart/form-data',
-            "Authorization: Bearer " . get_config('local_geniai', 'apikey'),
+            "Content-Type: multipart/form-data",
+            "Authorization: Bearer " . get_config("local_geniai", "apikey"),
         ]);
 
         $result = curl_exec($ch);
@@ -376,7 +380,7 @@ class api {
     /**
      * Function speech
      *
-     * @param $input
+     * @param string $input
      *
      * @return string
      *
@@ -392,17 +396,15 @@ class api {
             "response_format" => "mp3",
         ]);
 
-        header("aaaaa:{$json}");
-
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/audio/speech');
+        curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/audio/speech");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            "Authorization: Bearer " . get_config('local_geniai', 'apikey'),
+            "Content-Type: application/json",
+            "Authorization: Bearer " . get_config("local_geniai", "apikey"),
         ]);
 
         $audiodata = curl_exec($ch);

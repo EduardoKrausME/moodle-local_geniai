@@ -40,10 +40,10 @@ class chat_4 extends external_api {
      */
     public static function api_parameters() {
         return new external_function_parameters([
-            'message' => new external_value(PARAM_RAW, 'The message value'),
-            'courseid' => new external_value(PARAM_TEXT, 'The Course ID'),
-            "audio" => new external_value(PARAM_RAW, 'The message value', VALUE_OPTIONAL),
-            "lang" => new external_value(PARAM_RAW, 'The language value', VALUE_OPTIONAL),
+            "message" => new external_value(PARAM_RAW, "The message value"),
+            "courseid" => new external_value(PARAM_TEXT, "The Course ID"),
+            "audio" => new external_value(PARAM_RAW, "The message value", VALUE_OPTIONAL),
+            "lang" => new external_value(PARAM_RAW, "The language value", VALUE_OPTIONAL),
         ]);
     }
 
@@ -54,10 +54,10 @@ class chat_4 extends external_api {
      */
     public static function api_returns() {
         return new external_single_structure([
-            'result' => new external_value(PARAM_TEXT, 'Sucesso da operação', VALUE_REQUIRED),
-            'format' => new external_value(PARAM_TEXT, 'Formato da resposta', VALUE_REQUIRED),
-            'content' => new external_value(PARAM_RAW, 'The content result', VALUE_REQUIRED),
-            'transcription' => new external_value(PARAM_RAW, 'The content transcription', VALUE_OPTIONAL),
+            "result" => new external_value(PARAM_TEXT, "Sucesso da operação", VALUE_REQUIRED),
+            "format" => new external_value(PARAM_TEXT, "Formato da resposta", VALUE_REQUIRED),
+            "content" => new external_value(PARAM_RAW, "The content result", VALUE_REQUIRED),
+            "transcription" => new external_value(PARAM_RAW, "The content transcription", VALUE_OPTIONAL),
         ]);
     }
 

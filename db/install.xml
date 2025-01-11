@@ -24,11 +24,8 @@
                 <FIELD NAME="contextid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
                 <FIELD NAME="contentbanktid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="ID do bando de H5P para edição"/>
                 <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
-                <FIELD NAME="filebase" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
-                <FIELD NAME="textbase" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
-                <FIELD NAME="modulebase" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
-                <FIELD NAME="startbase" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
                 <FIELD NAME="type" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="data" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
                 <FIELD NAME="timecreated" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
             </FIELDS>
             <KEYS>

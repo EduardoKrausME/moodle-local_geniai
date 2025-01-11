@@ -3,6 +3,10 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
 
         init : function(courseid, release) {
 
+            if ($("body.pagelayout-embedded").length) {
+                return;
+            }
+
             chat.load_audioplayer();
             chat.record_start();
 

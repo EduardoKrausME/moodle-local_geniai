@@ -1,0 +1,110 @@
+.ui-tabs-vertical {
+    background: #ebebeb;
+    display: flex;
+    .ui-tabs-nav {
+        padding: .2em .1em .2em .2em;
+        width: 320px;
+        min-width: 320px;
+        background: transparent !important;
+        li {
+            clear: left;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            white-space: normal;
+            border: none;
+            background: transparent !important;
+            .icon {
+                width: auto;
+                height: 22px;
+                margin-right: 0;
+            }
+            a {
+                display: block;
+                width: 100%;
+                padding: 7px 7px;
+            }
+            &.ui-tabs-active {
+                padding-bottom: 0;
+                padding-right: .1em;
+                border-right-width: 1px;
+                background: #fff !important;
+            }
+            .ui-close {
+                margin-right: 5px;
+                background: #e91e63;
+                color: #fff;
+                padding: 0 5px;
+                border-radius: 5px;
+                font-weight: 700;
+                line-height: 19px;
+                font-family: 'Roboto Mono', monospace;
+            }
+        }
+    }
+    .ui-tabs-panel {
+        padding: 1em;
+        float: right;
+        border-radius: 10px;
+        width: 100%;
+        background: #fff;
+        h2 {
+            display: flex;
+            align-items: center;
+            img {
+                height: 35px;
+                margin-right: 8px;
+            }
+        }
+    }
+}
+.ui-accordion {
+    .ui-icon {
+        filter: brightness(0) invert(1);
+    }
+    .ui-state-default {
+        border: none;
+        background: #2196f3;
+        font-weight: normal;
+        color: #fff;
+        padding-left: 25px;
+    }
+    .ui-state-hover,
+    .ui-state-active {
+        border: none;
+        background: #1d94e9;
+        font-weight: normal;
+        color: #fff;
+        padding-left: 27px;
+    }
+    .ui-accordion-content {
+        position: relative;
+    }
+}
+.ui-dialog {
+    padding: 0;
+    .ui-widget-header {
+        background: #2196f3;
+        color: #fff;
+        border: none;
+        .ui-dialog-titlebar-close {
+            background: none;
+            border: none;
+            .ui-icon {
+                filter: brightness(0) invert(1);
+            }
+        }
+    }
+    .ui-dialog-buttonset {
+        :first-child {
+            color: #691911;
+            background: #f4d6d2;
+            border-color: #f0c5c1;
+        }
+        :last-child {
+            color: #405969;
+            background: #acddf4;
+            border-color: #7ecdf2;
+        }
+    }
+}

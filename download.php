@@ -22,7 +22,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
+require_once("../../config.php");
+
+require_login();
 
 if ($action = optional_param("action", false, PARAM_INT)) {
 
@@ -31,7 +33,7 @@ if ($action = optional_param("action", false, PARAM_INT)) {
         header("Content-Disposition: attachment; filename=\"usage.csv\"");
 
         $usages = $DB->get_records("local_geniai_usage");
-        $output = fopen('php://output', 'w');
+        $output = fopen("php://output", "w");
 
         foreach ($usages as $usage) {
             fputcsv($output, [
@@ -40,11 +42,11 @@ if ($action = optional_param("action", false, PARAM_INT)) {
                 $usage->model,
                 $usage->prompt_tokens,
                 $usage->completion_tokens,
-                $usage->datecreated
+                $usage->datecreated,
             ]);
         }
         fclose($output);
-        die();
+        die;
 
     } else if ($action == 2) {
         $audios = glob("{$CFG->dataroot}/temp/*.mp3");
@@ -54,9 +56,9 @@ if ($action = optional_param("action", false, PARAM_INT)) {
             $link = "{$CFG->wwwroot}/local/geniai/load-audio-temp.php?filename={$filename}";
             echo "<p><a href=\"?action=1\">{$filename}.mp3</a></p>";
         }
-        die();
+        die;
     }
-}else{
+} else {
     echo "<p><a href=\"?action=1\">Baixar uso do GPT</a></p>
           <p><a href=\"?action=2\">Listar audios</a></p>";
 }

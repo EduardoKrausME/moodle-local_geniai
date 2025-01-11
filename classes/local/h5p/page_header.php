@@ -46,17 +46,14 @@ class page_header {
     /**
      * Function header
      *
-     * @param $contextid
-     * @param $context
-     * @param $type
+     * @param string $cburl
+     * @param int $contextid
+     * @param \context $context
+     * @param string|null $type
      *
-     * @throws \coding_exception
-     * @throws \dml_exception
-     * @throws \moodle_exception
-     * @throws \require_login_exception
-     * @throws \required_capability_exception
+     * @throws \Exception
      */
-    public function header($contextid, $context, $type = null) {
+    public function header($cburl, $contextid, $context, $type = null) {
         global $PAGE, $DB;
 
         $cb = new contentbank();
@@ -76,7 +73,6 @@ class page_header {
         $PAGE->set_context($context);
         $PAGE->set_heading(helper::get_page_heading($context));
         $PAGE->set_secondary_active_tab("contentbank");
-        $cburl = new moodle_url("/local/geniai/h5p/index.php", ["contextid" => $contextid, "type" => $type]);
         $PAGE->set_url($cburl);
         $PAGE->set_secondary_active_tab("contentbank");
 
@@ -85,6 +81,10 @@ class page_header {
                 $courseid = $context->instanceid;
                 $course = $DB->get_record("course", ["id" => $courseid], "*", MUST_EXIST);
                 $PAGE->set_course($course);
+
+                $url = new moodle_url("/local/geniai/h5p/", ["contextid" => $contextid]);
+                $PAGE->navbar->add(get_string("h5p-title", "local_geniai"), $url);
+
                 navigation_node::override_active_url(new moodle_url("/course/view.php", ["id" => $courseid]));
                 $PAGE->navbar->add(get_string("h5p-page-title", "local_geniai"), $cburl);
                 $PAGE->set_pagelayout("incourse");
@@ -92,6 +92,10 @@ class page_header {
             case CONTEXT_COURSECAT:
                 $PAGE->set_primary_active_tab("home");
                 $coursecat = $context->instanceid;
+
+                $url = new moodle_url("/local/geniai/h5p/", ["contextid" => $contextid]);
+                $PAGE->navbar->add(get_string("h5p-title", "local_geniai"), $url);
+
                 navigation_node::override_active_url(new moodle_url("/course/index.php", ["categoryid" => $coursecat]));
                 $PAGE->navbar->add(get_string("h5p-page-title", "local_geniai"), $cburl);
                 $PAGE->set_pagelayout("coursecategory");
@@ -104,12 +108,11 @@ class page_header {
         }
 
         if ($type) {
-            $this->title = get_string("h5p-" . strtolower($type) . "-title", "local_geniai");
+            $tipo = get_string("h5p-" . strtolower($type) . "-title", "local_geniai");
+            $this->title = get_string("h5p-createpage-title", "local_geniai", $tipo);
             $PAGE->navbar->add($this->title, $cburl);
-            $PAGE->set_title($this->title);
         } else {
             $this->title = get_string("h5p-title", "local_geniai");
-            $PAGE->set_title($this->title);
         }
 
         if ($PAGE->course) {
@@ -118,9 +121,11 @@ class page_header {
     }
 
     /**
+     * Function get_title
+     *
      * @return string
      */
-    public function getTitle(): string {
+    public function get_title(): string {
         return $this->title;
     }
 }

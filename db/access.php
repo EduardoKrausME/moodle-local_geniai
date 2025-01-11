@@ -22,17 +22,17 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
 $capabilities = [
-    'local/geniai:manage' => [
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => [
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-            'coursecreator' => CAP_ALLOW,
-            'manager' => CAP_ALLOW,
+    "local/geniai:manage" => [
+        "captype" => "write",
+        "contextlevel" => CONTEXT_SYSTEM,
+        "archetypes" => [
+            "teacher" => CAP_ALLOW,
+            "editingteacher" => CAP_ALLOW,
+            "coursecreator" => CAP_ALLOW,
+            "manager" => CAP_ALLOW,
         ],
     ],
 ];

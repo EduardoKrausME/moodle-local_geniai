@@ -21,7 +21,7 @@ global $CFG;
 require_once("{$CFG->libdir}/tablelib.php");
 
 /**
- * Geniai view file.
+ * GeniAI view file.
  *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
@@ -42,24 +42,24 @@ class view extends \table_sql {
         $this->is_downloadable(true);
         $this->show_download_buttons_at([TABLE_P_BOTTOM]);
 
-        $download = optional_param('download', null, PARAM_ALPHA);
+        $download = optional_param("download", null, PARAM_ALPHA);
         if ($download) {
             raise_memory_limit(MEMORY_EXTRA);
-            $filename = get_string('report_filename', 'local_geniai');
+            $filename = get_string("report_filename", "local_geniai");
             $this->is_downloading($download, $filename);
         }
 
         $columns = [
-            'datecreated',
-            'model',
-            'prompt_tokens',
-            'completion_tokens',
+            "datecreated",
+            "model",
+            "prompt_tokens",
+            "completion_tokens",
         ];
         $headers = [
-            get_string('report_datecreated', 'local_geniai'),
-            get_string('report_model', 'local_geniai'),
-            get_string('report_prompt_tokens', 'local_geniai'),
-            get_string('report_completion_tokens', 'local_geniai'),
+            get_string("report_datecreated", "local_geniai"),
+            get_string("report_model", "local_geniai"),
+            get_string("report_prompt_tokens", "local_geniai"),
+            get_string("report_completion_tokens", "local_geniai"),
         ];
 
         $this->define_columns($columns);
@@ -76,7 +76,7 @@ class view extends \table_sql {
      * @throws \coding_exception
      */
     public function col_datecreated($linha) {
-        return userdate(strtotime($linha->datecreated), get_string('strftimedate', 'langconfig'));
+        return userdate(strtotime($linha->datecreated), get_string("strftimedate", "langconfig"));
     }
 
     /**
@@ -97,7 +97,7 @@ class view extends \table_sql {
         }
 
         $limit = "LIMIT 100";
-        if (optional_param('download', null, PARAM_ALPHA)) {
+        if (optional_param("download", null, PARAM_ALPHA)) {
             $limit = "";
         }
 

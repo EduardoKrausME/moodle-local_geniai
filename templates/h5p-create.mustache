@@ -1,0 +1,33 @@
+<form method="post"
+      class="validate form-h5p-next-step d-none"
+      enctype="multipart/form-data"
+      action="edit.php">
+    <div class="displayErroForm alert alert-danger" style="display: none;"></div>
+    <input name="POST" type="hidden" value="true">
+    <input type="hidden" name="sessionkey" id="sessionkey" value="{{config.sesskey}}">
+    <input type="hidden" name="contextid" id="contextid" value="{{h5p.contextid}}">
+    <input type="hidden" name="type" id="type" value="{{h5p.type}}">
+    <input type="hidden" name="userlang" id="userlang" value="{{user.lang}}">
+    <input type="hidden" name="userfullname" id="userfullname" value="{{user.fullname}}">
+    <input type="hidden" id="h5p-title" value="{{h5p.title}}">
+    <input type="hidden" id="displaySummary" name="config[displaySummary]" value="1">
+    <input type="hidden" id="baseColor" name="config[baseColor]" value="{{{baseColor}}}" >
+
+    <div id="area-editor"></div>
+
+</form>
+{{#js}}
+    /*<script>*/
+    require(["jquery"], function($) {
+        var h5ps = {
+            {{#types.h5ps}}
+                "H5P.{{{id}}}" : {
+                    "title" : "{{{title}}}",
+                    "desc"  : "{{{desc}}}",
+                    "pix"   : `{{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}`,
+                },
+            {{/types.h5ps}}
+        };
+        {{{h5pjs}}}
+    });
+{{/js}}

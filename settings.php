@@ -45,12 +45,23 @@ if ($hassiteconfig) {
     );
     $settings->add($setting);
 
-    $setting = new admin_setting_configpasswordunmask(
-        "local_geniai/apikey",
-        get_string("apikey", "local_geniai"),
-        get_string("apikey_desc", "local_geniai"),
-        "");
-    $settings->add($setting);
+
+    $apikey = get_config("local_geniai", "apikey");
+    if (isset($apikey[12])) {
+        $setting = new admin_setting_configpasswordunmask(
+            "local_geniai/apikey",
+            get_string("apikey", "local_geniai"),
+            get_string("apikey_desc", "local_geniai"),
+            "");
+        $settings->add($setting);
+    } else {
+        $setting = new admin_setting_configtext(
+            "local_geniai/apikey",
+            get_string("apikey", "local_geniai"),
+            get_string("apikey_desc", "local_geniai"),
+            "");
+        $settings->add($setting);
+    }
 
     $geniainame = get_config("local_geniai", "geniainame");
     if (!isset($geniainame[2])) {
@@ -93,14 +104,6 @@ if ($hassiteconfig) {
         "alloy", $voices
     );
     $settings->add($setting);
-
-    //$settings->add(new admin_setting_configtextarea(
-    //    "local_geniai/prompt",
-    //    get_string("prompt", "local_geniai"),
-    //    get_string("prompt_desc", "local_geniai"),
-    //    get_string("prompt_default", "local_geniai"),
-    //    PARAM_TEXT
-    //));
 
     $cases = [
         "text_code_generation" => get_string("case_text_code_generation", "local_geniai"),

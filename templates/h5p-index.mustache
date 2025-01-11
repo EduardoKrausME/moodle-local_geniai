@@ -1,17 +1,39 @@
-<div class="d-flex flex-gap-1">
+<div class="container">
+    <div class="d-flex flex-gap-1">
     <span id="h5p-create-new"
-          class="icon-no-margin btn btn-secondary text-nowrap mr-1">
+          class="icon-no-margin btn btn-secondary text-nowrap mr-1"
+          style="display: none">
         <i class="icon fa fa-add fa-fw"></i>
         {{#str}}h5p-create-new,local_geniai{{/str}}</span>
 
-    <a href="{{return-url}}"
-       class="icon-no-margin btn btn-secondary text-nowrap mr-1">{{#str}}h5p-return,local_geniai{{/str}}</a>
-</div>
+        <a id="h5p-create-new-link"
+           class="icon-no-margin btn btn-secondary text-nowrap mr-1"
+           href="{{config.wwwroot}}/local/geniai/h5p/create.php?contextid={{types.contextid}}&type=InteractiveBook">
+        <i class="icon fa fa-add fa-fw"></i>
+        {{#str}}h5p-create-new,local_geniai{{/str}}</a>
 
+        <a href="{{return-url}}"
+           class="icon-no-margin btn btn-secondary text-nowrap mr-1">{{#str}}h5p-return,local_geniai{{/str}}</a>
+    </div>
+
+    <div class="row h5p-index mt-4">
+        {{#itens}}
+            <div class="col-xs-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                <a class="card h-100 text-center h5p-block"
+                   href="edit.php?id={{id}}">
+                    {{#pix}}h5p/H5P.{{type}},local_geniai{{/pix}}
+                    <div class="card-body">
+                        <h6 class="card-title text-center">{{{title}}}</h6>
+                    </div>
+                </a>
+            </div>
+        {{/itens}}
+    </div>
+</div>
 
 <div class="d-none">
     <div id="h5p-body-create" class="h5p-create">
-        {{#unique}}
+        {{#types.unique}}
             <div class="text-center h5p-block">
                 {{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}
                 <h4>{{{title}}}</h4>
@@ -22,11 +44,11 @@
                 <p><a href="{{create}}"
                       class="btn btn-primary">{{#str}}h5p-create-this,local_geniai{{/str}}</a></p>
             </div>
-        {{/unique}}
+        {{/types.unique}}
 
         <hr>
         <div class="row">
-            {{#h5ps}}
+            {{#types.h5ps}}
                 <div class="col-lg-4 col-sm-6 mb-4">
                     <div class="card h-100 text-center h5p-block">
                         {{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}
@@ -47,13 +69,14 @@
                         </div>
                     </div>
                 </div>
-            {{/h5ps}}
+            {{/types.h5ps}}
         </div>
     </div>
 </div>
 
 {{#js}}
-    /*<script>*/
+    /*
+    <script>*/
     require(["jquery", "core/modal_factory"], function($, ModalFactory) {
 
         function createReadMore($lement) {

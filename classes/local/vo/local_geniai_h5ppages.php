@@ -24,7 +24,6 @@
 
 namespace local_geniai\local\vo;
 
-
 /**
  * Class local_geniai_h5ppages
  *

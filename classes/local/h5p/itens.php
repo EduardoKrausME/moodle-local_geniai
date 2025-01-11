@@ -15,20 +15,38 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * DragText file.
+ * Itens file.
  *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p\type;
+namespace local_geniai\local\h5p;
 
 /**
- * Class DragText
+ * Class itens
  *
- * @package local_geniai\local\h5p\type
+ * @package local_geniai\local\h5p
  */
-class DragText implements base {
+class itens {
+    /**
+     * Function get_itens
+     *
+     * @param int $contextid
+     *
+     * @return array
+     * @throws \dml_exception
+     */
+    public static function get_itens($contextid) {
+        global $DB;
 
+        $h5ps = $DB->get_records("local_geniai_h5p",
+            ["contextid" => $contextid],
+            "title ASC", "id, contextid, contentbanktid, title, type");
+
+        $h5ps = array_values($h5ps);
+
+        return $h5ps;
+    }
 }
