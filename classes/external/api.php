@@ -235,41 +235,33 @@ class api {
         $presencepenalty = get_config("local_geniai", "presence_penalty");
 
         switch (get_config("local_geniai", "case")) {
-            case "text_code_generation":
-                $temperature = .1;
-                $topp = .1;
-                break;
-            case "data_analysis_script":
-                $temperature = .2;
-                $topp = .1;
-                break;
-            case "text_comment_generation":
-                $temperature = .3;
-                $topp = .2;
-                break;
-            case "chatbot":
-                $temperature = .5;
-                $topp = .5;
-                break;
-            case "exploratory_writing":
-                $temperature = .6;
-                $topp = .7;
-                break;
-            case "creative_writing":
+            case "creative":
                 $temperature = .7;
                 $topp = .8;
                 break;
-            case "idea_brainstorming":
+            case "balanced":
+                $temperature = .5;
+                $topp = .7;
+                break;
+            case "precise":
+                $temperature = .0;
+                $topp = 1.0;
+                break;
+            case "exploration":
                 $temperature = .8;
                 $topp = .9;
                 break;
-            case "fictitious_dialogue_generation":
-                $temperature = .9;
-                $topp = .95;
+            case "formal":
+                $temperature = .3;
+                $topp = .6;
                 break;
-            case "surreal_story_generation":
-                $temperature = 1.0;
-                $topp = 1.0;
+            case "informal":
+                $temperature = .7;
+                $topp = .8;
+                break;
+            case "chatbot":
+                $temperature = .2;
+                $topp = .8;
                 break;
             default:
                 $temperature = .5;

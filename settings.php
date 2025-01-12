@@ -17,9 +17,9 @@
 /**
  * Settings file.
  *
- * @package    local_geniai
- * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   local_geniai
+ * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -133,15 +133,13 @@ if ($hassiteconfig) {
     $settings->add($setting);
 
     $cases = [
-        "text_code_generation" => get_string("case_text_code_generation", "local_geniai"),
-        "data_analysis_script" => get_string("case_data_analysis_script", "local_geniai"),
-        "text_comment_generation" => get_string("case_text_comment_generation", "local_geniai"),
-        "chatbot" => get_string("case_chatbot", "local_geniai"),
-        "exploratory_writing" => get_string("case_exploratory_writing", "local_geniai"),
-        "creative_writing" => get_string("case_creative_writing", "local_geniai"),
-        "idea_brainstorming" => get_string("case_idea_brainstorming", "local_geniai"),
-        "fictitious_dialogue_generation" => get_string("case_fictitious_dialogue_generation", "local_geniai"),
-        "surreal_story_generation" => get_string("case_surreal_story_generation", "local_geniai"),
+        "chatbot" => get_string("caseuse_chatbot", "local_geniai"),
+        "creative" => get_string("caseuse_creative", "local_geniai"),
+        "balanced" => get_string("caseuse_balanced", "local_geniai"),
+        "precise" => get_string("caseuse_precise", "local_geniai"),
+        "exploration" => get_string("caseuse_exploration", "local_geniai"),
+        "formal" => get_string("caseuse_formal", "local_geniai"),
+        "informal" => get_string("caseuse_informal", "local_geniai"),
     ];
     $casedesc = $OUTPUT->render_from_template("local_geniai/settings_casedesc", []);
     $settings->add(new admin_setting_configselect(

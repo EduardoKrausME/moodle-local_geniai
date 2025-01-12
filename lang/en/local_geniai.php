@@ -8,32 +8,30 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * lang pt_br file.
  *
- * @package    local_geniai
- * @copyright  2024 Eduardo Kraus {@link http://eduardokraus.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   local_geniai
+ * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['apikey'] = 'OpenAI API Key';
 $string['apikey_desc'] = 'The API key of your OpenAI account';
 $string['case'] = 'Use Cases';
-$string['case_chatbot'] = 'Chatbot                              => Temperature 0.5, Top_p 0.5';
-$string['case_creative_writing'] = 'Creative Writing                     => Temperature 0.7, Top_p 0.8';
-$string['case_data_analysis_script'] = 'Data Analysis Script                 => Temperature 0.2, Top_p 0.1';
-$string['case_exploratory_writing'] = 'Exploratory Writing of texts       => Temperature 0.6, Top_p 0.7';
-$string['case_fictitious_dialogue_generation'] = 'Fictitious Dialogue Generation      => Temperature 0.9, Top_p 0.95';
-$string['case_idea_brainstorming'] = 'Idea Exploration and Brainstorming  => Temperature 0.8, Top_p 0.9';
-$string['case_surreal_story_generation'] = 'Surreal or Absurd Stories           => Temperature 1.0, Top_p 1.0';
-$string['case_text_code_generation'] = 'Text and Code Generation            => Temperature 0.1, Top_p 0.1';
-$string['case_text_comment_generation'] = 'Text Comment Generation             => Temperature 0.3, Top_p 0.2';
+$string['caseuse_balanced'] = 'Balanced Responses => Temperature 0.5 - 0.7, Top_p 0.7';
+$string['caseuse_chatbot'] = 'Chatbot => Temperature 0.2 - 0.6, Top_p 0.8';
+$string['caseuse_creative'] = 'Creative Generation => Temperature 0.7 - 1.0, Top_p 0.8';
+$string['caseuse_exploration'] = 'Exploration of Options => Temperature 0.8 - 1.0, Top_p 0.9';
+$string['caseuse_formal'] = 'Formal Tone => Temperature 0.3 - 0.5, Top_p 0.6';
+$string['caseuse_informal'] = 'Informal Tone => Temperature 0.7 - 0.9, Top_p 0.8';
+$string['caseuse_precise'] = 'Precise Responses => Temperature 0.0 - 0.3, Top_p 1.0';
 $string['clear_history_title'] = 'Clear all history';
 $string['close_title'] = 'Close chat';
 $string['course_home'] = 'The student is outside the course, and their name is "{$a->userfullname}".';
@@ -114,28 +112,24 @@ $string['report_title'] = 'Report';
 $string['send_message'] = 'Send Message';
 $string['settings'] = 'Configure GeniAI Tutor';
 $string['settings_casedesc'] = 'The temperature and Top_p parameters defined for each scenario, such as text and code generation, creative writing, chatbot, textual comments generation, data analysis, and exploratory writing. Each configuration impacts the model’s creativity and coherence in content generation.<br><br>See the table below for guidance on using Temperature and Top_p:<br>';
-$string['settings_casedesc_balanced_responses'] = 'Generates conversational responses that balance coherence and diversity. The output is more natural and engaging.';
-$string['settings_casedesc_broad_creative_ideas'] = 'Generates broad, creative, and less structured ideas for brainstorming sessions.';
-$string['settings_casedesc_case_description'] = 'Case Description';
+$string['settings_casedesc_balancedresp'] = 'Balanced Responses';
+$string['settings_casedesc_balancedresp_desc'] = 'Balanced responses between accuracy and creativity. Ideal for natural and friendly conversations.';
+$string['settings_casedesc_caseuse'] = 'Use Case';
 $string['settings_casedesc_chatbot'] = 'Chatbot';
-$string['settings_casedesc_concise_relevant_comments'] = 'Generates text comments more likely to be concise and relevant. The output is more deterministic and adheres to conventions.';
-$string['settings_casedesc_creative_alternative_solutions'] = 'Generates texts exploring alternative solutions and creative approaches. The output is less constrained by established patterns.';
-$string['settings_casedesc_creative_writing'] = 'Creative Writing';
-$string['settings_casedesc_data_analysis_scripts'] = 'Data Analysis Scripts';
-$string['settings_casedesc_deterministic_output_code'] = 'The output is more deterministic and focused. Useful for generating syntactically correct texts or code.';
-$string['settings_casedesc_exploratory_text_writing'] = 'Exploratory Text Writing';
-$string['settings_casedesc_fictional_dialogue_generation'] = 'Fictional Dialogue Generation';
-$string['settings_casedesc_focused_data_analysis'] = 'Generates data analysis scripts more likely to be correct and efficient. The output is more deterministic and focused.';
-$string['settings_casedesc_highly_creative_stories'] = 'Generates highly creative, abstract stories with less concern for logic or structure.';
-$string['settings_casedesc_idea_exploration_brainstorming'] = 'Idea Exploration and Brainstorming';
-$string['settings_casedesc_storytelling_texts'] = 'Generates creative and diverse text for storytelling.';
-$string['settings_casedesc_surreal_absurd_stories'] = 'Surreal or Absurd Stories';
+$string['settings_casedesc_chatbot_desc'] = 'Fast, consistent, and contextual responses for real-time interaction with users.';
+$string['settings_casedesc_creativegen'] = 'Creative Generation';
+$string['settings_casedesc_creativegen_desc'] = 'Produces more creative, original, or exploratory responses. Useful for brainstorming or storytelling.';
+$string['settings_casedesc_description'] = 'Description';
+$string['settings_casedesc_formaltones'] = 'Formal Tones';
+$string['settings_casedesc_formaltones_desc'] = 'Creates more formal or technical texts with less creative variation.';
+$string['settings_casedesc_optionexplore'] = 'Option Exploration';
+$string['settings_casedesc_optionexplore_desc'] = 'Generates multiple alternative responses to consider different approaches to a question.';
+$string['settings_casedesc_preciseresp'] = 'Precise Responses';
+$string['settings_casedesc_preciseresp_desc'] = 'Maximum accuracy and predictability. Recommended for technical or informative tasks.';
+$string['settings_casedesc_relaxedtones'] = 'Relaxed Tones';
+$string['settings_casedesc_relaxedtones_desc'] = 'Generates lighter and informal texts with a creative and friendly approach.';
 $string['settings_casedesc_temperature'] = 'Temperature';
-$string['settings_casedesc_text_and_code_generation'] = 'Text and Code Generation';
-$string['settings_casedesc_text_comment_generation'] = 'Text Comment Generation';
 $string['settings_casedesc_top_p'] = 'Top_p';
-$string['settings_casedesc_unpredictable_dialogues'] = 'Creates unpredictable and original dialogues with more variation in language and tone.';
-$string['settings_casedesc_usecase'] = 'Use Case';
 $string['talk_geniai'] = 'Talk to your GeniAI here';
 $string['url_moodle'] = 'The Moodle URL is "{$a->wwwroot}" and the Moodle name is "{$a->fullname}"';
 $string['voice'] = 'Voice used in the audio response';
