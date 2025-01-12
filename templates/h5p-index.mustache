@@ -1,9 +1,114 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
 
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_geniai/h5p-index
+
+    Example context (json):
+    {
+      "types": {
+        "contextid": 123,
+        "unique": {
+          "id": "interactiveBook",
+          "title": "Interactive Book",
+          "desc": "Create interactive books with H5P.",
+          "exe": "https://example.com/h5p/interactiveBook",
+          "create": "https://example.com/h5p/create/interactiveBook"
+        },
+        "h5ps": [
+          {
+            "id": "coursePresentation",
+            "title": "Course Presentation",
+            "desc": "Create presentations with H5P.",
+            "exe": "https://example.com/h5p/coursePresentation",
+            "create": "https://example.com/h5p/create/coursePresentation"
+          },
+          {
+            "id": "interactiveVideo",
+            "title": "Interactive Video",
+            "desc": "Create interactive videos.",
+            "exe": "https://example.com/h5p/interactiveVideo",
+            "create": "https://example.com/h5p/create/interactiveVideo"
+          }
+        ]
+      },
+      "itens": [
+        {
+          "id": 1,
+          "type": "interactiveBook",
+          "title": "Introduction to H5P"
+        },
+        {
+          "id": 2,
+          "type": "coursePresentation",
+          "title": "Advanced H5P Techniques"
+        }
+      ],
+      "return-url": "https://example.com/h5p/dashboard"
+    }
+
+}}
+
+<div class="container">
+    <div class="d-flex flex-gap-1">
+    <span id="h5p-create-new"
+          class="icon-no-margin btn btn-secondary text-nowrap mr-1"
+          style="display: none">
+        <i class="icon fa fa-add fa-fw"></i>
+        {{#str}}h5p-create-new,local_geniai{{/str}}</span>
+
+        <a id="h5p-create-new-link"
+           class="icon-no-margin btn btn-secondary text-nowrap mr-1"
+           href="{{config.wwwroot}}/local/geniai/h5p/create.php?contextid={{types.contextid}}&type=InteractiveBook">
+        <i class="icon fa fa-add fa-fw"></i>
+        {{#str}}h5p-create-new,local_geniai{{/str}}</a>
+
+        <a href="{{return-url}}"
+           class="icon-no-margin btn btn-secondary text-nowrap mr-1">{{#str}}h5p-return,local_geniai{{/str}}</a>
+    </div>
+
+    <div class="row h5p-index mt-4">
+        {{#itens}}
+            <div class="col-xs-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                <a class="card h-100 text-center h5p-block"
+                   href="edit.php?id={{id}}">
+                {{#pix}}h5p/H5P.{{type}},local_geniai{{/pix}}
+                <div class="card-body">
+                    <h6 class="card-title text-center">{{{title}}}</h6>
+                </div>
+                </a>
+            </div>
+        {{/itens}}
+    </div>
+</div>
 
 <div class="d-none">
-    <div id="h5p-body-create" class="h5p-create"
-         data-title="{{#str}}h5p-page-title,local_geniai{{/str}}">
+    <div id="h5p-body-create" class="h5p-create">
+        {{#types.unique}}
+            <div class="text-center h5p-block">
+                {{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}
+                <h4>{{{title}}}</h4>
+                <p>
+                    <span data-size="200" class="text-readmore">{{{desc}}}</span>
+                    <a href="{{exe}}" target="_blank">{{#str}}h5p-example,local_geniai{{/str}}</a>
+                </p>
+                <p><a href="{{create}}"
+                      class="btn btn-primary">{{#str}}h5p-create-this,local_geniai{{/str}}</a></p>
+            </div>
+        {{/types.unique}}
 
         <hr>
         <div class="row">
@@ -18,13 +123,12 @@
                             <div class="text-center">
                                 <p>
                                     <span data-size="60" class="text-readmore">{{{desc}}}</span>
-                                    <a href="{{exe}}" target="_blank">
-                                        {{#str}}h5p-example,local_geniai{{/str}}</a>
+                                    <a href="{{exe}}" target="_blank">{{#str}}
+                                        h5p-example,local_geniai{{/str}}</a>
                                 </p>
-                                <p>
-                                    <a href="{{create}}"
-                                      class="btn btn-primary">
-                                    {{#str}}h5p-create-this,local_geniai{{/str}}</a></p>
+                                <p><a href="{{create}}"
+                                      class="btn btn-primary">{{#str}}
+                                    h5p-create-this,local_geniai{{/str}}</a></p>
                             </div>
                         </div>
                     </div>
@@ -34,3 +138,46 @@
     </div>
 </div>
 
+{{#js}}
+require(["jquery", "core/modal_factory"], function($, ModalFactory) {
+    function createReadMore($lement) {
+        var fullText = $lement.text();
+        var maxLength = $lement.attr("data-size");
+
+        // Se o texto for maior que o limite, aplica a funcionalidade "Read More"
+        if (fullText.length > maxLength) {
+            var partes = fullText.split(" ");
+            var truncatedText = "";
+            for (var i = 0; i < partes.length; i++) {
+                if (`${truncatedText} ${partes[i]}`.length > maxLength) {
+                    break;
+                }
+                truncatedText = `${truncatedText} ${partes[i]}`;
+            }
+
+            $lement.text(truncatedText);
+            var readmore = $(`<a href="javascript:void(0);" class="readmore-link">{{#str}}h5p-readmore,local_geniai{{/str}}</a>`);
+            $lement.append(readmore)
+                    .append("<br>")
+                    .click(function() {
+                        $lement.text(fullText);
+                    });
+        }
+    }
+
+    $(".text-readmore").each(function() {
+        createReadMore($(this));
+    });
+
+    $("#h5p-create-new").click(function() {
+        ModalFactory.create({
+            type: ModalFactory.types.DEFAULT,
+            title: "{{#str}}h5p-page-title,local_geniai{{/str}}",
+            body: $("#h5p-body-create"),
+            footer: "",
+        }).then(function(modal) {
+            modal.show();
+        })
+    });
+});
+{{/js}}
