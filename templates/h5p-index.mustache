@@ -62,48 +62,36 @@
 
 }}
 
+<div class="container">
+    <div class="d-flex flex-gap-1">
+        <span id="h5p-create-new"
+              class="icon-no-margin btn btn-secondary text-nowrap mr-1"
+              style="display: none">
+        <i class="icon fa fa-add fa-fw"></i>
+        {{#str}}h5p-create-new,local_geniai{{/str}}</span>
 
-<div class="d-none">
-    <div id="h5p-body-create" class="h5p-create"
-         data-title="{{#str}}h5p-page-title,local_geniai{{/str}}">
-        {{#types.unique}}
-            <div class="text-center h5p-block">
-                {{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}
-                <h4>{{{title}}}</h4>
-                <p>
-                    <span data-size="200" class="text-readmore">{{{desc}}}</span>
-                    <a href="{{exe}}" target="_blank">{{#str}}h5p-example,local_geniai{{/str}}</a>
-                </p>
-                <p><a href="{{create}}"
-                      class="btn btn-primary">{{#str}}h5p-create-this,local_geniai{{/str}}</a></p>
-            </div>
-        {{/types.unique}}
+        <a id="h5p-create-new-link"
+           href="{{config.wwwroot}}/local/geniai/h5p/create.php?contextid={{types.contextid}}&type=InteractiveBook"
+           class="icon-no-margin btn btn-secondary text-nowrap mr-1">
+            <i class="icon fa fa-add fa-fw"></i>
+            {{#str}}h5p-create-new,local_geniai{{/str}}
+        </a>
 
-        <hr>
-        <div class="row">
-            {{#types.h5ps}}
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <div class="card h-100 text-center h5p-block">
-                        {{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}
-                        <div class="card-body">
-                            <h4 class="card-title text-center">
-                                {{{title}}}
-                            </h4>
-                            <div class="text-center">
-                                <p>
-                                    <span data-size="60" class="text-readmore">{{{desc}}}</span>
-                                    <a href="{{exe}}" target="_blank">{{#str}}
-                                        h5p-example,local_geniai{{/str}}</a>
-                                </p>
-                                <p><a href="{{create}}"
-                                      class="btn btn-primary">{{#str}}
-                                    h5p-create-this,local_geniai{{/str}}</a></p>
-                            </div>
-                        </div>
+        <a href="{{return-url}}"
+           class="icon-no-margin btn btn-secondary text-nowrap mr-1">{{#str}}h5p-return,local_geniai{{/str}}</a>
+    </div>
+
+    <div class="row h5p-index mt-4">
+        {{#itens}}
+            <div class="col-xs-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                <a class="card h-100 text-center h5p-block"
+                   href="edit.php?id={{id}}">
+                    {{#pix}}h5p/H5P.{{type}},local_geniai{{/pix}}
+                    <div class="card-body">
+                        <h6 class="card-title text-center">{{{title}}}</h6>
                     </div>
-                </div>
-            {{/types.h5ps}}
-        </div>
+                </a>
+            </div>
+        {{/itens}}
     </div>
 </div>
-
