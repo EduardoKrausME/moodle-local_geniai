@@ -123,12 +123,12 @@
                             <div class="text-center">
                                 <p>
                                     <span data-size="60" class="text-readmore">{{{desc}}}</span>
-                                    <a href="{{exe}}" target="_blank">{{#str}}
-                                        h5p-example,local_geniai{{/str}}</a>
+                                    <a href="{{exe}}" target="_blank">
+                                        {{#str}}h5p-example,local_geniai{{/str}}</a>
                                 </p>
                                 <p><a href="{{create}}"
-                                      class="btn btn-primary">{{#str}}
-                                    h5p-create-this,local_geniai{{/str}}</a></p>
+                                      class="btn btn-primary">
+                                    {{#str}}h5p-create-this,local_geniai{{/str}}</a></p>
                             </div>
                         </div>
                     </div>
@@ -137,47 +137,3 @@
         </div>
     </div>
 </div>
-
-{{#js}}
-require(["jquery", "core/modal_factory"], function($, ModalFactory) {
-    function createReadMore($lement) {
-        var fullText = $lement.text();
-        var maxLength = $lement.attr("data-size");
-
-        // Se o texto for maior que o limite, aplica a funcionalidade "Read More"
-        if (fullText.length > maxLength) {
-            var partes = fullText.split(" ");
-            var truncatedText = "";
-            for (var i = 0; i < partes.length; i++) {
-                if (`${truncatedText} ${partes[i]}`.length > maxLength) {
-                    break;
-                }
-                truncatedText = `${truncatedText} ${partes[i]}`;
-            }
-
-            $lement.text(truncatedText);
-            var readmore = $(`<a href="javascript:void(0);" class="readmore-link">{{#str}}h5p-readmore,local_geniai{{/str}}</a>`);
-            $lement.append(readmore)
-                    .append("<br>")
-                    .click(function() {
-                        $lement.text(fullText);
-                    });
-        }
-    }
-
-    $(".text-readmore").each(function() {
-        createReadMore($(this));
-    });
-
-    $("#h5p-create-new").click(function() {
-        ModalFactory.create({
-            type: ModalFactory.types.DEFAULT,
-            title: "{{#str}}h5p-page-title,local_geniai{{/str}}",
-            body: $("#h5p-body-create"),
-            footer: "",
-        }).then(function(modal) {
-            modal.show();
-        })
-    });
-});
-{{/js}}
