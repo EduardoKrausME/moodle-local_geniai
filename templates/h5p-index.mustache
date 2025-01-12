@@ -17,14 +17,6 @@
 {{!
     @template local_geniai/h5p-index
 
-    Chat Panel.
-
-    Classes required for JS:
-    * none
-
-    Context variables required for this template:
-    * see local/geniai/lib.php
-
     Example context (json):
     {
       "types": {
@@ -93,10 +85,10 @@
             <div class="col-xs-2 col-lg-3 col-md-4 col-sm-6 col-12">
                 <a class="card h-100 text-center h5p-block"
                    href="edit.php?id={{id}}">
-                {{#pix}}h5p/H5P.{{type}},local_geniai{{/pix}}
-                <div class="card-body">
-                    <h6 class="card-title text-center">{{{title}}}</h6>
-                </div>
+                    {{#pix}}h5p/H5P.{{type}},local_geniai{{/pix}}
+                    <div class="card-body">
+                        <h6 class="card-title text-center">{{{title}}}</h6>
+                    </div>
                 </a>
             </div>
         {{/itens}}
@@ -104,7 +96,8 @@
 </div>
 
 <div class="d-none">
-    <div id="h5p-body-create" class="h5p-create">
+    <div id="h5p-body-create" class="h5p-create"
+         data-title="{{#str}}h5p-page-title,local_geniai{{/str}}">
         {{#types.unique}}
             <div class="text-center h5p-block">
                 {{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}
@@ -146,46 +139,3 @@
     </div>
 </div>
 
-{{#js}}
-require(["jquery", "core/modal_factory"], function($, ModalFactory) {
-    function createReadMore($lement) {
-        var fullText = $lement.text();
-        var maxLength = $lement.attr("data-size");
-
-        // Se o texto for maior que o limite, aplica a funcionalidade "Read More"
-        if (fullText.length > maxLength) {
-            var partes = fullText.split(" ");
-            var truncatedText = "";
-            for (var i = 0; i < partes.length; i++) {
-                if (`${truncatedText} ${partes[i]}`.length > maxLength) {
-                    break;
-                }
-                truncatedText = `${truncatedText} ${partes[i]}`;
-            }
-
-            $lement.text(truncatedText);
-            var readmore = $(`<a href="javascript:void(0);" class="readmore-link">{{#str}}h5p-readmore,local_geniai{{/str}}</a>`);
-            $lement.append(readmore)
-                    .append("<br>")
-                    .click(function() {
-                        $lement.text(fullText);
-                    });
-        }
-    }
-
-    $(".text-readmore").each(function() {
-        createReadMore($(this));
-    });
-
-    $("#h5p-create-new").click(function() {
-        ModalFactory.create({
-            type: ModalFactory.types.DEFAULT,
-            title: "{{#str}}h5p-page-title,local_geniai{{/str}}",
-            body: $("#h5p-body-create"),
-            footer: "",
-        }).done(function(modal) {
-            modal.show();
-        })
-    });
-});
-{{/js}}

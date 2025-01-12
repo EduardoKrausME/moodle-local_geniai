@@ -46,4 +46,7 @@ echo $OUTPUT->render_from_template("local_geniai/h5p-index", [
     "itens" => itens::get_itens($contextid),
 ]);
 
+$PAGE->requires->strings_for_js(["h5p-readmore", "h5p-page-title"], "local_geniai");
+$PAGE->requires->js_call_amd("local_geniai/h5p-index", "readmore", [$COURSE->id, release::version()]);
+
 echo $OUTPUT->footer();
