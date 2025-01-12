@@ -183,7 +183,7 @@ require(["jquery", "core/modal_factory"], function($, ModalFactory) {
             title: "{{#str}}h5p-page-title,local_geniai{{/str}}",
             body: $("#h5p-body-create"),
             footer: "",
-        }).then(function(modal) {
+        }).done(function(modal) {
             modal.show();
         })
     });
