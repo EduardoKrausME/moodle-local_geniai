@@ -97,10 +97,37 @@ if ($hassiteconfig) {
         "nova" => "Nova",
         "shimmer" => "Shimmer",
     ];
+    $voicedesc = preg_replace('/\s+</s', "<", '
+            <table>
+                <tr>
+                    <th style="text-align: right;">Alloy:</th>
+                    <td><audio src="https://cdn.openai.com/API/docs/audio/alloy.wav" controls></audio></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Echo:</th>
+                    <td><audio src="https://cdn.openai.com/API/docs/audio/echo.wav" controls></audio></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Fable:</th>
+                    <td><audio src="https://cdn.openai.com/API/docs/audio/fable.wav" controls></audio></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Onyx:</th>
+                    <td><audio src="https://cdn.openai.com/API/docs/audio/onyx.wav" controls></audio></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Nova:</th>
+                    <td><audio src="https://cdn.openai.com/API/docs/audio/nova.wav" controls></audio></td>
+                </tr>
+                <tr>
+                    <th style="text-align: right;">Shimmer:</th>
+                    <td><audio src="https://cdn.openai.com/API/docs/audio/shimmer.wav" controls></audio></td>
+                </tr>
+            </table>');
     $setting = new admin_setting_configselect(
         "local_geniai/voice",
         get_string("voice", "local_geniai"),
-        get_string("voice_desc", "local_geniai"),
+        $voicedesc,
         "alloy", $voices
     );
     $settings->add($setting);
@@ -116,10 +143,11 @@ if ($hassiteconfig) {
         "fictitious_dialogue_generation" => get_string("case_fictitious_dialogue_generation", "local_geniai"),
         "surreal_story_generation" => get_string("case_surreal_story_generation", "local_geniai"),
     ];
+    $casedesc = $OUTPUT->render_from_template("local_geniai/settings_casedesc", []);
     $settings->add(new admin_setting_configselect(
         "local_geniai/case",
         get_string("case", "local_geniai"),
-        get_string("case_desc", "local_geniai"),
+        $casedesc,
         "chatbot",
         $cases
     ));

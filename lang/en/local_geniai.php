@@ -22,177 +22,121 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['apikey'] = 'API da OpenAI';
-$string['apikey_desc'] = 'A chave da API da sua conta OpenAI';
-$string['case'] = 'Casos de uso';
-$string['case_chatbot'] = 'Chatbot                              => Temperatura 0.5, Top_p 0.5';
-$string['case_creative_writing'] = 'Escrita Criativa                     => Temperatura 0.7, Top_p 0.8';
-$string['case_data_analysis_script'] = 'Script de Análise de Dados           => Temperatura 0.2, Top_p 0.1';
-$string['case_desc'] = 'Os parâmetros de temperatura e Top_p definidos para cada cenário, como geração de texto e código, escrita criativa, chatbot, geração de comentários textuais, análise de dados e escrita exploratória. Cada configuração afeta a criatividade e a coerência do modelo na geração de conteúdo.<br><br>Veja a tabela a seguir que mostra como usar a Temperatura e o Top_p:<br>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Caso de uso</th>
-            <th>Temperatura</th>
-            <th>Top_p</th>
-            <th>Descrição do caso</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Geração de textos e códigos</td>
-            <td class="text-center">0.1</td>
-            <td class="text-center">0.1</td>
-            <td>A saída é mais determinística e focada. Útil para gerar textos ou códigos sintaticamente correto.</td>
-        </tr>
-        <tr>
-            <td>Script de Análise de Dados</td>
-            <td class="text-center">0.2</td>
-            <td class="text-center">0.1</td>
-            <td>Gera scripts de análise de dados mais propensos a serem corretos e eficientes. A saída é mais determinística e focada.</td>
-        </tr>
-        <tr>
-            <td>Geração de Comentários de textos</td>
-            <td class="text-center">0.3</td>
-            <td class="text-center">0.2</td>
-            <td>Gera comentários de textos mais propensos a serem concisos e relevantes. A saída é mais determinística e adere a convenções.</td>
-        </tr>
-        <tr>
-            <td>Chatbot</td>
-            <td class="text-center">0.5</td>
-            <td class="text-center">0.5</td>
-            <td>Gera respostas de conversação que equilibram coerência e diversidade. A saída é mais natural e envolvente.</td>
-        </tr>
-        <tr>
-            <td>Escrita Exploratória de textos</td>
-            <td class="text-center">0.6</td>
-            <td class="text-center">0.7</td>
-            <td>Gera textos que explora soluções alternativas e abordagens criativas. A saída é menos restrita por padrões estabelecidos.</td>
-        </tr>
-        <tr>
-            <td>Escrita Criativa</td>
-            <td class="text-center">0.7</td>
-            <td class="text-center">0.8</td>
-            <td>Gera texto criativo e diversificado para contar histórias.</td>
-        </tr>
-        <tr>
-            <td>Exploração de ideias e brainstorming</td>
-            <td class="text-center">0.8</td>
-            <td class="text-center">0.9</td>
-            <td>Gera ideias amplas, criativas e menos estruturadas para sessões de brainstorming.</td>
-        </tr>
-        <tr>
-            <td>Geração de diálogos fictícios</td>
-            <td class="text-center">0.9</td>
-            <td class="text-center">0.95</td>
-            <td>Cria diálogos imprevisíveis e originais com mais variação na linguagem e tom.</td>
-        </tr>
-        <tr>
-            <td>Histórias Surreais ou Absurdas</td>
-            <td class="text-center">1.0</td>
-            <td class="text-center">1.0</td>
-            <td>Gera histórias altamente criativas, abstratas e com menos preocupação com a lógica ou estrutura.</td>
-        </tr>
-    </tbody>
-</table>';
-$string['case_exploratory_writing'] = 'Escrita Exploratória de textos       => Temperatura 0.6, Top_p 0.7';
-$string['case_fictitious_dialogue_generation'] = 'Geração de diálogos fictícios        => Temperatura 0.9, Top_p 0.95';
-$string['case_idea_brainstorming'] = 'Exploração de ideias e brainstorming => Temperatura 0.8, Top_p 0.9';
-$string['case_surreal_story_generation'] = 'Histórias Surreais ou Absurdas       => Temperatura 1.0, Top_p 1.0';
-$string['case_text_code_generation'] = 'Geração de textos e códigos          => Temperatura 0.1, Top_p 0.1';
-$string['case_text_comment_generation'] = 'Geração de Comentários de textos     => Temperatura 0.3, Top_p 0.2';
-$string['clear_history_title'] = 'Limpar todo histórico';
-$string['close_title'] = 'Fechar chat';
-$string['course_home'] = 'O aluno está fora do curso e nome do aluno é "{$a->userfullname}".';
-$string['course_user'] = 'O aluno está no curso "{$a->course}" e nome do aluno é "{$a->userfullname}"';
-$string['frequency_penalty'] = 'Frequência de Penalidade';
-$string['frequency_penalty_desc'] = 'Este parâmetro é utilizado para desencorajar o modelo de repetir as mesmas palavras ou frases com muita frequência dentro do texto gerado. É um valor adicionado à log-probabilidade de um token cada vez que ele ocorre no texto gerado. Um valor de frequência de penalidade mais alto fará com que o modelo seja mais conservador ao usar tokens repetidos.';
-$string['geniai:manage'] = 'Gerenciar Tutor GeniAI';
-$string['geniai:view'] = 'Ver Tutor GeniAI';
-$string['geniainame'] = 'Nome do assistente';
-$string['geniainame_desc'] = 'Defina o nome do seu assistente';
-$string['h5p-accordion-desc'] = 'Crie um Glossário ou FAQ que permita aos alunos acessar rapidamente as respostas, sem se perder em um excesso de texto.';
-$string['h5p-accordion-title'] = 'Glossário/FAQ';
-$string['h5p-advancedText-desc'] = 'Crie um livro digital a partir do seu conteúdo, organizando-o em capítulos de maneira lógica e fluida, garantindo uma divisão coesa e envolvente do material.';
-$string['h5p-advancedText-title'] = 'Livro digital';
-$string['h5p-block-title'] = 'Título do bloco';
-$string['h5p-create'] = 'Criar H5P com o GeniAI';
-$string['h5p-create-new'] = 'Criar novo H5P com o GeniAI';
-$string['h5p-create-this'] = 'Criar com este recurso';
-$string['h5p-create-title'] = 'Título do H5P';
-$string['h5p-create-title-desc'] = 'Defina o título principal para o conteúdo H5P, que será exibido aos usuários na interface.';
-$string['h5p-createpage-title'] = 'Criar novo {$a}';
-$string['h5p-crossword-desc'] = 'Crie um jogo de palavras cruzadas interativo para engajar seus alunos, utilizando palavras-chave do seu conteúdo e promovendo uma aprendizagem divertida e dinâmica.';
-$string['h5p-crossword-title'] = 'Jogo de Palavras Cruzadas';
-$string['h5p-delete-success'] = 'H5P excluído com sucesso!';
-$string['h5p-dialogcards-desc'] = 'Crie cartões de memorização que funcionam como exercícios interativos para auxiliar os alunos na fixação de palavras, expressões ou conceitos-chave de textos. Na frente de cada cartão, há uma dica ou pista, e ao virá-lo, o aluno revela a informação correspondente. Esses cartões podem ser usados no aprendizado de idiomas, na resolução de problemas matemáticos ou para ajudar os alunos a memorizar fatos importantes, como eventos históricos, fórmulas ou nomes.';
-$string['h5p-dialogcards-title'] = 'Cartões de memorização';
-$string['h5p-dragtext-desc'] = 'Crie um jogo de Arraste Palavras em que o aluno deve arrastar a parte faltante do texto para o seu lugar correto, formando uma expressão completa. Esse jogo pode ser utilizado para avaliar se o aluno lembra do conteúdo que leu ou se compreende o que foi abordado. Além disso, auxilia o aluno a refletir mais profundamente sobre o texto, promovendo uma melhor assimilação do conteúdo.';
-$string['h5p-dragtext-title'] = 'Jogo de Arrastar Palavras';
-$string['h5p-example'] = 'Veja o exemplo';
-$string['h5p-findthewords-desc'] = 'Crie um jogo de caça-palavras no qual os alunos devem encontrar e selecionar as palavras em uma grade, a partir de uma lista fornecida.';
-$string['h5p-findthewords-title'] = 'Jogo de Caça-palavras';
-$string['h5p-interactivebook-desc'] = 'Crie um Livro Interativo que permite combinar diversos conteúdos interativos, como vídeos interativos, glossários, quizzes, atividades de arrastar palavras, palavras cruzadas, caça-palavras e muito mais, organizados em várias páginas. Adicione um resumo ao final, exibindo a pontuação total obtida pelo aluno ao longo do livro.';
-$string['h5p-interactivebook-title'] = 'Livro Interativo';
-$string['h5p-interactivevideo-desc'] = 'Crie um vídeo interativo com capítulos e um glossário destacando os principais pontos do conteúdo. No final, adicione um resumo interativo para reforçar o aprendizado e revisar os tópicos abordados.';
-$string['h5p-interactivevideo-title'] = 'Vídeo Interativo';
-$string['h5p-manager'] = 'Criar H5P com o GeniAI';
-$string['h5p-next-step'] = 'Próxima etapa';
-$string['h5p-no-apikey'] = '<p>É necessário configurar a chave de API do ChatGPT para que o sistema de criação de contas funcione corretamente. Isso permitirá que o sistema se comunique com o ChatGPT para realizar as operações necessárias durante o processo de criação de contas.<p><p><a href="{$a}">Clique aqui para configurar a chave de API do ChatGPT.</a></p>';
-$string['h5p-page-title'] = 'Criar um H5P com o GeniAI';
-$string['h5p-questionset-desc'] = 'Crie um Conjunto de Perguntas que permita ao aluno resolver uma sequência de questões diversificadas, incluindo tipos como múltipla escolha e verdadeiro ou falso, oferecendo uma experiência interativa e desafiadora.';
-$string['h5p-questionset-title'] = 'Quizes';
-$string['h5p-readmore'] = '...mais';
-$string['h5p-return'] = 'Voltar ao Banco de conteúdo';
-$string['h5p-title'] = 'Gerenciar banco de conteúdo do GeniAI';
-$string['max_tokens'] = 'Máximo de palavras na resposta';
-$string['max_tokens_desc'] = 'Número máximo de palavras que pode ser gerado em cada solicitação.';
-$string['message_01'] = 'Olá, {$a}! 🌟';
-$string['message_02_course'] = 'Bem-vindo ao curso {$a->coursename} no Moodle {$a->moodlename}!
-Sou a {$a->geniainame} e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
-Como posso ajudar você hoje? 🌟📚';
-$string['message_02_geniai'] = 'Olá! Eu sou o {$a} e estou aqui para te ajudar. Se preferir, pode me enviar um áudio, e eu responderei também em áudio. Se preferir escrever, responderei por texto. Como você preferir!';
-$string['message_02_home'] = 'Sou a {$a} e estou aqui para tornar sua jornada de aprendizado o mais incrível possível.
-Como posso ajudar você hoje? 🌟📚';
-$string['mode'] = 'Modo de uso';
-$string['mode_desc'] = 'Defina qual modo de uso do balão você deseja';
-$string['mode_name_assistant'] = 'Assistente Moodle';
-$string['mode_name_geniai'] = 'Tutor GeniAI';
-$string['mode_name_none'] = 'Sem balão de chat';
-$string['model'] = 'O Modelo da API';
-$string['model_desc'] = 'O Modelo da API que será executada na OpenAI. Valores disponíveis estão no <a href="https://platform.openai.com/docs/models/overview" target="_blank">site da OpenAI</a><br>
-* <strong>gpt-3.5-turbo</strong>: é muito bom, tem um custo/benefício vom e responde muito rápido.<br>
-* <strong>gpt-4</strong>: é muito mais podersos, um pouco mais caro e demora um pouco mais para responder e necessíta que você faça um <a href="https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4" target="_blank">pagamento inicial de $1</a> para poder testar';
-$string['modulename'] = 'Tutor GeniAI';
-$string['modules'] = 'Módulos que deve ocultar o {$a}';
-$string['modules_desc'] = 'Esta lista contém os módulos que não deve disponibilizar o {$a} aos alunos, assegurando que eles não sejam utilizados em exercícios.';
+$string['apikey'] = 'OpenAI API Key';
+$string['apikey_desc'] = 'The API key of your OpenAI account';
+$string['case'] = 'Use Cases';
+$string['case_chatbot'] = 'Chatbot                              => Temperature 0.5, Top_p 0.5';
+$string['case_creative_writing'] = 'Creative Writing                     => Temperature 0.7, Top_p 0.8';
+$string['case_data_analysis_script'] = 'Data Analysis Script                 => Temperature 0.2, Top_p 0.1';
+$string['case_exploratory_writing'] = 'Exploratory Writing of texts       => Temperature 0.6, Top_p 0.7';
+$string['case_fictitious_dialogue_generation'] = 'Fictitious Dialogue Generation      => Temperature 0.9, Top_p 0.95';
+$string['case_idea_brainstorming'] = 'Idea Exploration and Brainstorming  => Temperature 0.8, Top_p 0.9';
+$string['case_surreal_story_generation'] = 'Surreal or Absurd Stories           => Temperature 1.0, Top_p 1.0';
+$string['case_text_code_generation'] = 'Text and Code Generation            => Temperature 0.1, Top_p 0.1';
+$string['case_text_comment_generation'] = 'Text Comment Generation             => Temperature 0.3, Top_p 0.2';
+$string['clear_history_title'] = 'Clear all history';
+$string['close_title'] = 'Close chat';
+$string['course_home'] = 'The student is outside the course, and their name is "{$a->userfullname}".';
+$string['course_user'] = 'The student is in the course "{$a->course}", and their name is "{$a->userfullname}".';
+$string['frequency_penalty'] = 'Frequency Penalty';
+$string['frequency_penalty_desc'] = 'This parameter is used to discourage the model from repeating the same words or phrases too often in the generated text. It is a value added to the log probability of a token each time it occurs in the generated text. A higher frequency penalty will make the model more conservative about using repeated tokens.';
+$string['geniai:manage'] = 'Manage GeniAI Tutor';
+$string['geniai:view'] = 'View GeniAI Tutor';
+$string['geniainame'] = 'Assistant Name';
+$string['geniainame_desc'] = 'Define the name of your assistant';
+$string['h5p-accordion-desc'] = 'Create a Glossary or FAQ allowing students to quickly access answers without being overwhelmed by excessive text.';
+$string['h5p-accordion-title'] = 'Glossary/FAQ';
+$string['h5p-advancedText-desc'] = 'Create a digital book from your content, organizing it into chapters in a logical and engaging way to ensure cohesive and captivating material division.';
+$string['h5p-advancedText-title'] = 'Digital Book';
+$string['h5p-block-title'] = 'Block Title';
+$string['h5p-create'] = 'Create H5P with GeniAI';
+$string['h5p-create-new'] = 'Create new H5P with GeniAI';
+$string['h5p-create-this'] = 'Create with this resource';
+$string['h5p-create-title'] = 'H5P Title';
+$string['h5p-create-title-desc'] = 'Define the main title for the H5P content to be displayed to users in the interface.';
+$string['h5p-createpage-title'] = 'Create new {$a}';
+$string['h5p-crossword-desc'] = 'Create an interactive crossword game to engage students, using keywords from your content to promote fun and dynamic learning.';
+$string['h5p-crossword-title'] = 'Crossword Puzzle';
+$string['h5p-delete-success'] = 'H5P successfully deleted!';
+$string['h5p-dialogcards-desc'] = 'Create flashcards that act as interactive exercises to help students memorize words, phrases, or key concepts from texts. On the front of each card, there’s a hint or clue, and when flipped, the student reveals the corresponding information. These cards can be used in language learning, solving math problems, or helping students memorize important facts like historical events, formulas, or names.';
+$string['h5p-dialogcards-title'] = 'Flashcards';
+$string['h5p-dragtext-desc'] = 'Create a Drag the Words game where the student must drag the missing part of the text to its correct place, forming a complete expression. This game can be used to assess whether the student remembers the content they read or understands what was covered. Additionally, it helps the student reflect more deeply on the text, promoting better content assimilation.';
+$string['h5p-dragtext-title'] = 'Drag the Words Game';
+$string['h5p-example'] = 'See example';
+$string['h5p-findthewords-desc'] = 'Create a word search game where students must find and select words in a grid based on a provided list.';
+$string['h5p-findthewords-title'] = 'Word Search Game';
+$string['h5p-interactivebook-desc'] = 'Create an Interactive Book that combines various interactive content, such as interactive videos, glossaries, quizzes, drag-and-drop activities, crosswords, word searches, and more, organized across multiple pages. Add a summary at the end, showing the total score the student obtained throughout the book.';
+$string['h5p-interactivebook-title'] = 'Interactive Book';
+$string['h5p-interactivevideo-desc'] = 'Create an interactive video with chapters and a glossary highlighting key points of the content. At the end, add an interactive summary to reinforce learning and review the topics covered.';
+$string['h5p-interactivevideo-title'] = 'Interactive Video';
+$string['h5p-manager'] = 'Manage H5P with GeniAI';
+$string['h5p-next-step'] = 'Next step';
+$string['h5p-no-apikey'] = '<p>Configuring the ChatGPT API key is necessary for the account creation system to work properly. This will allow the system to communicate with ChatGPT to perform the required operations during the account creation process.<p><p><a href="{$a}">Click here to configure the ChatGPT API key.</a></p>';
+$string['h5p-page-title'] = 'Create an H5P with GeniAI';
+$string['h5p-questionset-desc'] = 'Create a Question Set that allows students to solve a sequence of diverse questions, including types such as multiple-choice and true/false, offering an interactive and challenging experience.';
+$string['h5p-questionset-title'] = 'Quizzes';
+$string['h5p-readmore'] = '...more';
+$string['h5p-return'] = 'Back to Content Bank';
+$string['h5p-title'] = 'Manage GeniAI Content Bank';
+$string['max_tokens'] = 'Maximum words in response';
+$string['max_tokens_desc'] = 'Maximum number of words that can be generated in each request.';
+$string['message_01'] = 'Hello, {$a}! 🌟';
+$string['message_02_course'] = 'Welcome to the course {$a->coursename} on Moodle {$a->moodlename}!
+I am {$a->geniainame}, and I am here to make your learning journey as amazing as possible.
+How can I assist you today? 🌟📚';
+$string['message_02_geniai'] = 'Hello! I am {$a}, here to help you. If you prefer, you can send me an audio message, and I will respond in audio as well. If you prefer to write, I will reply in text. Whichever you prefer!';
+$string['message_02_home'] = 'I am {$a}, and I am here to make your learning journey as amazing as possible.
+How can I assist you today? 🌟📚';
+$string['mode'] = 'Usage Mode';
+$string['mode_desc'] = 'Define which usage mode for the balloon you desire';
+$string['mode_name_assistant'] = 'Moodle Assistant';
+$string['mode_name_geniai'] = 'GeniAI Tutor';
+$string['mode_name_none'] = 'No chat balloon';
+$string['model'] = 'The API Model';
+$string['model_desc'] = 'The API model to be executed in OpenAI. Available values are on the <a href="https://platform.openai.com/docs/models/overview" target="_blank">OpenAI website</a><br>
+* <strong>gpt-3.5-turbo</strong>: Very good, has excellent cost-benefit, and responds very quickly.<br>
+* <strong>gpt-4</strong>: Much more powerful, slightly more expensive, takes a bit longer to respond, and requires a <a href="https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4" target="_blank">prepayment of $1</a> to test.';
+$string['modulename'] = 'GeniAI Tutor';
+$string['modules'] = 'Modules to hide from {$a}';
+$string['modules_desc'] = 'This list contains the modules that should not be made available to students, ensuring they are not used in exercises.';
 $string['online'] = 'Online';
-$string['pluginname'] = 'Tutor GeniAI';
-$string['presence_penalty'] = 'Penalidade de Presença';
-$string['presence_penalty_desc'] = 'Este parâmetro é utilizado para incentivar o modelo a incluir uma variedade de tokens no texto gerado. É um valor subtraído da log-probabilidade de um token cada vez que é gerado. Um valor de penalidade de presença mais alto fará com que o modelo tenha mais probabilidade de gerar tokens que ainda não foram incluídos no texto gerado.';
-$string['privacy:metadata'] = 'O plugin Tutor GeniAI armazena o histórico das conversas que você envia e transmitirá à OpenAI apenas o o nome completo, nome do curso e a URL, sem compartilhar qualquer outro dado pessoal seu.';
-$string['report_completion_tokens'] = 'Quantidade de Tokens recebidos';
-$string['report_datecreated'] = 'Dia';
-$string['report_filename'] = 'Relatório de uso do GPT Assistence';
-$string['report_info'] = '<p>No relatório apresentado, somente as primeiras 100 linhas estão disponíveis. Para acessar todos os registros, por favor, realize o download completo do documento.</p><p>Quanto aos tokens, uma regra prática é que um token geralmente corresponde a aproximadamente 4 caracteres de texto comum em inglês. Isso equivale a aproximadamente ¾ de uma palavra (portanto, 100 tokens ~= 75 palavras). Saiba mais na página <a href="https://platform.openai.com/tokenizer" target="_blank">Saiba mais sobre a tokenização do modelo de linguagem</a>.</p>';
-$string['report_model'] = 'Modelo do ChatGPT';
-$string['report_prompt_tokens'] = 'Quantidade de Tokens enviados';
-$string['report_title'] = 'Relatório';
-$string['send_message'] = 'Enviar a mensagem';
-$string['settings'] = 'Configurar Tutor GeniAI';
-$string['talk_geniai'] = 'Fale com seu geniai aqui';
-$string['url_moodle'] = 'A URL do Moodle é "{$a->wwwroot}" e o nome do Moodle é "{$a->fullname}"';
-$string['voice'] = 'Vóz usada na resposta com áudio';
-$string['voice_desc'] = '<p style="display:flex;align-items:center;gap:10px;">Alloy:
-    <audio src="https://cdn.openai.com/API/docs/audio/alloy.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Echo:
-    <audio src="https://cdn.openai.com/API/docs/audio/echo.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Fable:
-    <audio src="https://cdn.openai.com/API/docs/audio/fable.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Onyx:
-    <audio src="https://cdn.openai.com/API/docs/audio/onyx.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Nova:
-    <audio src="https://cdn.openai.com/API/docs/audio/nova.wav" controls></audio></p>
-<p style="display:flex;align-items:center;gap:10px;">Shimmer:
-    <audio src="https://cdn.openai.com/API/docs/audio/shimmer.wav" controls></audio></p>';
-$string['write_message'] = 'Escreve uma mensagem...';
+$string['pluginname'] = 'GeniAI Tutor';
+$string['presence_penalty'] = 'Presence Penalty';
+$string['presence_penalty_desc'] = 'This parameter is used to encourage the model to include a variety of tokens in the generated text. It is a value subtracted from the log probability of a token each time it is generated. A higher presence penalty value will make the model more likely to generate tokens not yet included in the generated text.';
+$string['privacy:metadata'] = 'The GeniAI Tutor plugin stores conversation history and transmits only the full name, course name, and URL to OpenAI, without sharing any other personal data.';
+$string['report_completion_tokens'] = 'Number of Tokens received';
+$string['report_datecreated'] = 'Day';
+$string['report_filename'] = 'GPT Assistance Usage Report';
+$string['report_info'] = '<p>In the presented report, only the first 100 lines are available. To access all records, please download the complete document.</p><p>Regarding tokens, a general rule of thumb is that one token roughly corresponds to about 4 characters of common English text. This equals approximately ¾ of a word (so, 100 tokens ~= 75 words). Learn more on the <a href="https://platform.openai.com/tokenizer" target="_blank">Language Model Tokenization</a> page.</p>';
+$string['report_model'] = 'ChatGPT Model';
+$string['report_prompt_tokens'] = 'Number of Tokens Sent';
+$string['report_title'] = 'Report';
+$string['send_message'] = 'Send Message';
+$string['settings'] = 'Configure GeniAI Tutor';
+$string['settings_casedesc'] = 'The temperature and Top_p parameters defined for each scenario, such as text and code generation, creative writing, chatbot, textual comments generation, data analysis, and exploratory writing. Each configuration impacts the model’s creativity and coherence in content generation.<br><br>See the table below for guidance on using Temperature and Top_p:<br>';
+$string['settings_casedesc_balanced_responses'] = 'Generates conversational responses that balance coherence and diversity. The output is more natural and engaging.';
+$string['settings_casedesc_broad_creative_ideas'] = 'Generates broad, creative, and less structured ideas for brainstorming sessions.';
+$string['settings_casedesc_case_description'] = 'Case Description';
+$string['settings_casedesc_chatbot'] = 'Chatbot';
+$string['settings_casedesc_concise_relevant_comments'] = 'Generates text comments more likely to be concise and relevant. The output is more deterministic and adheres to conventions.';
+$string['settings_casedesc_creative_alternative_solutions'] = 'Generates texts exploring alternative solutions and creative approaches. The output is less constrained by established patterns.';
+$string['settings_casedesc_creative_writing'] = 'Creative Writing';
+$string['settings_casedesc_data_analysis_scripts'] = 'Data Analysis Scripts';
+$string['settings_casedesc_deterministic_output_code'] = 'The output is more deterministic and focused. Useful for generating syntactically correct texts or code.';
+$string['settings_casedesc_exploratory_text_writing'] = 'Exploratory Text Writing';
+$string['settings_casedesc_fictional_dialogue_generation'] = 'Fictional Dialogue Generation';
+$string['settings_casedesc_focused_data_analysis'] = 'Generates data analysis scripts more likely to be correct and efficient. The output is more deterministic and focused.';
+$string['settings_casedesc_highly_creative_stories'] = 'Generates highly creative, abstract stories with less concern for logic or structure.';
+$string['settings_casedesc_idea_exploration_brainstorming'] = 'Idea Exploration and Brainstorming';
+$string['settings_casedesc_storytelling_texts'] = 'Generates creative and diverse text for storytelling.';
+$string['settings_casedesc_surreal_absurd_stories'] = 'Surreal or Absurd Stories';
+$string['settings_casedesc_temperature'] = 'Temperature';
+$string['settings_casedesc_text_and_code_generation'] = 'Text and Code Generation';
+$string['settings_casedesc_text_comment_generation'] = 'Text Comment Generation';
+$string['settings_casedesc_top_p'] = 'Top_p';
+$string['settings_casedesc_unpredictable_dialogues'] = 'Creates unpredictable and original dialogues with more variation in language and tone.';
+$string['settings_casedesc_usecase'] = 'Use Case';
+$string['talk_geniai'] = 'Talk to your GeniAI here';
+$string['url_moodle'] = 'The Moodle URL is "{$a->wwwroot}" and the Moodle name is "{$a->fullname}"';
+$string['voice'] = 'Voice used in the audio response';
+$string['write_message'] = 'Write a message...';
