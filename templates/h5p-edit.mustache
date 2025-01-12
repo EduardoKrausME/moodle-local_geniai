@@ -63,7 +63,7 @@
         ]
       },
       "tyni_editor_config": "{'toolbar': 'bold italic underline'}",
-      "h5pjs": "ModalFactory(h5ps+tyni_editor_config+loading_icon)"
+      "h5pjs": "ModalFactory(h5ps+tyniEditorConfig+loadingIcon)"
     }
 }}
 
@@ -126,8 +126,8 @@
 
 {{#js}}
 require(["jquery", "core/modal_factory", "jqueryui"], function($, ModalFactory, $ui) {
-    var tyni_editor_config = {{{tyni_editor_config}}};
-    var loading_icon = `{{#pix}}h5p/loading,local_geniai{{/pix}}`.replace("icon", "");
+    var tyniEditorConfig = {{{tyni_editor_config}}};
+    var loadingIcon = `{{#pix}}h5p/loading,local_geniai{{/pix}}`.replace("icon", "");
 
     var h5ps = {
         {{#types.h5ps}}
