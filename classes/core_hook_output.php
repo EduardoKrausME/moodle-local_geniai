@@ -61,12 +61,11 @@ class core_hook_output {
             return;
         }
 
-        $context = context_system::instance();
-
         if (!$PAGE->get_popup_notification_allowed()) {
             return;
         }
 
+        $context = context_system::instance();
         $capability = has_capability("local/geniai:manage", $context);
         if (!$capability) {
             $modules = explode(",", get_config("local_geniai", "modules"));
