@@ -25,6 +25,7 @@
 use local_geniai\local\h5p\itens;
 use local_geniai\local\h5p\page_header;
 use local_geniai\local\h5p\types;
+use local_geniai\local\util\release;
 
 require("../../../config.php");
 
