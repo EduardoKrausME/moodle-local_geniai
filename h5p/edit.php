@@ -74,6 +74,7 @@ echo $OUTPUT->heading($h5p->title, 2);
 
 $page = new page_create();
 $page->set_h5p($h5p);
+
 if (optional_param("delete", false, PARAM_INT)) {
     require_sesskey();
 
@@ -82,12 +83,15 @@ if (optional_param("delete", false, PARAM_INT)) {
         get_string("h5p-delete-success", "local_geniai"));
     die;
 }
-if (optional_param("POST", false, PARAM_TEXT)) {
 
+if (optional_param("POST", false, PARAM_TEXT)) {
     $page->save();
     if (optional_param("contentbank", false, PARAM_TEXT)) {
         $page->send_contentbank();
     }
+
+    redirect(new moodle_url("/local/geniai/h5p/edit.php", ["id" => $page->get_h5p()->id]));
+    die();
 } else {
     $page->edit();
 }
