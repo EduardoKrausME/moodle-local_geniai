@@ -24,6 +24,7 @@
 
 /**
  * Upgrade file.
+ *
  * @param int $oldversion
  *
  * @return bool
@@ -65,6 +66,51 @@ function xmldb_local_geniai_upgrade($oldversion) {
         }
 
         upgrade_plugin_savepoint(true, 2024040500, "local", "geniai");
+    }
+
+    if ($oldversion < 2025011400) {
+
+        // Criação da tabela local_geniai_h5p.
+        $table = new xmldb_table("local_geniai_h5p");
+
+        // Definindo os campos da tabela local_geniai_h5p.
+        $table->add_field("id", XMLDB_TYPE_INTEGER, "10", true, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+        $table->add_field("contextid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+        $table->add_field("contentbanktid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+        $table->add_field("title", XMLDB_TYPE_CHAR, "255", null, XMLDB_NOTNULL);
+        $table->add_field("type", XMLDB_TYPE_CHAR, "40", null, XMLDB_NOTNULL);
+        $table->add_field("data", XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL);
+        $table->add_field("timecreated", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+
+        // Definindo a chave primária.
+        $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
+
+        // Verificando se a tabela existe e criando-a se não.
+        if (!$DB->get_manager()->table_exists($table)) {
+            $DB->get_manager()->create_table($table);
+        }
+
+        // Criação da tabela local_geniai_h5ppages.
+        $table = new xmldb_table("local_geniai_h5ppages");
+
+        // Definindo os campos da tabela local_geniai_h5ppages.
+        $table->add_field("id", XMLDB_TYPE_INTEGER, "10", true, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+        $table->add_field("h5pid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
+        $table->add_field("title", XMLDB_TYPE_CHAR, "255", null, XMLDB_NOTNULL);
+        $table->add_field("type", XMLDB_TYPE_CHAR, "40", null, XMLDB_NOTNULL);
+        $table->add_field("data", XMLDB_TYPE_TEXT, null, XMLDB_NOTNULL);
+        $table->add_field("timecreated", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
+
+        // Definindo a chave primária.
+        $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
+
+        // Verificando se a tabela existe e criando-a se não.
+        if (!$DB->get_manager()->table_exists($table)) {
+            $DB->get_manager()->create_table($table);
+        }
+
+        // Atualizando a versão para 2025011400.
+        upgrade_plugin_savepoint(true, 2025011400, "local", "geniai");
     }
 
     return true;
