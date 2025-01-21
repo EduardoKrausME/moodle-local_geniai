@@ -53,7 +53,7 @@ class page_create {
      * @throws \moodle_exception
      */
     public function create_page() {
-        global $OUTPUT, $CFG, $USER, $SITE;
+        global $OUTPUT, $CFG, $USER, $SITE, $SESSION;
 
         $USER->fullname = fullname($USER);
 
@@ -63,12 +63,12 @@ class page_create {
             "client_fullname" => $SITE->fullname,
             "user_fullname" => fullname($USER),
             "user_email" => $USER->email,
-            "user_lang" => $USER->lang,
+            "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
             "case" => get_config("local_geniai", "case"),
             "frequency_penalty" => get_config("local_geniai", "frequency_penalty"),
             "presence_penalty" => get_config("local_geniai", "presence_penalty"),
             "apikey" => get_config("local_geniai", "apikey"),
-            "modulo" => "create",
+            "module" => "create",
         ]);
 
         $basecolor = get_config("local_geniai", "base_color");
@@ -76,6 +76,7 @@ class page_create {
         echo $OUTPUT->render_from_template("local_geniai/h5p-create", [
             "h5p" => $this->h5p,
             "user" => $USER,
+            "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
             "h5pjs" => $h5pjs,
             "types" => $types,
             "baseColor" => $basecolor ? $basecolor : "#1768c4",
@@ -89,7 +90,7 @@ class page_create {
      * @throws coding_exception
      */
     public function edit() {
-        global $OUTPUT, $CFG, $USER, $SITE, $DB;
+        global $OUTPUT, $CFG, $USER, $SITE, $DB, $SESSION;
 
         $curl = new \curl();
         $h5pjs = $curl->post("https://app.ottflix.com.br/api/v2/H5pjs", [
@@ -97,12 +98,12 @@ class page_create {
             "client_fullname" => $SITE->fullname,
             "user_fullname" => fullname($USER),
             "user_email" => $USER->email,
-            "user_lang" => $USER->lang,
+            "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
             "case" => get_config("local_geniai", "case"),
             "frequency_penalty" => get_config("local_geniai", "frequency_penalty"),
             "presence_penalty" => get_config("local_geniai", "presence_penalty"),
             "apikey" => get_config("local_geniai", "apikey"),
-            "modulo" => "edit",
+            "module" => "edit",
             "sesskey" => sesskey(),
             "h5p_id" => $this->h5p->id,
         ]);
@@ -112,6 +113,7 @@ class page_create {
             "h5p" => $this->h5p,
             "h5p_data" => json_decode($this->h5p->data),
             "user" => $USER,
+            "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
             "h5pjs" => $h5pjs,
             "types" => $types,
             "pages" => array_values($DB->get_records("local_geniai_h5ppages", ["h5pid" => $this->h5p->id])),
@@ -207,7 +209,7 @@ class page_create {
      * @throws \core\exception\moodle_exception
      */
     public function send_contentbank() {
-        global $USER, $DB;
+        global $USER, $DB, $SESSION;
 
         $fs = get_file_storage();
         $filerecord = [
@@ -229,7 +231,7 @@ class page_create {
         $h5p = (array)$DB->get_record("local_geniai_h5p",
             ["id" => $this->h5p->id], "id, contextid, contentbanktid, title, type, data");
         $data = json_decode($h5p["data"], true);
-        $h5p["userlang"] = $USER->lang;
+        $h5p["user_lang"] = isset($SESSION->lang) ? $SESSION->lang : $USER->lang;
         $h5p["config"] = $data["config"];
 
         $h5p["pages"] = [];

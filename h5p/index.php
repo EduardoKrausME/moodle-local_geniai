@@ -45,6 +45,7 @@ echo $OUTPUT->heading($header->get_title(), 2);
 echo $OUTPUT->render_from_template("local_geniai/h5p-index", [
     "types" => types::get_types($contextid),
     "itens" => itens::get_itens($contextid),
+    "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
 ]);
 
 $PAGE->requires->strings_for_js(["h5p-readmore", "h5p-page-title"], "local_geniai");
