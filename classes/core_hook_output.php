@@ -113,8 +113,9 @@ class core_hook_output {
             strpos($_SERVER["REQUEST_URI"], "course/modedit.php")) {
             global $PAGE;
 
+            global $COURSE;
             $PAGE->requires->strings_for_js(["h5p-manager"], "local_geniai");
-            $PAGE->requires->js_call_amd("local_geniai/h5p", "init", []);
+            $PAGE->requires->js_call_amd("local_geniai/h5p", "init", [\context_course::instance($COURSE->id)->id]);
         }
     }
 }
