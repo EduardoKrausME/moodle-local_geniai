@@ -86,7 +86,7 @@
         <ul>
             {{#pages}}
                 <li>
-                    <a href="#h5ps-pages-{{id}}" title="{{title}}">
+                    <a href="#h5ps-pages-{{id}}" title="{{title}}" data-type="{{type}}">
                         {{#pix}}h5p/{{type}},local_geniai{{/pix}}
                         <span class="title">{{title}}</span>
                     </a>
@@ -94,7 +94,7 @@
             {{/pages}}
         </ul>
         {{#pages}}
-            <div id="h5ps-pages-{{id}}" data-id="{{id}}">
+            <div id="h5ps-pages-{{id}}" data-id="{{id}}" data-type="{{type}}">
 
                 <div id="area_page_title" class="form-group area_title type_text">
                     <label for="pages-{{id}}-title">{{#str}}h5p-block-title, local_geniai{{/str}}</label>

@@ -585,13 +585,20 @@
                 color: #757575;
             }
         }
-        .h5p-delete-block {
+        .h5p-block-action {
             position: absolute;
             right: 4px;
             top: 4px;
-            padding: 2px 13px;
-            cursor: pointer;
-            margin: 0 !important;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 4px;
+            button {
+                padding: 2px 13px;
+                cursor: pointer;
+                margin: 0 !important;
+            }
         }
     }
     #h5ps-pages {

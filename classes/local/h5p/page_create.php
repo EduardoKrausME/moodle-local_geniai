@@ -205,10 +205,15 @@ class page_create {
     /**
      * Function send_contentbank
      *
-     * @throws moodle_exception
+     * @param int|null $contentbankid
+     *
      * @throws \core\exception\moodle_exception
+     * @throws \dml_exception
+     * @throws \file_exception
+     * @throws \stored_file_creation_exception
+     * @throws moodle_exception
      */
-    public function send_contentbank() {
+    public function send_contentbank($contentbankid = null) {
         global $USER, $DB, $SESSION;
 
         $fs = get_file_storage();
@@ -235,9 +240,24 @@ class page_create {
         $h5p["config"] = $data["config"];
 
         $h5p["pages"] = [];
-        $h5ppages = $DB->get_records("local_geniai_h5ppages", ["h5pid" => $this->h5p->id]);
+        if ($contentbankid) {
+            $h5ppages = $DB->get_records("local_geniai_h5ppages",
+                ["id" => $contentbankid]);
+            $h5ppages = array_values($h5ppages);
+
+            $h5p["title"] = $h5ppages[0]->title;
+            $h5p["type"] = "Column";
+
+        } else {
+            $h5ppages = $DB->get_records("local_geniai_h5ppages", ["h5pid" => $this->h5p->id]);
+        }
+
         foreach ($h5ppages as $h5ppage) {
-            $h5p["pages"][] = json_decode($h5ppage->data, true);
+            $data = json_decode($h5ppage->data, true);
+            $data["title"] = $h5ppage->title;
+            $data["type"] = $h5ppage->type;
+
+            $h5p["pages"][] = $data;
         }
 
         $ch = curl_init();

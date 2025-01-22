@@ -86,7 +86,11 @@ if (optional_param("delete", false, PARAM_INT)) {
 
 if (optional_param("POST", false, PARAM_TEXT)) {
     $page->save();
-    if (optional_param("contentbank", false, PARAM_TEXT)) {
+
+    $contentbankid = optional_param("contentbankitem", false, PARAM_INT);
+    if ($contentbankid) {
+        $page->send_contentbank($contentbankid);
+    } else if (optional_param("contentbank", false, PARAM_TEXT)) {
         $page->send_contentbank();
     }
 
