@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2025012100;
+$plugin->version = 2025012300;
 $plugin->requires = 2020110900;
-$plugin->release = "2.1.0";
+$plugin->release = "2.1.1";
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = "local_geniai";
