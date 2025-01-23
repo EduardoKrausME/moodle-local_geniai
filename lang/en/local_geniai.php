@@ -92,7 +92,8 @@ $string['mode_name_geniai'] = 'GeniAI Tutor';
 $string['mode_name_none'] = 'No chat balloon';
 $string['model'] = 'The API Model';
 $string['model_desc'] = 'The API model to be executed in OpenAI. Available values are on the <a href="https://platform.openai.com/docs/models/overview" target="_blank">OpenAI website</a><br>
-* <strong>gpt-4</strong>: Much more powerful, slightly more expensive, takes a bit longer to respond, and requires a <a href="https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4" target="_blank">prepayment of $1</a> to test.';
+* <strong>gpt-4</strong>: Much more powerful, slightly more expensive, takes a bit longer to respond, and requires a <a href="https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4" target="_blank">prepayment of $1</a> to test.<br>
+* <strong>gpt-4o-mini</strong>:  Less powerful than gpt-4, but faster and cheaper. No prepayment is required.';
 $string['modulename'] = 'GeniAI Tutor';
 $string['modules'] = 'Modules to hide from {$a}';
 $string['modules_desc'] = 'This list contains the modules that should not be made available to students, ensuring they are not used in exercises.';
@@ -129,7 +130,7 @@ $string['settings_casedesc_relaxedtones'] = 'Relaxed Tones';
 $string['settings_casedesc_relaxedtones_desc'] = 'Generates lighter and informal texts with a creative and friendly approach.';
 $string['settings_casedesc_temperature'] = 'Temperature';
 $string['settings_casedesc_top_p'] = 'Top_p';
-$string['talk_geniai'] = 'Talk to your {$a} here';
+$string['talk_geniai'] = 'Talk to {$a} here';
 $string['url_moodle'] = 'The Moodle URL is "{$a->wwwroot}" and the Moodle name is "{$a->fullname}"';
 $string['voice'] = 'Voice used in the audio response';
 $string['write_message'] = 'Write a message...';
