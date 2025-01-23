@@ -78,6 +78,8 @@ class page_header {
 
         switch ($context->contextlevel) {
             case CONTEXT_COURSE:
+                $courseid = $context->instanceid;
+
                 $url = new moodle_url("/local/geniai/h5p/", ["contextid" => $contextid]);
                 $PAGE->navbar->add(get_string("h5p-title", "local_geniai"), $url);
 
