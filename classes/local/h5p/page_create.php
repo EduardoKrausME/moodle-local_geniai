@@ -245,7 +245,7 @@ class page_create {
                 ["id" => $contentbankid]);
             $h5ppages = array_values($h5ppages);
 
-            $h5p["title"] = $h5ppages[0]->title;
+            $h5p["title"] = $h5p["title"] . " - " . $h5ppages[0]->title;
             $h5p["type"] = "Column";
 
         } else {
