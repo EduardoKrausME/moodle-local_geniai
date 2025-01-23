@@ -76,16 +76,15 @@ if ($hassiteconfig) {
 
     $models = [
         "gpt-4" => "gpt-4",
+        "gpt-4o-mini"=>"gpt-4o-mini",
         "gpt-4-32k" => "gpt-4-32k",
-        "gpt-4-turbo-preview" => "gpt-4-turbo-preview",
-        "gpt-3.5-turbo" => "gpt-3.5-turbo",
-        "gpt-3.5-turbo-16k" => "gpt-3.5-turbo-16k",
+        "gpt-4-turbo" => "gpt-4-turbo",
     ];
     $setting = new admin_setting_configselect(
         "local_geniai/model",
         get_string("model", "local_geniai"),
         get_string("model_desc", "local_geniai"),
-        "gpt-4", $models
+        "gpt-4o-mini", $models
     );
     $settings->add($setting);
 
