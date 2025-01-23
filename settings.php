@@ -76,7 +76,7 @@ if ($hassiteconfig) {
 
     $models = [
         "gpt-4" => "gpt-4",
-        "gpt-4o-mini"=>"gpt-4o-mini",
+        "gpt-4o-mini" => "gpt-4o-mini",
         "gpt-4-32k" => "gpt-4-32k",
         "gpt-4-turbo" => "gpt-4-turbo",
     ];
