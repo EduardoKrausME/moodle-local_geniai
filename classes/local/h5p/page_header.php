@@ -78,16 +78,17 @@ class page_header {
 
         switch ($context->contextlevel) {
             case CONTEXT_COURSE:
-                $courseid = $context->instanceid;
-                $course = $DB->get_record("course", ["id" => $courseid], "*", MUST_EXIST);
-                $PAGE->set_course($course);
+                //$courseid = $context->instanceid;
+                //$course = $DB->get_record("course", ["id" => $courseid], "*", MUST_EXIST);
+                //$PAGE->set_course($course);
 
                 $url = new moodle_url("/local/geniai/h5p/", ["contextid" => $contextid]);
                 $PAGE->navbar->add(get_string("h5p-title", "local_geniai"), $url);
 
                 navigation_node::override_active_url(new moodle_url("/course/view.php", ["id" => $courseid]));
                 $PAGE->navbar->add(get_string("h5p-page-title", "local_geniai"), $cburl);
-                $PAGE->set_pagelayout("incourse");
+                $PAGE->set_pagelayout('standard');
+                $PAGE->set_pagetype('course-view');
                 break;
             case CONTEXT_COURSECAT:
                 $PAGE->set_primary_active_tab("home");
@@ -98,7 +99,7 @@ class page_header {
 
                 navigation_node::override_active_url(new moodle_url("/course/index.php", ["categoryid" => $coursecat]));
                 $PAGE->navbar->add(get_string("h5p-page-title", "local_geniai"), $cburl);
-                $PAGE->set_pagelayout("coursecategory");
+                $PAGE->set_pagelayout("standard");
                 break;
             default:
                 if ($node = $PAGE->navigation->find("contentbank", global_navigation::TYPE_CUSTOM)) {
