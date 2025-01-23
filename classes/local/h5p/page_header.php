@@ -54,7 +54,7 @@ class page_header {
      * @throws \Exception
      */
     public function header($cburl, $contextid, $context, $type = null) {
-        global $PAGE, $DB;
+        global $PAGE;
 
         $cb = new contentbank();
         if (!$cb->is_context_allowed($context)) {
@@ -78,10 +78,6 @@ class page_header {
 
         switch ($context->contextlevel) {
             case CONTEXT_COURSE:
-                //$courseid = $context->instanceid;
-                //$course = $DB->get_record("course", ["id" => $courseid], "*", MUST_EXIST);
-                //$PAGE->set_course($course);
-
                 $url = new moodle_url("/local/geniai/h5p/", ["contextid" => $contextid]);
                 $PAGE->navbar->add(get_string("h5p-title", "local_geniai"), $url);
 
