@@ -81,6 +81,7 @@ class core_hook_output {
             "manage_capability" => $capability,
             "geniainame" => get_config("local_geniai", "geniainame"),
             "mode" => get_config("local_geniai", "mode"),
+            "talk_geniai" => get_string("talk_geniai", "local_geniai", get_config("local_geniai", "geniainame")),
         ];
 
         $geniainame = get_config("local_geniai", "geniainame");
