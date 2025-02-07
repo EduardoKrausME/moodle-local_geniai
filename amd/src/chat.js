@@ -1,4 +1,4 @@
-define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notification) {
+define(["jquery", "core/ajax", "core/notification"], function($, ajax, notification) {
     var chat = {
 
         init : function(courseid, release) {
@@ -12,7 +12,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
 
             var geniaichat = $("#geniai-chat");
 
-            if ($('.pagelayout-embedded, .pagelayout-maintenance').length) {
+            if ($(".pagelayout-embedded, .pagelayout-maintenance").length) {
                 geniaichat.hide();
                 geniaichat.remove();
                 return;
@@ -40,11 +40,11 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                         sendMessage();
                     }
                 })
-                .on('input', function(event) {
+                .on("input", function(event) {
                     event.currentTarget.style.height = "34px";
                     event.currentTarget.style.height = (event.currentTarget.scrollHeight) + "px";
                 });
-            document.getElementById('geniai-textarea').addEventListener("paste", function(e) {
+            document.getElementById("geniai-textarea").addEventListener("paste", function(e) {
                 e.preventDefault();
                 var text = e.clipboardData.getData("text/plain");
                 document.execCommand("insertHTML", false, text);
@@ -53,7 +53,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
             $("#geniai-icon-send").click(sendMessage);
 
             geniaisendarea.click(function() {
-                document.getElementById('geniai-textarea').focus();
+                document.getElementById("geniai-textarea").focus();
             });
 
             function sendMessage() {
@@ -89,9 +89,9 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                     }
                     geniaiscrollarea.scrollTop = 10000000000000;
 
-                    var methodname = 'local_geniai_chat_3';
+                    var methodname = "local_geniai_chat_3";
                     if (release >= 4.2) {
-                        methodname = 'local_geniai_chat_4';
+                        methodname = "local_geniai_chat_4";
                     }
 
                     ajax.call([{
@@ -155,13 +155,13 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                 geniaichat.toggleClass("geniai-active");
 
                 if (geniaichat.hasClass("geniai-active")) {
-                    localStorage.setItem('geniai-chat-isopen', 'true');
+                    localStorage.setItem("geniai-chat-isopen", "true");
                     openChat();
                 } else {
-                    localStorage.removeItem('geniai-chat-isopen');
+                    localStorage.removeItem("geniai-chat-isopen");
                 }
             });
-            if (localStorage.getItem('geniai-chat-isopen') == 'true') {
+            if (localStorage.getItem("geniai-chat-isopen") == "true") {
                 geniaichat.addClass("geniai-active");
                 openChat();
             }
@@ -176,9 +176,9 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                 geniaiareamensagens.html("");
                 startChat();
 
-                var methodname = 'local_geniai_history_3';
+                var methodname = "local_geniai_history_3";
                 if (release >= 4.2) {
-                    methodname = 'local_geniai_history_4';
+                    methodname = "local_geniai_history_4";
                 }
 
                 ajax.call([{
@@ -199,9 +199,9 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
 
             function showHistory() {
 
-                var methodname = 'local_geniai_history_3';
+                var methodname = "local_geniai_history_3";
                 if (release >= 4.2) {
-                    methodname = 'local_geniai_history_4';
+                    methodname = "local_geniai_history_4";
                 }
 
                 ajax.call([{
@@ -238,14 +238,14 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
             let chunks = []; // will be used later to record audio
             let mediaRecorder = null; // will be used later to record audio
 
-            $('#geniai-icon-mic').click(record);
+            $("#geniai-icon-mic").click(record);
             $("#geniai-icon-stop").click(chat.reset_recording);
 
             function record() {
                 chat.reset_recording();
 
                 if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    alert('Your browser does not support recording!');
+                    alert("Your browser does not support recording!");
                     return;
                 }
 
@@ -288,7 +288,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
             function mediaRecorderStop() {
 
                 var reader = new FileReader();
-                reader.readAsDataURL(new Blob(chunks, {type : 'audio/mp3'}));
+                reader.readAsDataURL(new Blob(chunks, {type : "audio/mp3"}));
                 reader.onloadend = function() {
                     chat.mediaRecordUrl = reader.result;
                 };
@@ -304,7 +304,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
         reset_recording : function() {
             $("#geniai-icon-mic").removeClass("recording").show();
             $("#geniai-icon-stop").hide();
-            $('#recorded-audio-container').hide();
+            $("#recorded-audio-container").hide();
             $("#geniai-sendarea").removeClass("geniai-active");
             $("#geniai-textarea").css({"opacity" : 1});
 
@@ -313,66 +313,66 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
 
         load_audioplayer : function() {
             /* AUTHOR: Osvaldas Valutis, www.osvaldas.info */
-            var isTouch       = 'ontouchstart' in window,
-                eStart        = isTouch ? 'touchstart' : 'mousedown',
-                eMove         = isTouch ? 'touchmove' : 'mousemove',
-                eEnd          = isTouch ? 'touchend' : 'mouseup',
-                eCancel       = isTouch ? 'touchcancel' : 'mouseup',
+            var isTouch       = "ontouchstart" in window,
+                eStart        = isTouch ? "touchstart" : "mousedown",
+                eMove         = isTouch ? "touchmove" : "mousemove",
+                eEnd          = isTouch ? "touchend" : "mouseup",
+                eCancel       = isTouch ? "touchcancel" : "mouseup",
                 secondsToTime = function(secs) {
                     var hours   = Math.floor(secs / 3600),
                         minutes = Math.floor(secs % 3600 / 60),
                         seconds = Math.ceil(secs % 3600 % 60);
-                    return (hours == 0 ? '' : hours > 0 && hours.toString().length < 2 ? '0' + hours + ':' : hours + ':') + (minutes.toString().length < 2 ? '0' + minutes : minutes) + ':' + (seconds.toString().length < 2 ? '0' + seconds : seconds);
+                    return (hours == 0 ? "" : hours > 0 && hours.toString().length < 2 ? "0" + hours + ":" : hours + ":") + (minutes.toString().length < 2 ? "0" + minutes : minutes) + ":" + (seconds.toString().length < 2 ? "0" + seconds : seconds);
                 },
                 canPlayType   = function(file) {
-                    var audioElement = document.createElement('audio');
-                    return !!(audioElement.canPlayType && audioElement.canPlayType('audio/' + file.split('.').pop().toLowerCase() + ';').replace(/no/, ''));
+                    var audioElement = document.createElement("audio");
+                    return !!(audioElement.canPlayType && audioElement.canPlayType("audio/" + file.split(".").pop().toLowerCase() + ";").replace(/no/, ""));
                 };
 
             $.fn.audioPlayer = function(params) {
                 var params      = $.extend({
-                        classPrefix : 'audioplayer',
-                        strPlay     : '',
-                        strPause    : '',
-                        strVolume   : ''
+                        classPrefix : "audioplayer",
+                        strPlay     : "",
+                        strPause    : "",
+                        strVolume   : ""
                     }, params),
                     cssClass    = {},
                     cssClassSub = {
-                        playPause    : 'playpause',
-                        playing      : 'playing',
-                        time         : 'time',
-                        timeCurrent  : 'time-current',
-                        timeDuration : 'time-duration',
-                        bar          : 'bar',
-                        barLoaded    : 'bar-loaded',
-                        barPlayed    : 'bar-played',
-                        volume       : 'volume',
-                        volumeButton : 'volume-button',
-                        volumeAdjust : 'volume-adjust',
-                        noVolume     : 'novolume',
-                        mute         : 'mute',
-                        mini         : 'mini'
+                        playPause    : "playpause",
+                        playing      : "playing",
+                        time         : "time",
+                        timeCurrent  : "time-current",
+                        timeDuration : "time-duration",
+                        bar          : "bar",
+                        barLoaded    : "bar-loaded",
+                        barPlayed    : "bar-played",
+                        volume       : "volume",
+                        volumeButton : "volume-button",
+                        volumeAdjust : "volume-adjust",
+                        noVolume     : "novolume",
+                        mute         : "mute",
+                        mini         : "mini"
                     };
 
                 for (var subName in cssClassSub)
-                    cssClass[subName] = params.classPrefix + '-' + cssClassSub[subName];
+                    cssClass[subName] = params.classPrefix + "-" + cssClassSub[subName];
 
                 this.each(function() {
-                    if ($(this).prop('tagName').toLowerCase() != 'audio')
+                    if ($(this).prop("tagName").toLowerCase() != "audio")
                         return false;
 
                     var $this = $(this);
-                    var audioFile = $this.attr('src');
-                    var isAutoPlay = $this.get(0).getAttribute('autoplay');
-                    isAutoPlay = isAutoPlay === '' || isAutoPlay === 'autoplay' ? true : false;
-                    var isLoop = $this.get(0).getAttribute('loop');
-                    isLoop = isLoop === '' || isLoop === 'loop' ? true : false;
+                    var audioFile = $this.attr("src");
+                    var isAutoPlay = $this.get(0).getAttribute("autoplay");
+                    isAutoPlay = isAutoPlay === "" || isAutoPlay === "autoplay" ? true : false;
+                    var isLoop = $this.get(0).getAttribute("loop");
+                    isLoop = isLoop === "" || isLoop === "loop" ? true : false;
                     var isSupport = false;
 
-                    if (typeof audioFile === 'undefined') {
-                        $this.find('source').each(function() {
-                            audioFile = $(this).attr('src');
-                            if (typeof audioFile !== 'undefined' && canPlayType(audioFile)) {
+                    if (typeof audioFile === "undefined") {
+                        $this.find("source").each(function() {
+                            audioFile = $(this).attr("src");
+                            if (typeof audioFile !== "undefined" && canPlayType(audioFile)) {
                                 isSupport = true;
                                 return false;
                             }
@@ -383,24 +383,24 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                     isSupport = true;
 
                     var thePlayer = $('<div class="' + params.classPrefix + '">' + (isSupport ? $('<div>').append($this.eq(0).clone()).html() : '<embed src="' + audioFile + '" width="0" height="0" volume="100" autostart="' + isAutoPlay.toString() + '" loop="' + isLoop.toString() + '" />') + '<div class="' + cssClass.playPause + '" title="' + params.strPlay + '"><a href="#">' + params.strPlay + '</a></div></div>');
-                    var theAudio = isSupport ? thePlayer.find('audio') : thePlayer.find('embed');
+                    var theAudio = isSupport ? thePlayer.find("audio") : thePlayer.find("embed");
                     theAudio = theAudio.get(0);
 
                     if (isSupport) {
-                        thePlayer.find('audio').css({
-                            'width'      : 0,
-                            'height'     : 0,
-                            'visibility' : 'hidden'
+                        thePlayer.find("audio").css({
+                            "width"      : 0,
+                            "height"     : 0,
+                            "visibility" : "hidden"
                         });
                         thePlayer.append('<div class="' + cssClass.time + ' ' + cssClass.timeCurrent + '"></div><div class="' + cssClass.bar + '"><div class="' + cssClass.barLoaded + '"></div><div class="' + cssClass.barPlayed + '"></div></div><div class="' + cssClass.time + ' ' + cssClass.timeDuration + '"></div><div class="' + cssClass.volume + '"><div class="' + cssClass.volumeButton + '" title="' + params.strVolume + '"><a href="#">' + params.strVolume + '</a></div><div class="' + cssClass.volumeAdjust + '"><div><div></div></div></div></div>');
 
-                        var theBar            = thePlayer.find('.' + cssClass.bar),
-                            barPlayed         = thePlayer.find('.' + cssClass.barPlayed),
-                            barLoaded         = thePlayer.find('.' + cssClass.barLoaded),
-                            timeCurrent       = thePlayer.find('.' + cssClass.timeCurrent),
-                            timeDuration      = thePlayer.find('.' + cssClass.timeDuration),
-                            volumeButton      = thePlayer.find('.' + cssClass.volumeButton),
-                            volumeAdjuster    = thePlayer.find('.' + cssClass.volumeAdjust + ' > div'),
+                        var theBar            = thePlayer.find("." + cssClass.bar),
+                            barPlayed         = thePlayer.find("." + cssClass.barPlayed),
+                            barLoaded         = thePlayer.find("." + cssClass.barLoaded),
+                            timeCurrent       = thePlayer.find("." + cssClass.timeCurrent),
+                            timeDuration      = thePlayer.find("." + cssClass.timeDuration),
+                            volumeButton      = thePlayer.find("." + cssClass.volumeButton),
+                            volumeAdjuster    = thePlayer.find("." + cssClass.volumeAdjust + " > div"),
                             volumeDefault     = 0,
                             adjustCurrentTime = function(e) {
                                 theRealEvent = isTouch ? e.originalEvent.touches[0] : e;
@@ -412,7 +412,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                             },
                             updateLoadBar     = setInterval(function() {
                                 if (theAudio.buffered.length > 0) {
-                                    barLoaded.width((theAudio.buffered.end(0) / theAudio.duration) * 100 + '%');
+                                    barLoaded.width((theAudio.buffered.end(0) / theAudio.duration) * 100 + "%");
                                     if (theAudio.buffered.end(0) >= theAudio.duration)
                                         clearInterval(updateLoadBar);
                                 }
@@ -423,27 +423,27 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                         if (Math.round(theAudio.volume * 1000) / 1000 == volumeTestValue) theAudio.volume = volumeTestDefault;
                         else thePlayer.addClass(cssClass.noVolume);
 
-                        timeDuration.html('&hellip;');
+                        timeDuration.html("&hellip;");
                         timeCurrent.text(secondsToTime(0));
 
-                        theAudio.addEventListener('loadeddata', function() {
+                        theAudio.addEventListener("loadeddata", function() {
                             timeDuration.text(secondsToTime(theAudio.duration));
-                            volumeAdjuster.find('div').width(theAudio.volume * 100 + '%');
+                            volumeAdjuster.find("div").width(theAudio.volume * 100 + "%");
                             volumeDefault = theAudio.volume;
                         });
 
-                        theAudio.addEventListener('timeupdate', function() {
+                        theAudio.addEventListener("timeupdate", function() {
                             timeCurrent.text(secondsToTime(theAudio.currentTime));
-                            barPlayed.width((theAudio.currentTime / theAudio.duration) * 100 + '%');
+                            barPlayed.width((theAudio.currentTime / theAudio.duration) * 100 + "%");
                         });
 
-                        theAudio.addEventListener('volumechange', function() {
-                            volumeAdjuster.find('div').width(theAudio.volume * 100 + '%');
+                        theAudio.addEventListener("volumechange", function() {
+                            volumeAdjuster.find("div").width(theAudio.volume * 100 + "%");
                             if (theAudio.volume > 0 && thePlayer.hasClass(cssClass.mute)) thePlayer.removeClass(cssClass.mute);
                             if (theAudio.volume <= 0 && !thePlayer.hasClass(cssClass.mute)) thePlayer.addClass(cssClass.mute);
                         });
 
-                        theAudio.addEventListener('ended', function() {
+                        theAudio.addEventListener("ended", function() {
                             thePlayer.removeClass(cssClass.playing);
                         });
 
@@ -457,7 +457,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                                 theBar.unbind(eMove);
                             });
 
-                        volumeButton.on('click', function() {
+                        volumeButton.on("click", function() {
                             if (thePlayer.hasClass(cssClass.mute)) {
                                 thePlayer.removeClass(cssClass.mute);
                                 theAudio.volume = volumeDefault;
@@ -482,13 +482,13 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
 
                     if (isAutoPlay) thePlayer.addClass(cssClass.playing);
 
-                    thePlayer.find('.' + cssClass.playPause).on('click', function() {
+                    thePlayer.find("." + cssClass.playPause).on("click", function() {
                         if (thePlayer.hasClass(cssClass.playing)) {
-                            $(this).attr('title', params.strPlay).find('a').html(params.strPlay);
+                            $(this).attr("title", params.strPlay).find("a").html(params.strPlay);
                             thePlayer.removeClass(cssClass.playing);
                             isSupport ? theAudio.pause() : theAudio.Stop();
                         } else {
-                            $(this).attr('title', params.strPause).find('a').html(params.strPause);
+                            $(this).attr("title", params.strPause).find("a").html(params.strPause);
                             thePlayer.addClass(cssClass.playing);
                             isSupport ? theAudio.play() : theAudio.play();
                         }
