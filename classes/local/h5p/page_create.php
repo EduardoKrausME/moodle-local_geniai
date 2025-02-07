@@ -71,6 +71,16 @@ class page_create {
             "module" => "create",
         ]);
 
+        $caseuses=[];
+        $names = ["fiel", "create", "super", "summary", "rewrite", "expand", "simplify", "tone"];
+                foreach ($names as $name){
+                    $caseuses[]=[
+                        "key" => $name,
+                        "title" => get_string("createmode_{$name}_title", "local_geniai"),
+                        "desc" => get_string("createmode_{$name}_desc", "local_geniai"),
+                    ];
+                }
+
         $basecolor = get_config("local_geniai", "base_color");
         $types = types::get_types($this->h5p->contextid);
         echo $OUTPUT->render_from_template("local_geniai/h5p-create", [
@@ -80,33 +90,7 @@ class page_create {
             "h5pjs" => $h5pjs,
             "types" => $types,
             "baseColor" => $basecolor ? $basecolor : "#1768c4",
-            "caseuses" => [
-                [
-                    "key" => "creative",
-                    "title" => get_string("settings_casedesc_creativegen", "local_geniai"),
-                    "desc" => get_string("settings_casedesc_creativegen_desc", "local_geniai"),
-                ], [
-                    "key" => "balanced",
-                    "title" => get_string("settings_casedesc_balancedresp", "local_geniai"),
-                    "desc" => get_string("settings_casedesc_balancedresp_desc", "local_geniai"),
-                ], [
-                    "key" => "precise",
-                    "title" => get_string("settings_casedesc_preciseresp", "local_geniai"),
-                    "desc" => get_string("settings_casedesc_preciseresp_desc", "local_geniai"),
-                ], [
-                    "key" => "exploration",
-                    "title" => get_string("settings_casedesc_optionexplore", "local_geniai"),
-                    "desc" => get_string("settings_casedesc_optionexplore_desc", "local_geniai"),
-                ], [
-                    "key" => "formal",
-                    "title" => get_string("settings_casedesc_formaltones", "local_geniai"),
-                    "desc" => get_string("settings_casedesc_formaltones_desc", "local_geniai"),
-                ], [
-                    "key" => "informal",
-                    "title" => get_string("settings_casedesc_relaxedtones", "local_geniai"),
-                    "desc" => get_string("settings_casedesc_relaxedtones_desc", "local_geniai"),
-                ],
-            ],
+            "caseuses" => $caseuses,
         ]);
     }
 
