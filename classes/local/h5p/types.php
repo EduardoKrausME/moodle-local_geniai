@@ -52,7 +52,7 @@ class types {
                 "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=InteractiveBook",
             ],
             "h5ps" => [
-                /**
+                /*
                  * [
                  *     "id" => "InteractiveVideo",
                  *     "title" => get_string("h5p-interactivevideo-title", "local_geniai"),
@@ -96,7 +96,7 @@ class types {
                     "exe" => "https://h5p.org/drag-the-words",
                     "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=DragText",
                 ],
-                /**
+                /*
                  * [
                  *     "id" => "Crossword",
                  *     "title" => get_string("h5p-crossword-title", "local_geniai"),
