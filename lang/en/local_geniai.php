@@ -34,6 +34,8 @@ $string['caseuse_informal'] = 'Informal Tone => Temperature 0.7 - 0.9, Top_p 0.8
 $string['caseuse_precise'] = 'Precise Responses => Temperature 0.0 - 0.3, Top_p 1.0';
 $string['clear_history_title'] = 'Clear all history';
 $string['close_title'] = 'Close chat';
+$string['course_home'] = 'The student is outside the course, and their name is "{$a->userfullname}".';
+$string['course_user'] = 'The student is in the course "{$a->course}", and their name is "{$a->userfullname}".';
 $string['createmode_create_desc'] = 'Uses the original text as inspiration or a guide. The content can be restructured, expanded, or simplified to meet specific objectives while maintaining the essence of the text, with creative freedom to improve clarity, impact, or style.';
 $string['createmode_create_title'] = 'Creative Mode';
 $string['createmode_expand_desc'] = 'Takes the original text and expands it by adding more details, examples, and explanations, making it more complete and informative.';
@@ -48,10 +50,8 @@ $string['createmode_summary_desc'] = 'Generates a concise and objective summary 
 $string['createmode_summary_title'] = 'Summary Mode';
 $string['createmode_super_desc'] = 'Uses the original text as a starting point for a more extensive and innovative creation. Can include new contexts, ideas, and information that enrich the content, pushing the boundaries of the initial text and delivering something unique and surprising.';
 $string['createmode_super_title'] = 'Super Creative Mode';
-$string['createmode_tone_title'] = 'Tone Adjustment Mode';
 $string['createmode_tone_desc'] = 'Rewrites the original text by adjusting the tone for a specific audience, such as making it more formal, casual, technical, motivational, or any other required style.';
-$string['course_home'] = 'The student is outside the course, and their name is "{$a->userfullname}".';
-$string['course_user'] = 'The student is in the course "{$a->course}", and their name is "{$a->userfullname}".';
+$string['createmode_tone_title'] = 'Tone Adjustment Mode';
 $string['frequency_penalty'] = 'Frequency Penalty';
 $string['frequency_penalty_desc'] = 'This parameter is used to discourage the model from repeating the same words or phrases too often in the generated text. It is a value added to the log probability of a token each time it occurs in the generated text. A higher frequency penalty will make the model more conservative about using repeated tokens.';
 $string['geniai:manage'] = 'Manage GeniAI';
