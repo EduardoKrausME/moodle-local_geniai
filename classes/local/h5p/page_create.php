@@ -71,15 +71,15 @@ class page_create {
             "module" => "create",
         ]);
 
-        $caseuses=[];
+        $caseuses = [];
         $names = ["fiel", "create", "super", "summary", "rewrite", "expand", "simplify", "tone"];
-                foreach ($names as $name){
-                    $caseuses[]=[
-                        "key" => $name,
-                        "title" => get_string("createmode_{$name}_title", "local_geniai"),
-                        "desc" => get_string("createmode_{$name}_desc", "local_geniai"),
-                    ];
-                }
+        foreach ($names as $name) {
+            $caseuses[] = [
+                "key" => $name,
+                "title" => get_string("createmode_{$name}_title", "local_geniai"),
+                "desc" => get_string("createmode_{$name}_desc", "local_geniai"),
+            ];
+        }
 
         $basecolor = get_config("local_geniai", "base_color");
         $types = types::get_types($this->h5p->contextid);
