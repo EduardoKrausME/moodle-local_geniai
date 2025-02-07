@@ -80,6 +80,33 @@ class page_create {
             "h5pjs" => $h5pjs,
             "types" => $types,
             "baseColor" => $basecolor ? $basecolor : "#1768c4",
+            "caseuses" => [
+                [
+                    "key" => "creative",
+                    "title" => get_string("settings_casedesc_creativegen", "local_geniai"),
+                    "desc" => get_string("settings_casedesc_creativegen_desc", "local_geniai"),
+                ], [
+                    "key" => "balanced",
+                    "title" => get_string("settings_casedesc_balancedresp", "local_geniai"),
+                    "desc" => get_string("settings_casedesc_balancedresp_desc", "local_geniai"),
+                ], [
+                    "key" => "precise",
+                    "title" => get_string("settings_casedesc_preciseresp", "local_geniai"),
+                    "desc" => get_string("settings_casedesc_preciseresp_desc", "local_geniai"),
+                ], [
+                    "key" => "exploration",
+                    "title" => get_string("settings_casedesc_optionexplore", "local_geniai"),
+                    "desc" => get_string("settings_casedesc_optionexplore_desc", "local_geniai"),
+                ], [
+                    "key" => "formal",
+                    "title" => get_string("settings_casedesc_formaltones", "local_geniai"),
+                    "desc" => get_string("settings_casedesc_formaltones_desc", "local_geniai"),
+                ], [
+                    "key" => "informal",
+                    "title" => get_string("settings_casedesc_relaxedtones", "local_geniai"),
+                    "desc" => get_string("settings_casedesc_relaxedtones_desc", "local_geniai"),
+                ],
+            ],
         ]);
     }
 

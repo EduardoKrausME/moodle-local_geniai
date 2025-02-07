@@ -78,6 +78,14 @@ require(["jquery"], function($) {
             },
         {{/types.h5ps}}
     };
+    var caseuses = {
+        {{#caseuses}}
+            "{{{key}}}": {
+                "title": "{{{title}}}",
+                "desc": "{{{desc}}}",
+            },
+        {{/caseuses}}
+    };
     {{{h5pjs}}}
 });
 {{/js}}
