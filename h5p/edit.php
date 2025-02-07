@@ -85,6 +85,8 @@ if (optional_param("delete", false, PARAM_INT)) {
 }
 
 if (optional_param("POST", false, PARAM_TEXT)) {
+    require_sesskey();
+
     $page->save();
 
     $contentbankid = optional_param("contentbankitem", false, PARAM_INT);
