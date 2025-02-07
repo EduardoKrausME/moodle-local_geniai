@@ -34,6 +34,8 @@ require_login();
 $contextid = optional_param("contextid", \context_system::instance()->id, PARAM_INT);
 $context = context::instance_by_id($contextid, MUST_EXIST);
 
+require_capability("moodle/contentbank:access", $context);
+
 $cburl = new moodle_url("/local/geniai/h5p/index.php", $_GET);
 $header = new page_header();
 $header->header($cburl, $contextid, $context);
@@ -42,13 +44,12 @@ $PAGE->set_title($header->get_title());
 echo $OUTPUT->header();
 echo $OUTPUT->heading($header->get_title(), 2);
 
+$PAGE->requires->strings_for_js(["h5p-readmore", "h5p-page-title", "h5p-readmore", "h5p-page-title"], "local_geniai");
+$PAGE->requires->js_call_amd("local_geniai/h5p-index", "readmore", []);
 echo $OUTPUT->render_from_template("local_geniai/h5p-index", [
     "types" => types::get_types($contextid),
     "itens" => itens::get_itens($contextid),
     "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
 ]);
-
-$PAGE->requires->strings_for_js(["h5p-readmore", "h5p-page-title"], "local_geniai");
-$PAGE->requires->js_call_amd("local_geniai/h5p-index", "readmore", [$COURSE->id, release::version()]);
 
 echo $OUTPUT->footer();
