@@ -70,11 +70,12 @@
         <i class="icon fa fa-add fa-fw"></i>
         {{#str}}h5p-create-new,local_geniai{{/str}}</span>
 
-        <a id="h5p-create-new-link"
-           class="icon-no-margin btn btn-secondary text-nowrap mr-1"
-           href="{{config.wwwroot}}/local/geniai/h5p/create.php?contextid={{types.contextid}}&type=InteractiveBook">
-        <i class="icon fa fa-add fa-fw"></i>
-        {{#str}}h5p-create-new,local_geniai{{/str}}</a>
+        <span id="h5p-create-new-link"
+              class="icon-no-margin btn btn-secondary text-nowrap mr-1"
+              href="{{config.wwwroot}}/local/geniai/h5p/create.php?contextid={{types.contextid}}&type=InteractiveBook">
+        <i class="icon fa fa-add fa-fw" style="font-size:18px;"></i>
+        {{#str}}h5p-create-new,local_geniai{{/str}}
+        </span>
 
         <a href="{{return-url}}"
            class="icon-no-margin btn btn-secondary text-nowrap mr-1">{{#str}}h5p-return,local_geniai{{/str}}</a>
@@ -101,15 +102,12 @@
             <div class="text-center h5p-block">
                 {{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}
                 <h4>{{{title}}}</h4>
-                <p>
-                    <span data-size="200" class="text-readmore">{{{desc}}}</span>
-                    <a href="{{exe}}" target="_blank">{{#str}}h5p-example,local_geniai{{/str}}</a>
-                </p>
+                <p>{{{desc}}}</p>
+                <p><a href="{{exe}}" target="_blank">{{#str}}h5p-example,local_geniai{{/str}}</a></p>
                 <p><a href="{{create}}"
                       class="btn btn-primary">{{#str}}h5p-create-this,local_geniai{{/str}}</a></p>
             </div>
         {{/types.unique}}
-
         <hr>
         <div class="row">
             {{#types.h5ps}}
@@ -121,13 +119,9 @@
                                 {{{title}}}
                             </h4>
                             <div class="text-center">
-                                <p>
-                                    <span data-size="60" class="text-readmore">{{{desc}}}</span>
-                                    <a href="{{exe}}" target="_blank">
-                                        {{#str}}h5p-example,local_geniai{{/str}}</a>
-                                </p>
-                                <p><a href="{{create}}"
-                                      class="btn btn-primary">
+                                <p><span data-size="150" class="text-readmore">{{{desc}}}</span></p>
+                                <p><a href="{{exe}}" target="_blank">{{#str}}h5p-example,local_geniai{{/str}}</a></p>
+                                <p><a href="{{create}}" class="btn btn-primary">
                                     {{#str}}h5p-create-this,local_geniai{{/str}}</a></p>
                             </div>
                         </div>

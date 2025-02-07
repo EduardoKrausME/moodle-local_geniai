@@ -63,7 +63,7 @@
       data-action="edit.php?id={{h5p.id}}">
     <div class="displayErroForm alert alert-danger" style="display: none;"></div>
     <input name="POST" type="hidden" value="true">
-    <input type="hidden" name="sessionkey" id="sessionkey" value="{{config.sesskey}}">
+    <input type="hidden" name="sesskey" id="sesskey" value="{{config.sesskey}}">
     <input type="hidden" name="user_lang" id="user_lang" value="{{user_lang}}">
 
     <input type="hidden" name="contextid" id="contextid" value="{{h5p.contextid}}">
@@ -83,7 +83,7 @@
     <div id="config-h5p"></div>
 
     <div id="h5ps-pages">
-        <ul>
+        <ul {{^show-pages}}style="display:none"{{/show-pages}}>
             {{#pages}}
                 <li>
                     <a href="#h5ps-pages-{{id}}" title="{{title}}" data-type="{{type}}">
@@ -94,7 +94,9 @@
             {{/pages}}
         </ul>
         {{#pages}}
-            <div id="h5ps-pages-{{id}}" class="h5ps-pages" data-id="{{id}}" data-type="{{type}}">
+            <div id="h5ps-pages-{{id}}"
+                 class="h5ps-pages {{#show-pages}}top-50{{/show-pages}}"
+                 data-id="{{id}}" data-type="{{type}}">
 
                 <div id="area_page_title-{{id}}" class="form-group area_title type_text">
                     <label for="pages-{{id}}-title">{{#str}}h5p-block-title, local_geniai{{/str}}</label>

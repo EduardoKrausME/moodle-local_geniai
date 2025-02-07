@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) {
 
-    global $CFG, $PAGE;
+    global $CFG, $PAGE, $ADMIN;
 
     $settings = new admin_settingpage("local_geniai", get_string("pluginname", "local_geniai"));
 
