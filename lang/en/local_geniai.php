@@ -89,7 +89,7 @@ How can I assist you today? 🌟📚';
 $string['mode'] = 'Usage Mode';
 $string['mode_desc'] = 'Define which usage mode for the balloon you desire';
 $string['mode_name_assistant'] = 'Moodle Assistant';
-$string['mode_name_geniai'] = 'GeniAI';
+$string['mode_name_geniai'] = 'GeniAI Tutor';
 $string['mode_name_none'] = 'No chat balloon';
 $string['model'] = 'The API Model';
 $string['model_desc'] = 'The API model to be executed in OpenAI. Available values are on the <a href="https://platform.openai.com/docs/models/overview" target="_blank">OpenAI website</a><br>
