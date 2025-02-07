@@ -58,7 +58,7 @@ class page_create {
         $USER->fullname = fullname($USER);
 
         $curl = new \curl();
-        $h5pjs = $curl->post("https://app.ottflix.com.br/api/v2/H5pjs", [
+        $h5pjs = $curl->post("https://app.ottflix.com.br/api/v1/H5pjs", [
             "client_wwwroot" => $CFG->wwwroot,
             "client_fullname" => $SITE->fullname,
             "user_fullname" => fullname($USER),
@@ -93,7 +93,7 @@ class page_create {
         global $OUTPUT, $CFG, $USER, $SITE, $DB, $SESSION;
 
         $curl = new \curl();
-        $h5pjs = $curl->post("https://app.ottflix.com.br/api/v2/H5pjs", [
+        $h5pjs = $curl->post("https://app.ottflix.com.br/api/v1/H5pjs", [
             "client_wwwroot" => $CFG->wwwroot,
             "client_fullname" => $SITE->fullname,
             "user_fullname" => fullname($USER),
@@ -116,6 +116,7 @@ class page_create {
             "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
             "h5pjs" => $h5pjs,
             "types" => $types,
+            "show-pages" => $this->h5p->type == "InteractiveBook",
             "pages" => array_values($DB->get_records("local_geniai_h5ppages", ["h5pid" => $this->h5p->id])),
             "tyni_editor_config" => (new editor_tiny())->tyni_editor_config(),
         ]);
