@@ -64,18 +64,17 @@
 
 <div class="container">
     <div class="d-flex flex-gap-1">
-    <span id="h5p-create-new"
+    <div id="h5p-create-new"
           class="icon-no-margin btn btn-secondary text-nowrap mr-1"
           style="display: none">
         <i class="icon fa fa-add fa-fw"></i>
-        {{#str}}h5p-create-new,local_geniai{{/str}}</span>
+        {{#str}}h5p-create-new,local_geniai{{/str}}</div>
 
-        <span id="h5p-create-new-link"
-              class="icon-no-margin btn btn-secondary text-nowrap mr-1"
-              href="{{config.wwwroot}}/local/geniai/h5p/create.php?contextid={{types.contextid}}&type=InteractiveBook">
-        <i class="icon fa fa-add fa-fw" style="font-size:18px;"></i>
-        {{#str}}h5p-create-new,local_geniai{{/str}}
-        </span>
+        <button id="h5p-create-new-link"
+              class="icon-no-margin btn btn-secondary text-nowrap mr-1">
+            <i class="icon fa fa-add fa-fw" style="font-size:18px;"></i>
+            {{#str}}h5p-create-new,local_geniai{{/str}}
+        </button>
 
         <a href="{{return-url}}"
            class="icon-no-margin btn btn-secondary text-nowrap mr-1">{{#str}}h5p-return,local_geniai{{/str}}</a>
