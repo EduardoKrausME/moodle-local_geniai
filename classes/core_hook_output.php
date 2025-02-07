@@ -105,18 +105,14 @@ class core_hook_output {
      * Function local_geniai_addh5p
      */
     private static function local_geniai_addh5p() {
-        $context = context_system::instance();
-        if (!has_capability("moodle/site:config", $context)) {
-            return;
-        }
+        global $PAGE, $COURSE;
 
-        if (strpos($_SERVER["REQUEST_URI"], "contentbank") ||
+        if (strpos($_SERVER["REQUEST_URI"], "contentbank/") ||
             strpos($_SERVER["REQUEST_URI"], "course/modedit.php")) {
-            global $PAGE;
 
-            global $COURSE;
-            $PAGE->requires->strings_for_js(["h5p-manager"], "local_geniai");
-            $PAGE->requires->js_call_amd("local_geniai/h5p", "init", [\context_course::instance($COURSE->id)->id]);
+            $contextid = \context_course::instance($COURSE->id)->id;
+            $PAGE->requires->strings_for_js(["h5p-manager", "h5p-manager-scorm"], "local_geniai");
+            $PAGE->requires->js_call_amd("local_geniai/h5p", "init", [$contextid]);
         }
     }
 }
