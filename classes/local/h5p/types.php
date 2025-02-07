@@ -52,13 +52,15 @@ class types {
                 "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=InteractiveBook",
             ],
             "h5ps" => [
-                //[
-                //    "id" => "InteractiveVideo",
-                //    "title" => get_string("h5p-interactivevideo-title", "local_geniai"),
-                //    "desc" => get_string("h5p-interactivevideo-desc", "local_geniai"),
-                //    "exe" => "https://h5p.org/interactive-video",
-                //    "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=InteractiveVideo",
-                //],
+                /**
+                 * [
+                 *     "id" => "InteractiveVideo",
+                 *     "title" => get_string("h5p-interactivevideo-title", "local_geniai"),
+                 *     "desc" => get_string("h5p-interactivevideo-desc", "local_geniai"),
+                 *     "exe" => "https://h5p.org/interactive-video",
+                 *     "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=InteractiveVideo",
+                 * ],
+                 */
                 [
                     "id" => "AdvancedText",
                     "title" => get_string("h5p-advancedtext-title", "local_geniai"),
@@ -94,20 +96,22 @@ class types {
                     "exe" => "https://h5p.org/drag-the-words",
                     "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=DragText",
                 ],
-                //[
-                //    "id" => "Crossword",
-                //    "title" => get_string("h5p-crossword-title", "local_geniai"),
-                //    "desc" => get_string("h5p-crossword-desc", "local_geniai"),
-                //    "exe" => "https://h5p.org/content-types/crossword",
-                //    "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=Crossword",
-                //],
-                //[
-                //    "id" => "FindTheWords",
-                //    "title" => get_string("h5p-findthewords-title", "local_geniai"),
-                //    "desc" => get_string("h5p-findthewords-desc", "local_geniai"),
-                //    "exe" => "https://h5p.org/content-types/crossword",
-                //    "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=FindTheWords",
-                //],
+                /**
+                 * [
+                 *     "id" => "Crossword",
+                 *     "title" => get_string("h5p-crossword-title", "local_geniai"),
+                 *     "desc" => get_string("h5p-crossword-desc", "local_geniai"),
+                 *     "exe" => "https://h5p.org/content-types/crossword",
+                 *     "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=Crossword",
+                 * ],
+                 * [
+                 *     "id" => "FindTheWords",
+                 *     "title" => get_string("h5p-findthewords-title", "local_geniai"),
+                 *     "desc" => get_string("h5p-findthewords-desc", "local_geniai"),
+                 *     "exe" => "https://h5p.org/content-types/crossword",
+                 *     "create" => "{$CFG->wwwroot}/local/geniai/h5p/create.php?contextid={$contextid}&type=FindTheWords",
+                 * ],
+                 */
             ],
         ];
 
