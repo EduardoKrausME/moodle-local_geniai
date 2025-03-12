@@ -55,10 +55,10 @@ class api {
         $returnmessage = [];
         foreach ($messages as $message) {
 
-            $result = new parse_markdown();
+            $parsemarkdown = new parse_markdown();
 
             if (strpos($message["content"], "<audio") === false) {
-                $message["content"] = $result->markdown_text($message["content"]);
+                $message["content"] = $parsemarkdown->markdown_text($message["content"]);
             }
             $message["format"] = "html";
 
@@ -163,8 +163,8 @@ class api {
 
         $gpt = self::chat_completions($messages);
         if (isset($gpt["error"])) {
-            $result = new parse_markdown();
-            $content = $result->markdown_text($gpt["error"]["message"]);
+            $parsemarkdown = new parse_markdown();
+            $content = $parsemarkdown->markdown_text($gpt["error"]["message"]);
 
             return [
                 "result" => false,
@@ -178,8 +178,8 @@ class api {
             $content = $gpt["choices"][0]["message"]["content"];
 
             if ($audio) {
-                $result = new parse_markdown();
-                $content = $result->markdown_text($content);
+                $parsemarkdown = new parse_markdown();
+                $content = $parsemarkdown->markdown_text($content);
                 $contentstrip = strip_tags($content);
                 $audiosrc = self::speech($contentstrip);
                 $content = "<audio controls autoplay src='{$audiosrc}'></audio><div class='transcription'>{$content}</div>";
@@ -194,8 +194,8 @@ class api {
                     "content" => $content,
                 ];
 
-                $result = new parse_markdown();
-                $content = $result->markdown_text($content);
+                $parsemarkdown = new parse_markdown();
+                $content = $parsemarkdown->markdown_text($content);
             }
 
             $_SESSION["messages-v3-{$courseid}"] = $messages;
@@ -220,12 +220,13 @@ class api {
      * Chat completions function.
      *
      * @param array $messages
+     * @param bool $ignoremaxtoken
      *
      * @return mixed
      *
      * @throws \dml_exception
      */
-    public static function chat_completions($messages) {
+    public static function chat_completions($messages, $ignoremaxtoken = false) {
         global $DB;
 
         $apikey = get_config("local_geniai", "apikey");
@@ -279,10 +280,13 @@ class api {
             "messages" => $messagesok,
             "temperature" => $temperature,
             "top_p" => $topp,
-            "max_tokens" => intval($maxtokens),
             "frequency_penalty" => floatval($frequencypenalty),
             "presence_penalty" => floatval($presencepenalty),
         ];
+
+        if (!$ignoremaxtoken) {
+            $post["max_tokens"] = intval($maxtokens);
+        }
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/chat/completions");
