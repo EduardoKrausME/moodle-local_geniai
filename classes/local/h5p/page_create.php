@@ -71,16 +71,6 @@ class page_create {
             "module" => "create",
         ]);
 
-        $caseuses = [];
-        $names = ["fiel", "create", "super", "summary", "rewrite", "expand", "simplify", "tone"];
-        foreach ($names as $name) {
-            $caseuses[] = [
-                "key" => $name,
-                "title" => get_string("createmode_{$name}_title", "local_geniai"),
-                "desc" => get_string("createmode_{$name}_desc", "local_geniai"),
-            ];
-        }
-
         $basecolor = get_config("local_geniai", "base_color");
         $types = types::get_types($this->h5p->contextid);
         echo $OUTPUT->render_from_template("local_geniai/h5p-create", [
@@ -90,7 +80,6 @@ class page_create {
             "h5pjs" => $h5pjs,
             "types" => $types,
             "baseColor" => $basecolor ? $basecolor : "#1768c4",
-            "caseuses" => $caseuses,
         ]);
     }
 

@@ -68,7 +68,7 @@
 
 </form>
 {{#js}}
-require(["jquery"], function($) {
+    require(["jquery", "core/modal_factory", "jqueryui"], function($, ModalFactory, $ui) {
     var h5ps = {
         {{#types.h5ps}}
             "H5P.{{{id}}}": {
@@ -77,14 +77,6 @@ require(["jquery"], function($) {
                 "pix": `{{#pix}}h5p/H5P.{{id}},local_geniai{{/pix}}`,
             },
         {{/types.h5ps}}
-    };
-    var caseuses = {
-        {{#caseuses}}
-            "{{{key}}}": {
-                "title": "{{{title}}}",
-                "desc": "{{{desc}}}",
-            },
-        {{/caseuses}}
     };
     {{{h5pjs}}}
 });
