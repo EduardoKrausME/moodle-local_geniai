@@ -116,6 +116,5 @@ class core_hook_output {
                 $PAGE->requires->js_call_amd("local_geniai/h5p", "init", [$contextid]);
             }
         }
-        
     }
 }
