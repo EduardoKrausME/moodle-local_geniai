@@ -285,7 +285,7 @@ class api {
         ];
 
         if (!$ignoremaxtoken) {
-            $post["max_tokens"] = intval($maxtokens);
+            $post->max_tokens = intval($maxtokens);
         }
 
         $ch = curl_init();
