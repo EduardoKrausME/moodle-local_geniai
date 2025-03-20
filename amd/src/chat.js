@@ -1,7 +1,7 @@
 define(["jquery", "core/ajax", "core/notification"], function($, ajax, notification) {
     var chat = {
 
-        init : function(courseid, release) {
+        init: function(courseid, release) {
 
             if ($("body.pagelayout-embedded").length) {
                 return;
@@ -61,7 +61,7 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                 if (messagesend.length > 1 || chat.mediaRecordUrl) {
                     setTimeout(function() {
                         geniaitextarea.val("");
-                        geniaitextarea.css({height : 34});
+                        geniaitextarea.css({height: 34});
                         geniaisendarea.removeClass("geniai-active");
 
                         chat.reset_recording();
@@ -95,12 +95,12 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                     }
 
                     ajax.call([{
-                        methodname : methodname,
-                        args       : {
-                            message  : messagesend,
-                            audio    : chat.mediaRecordUrl,
-                            courseid : courseid,
-                            lang     : chat.lang,
+                        methodname: methodname,
+                        args: {
+                            message: messagesend,
+                            audio: chat.mediaRecordUrl,
+                            courseid: courseid,
+                            lang: chat.lang,
                         }
                     }])[0].done(function(data) {
 
@@ -134,13 +134,13 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                 if ($("#geniai-chat").hasClass("mode-geniai")) {
                     var height1 = $(window).innerHeight() - 181;
                     $("#geniai-scrollarea").css({
-                        "max-height" : height1 + "px",
-                        "min-height" : height1 + "px",
+                        "max-height": height1 + "px",
+                        "min-height": height1 + "px",
                     });
                 } else {
                     var height2 = $(window).innerHeight() - 165;
                     $("#geniai-scrollarea").css({
-                        "max-height" : height2 + "px",
+                        "max-height": height2 + "px",
                     });
                 }
             }
@@ -165,6 +165,9 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                 geniaichat.addClass("geniai-active");
                 openChat();
             }
+            if (document.getElementById("geniai-mod-popup")) {
+                openChat();
+            }
 
             function openChat() {
                 geniaiareamensagens.html("");
@@ -182,10 +185,10 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                 }
 
                 ajax.call([{
-                    methodname : methodname,
-                    args       : {
-                        courseid : courseid,
-                        action   : "clear"
+                    methodname: methodname,
+                    args: {
+                        courseid: courseid,
+                        action: "clear"
                     }
                 }]);
             });
@@ -198,17 +201,16 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
             }
 
             function showHistory() {
-
                 var methodname = "local_geniai_history_3";
                 if (release >= 4.2) {
                     methodname = "local_geniai_history_4";
                 }
 
                 ajax.call([{
-                    methodname : methodname,
-                    args       : {
-                        courseid : courseid,
-                        action   : "history"
+                    methodname: methodname,
+                    args: {
+                        courseid: courseid,
+                        action: "history"
                     }
                 }])[0].done(function(data) {
                     var history = JSON.parse(data.content);
@@ -232,9 +234,9 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
             }
         },
 
-        mediaRecordUrl : null,
+        mediaRecordUrl: null,
 
-        record_start : function() {
+        record_start: function() {
             let chunks = []; // will be used later to record audio
             let mediaRecorder = null; // will be used later to record audio
 
@@ -252,11 +254,11 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                 if (!mediaRecorder) {
 
                     $("#geniai-icon-mic").addClass("recording");
-                    $("#geniai-textarea").css({"opacity" : 0});
+                    $("#geniai-textarea").css({"opacity": 0});
 
                     // start recording
                     navigator.mediaDevices.getUserMedia({
-                            audio : true,
+                            audio: true,
                         })
                         .then((stream) => {
                             mediaRecorder = new MediaRecorder(stream);
@@ -267,7 +269,7 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                         .catch((err) => {
                             alert(`The following error occurred: ${err}`);
                             $("#geniai-icon-mic").removeClass("recording");
-                            $("#geniai-textarea").css({"opacity" : 1});
+                            $("#geniai-textarea").css({"opacity": 1});
                         });
                 } else {
                     // stop recording
@@ -275,7 +277,7 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                     mediaRecorder = null;
 
                     $("#geniai-icon-mic").removeClass("recording");
-                    $("#geniai-textarea").css({"opacity" : 1});
+                    $("#geniai-textarea").css({"opacity": 1});
 
                     $("#geniai-icon-send").click();
                 }
@@ -288,7 +290,7 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
             function mediaRecorderStop() {
 
                 var reader = new FileReader();
-                reader.readAsDataURL(new Blob(chunks, {type : "audio/mp3"}));
+                reader.readAsDataURL(new Blob(chunks, {type: "audio/mp3"}));
                 reader.onloadend = function() {
                     chat.mediaRecordUrl = reader.result;
                 };
@@ -301,17 +303,17 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
             }
         },
 
-        reset_recording : function() {
+        reset_recording: function() {
             $("#geniai-icon-mic").removeClass("recording").show();
             $("#geniai-icon-stop").hide();
             $("#recorded-audio-container").hide();
             $("#geniai-sendarea").removeClass("geniai-active");
-            $("#geniai-textarea").css({"opacity" : 1});
+            $("#geniai-textarea").css({"opacity": 1});
 
             chat.mediaRecordUrl = null;
         },
 
-        load_audioplayer : function() {
+        load_audioplayer: function() {
             /* AUTHOR: Osvaldas Valutis, www.osvaldas.info */
             var isTouch       = "ontouchstart" in window,
                 eStart        = isTouch ? "touchstart" : "mousedown",
@@ -331,27 +333,27 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
 
             $.fn.audioPlayer = function(params) {
                 var params      = $.extend({
-                        classPrefix : "audioplayer",
-                        strPlay     : "",
-                        strPause    : "",
-                        strVolume   : ""
+                        classPrefix: "audioplayer",
+                        strPlay: "",
+                        strPause: "",
+                        strVolume: ""
                     }, params),
                     cssClass    = {},
                     cssClassSub = {
-                        playPause    : "playpause",
-                        playing      : "playing",
-                        time         : "time",
-                        timeCurrent  : "time-current",
-                        timeDuration : "time-duration",
-                        bar          : "bar",
-                        barLoaded    : "bar-loaded",
-                        barPlayed    : "bar-played",
-                        volume       : "volume",
-                        volumeButton : "volume-button",
-                        volumeAdjust : "volume-adjust",
-                        noVolume     : "novolume",
-                        mute         : "mute",
-                        mini         : "mini"
+                        playPause: "playpause",
+                        playing: "playing",
+                        time: "time",
+                        timeCurrent: "time-current",
+                        timeDuration: "time-duration",
+                        bar: "bar",
+                        barLoaded: "bar-loaded",
+                        barPlayed: "bar-played",
+                        volume: "volume",
+                        volumeButton: "volume-button",
+                        volumeAdjust: "volume-adjust",
+                        noVolume: "novolume",
+                        mute: "mute",
+                        mini: "mini"
                     };
 
                 for (var subName in cssClassSub)
@@ -388,9 +390,9 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
 
                     if (isSupport) {
                         thePlayer.find("audio").css({
-                            "width"      : 0,
-                            "height"     : 0,
-                            "visibility" : "hidden"
+                            "width": 0,
+                            "height": 0,
+                            "visibility": "hidden"
                         });
                         thePlayer.append('<div class="' + cssClass.time + ' ' + cssClass.timeCurrent + '"></div><div class="' + cssClass.bar + '"><div class="' + cssClass.barLoaded + '"></div><div class="' + cssClass.barPlayed + '"></div></div><div class="' + cssClass.time + ' ' + cssClass.timeDuration + '"></div><div class="' + cssClass.volume + '"><div class="' + cssClass.volumeButton + '" title="' + params.strVolume + '"><a href="#">' + params.strVolume + '</a></div><div class="' + cssClass.volumeAdjust + '"><div><div></div></div></div></div>');
 
