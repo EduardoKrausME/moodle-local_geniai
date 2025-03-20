@@ -47,6 +47,9 @@ class core_hook_output {
 
     /**
      * Function local_geniai_addchat
+     *
+     * @throws \coding_exception
+     * @throws \dml_exception
      */
     private static function local_geniai_addchat() {
         global $DB, $OUTPUT, $PAGE, $COURSE, $USER, $SITE;
@@ -58,6 +61,10 @@ class core_hook_output {
         if (!isset(get_config("local_geniai", "apikey")[5])) {
             return;
         } else if ($USER->id < 2) {
+            return;
+        }
+
+        if (strpos($_SERVER["REQUEST_URI"], "mod/geniai/") >= 1) {
             return;
         }
 
