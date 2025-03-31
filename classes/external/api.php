@@ -221,12 +221,13 @@ class api {
      *
      * @param array $messages
      * @param bool $ignoremaxtoken
+     * @param string $replacemodel
      *
      * @return mixed
      *
      * @throws \dml_exception
      */
-    public static function chat_completions($messages, $ignoremaxtoken = false) {
+    public static function chat_completions($messages, $ignoremaxtoken = false, $replacemodel = "") {
         global $DB;
 
         $apikey = get_config("local_geniai", "apikey");
@@ -234,6 +235,10 @@ class api {
         $maxtokens = get_config("local_geniai", "max_tokens");
         $frequencypenalty = get_config("local_geniai", "frequency_penalty");
         $presencepenalty = get_config("local_geniai", "presence_penalty");
+
+        if (isset($replacemodel[3])) {
+            $model = $replacemodel;
+        }
 
         switch (get_config("local_geniai", "case")) {
             case "creative":
