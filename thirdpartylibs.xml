@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <libraries>
     <library>
-        <location>classes/local/markdown/</location>
+        <location>classes/markdown/</location>
         <name>fastvolt/markdown</name>
         <version>0.2</version>
         <license>MIT license</license>
