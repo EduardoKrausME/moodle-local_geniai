@@ -15,20 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * InteractiveBook file.
+ * Dialogcards file.
  *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p\type;
+namespace local_geniai\h5p\type;
 
 /**
- * Class InteractiveBook
+ * Class Dialogcards
  *
- * @package local_geniai\local\h5p\type
+ * @package local_geniai\h5p\type
  */
-class InteractiveBook implements base {
+class Dialogcards implements base {
 
 }

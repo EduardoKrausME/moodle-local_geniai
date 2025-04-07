@@ -15,20 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * FindTheWords file.
+ * DragText file.
  *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p\type;
+namespace local_geniai\h5p\type;
 
 /**
- * Class FindTheWords
+ * Class DragText
  *
- * @package local_geniai\local\h5p\type
+ * @package local_geniai\h5p\type
  */
-class FindTheWords implements base {
+class DragText implements base {
 
 }

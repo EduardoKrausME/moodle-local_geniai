@@ -15,29 +15,38 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * h5p_base file.
+ * Itens file.
  *
- * @package   local_geniai
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p\type;
-
-use local_kopere_dashboard\html\form;
+namespace local_geniai\h5p;
 
 /**
- * Interface h5p_base
+ * Class itens
  *
- * @package local_geniai\local\h5p\type
+ * @package local_geniai\h5p
  */
-interface h5p_base {
+class itens {
     /**
-     * Function form
+     * Function get_itens
      *
-     * @param form $form
+     * @param int $contextid
      *
-     * @return mixed
+     * @return array
+     * @throws \dml_exception
      */
-    public function form(form $form);
+    public static function get_itens($contextid) {
+        global $DB;
+
+        $h5ps = $DB->get_records("local_geniai_h5p",
+            ["contextid" => $contextid],
+            "title ASC", "id, contextid, contentbanktid, title, type");
+
+        $h5ps = array_values($h5ps);
+
+        return $h5ps;
+    }
 }

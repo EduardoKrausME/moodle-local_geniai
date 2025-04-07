@@ -15,38 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Itens file.
+ * InteractiveVideo file.
  *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p;
+namespace local_geniai\h5p\type;
 
 /**
- * Class itens
+ * Class QuestionSet
  *
- * @package local_geniai\local\h5p
+ * @package local_geniai\h5p\type
  */
-class itens {
-    /**
-     * Function get_itens
-     *
-     * @param int $contextid
-     *
-     * @return array
-     * @throws \dml_exception
-     */
-    public static function get_itens($contextid) {
-        global $DB;
+class QuestionSet implements base {
 
-        $h5ps = $DB->get_records("local_geniai_h5p",
-            ["contextid" => $contextid],
-            "title ASC", "id, contextid, contentbanktid, title, type");
-
-        $h5ps = array_values($h5ps);
-
-        return $h5ps;
-    }
 }

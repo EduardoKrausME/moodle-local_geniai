@@ -14,24 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace local_geniai\local\util;
+/**
+ * InteractiveVideo file.
+ *
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace local_geniai\h5p\type;
 
 /**
- * release file.
+ * Class InteractiveVideo
  *
- * @package   local_geniai
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package local_geniai\h5p\type
  */
-class release {
-    /**
-     * Version function.
-     * @return string
-     */
-    public static function version() {
-        global $CFG;
-        $releases = explode('.', $CFG->release);
+class InteractiveVideo implements base {
 
-        return intval($releases[0]) + (intval($releases[1]) * 0.1);
-    }
 }

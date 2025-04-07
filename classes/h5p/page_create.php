@@ -22,18 +22,18 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p;
+namespace local_geniai\h5p;
 
 use coding_exception;
 use Exception;
-use local_geniai\local\editor\editor_tiny;
-use local_geniai\local\vo\local_geniai_h5p;
+use local_geniai\editor\editor_tiny;
+use local_geniai\vo\local_geniai_h5p;
 use moodle_exception;
 
 /**
  * Class page_create
  *
- * @package local_geniai\local\h5p
+ * @package local_geniai\h5p
  */
 class page_create {
 

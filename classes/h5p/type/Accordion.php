@@ -15,37 +15,40 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * local_geniai_h5ppages file.
+ * base file.
  *
  * @package   local_geniai
  * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\vo;
+namespace local_geniai\h5p\type;
+
+use local_kopere_dashboard\html\form;
+use local_kopere_dashboard\html\inputs\input_checkbox;
 
 /**
- * Class local_geniai_h5ppages
+ * Class Accordion
  *
- * @package local_geniai\local\vo
+ * @package local_geniai\h5p\type
  */
-class local_geniai_h5ppages {
+class Accordion implements h5p_base {
 
-    /** @var int */
-    public $id = 0;
-
-    /** @var int */
-    public $h5pid = 0;
-
-    /** @var string */
-    public $title = "";
-
-    /** @var string */
-    public $type = "";
-
-    /** @var string */
-    public $data = "";
-
-    /** @var string */
-    public $timecreated = "";
+    /**
+     * Function form
+     *
+     * @param form $form
+     *
+     * @return mixed
+     * @throws \coding_exception
+     */
+    public function form(form $form) {
+        $form->add_input(
+            input_checkbox::new_instance()
+                ->set_title( "Mostrar Glossário" )
+                ->set_name( "mostrar_glossario" )
+                ->set_value( 1 )
+                ->set_checked( 1 )
+        );
+    }
 }

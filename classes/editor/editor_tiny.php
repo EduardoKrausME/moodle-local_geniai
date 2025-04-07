@@ -22,12 +22,12 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\editor;
+namespace local_geniai\editor;
 
 /**
  * Class editor_tiny
  *
- * @package local_geniai\local\editor
+ * @package local_geniai\editor
  */
 class editor_tiny extends \editor_tiny\editor {
     /**

@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 require_once(__DIR__ . "/../lib.php");
 
 use context_system;
-use local_geniai\local\util\release;
+use local_geniai\util\release;
 
 /**
  * Class core_hook_output

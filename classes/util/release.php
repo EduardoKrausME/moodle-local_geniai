@@ -14,41 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace local_geniai\util;
+
 /**
- * base file.
+ * release file.
  *
  * @package   local_geniai
  * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-namespace local_geniai\local\h5p\type;
-
-use local_kopere_dashboard\html\form;
-use local_kopere_dashboard\html\inputs\input_checkbox;
-
-/**
- * Class Accordion
- *
- * @package local_geniai\local\h5p\type
- */
-class Accordion implements h5p_base {
-
+class release {
     /**
-     * Function form
-     *
-     * @param form $form
-     *
-     * @return mixed
-     * @throws \coding_exception
+     * Version function.
+     * @return string
      */
-    public function form(form $form) {
-        $form->add_input(
-            input_checkbox::new_instance()
-                ->set_title( "Mostrar Glossário" )
-                ->set_name( "mostrar_glossario" )
-                ->set_value( 1 )
-                ->set_checked( 1 )
-        );
+    public static function version() {
+        global $CFG;
+        $releases = explode('.', $CFG->release);
+
+        return intval($releases[0]) + (intval($releases[1]) * 0.1);
     }
 }

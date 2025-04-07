@@ -15,20 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * InteractiveVideo file.
+ * h5p_base file.
  *
- * @package     local_geniai
- * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   local_geniai
+ * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p\type;
+namespace local_geniai\h5p\type;
+
+use local_kopere_dashboard\html\form;
 
 /**
- * Class QuestionSet
+ * Interface h5p_base
  *
- * @package local_geniai\local\h5p\type
+ * @package local_geniai\h5p\type
  */
-class QuestionSet implements base {
-
+interface h5p_base {
+    /**
+     * Function form
+     *
+     * @param form $form
+     *
+     * @return mixed
+     */
+    public function form(form $form);
 }

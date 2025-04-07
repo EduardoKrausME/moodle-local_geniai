@@ -15,37 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * local_geniai_h5p file.
+ * InteractiveBook file.
  *
- * @package   local_geniai
- * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\vo;
+namespace local_geniai\h5p\type;
 
 /**
- * Class local_geniai_h5p
+ * Class InteractiveBook
  *
- * @package local_geniai\local\vo
+ * @package local_geniai\h5p\type
  */
-class local_geniai_h5p extends \stdClass {
+class InteractiveBook implements base {
 
-    /** @var int */
-    public $id = 0;
-
-    /** @var int */
-    public $contextid = 0;
-
-    /** @var int */
-    public $contentbanktid = 0;
-
-    /** @var string */
-    public $title = "";
-
-    /** @var string */
-    public $type = "";
-
-    /** @var string */
-    public $timecreated = "";
 }

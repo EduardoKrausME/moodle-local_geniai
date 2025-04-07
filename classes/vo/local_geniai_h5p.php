@@ -15,20 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Dialogcards file.
+ * local_geniai_h5p file.
  *
- * @package     local_geniai
- * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   local_geniai
+ * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p\type;
+namespace local_geniai\vo;
 
 /**
- * Class Dialogcards
+ * Class local_geniai_h5p
  *
- * @package local_geniai\local\h5p\type
+ * @package local_geniai\vo
  */
-class Dialogcards implements base {
+class local_geniai_h5p extends \stdClass {
 
+    /** @var int */
+    public $id = 0;
+
+    /** @var int */
+    public $contextid = 0;
+
+    /** @var int */
+    public $contentbanktid = 0;
+
+    /** @var string */
+    public $title = "";
+
+    /** @var string */
+    public $type = "";
+
+    /** @var string */
+    public $timecreated = "";
 }

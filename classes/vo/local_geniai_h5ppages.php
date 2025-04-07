@@ -15,20 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Crossword file.
+ * local_geniai_h5ppages file.
  *
- * @package     local_geniai
- * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   local_geniai
+ * @copyright 2024 Eduardo Kraus {@link http://eduardokraus.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p\type;
+namespace local_geniai\vo;
 
 /**
- * Class Crossword
+ * Class local_geniai_h5ppages
  *
- * @package local_geniai\local\h5p\type
+ * @package local_geniai\vo
  */
-class Crossword implements base {
+class local_geniai_h5ppages {
 
+    /** @var int */
+    public $id = 0;
+
+    /** @var int */
+    public $h5pid = 0;
+
+    /** @var string */
+    public $title = "";
+
+    /** @var string */
+    public $type = "";
+
+    /** @var string */
+    public $data = "";
+
+    /** @var string */
+    public $timecreated = "";
 }

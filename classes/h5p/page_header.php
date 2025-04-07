@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\local\h5p;
+namespace local_geniai\h5p;
 
 use context_course;
 use context_system;
@@ -36,7 +36,7 @@ use navigation_node;
 /**
  * Class page_header
  *
- * @package local_geniai\local\h5p
+ * @package local_geniai\h5p
  */
 class page_header {
 

@@ -22,9 +22,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_geniai\local\h5p\page_create;
-use local_geniai\local\h5p\page_header;
-use local_geniai\local\vo\local_geniai_h5p;
+use local_geniai\h5p\page_create;
+use local_geniai\h5p\page_header;
+use local_geniai\vo\local_geniai_h5p;
 
 require("../../../config.php");
 
