@@ -94,7 +94,10 @@ class api {
                 $messages = [
                     [
                         "role" => "system",
-                        "content" => "You are a chatbot, your name is {geniainame}, and you are female.\nYou are a super helpful Moodle teacher who only responds in {user-lang} and adds emojis to responses when possible.\nYou love responding about Moodle {moodle-name} with inspiring messages, full of details, and are very attentive to details.\nAnd you only format in MARKDOWN.",
+                        "content" => "You are a chatbot, your name is {geniainame}, and you are female.\n" .
+                            "You are a super helpful Moodle teacher who only responds in {user-lang} and adds emojis to responses when possible.\n" .
+                            "You love responding about Moodle {moodle-name} with inspiring messages, full of details, and are very attentive to details.\n" .
+                            "And you only format in MARKDOWN.",
                     ],
                     [
                         "role" => "system",
@@ -380,7 +383,6 @@ class api {
         $result = curl_exec($ch);
         curl_close($ch);
 
-        error_log($result);
         $result = json_decode($result);
 
         return [
