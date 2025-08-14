@@ -16,6 +16,8 @@
 
 namespace local_geniai\external;
 
+use coding_exception;
+use dml_exception;
 use local_geniai\markdown\parse_markdown;
 
 /**
@@ -31,7 +33,6 @@ class api {
      *
      * @param int $courseid
      * @param string $action
-     *
      * @return array
      */
     public static function history_api($courseid, $action) {
@@ -54,7 +55,6 @@ class api {
 
         $returnmessage = [];
         foreach ($messages as $message) {
-
             $parsemarkdown = new parse_markdown();
 
             if (strpos($message["content"], "<audio") === false) {
@@ -77,11 +77,8 @@ class api {
      * @param string $message
      * @param int $courseid
      * @param null $audio
-     *
      * @return array
-     *
-     * @throws \coding_exception
-     * @throws \dml_exception
+     * @throws Exception
      */
     public static function chat_api($message, $courseid, $audio = null, $lang = null) {
         global $CFG, $DB, $USER, $SITE;
@@ -89,7 +86,6 @@ class api {
         if (isset($_SESSION["messages-v3-{$courseid}"][0])) {
             $messages = $_SESSION["messages-v3-{$courseid}"];
         } else {
-
             if (get_config("local_geniai", "mode") == "assistant") {
                 $replace = [
                     "wwwroot" => $CFG->wwwroot,
@@ -98,8 +94,9 @@ class api {
                 $messages = [
                     [
                         "role" => "system",
-                        "content" => get_config("local_geniai", "prompt") . "\nAnd you only format in MARKDOWN.",
-                    ], [
+                        "content" => "You are a chatbot, your name is {geniainame}, and you are female.\nYou are a super helpful Moodle teacher who only responds in {user-lang} and adds emojis to responses when possible.\nYou love responding about Moodle {moodle-name} with inspiring messages, full of details, and are very attentive to details.\nAnd you only format in MARKDOWN.",
+                    ],
+                    [
                         "role" => "system",
                         "content" => get_string("url_moodle", "local_geniai", $replace),
                     ],
@@ -113,7 +110,8 @@ class api {
                     [
                         "role" => "system",
                         "content" => $prompt,
-                    ], [
+                    ],
+                    [
                         "role" => "system",
                         "content" => "Responda somente no idioma \"{$lang}\" e somente no formato MARKDOWN.",
                     ],
@@ -123,8 +121,11 @@ class api {
                 if ($course = $DB->get_record("course", ["id" => $courseid])) {
                     $messages[] = [
                         "role" => "system",
-                        "content" => get_string("course_user", "local_geniai",
-                            ["course" => $course->fullname, "userfullname" => fullname($USER)]),
+                        "content" => get_string(
+                            "course_user",
+                            "local_geniai",
+                            ["course" => $course->fullname, "userfullname" => fullname($USER)]
+                        ),
                     ];
                 }
             } else {
@@ -137,7 +138,7 @@ class api {
 
         $returntranscription = false;
         if ($audio) {
-            $transcription = self::transcriptions($audio, $lang);
+            $transcription = self::transcriptions_base64($audio, $lang);
             $returntranscription = $message = $transcription["text"];
 
             $audiolink = "<audio controls autoplay " .
@@ -222,10 +223,8 @@ class api {
      * @param array $messages
      * @param bool $ignoremaxtoken
      * @param string $replacemodel
-     *
      * @return mixed
-     *
-     * @throws \dml_exception
+     * @throws dml_exception
      */
     public static function chat_completions($messages, $ignoremaxtoken = false, $replacemodel = "") {
         global $DB;
@@ -327,7 +326,7 @@ class api {
         ];
         try {
             $DB->insert_record("local_geniai_usage", $usage);
-        } catch (\dml_exception $e) {
+        } catch (dml_exception $e) {
             echo $e->getMessage();
         }
 
@@ -338,11 +337,10 @@ class api {
      * Function transcriptions
      *
      * @param string $audio
-     *
      * @return array
-     * @throws \dml_exception
+     * @throws dml_exception
      */
-    private static function transcriptions($audio, $lang) {
+    private static function transcriptions_base64($audio, $lang) {
         global $CFG;
 
         $audio = str_replace("data:audio/mp3;base64,", "", $audio);
@@ -351,6 +349,19 @@ class api {
         $filepath = "{$CFG->dataroot}/temp/{$filename}.mp3";
         file_put_contents($filepath, $audiodata);
 
+        return self::transcriptions($filepath, $lang);
+    }
+
+    /**
+     * transcriptions
+     *
+     * @param string $filepath
+     * @param string $lang
+     * @param string $format
+     * @return array
+     * @throws dml_exception
+     */
+    public static function transcriptions($filepath, $lang) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/audio/transcriptions");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -369,12 +380,12 @@ class api {
         $result = curl_exec($ch);
         curl_close($ch);
 
+        error_log($result);
         $result = json_decode($result);
 
         return [
             "text" => $result->text,
             "language" => $result->language,
-            "filename" => $filename,
         ];
     }
 
@@ -382,20 +393,20 @@ class api {
      * Function speech
      *
      * @param string $input
-     *
      * @return string
-     *
-     * @throws \dml_exception
+     * @throws dml_exception
      */
     private static function speech($input) {
         global $CFG;
 
-        $json = json_encode((object)[
-            "model" => "tts-1",
-            "input" => $input,
-            "voice" => get_config("local_geniai", "voice"),
-            "response_format" => "mp3",
-        ]);
+        $json = json_encode(
+            (object)[
+                "model" => "tts-1",
+                "input" => $input,
+                "voice" => get_config("local_geniai", "voice"),
+                "response_format" => "mp3",
+            ]
+        );
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/audio/speech");
