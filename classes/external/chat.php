@@ -16,6 +16,7 @@
 
 namespace local_geniai\external;
 
+use Exception;
 use external_api;
 use external_value;
 use external_single_structure;
@@ -68,11 +69,8 @@ class chat extends external_api {
      * @param int $courseid
      * @param null $audio
      * @param null $lang
-     *
      * @return array
-     *
-     * @throws \coding_exception
-     * @throws \dml_exception
+     * @throws Exception
      */
     public static function api($message, $courseid, $audio = null, $lang=null) {
         return api::chat_api($message, $courseid, $audio, $lang );
