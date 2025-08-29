@@ -89,13 +89,8 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                     }
                     geniaiscrollarea.scrollTop = 10000000000000;
 
-                    var methodname = "local_geniai_chat_3";
-                    if (release >= 4.2) {
-                        methodname = "local_geniai_chat_4";
-                    }
-
                     ajax.call([{
-                        methodname: methodname,
+                        methodname: "local_geniai_chat",
                         args: {
                             message: messagesend,
                             audio: chat.mediaRecordUrl,
@@ -179,13 +174,8 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                 geniaiareamensagens.html("");
                 startChat();
 
-                var methodname = "local_geniai_history_3";
-                if (release >= 4.2) {
-                    methodname = "local_geniai_history_4";
-                }
-
                 ajax.call([{
-                    methodname: methodname,
+                    methodname: "local_geniai_history",
                     args: {
                         courseid: courseid,
                         action: "clear"
@@ -201,13 +191,8 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
             }
 
             function showHistory() {
-                var methodname = "local_geniai_history_3";
-                if (release >= 4.2) {
-                    methodname = "local_geniai_history_4";
-                }
-
                 ajax.call([{
-                    methodname: methodname,
+                    methodname: "local_geniai_history",
                     args: {
                         courseid: courseid,
                         action: "history"

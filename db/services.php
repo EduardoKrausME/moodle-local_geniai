@@ -25,34 +25,17 @@
 defined('MOODLE_INTERNAL') || die;
 
 $functions = [
-    "local_geniai_chat_3" => [
-        "classpath" => "local/geniai/classes/external/chat_3.php",
-        "classname" => "\\local_geniai\\external\\chat_3",
+    "local_geniai_chat" => [
+        "classpath" => "local/geniai/classes/external/chat.php",
+        "classname" => "\\local_geniai\\external\\chat",
         "methodname" => "api",
         "description" => "ChatGPT API",
         "type" => "write",
         "ajax" => true,
     ],
-    "local_geniai_history_3" => [
-        "classpath" => "local/geniai/classes/external/history_3.php",
-        "classname" => "\\local_geniai\\external\\history_3",
-        "methodname" => "api",
-        "description" => "Brings the conversation history",
-        "type" => "write",
-        "ajax" => true,
-    ],
-
-    "local_geniai_chat_4" => [
-        "classpath" => "local/geniai/classes/external/chat_4.php",
-        "classname" => "\\local_geniai\\external\\chat_4",
-        "methodname" => "api",
-        "description" => "ChatGPT API",
-        "type" => "write",
-        "ajax" => true,
-    ],
-    "local_geniai_history_4" => [
-        "classpath" => "local/geniai/classes/external/history_4.php",
-        "classname" => "\\local_geniai\\external\\history_4",
+    "local_geniai_history" => [
+        "classpath" => "local/geniai/classes/external/history.php",
+        "classname" => "\\local_geniai\\external\\history",
         "methodname" => "api",
         "description" => "Brings the conversation history",
         "type" => "write",

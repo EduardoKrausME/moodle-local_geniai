@@ -26,13 +26,13 @@ global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 
 /**
- * Chat_3 file.
+ * Chat file.
  *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class chat_3 extends external_api {
+class chat extends external_api {
     /**
      * Parâmetros recebidos pelo webservice
      *
@@ -75,6 +75,6 @@ class chat_3 extends external_api {
      * @throws \dml_exception
      */
     public static function api($message, $courseid, $audio = null, $lang=null) {
-        return api::chat_api($message, $courseid, $audio, $lang);
+        return api::chat_api($message, $courseid, $audio, $lang );
     }
 }

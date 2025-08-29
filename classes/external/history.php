@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * History file.
+ *
+ * @package     local_geniai
+ * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace local_geniai\external;
 
 use external_api;
@@ -26,13 +34,13 @@ global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 
 /**
- * History_3 file.
+ * History file.
  *
  * @package     local_geniai
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class history_3 extends external_api {
+class history extends external_api {
     /**
      * Parâmetros recebidos pelo webservice
      *
