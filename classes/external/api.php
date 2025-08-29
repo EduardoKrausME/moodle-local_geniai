@@ -161,26 +161,13 @@ class api {
         if (isset($gpt["choices"][0]["message"]["content"])) {
             $content = $gpt["choices"][0]["message"]["content"];
 
-            if ($audio) {
-                $parsemarkdown = new parse_markdown();
-                $content = $parsemarkdown->markdown_text($content);
-                $contentstrip = strip_tags($content);
-                $audiosrc = self::speech($contentstrip);
-                $content = "<audio controls autoplay src='{$audiosrc}'></audio><div class='transcription'>{$content}</div>";
+            $messages[] = [
+                "role" => "system",
+                "content" => $content,
+            ];
 
-                $messages[] = [
-                    "role" => "system",
-                    "content" => $content,
-                ];
-            } else {
-                $messages[] = [
-                    "role" => "system",
-                    "content" => $content,
-                ];
-
-                $parsemarkdown = new parse_markdown();
-                $content = $parsemarkdown->markdown_text($content);
-            }
+            $parsemarkdown = new parse_markdown();
+            $content = $parsemarkdown->markdown_text($content);
 
             $_SESSION["messages-v3-{$courseid}"] = $messages;
 
@@ -368,45 +355,5 @@ class api {
             "text" => $result->text,
             "language" => $result->language,
         ];
-    }
-
-    /**
-     * Function speech
-     *
-     * @param string $input
-     * @return string
-     * @throws dml_exception
-     */
-    private static function speech($input) {
-        global $CFG;
-
-        $json = json_encode(
-            (object)[
-                "model" => "tts-1",
-                "input" => $input,
-                "voice" => get_config("local_geniai", "voice"),
-                "response_format" => "mp3",
-            ]
-        );
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.openai.com/v1/audio/speech");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
-            "Authorization: Bearer " . get_config("local_geniai", "apikey"),
-        ]);
-
-        $audiodata = curl_exec($ch);
-        curl_close($ch);
-
-        $filename = uniqid();
-        $filepath = "{$CFG->dataroot}/temp/{$filename}.mp3";
-        file_put_contents($filepath, $audiodata);
-
-        return "{$CFG->wwwroot}/local/geniai/load-audio-temp.php?filename={$filename}";
     }
 }
