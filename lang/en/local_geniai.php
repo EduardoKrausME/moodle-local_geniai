@@ -88,7 +88,6 @@ $string['message_02_home'] = 'I am {$a}, and I am here to make your learning jou
 How can I assist you today? 🌟📚';
 $string['mode'] = 'Usage Mode';
 $string['mode_desc'] = 'Define which usage mode for the balloon you desire';
-$string['mode_name_assistant'] = 'Moodle Assistant';
 $string['mode_name_geniai'] = 'GeniAI Tutor';
 $string['mode_name_none'] = 'No chat balloon';
 $string['model'] = 'The API Model';
@@ -132,6 +131,5 @@ $string['settings_casedesc_relaxedtones_desc'] = 'Generates lighter and informal
 $string['settings_casedesc_temperature'] = 'Temperature';
 $string['settings_casedesc_top_p'] = 'Top_p';
 $string['talk_geniai'] = 'Talk to {$a} here';
-$string['url_moodle'] = 'The Moodle URL is "{$a->wwwroot}" and the Moodle name is "{$a->fullname}"';
 $string['voice'] = 'Voice used in the audio response';
 $string['write_message'] = 'Write a message...';

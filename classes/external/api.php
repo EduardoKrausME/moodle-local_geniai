@@ -16,8 +16,8 @@
 
 namespace local_geniai\external;
 
-use coding_exception;
 use dml_exception;
+use Exception;
 use local_geniai\markdown\parse_markdown;
 
 /**
@@ -81,47 +81,25 @@ class api {
      * @throws Exception
      */
     public static function chat_api($message, $courseid, $audio = null, $lang = null) {
-        global $CFG, $DB, $USER, $SITE;
+        global $CFG, $DB, $USER;
 
         if (isset($_SESSION["messages-v3-{$courseid}"][0])) {
             $messages = $_SESSION["messages-v3-{$courseid}"];
         } else {
-            if (get_config("local_geniai", "mode") == "assistant") {
-                $replace = [
-                    "wwwroot" => $CFG->wwwroot,
-                    "fullname" => $SITE->fullname,
-                ];
-                $messages = [
-                    [
-                        "role" => "system",
-                        "content" => "You are a chatbot, your name is {geniainame}, and you are female.\n" .
-                            "You are a super helpful Moodle teacher who only responds in {user-lang} and adds emojis" .
-                            " to responses when possible.\n" .
-                            "You love responding about Moodle {moodle-name} with inspiring messages, full of details," .
-                            " and are very attentive to details.\n" .
-                            "And you only format in MARKDOWN.",
-                    ],
-                    [
-                        "role" => "system",
-                        "content" => get_string("url_moodle", "local_geniai", $replace),
-                    ],
-                ];
-            } else {
-                $geniainame = get_config("local_geniai", "geniainame");
-                $prompt =
-                    "Você é um Tutor de conversação multilíngue e seu nome é {$geniainame} " .
-                    "e você vai atuar como se estivesse em uma sessão de coversação.";
-                $messages = [
-                    [
-                        "role" => "system",
-                        "content" => $prompt,
-                    ],
-                    [
-                        "role" => "system",
-                        "content" => "Responda somente no idioma \"{$lang}\" e somente no formato MARKDOWN.",
-                    ],
-                ];
-            }
+            $geniainame = get_config("local_geniai", "geniainame");
+            $prompt =
+                "Você é um Tutor de conversação multilíngue e seu nome é {$geniainame} " .
+                "e você vai atuar como se estivesse em uma sessão de coversação.";
+            $messages = [
+                [
+                    "role" => "system",
+                    "content" => $prompt,
+                ],
+                [
+                    "role" => "system",
+                    "content" => "Responda somente no idioma \"{$lang}\" e somente no formato MARKDOWN.",
+                ],
+            ];
             if ($courseid) {
                 if ($course = $DB->get_record("course", ["id" => $courseid])) {
                     $messages[] = [
@@ -362,7 +340,6 @@ class api {
      *
      * @param string $filepath
      * @param string $lang
-     * @param string $format
      * @return array
      * @throws dml_exception
      */
