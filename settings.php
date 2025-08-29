@@ -34,7 +34,6 @@ if ($hassiteconfig) {
 
     $models = [
         "none" => get_string("mode_name_none", "local_geniai"),
-        "assistant" => get_string("mode_name_assistant", "local_geniai"),
         "geniai" => get_string("mode_name_geniai", "local_geniai"),
     ];
     $setting = new admin_setting_configselect(
