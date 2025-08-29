@@ -52,7 +52,7 @@ class core_hook_output {
      * @throws \dml_exception
      */
     private static function local_geniai_addchat() {
-        global $DB, $OUTPUT, $PAGE, $COURSE, $USER, $SITE;
+        global $OUTPUT, $PAGE, $COURSE, $USER;
 
         if (get_config("local_geniai", "mode") == "none") {
             return;
