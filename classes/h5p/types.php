@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+// phpcs:disable Squiz.PHP.CommentedOutCode.Found
+
 namespace local_geniai\h5p;
 
 /**
