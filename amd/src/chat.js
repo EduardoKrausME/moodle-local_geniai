@@ -184,10 +184,18 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
             });
 
             function startChat() {
-                var message_01 = $("#local_geniai_message_01").val();
+                const message_01 = $("#local_geniai_message_01").val();
                 geniaiareamensagens.append(`<div class="geniai-message geniai-server format-text">${message_01}</div>`);
-                var message_02 = $("#local_geniai_message_02").val();
-                geniaiareamensagens.append(`<div class="geniai-message geniai-server format-text">${message_02}</div>`);
+
+                const message_02 = $("#local_geniai_message_02").val();
+                const messages = message_02.split("\n");
+                for (let i = 0; i < messages.length; i++) {
+                    const msg = messages[i].trim();
+                    if (msg.length < 3) {
+                        continue;
+                    }
+                    geniaiareamensagens.append(`<div class="geniai-message geniai-server format-text">${msg}</div>`);
+                }
             }
 
             function showHistory() {
