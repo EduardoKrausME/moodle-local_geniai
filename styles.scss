@@ -55,6 +55,8 @@
                     img {
                         width: 40px;
                         height: 40px;
+                        max-height: 40px;
+                        max-width: 40px;
                         border-radius: 50%;
                         margin-right: 15px;
                         display: block;
@@ -151,6 +153,9 @@
                         &:last-child {
                             margin-bottom: 0 !important;
                         }
+                    }
+                    ul, ol {
+                        margin-left: 34px;
                     }
                 }
                 .transcription {
@@ -429,49 +434,6 @@
         animation: nld-super-pop-in 0.5s cubic-bezier(0, 0.35, 0.28, 0.9) forwards;
         animation-delay: 1s;
         transform: scale(0, 0);
-    }
-    
-    &.mode-geniai {
-        #geniai-chat-btn {
-            .geniai-icon {
-                &.geniai-close-icon {
-                    display: none;
-                }
-            }
-        }
-        &.geniai-active {
-            top: 30px;
-            right: 30px;
-            bottom: 30px;
-            left: 30px;
-            .geniai-popup {
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                display: flex;
-                justify-content: flex-end;
-                width: initial !important;
-                height: initial !important;
-                max-height: initial !important;
-            }
-            #geniai-chat-btn {
-                display: none;
-            }
-        }
-        #geniai-scrollarea {
-            // max-height: initial !important;
-            #geniai-area-mensagens {
-                padding-top: 10px;
-            }
-        }
-        .geniai-popup {
-            #geniai-sendarea {
-                #geniai-icon-mic {
-                    display: block;
-                }
-            }
-        }
     }
     
     @import "styles/audioplayer";
