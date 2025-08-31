@@ -26,9 +26,7 @@
  * Upgrade file.
  *
  * @param int $oldversion
- *
  * @return bool
- *
  * @throws Exception
  */
 function xmldb_local_geniai_upgrade($oldversion) {
@@ -69,7 +67,6 @@ function xmldb_local_geniai_upgrade($oldversion) {
     }
 
     if ($oldversion < 2025011400) {
-
         // Criação da tabela local_geniai_h5p.
         $table = new xmldb_table("local_geniai_h5p");
 
