@@ -19,6 +19,7 @@ namespace local_geniai\external;
 use dml_exception;
 use Exception;
 use local_geniai\markdown\parse_markdown;
+use stdClass;
 
 /**
  * Global api file.
@@ -81,25 +82,56 @@ class api {
      * @throws Exception
      */
     public static function chat_api($message, $courseid, $audio = null, $lang = null) {
-        global $CFG, $DB, $USER;
+        global $CFG, $DB, $USER, $SITE;
 
         if (isset($_SESSION["messages-v3-{$courseid}"][0])) {
             $messages = $_SESSION["messages-v3-{$courseid}"];
         } else {
+            // Monta lista de módulos/sessões.
+            $course = $DB->get_record("course", ["id" => $courseid], "id, fullname");
+            $secoes = self::course_secoes($course, $USER);
+            $textomodulos = "";
+            foreach ($secoes as $nome => $atividades) {
+                if (empty($atividades)) {
+                    continue;
+                }
+                $textomodulos .= "* {$nome}:\n";
+                foreach ($atividades as $atividade) {
+                    $textomodulos .= "** {$atividade["link"]}\n";
+                    if (isset($atividade["summary"][5])) {
+                        $textomodulos .= "*** {$atividade["summary"]}\n";
+                    }
+                }
+            }
+
             $geniainame = get_config("local_geniai", "geniainame");
-            $prompt =
-                "Você é um Tutor de conversação multilíngue e seu nome é {$geniainame} " .
-                "e você vai atuar como se estivesse em uma sessão de coversação.";
             $messages = [
                 [
                     "role" => "system",
-                    "content" => $prompt,
-                ],
-                [
-                    "role" => "system",
-                    "content" => "Responda somente no idioma \"{$lang}\" e somente no formato MARKDOWN.",
+                    "content" => "Você é um chatbot chamado **{$geniainame}**.
+Seu papel é ser um **superprofessor do Moodle \"{$SITE->fullname}\"**, 
+para o curso **[**{$course->fullname}**]({$CFG->wwwroot}/course/view.php?id={$course->id})**, 
+sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o que envolve o aprendizado.
+
+## Módulos do curso:
+{$textomodulos}
+
+### Suas respostas devem sempre seguir estas diretrizes:
+    * Seja **detalhado, claro e inspirador**, com um tom **amigável e motivador**.
+    * Dê atenção aos detalhes, oferecendo **exemplos práticos e explicações passo a passo** sempre que fizer sentido.
+    * Se a pergunta for ambígua, peça mais detalhes.
+    * Caso não souber, responda que não sabe, mas não crie algo que não lhe passei.
+    * Mantenha o **foco no Curso {$course->fullname}** e caso o usuário pedir fora do escopo, responda que não pode e nunca poderá.
+    * Use **somente formatação em MARKDOWN**.
+    * **SEMPRE** responda em **{$USER->lang}**, (nunca em outro idioma).
+
+### Regras importantes:
+    * Nunca quebre o personagem de **professor do Moodle**.
+    * Jamais utilize linguagem neutra e mantenha sempre o tom acolhedor e professoral.
+    * Responda somente em MARKDOWN e no Idioma {$USER->lang}",
                 ],
             ];
+
             if ($courseid) {
                 if ($course = $DB->get_record("course", ["id" => $courseid])) {
                     $messages[] = [
@@ -185,6 +217,51 @@ class api {
             "format" => "text",
             "content" => "Error...",
         ];
+    }
+
+    /**
+     * course_secoes
+     *
+     * @param $course
+     * @param object $user
+     * @return array
+     * @throws Exception
+     */
+    private static function course_secoes($course, $user) {
+        $secoes = [];
+        $modinfo = get_fast_modinfo($course->id, $user->id);
+        /** @var stdClass $sectioninfo */
+        foreach ($modinfo->get_section_info_all() as $sectionnum => $sectioninfo) {
+            if (empty($modinfo->sections[$sectionnum])) {
+                continue;
+            }
+
+            $sectionname = get_section_name($course->id, $sectioninfo);
+            $secoes[$sectionname] = [];
+
+            foreach ($modinfo->sections[$sectionnum] as $cmid) {
+                $cm = $modinfo->cms[$cmid];
+                if (!$cm->uservisible) {
+                    continue;
+                }
+
+                $summary = null;
+                if (isset($cm->summary)) {
+                    $summary = format_string($cm->summary);
+                    $summary = preg_replace('/<img[^>]*>/', '', $summary);
+                    $summary = preg_replace('/\s+/', ' ', $summary);
+                    $summary = trim(strip_tags($summary));
+                }
+
+                $url = $cm->url ? $cm->url->out(false) : "";
+                $secoes[$sectionname][] = [
+                    "link" => "[{$cm->name}]($url)",
+                    "summary" => $summary,
+                ];
+            }
+        }
+
+        return $secoes;
     }
 
     /**
