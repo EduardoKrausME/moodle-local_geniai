@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['agentphoto'] = 'AI agent photo';
+$string['agentphoto_desc'] = 'Image displayed as the AI agent\'s avatar during chat conversations.';
 $string['apikey'] = 'OpenAI API Key';
 $string['apikey_desc'] = 'The API key of your OpenAI account';
 $string['case'] = 'Use Cases';
@@ -80,11 +82,8 @@ $string['h5p-title'] = 'Manage GeniAI Content Bank';
 $string['max_tokens'] = 'Maximum words in response';
 $string['max_tokens_desc'] = 'Maximum number of words that can be generated in each request.';
 $string['message_01'] = 'Hello, {$a}! 🌟';
-$string['message_02_course'] = 'Welcome to the course {$a->coursename} on Moodle {$a->moodlename}!
+$string['message_02'] = 'Welcome to the course {$a->coursename} on Moodle {$a->moodlename}!
 I am {$a->geniainame}, and I am here to make your learning journey as amazing as possible.
-How can I assist you today? 🌟📚';
-$string['message_02_geniai'] = 'Hello! I am {$a}, here to help you. If you prefer, you can send me an audio message, and I will respond in audio as well. If you prefer to write, I will reply in text. Whichever you prefer!';
-$string['message_02_home'] = 'I am {$a}, and I am here to make your learning journey as amazing as possible.
 How can I assist you today? 🌟📚';
 $string['mode'] = 'Usage Mode';
 $string['mode_desc'] = 'Define which usage mode for the balloon you desire';
@@ -131,5 +130,4 @@ $string['settings_casedesc_relaxedtones_desc'] = 'Generates lighter and informal
 $string['settings_casedesc_temperature'] = 'Temperature';
 $string['settings_casedesc_top_p'] = 'Top_p';
 $string['talk_geniai'] = 'Talk to {$a} here';
-$string['voice'] = 'Voice used in the audio response';
 $string['write_message'] = 'Write a message...';
