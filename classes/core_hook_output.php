@@ -28,7 +28,9 @@ defined('MOODLE_INTERNAL') || die;
 require_once(__DIR__ . "/../lib.php");
 
 use context_system;
+use Exception;
 use local_geniai\util\release;
+use moodle_url;
 
 /**
  * Class core_hook_output
@@ -48,27 +50,23 @@ class core_hook_output {
     /**
      * Function local_geniai_addchat
      *
-     * @throws \coding_exception
-     * @throws \dml_exception
+     * @return void
+     * @throws Exception
      */
     private static function local_geniai_addchat() {
-        global $OUTPUT, $PAGE, $COURSE, $USER;
+        global $OUTPUT, $PAGE, $COURSE, $SITE, $USER, $CFG;
 
         if (get_config("local_geniai", "mode") == "none") {
             return;
-        }
-
-        if (!isset(get_config("local_geniai", "apikey")[5])) {
+        } else if (!isset(get_config("local_geniai", "apikey")[5])) {
+            return;
+        } else if ($COURSE->id < 2) {
             return;
         } else if ($USER->id < 2) {
             return;
-        }
-
-        if (strpos($_SERVER["REQUEST_URI"], "mod/geniai/") >= 1) {
+        } else if (strpos($_SERVER["REQUEST_URI"], "mod/geniai/") >= 1) {
             return;
-        }
-
-        if (!$PAGE->get_popup_notification_allowed()) {
+        } else if (!$PAGE->get_popup_notification_allowed()) {
             return;
         }
 
@@ -83,14 +81,27 @@ class core_hook_output {
             }
         }
 
-        $geniainame = get_config("local_geniai", "geniainame");
+        $agentphotourl = $OUTPUT->image_url("chat/tutor", "local_geniai");
+        if ($filepath = get_config("local_geniai", "agentphoto")) {
+            $syscontext = context_system::instance();
+            $agentphotourl = moodle_url::make_file_url(
+                "$CFG->wwwroot/pluginfile.php",
+                "/{$syscontext->id}/local_geniai/agentphoto/0/{$filepath}"
+            );
+        }
+
+        $a = [
+            "coursename" => $COURSE->fullname,
+            "geniainame" => get_config("local_geniai", "geniainame"),
+            "moodlename" => $SITE->fullname,
+        ];
         $data = [
             "message_01" => get_string("message_01", "local_geniai", fullname($USER)),
-            "message_02" => get_string("message_02_geniai", "local_geniai", $geniainame),
+            "message_02" => get_string("message_02", "local_geniai", $a),
             "manage_capability" => $capability,
             "geniainame" => get_config("local_geniai", "geniainame"),
-            "mode" => get_config("local_geniai", "mode"),
             "talk_geniai" => get_string("talk_geniai", "local_geniai", get_config("local_geniai", "geniainame")),
+            "agentphotourl" => $agentphotourl,
         ];
 
         echo $OUTPUT->render_from_template("local_geniai/chat", $data);
@@ -104,9 +115,7 @@ class core_hook_output {
         global $PAGE, $COURSE;
 
         if (isset($_SERVER["REQUEST_URI"])) {
-            if (strpos($_SERVER["REQUEST_URI"], "contentbank/") ||
-                strpos($_SERVER["REQUEST_URI"], "course/modedit.php")) {
-
+            if (strpos($_SERVER["REQUEST_URI"], "contentbank/") || strpos($_SERVER["REQUEST_URI"], "course/modedit.php")) {
                 $contextid = \context_course::instance($COURSE->id)->id;
                 $PAGE->requires->strings_for_js(["h5p-manager", "h5p-manager-scorm"], "local_geniai");
                 $PAGE->requires->js_call_amd("local_geniai/h5p", "init", [$contextid]);

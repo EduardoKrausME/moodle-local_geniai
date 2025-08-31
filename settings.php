@@ -44,6 +44,24 @@ if ($hassiteconfig) {
     );
     $settings->add($setting);
 
+    // Tutor name.
+    $geniainame = get_config("local_geniai", "geniainame");
+    if (!isset($geniainame[2])) {
+        $geniainame = "Nestor";
+    }
+    $setting = new admin_setting_configtext(
+        "local_geniai/geniainame",
+        get_string("geniainame", "local_geniai"),
+        get_string("geniainame_desc", "local_geniai"),
+        $geniainame);
+    $settings->add($setting);
+
+    // Photo agent.
+    $setting = new admin_setting_configstoredfile("local_geniai/agentphoto",
+        get_string("agentphoto", "local_geniai"),
+        get_string("agentphoto_desc", "local_geniai"),
+        "agentphoto", 0, ["maxfiles" => 1, "accepted_types" => [".jpeg .jpg .png .svg .tif .tiff .webm"]]);
+    $settings->add($setting);
 
     $apikey = get_config("local_geniai", "apikey");
     if (isset($apikey[12])) {
@@ -62,17 +80,6 @@ if ($hassiteconfig) {
         $settings->add($setting);
     }
 
-    $geniainame = get_config("local_geniai", "geniainame");
-    if (!isset($geniainame[2])) {
-        $geniainame = "Tutor GeniAI";
-    }
-    $setting = new admin_setting_configtext(
-        "local_geniai/geniainame",
-        get_string("geniainame", "local_geniai"),
-        get_string("geniainame_desc", "local_geniai"),
-        "Tutor GeniAI");
-    $settings->add($setting);
-
     $models = [
         "gpt-4" => "gpt-4",
         "gpt-4o-mini" => "gpt-4o-mini",
@@ -84,49 +91,6 @@ if ($hassiteconfig) {
         get_string("model", "local_geniai"),
         get_string("model_desc", "local_geniai"),
         "gpt-4o-mini", $models
-    );
-    $settings->add($setting);
-
-    $voices = [
-        "alloy" => "Alloy",
-        "echo" => "Echo",
-        "fable" => "Fable",
-        "onyx" => "Onyx",
-        "nova" => "Nova",
-        "shimmer" => "Shimmer",
-    ];
-    $voicedesc = preg_replace('/\s+</s', "<", '
-            <table>
-                <tr>
-                    <th style="text-align: right;">Alloy:</th>
-                    <td><audio src="https://cdn.openai.com/API/docs/audio/alloy.wav" controls></audio></td>
-                </tr>
-                <tr>
-                    <th style="text-align: right;">Echo:</th>
-                    <td><audio src="https://cdn.openai.com/API/docs/audio/echo.wav" controls></audio></td>
-                </tr>
-                <tr>
-                    <th style="text-align: right;">Fable:</th>
-                    <td><audio src="https://cdn.openai.com/API/docs/audio/fable.wav" controls></audio></td>
-                </tr>
-                <tr>
-                    <th style="text-align: right;">Onyx:</th>
-                    <td><audio src="https://cdn.openai.com/API/docs/audio/onyx.wav" controls></audio></td>
-                </tr>
-                <tr>
-                    <th style="text-align: right;">Nova:</th>
-                    <td><audio src="https://cdn.openai.com/API/docs/audio/nova.wav" controls></audio></td>
-                </tr>
-                <tr>
-                    <th style="text-align: right;">Shimmer:</th>
-                    <td><audio src="https://cdn.openai.com/API/docs/audio/shimmer.wav" controls></audio></td>
-                </tr>
-            </table>');
-    $setting = new admin_setting_configselect(
-        "local_geniai/voice",
-        get_string("voice", "local_geniai"),
-        $voicedesc,
-        "alloy", $voices
     );
     $settings->add($setting);
 
