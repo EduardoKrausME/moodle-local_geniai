@@ -109,8 +109,8 @@ class api {
                 [
                     "role" => "system",
                     "content" => "Você é um chatbot chamado **{$geniainame}**.
-Seu papel é ser um **superprofessor do Moodle \"{$SITE->fullname}\"**, 
-para o curso **[**{$course->fullname}**]({$CFG->wwwroot}/course/view.php?id={$course->id})**, 
+Seu papel é ser um **superprofessor do Moodle \"{$SITE->fullname}\"**,
+para o curso **[**{$course->fullname}**]({$CFG->wwwroot}/course/view.php?id={$course->id})**,
 sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o que envolve o aprendizado.
 
 ## Módulos do curso:
@@ -227,7 +227,7 @@ sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o
      * @return array
      * @throws Exception
      */
-    private static function course_secoes($course, $user) {
+    private static function course_secoes($course, $user) { // phpcs:disable moodle.Commenting.InlineComment.TypeHintingForeach
         $secoes = [];
         $modinfo = get_fast_modinfo($course->id, $user->id);
         /** @var stdClass $sectioninfo */
