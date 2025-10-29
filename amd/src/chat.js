@@ -98,12 +98,15 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                             lang: chat.lang,
                         }
                     }])[0].done(function(data) {
-
                         if (data.result) {
-                            $(`#${geniaiServerId}`).html(data.content);
+                            if (data.content_html) {
+                                $(`#${geniaiServerId}`).html(data.content_html);
+                            }else{
+                                $(`#${geniaiServerId}`).html(data.content);
+                            }
 
-                            if (data.transcription) {
-                                $(`#${geniaiServerId}-transcription`).html(data.transcription);
+                            if (data.content_transcription) {
+                                $(`#${geniaiServerId}-transcription`).html(data.content_transcription);
                             }
 
                             $(`#${geniaiServerId} audio`).audioPlayer();

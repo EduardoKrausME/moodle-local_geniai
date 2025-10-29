@@ -36,8 +36,6 @@ $string['caseuse_informal'] = 'Informal Tone => Temperature 0.7 - 0.9, Top_p 0.8
 $string['caseuse_precise'] = 'Precise Responses => Temperature 0.0 - 0.3, Top_p 1.0';
 $string['clear_history_title'] = 'Clear all history';
 $string['close_title'] = 'Close chat';
-$string['course_home'] = 'The student is outside the course, and their name is "{$a->userfullname}".';
-$string['course_user'] = 'The student is in the course "{$a->course}", and their name is "{$a->userfullname}".';
 $string['frequency_penalty'] = 'Frequency Penalty';
 $string['frequency_penalty_desc'] = 'This parameter is used to discourage the model from repeating the same words or phrases too often in the generated text. It is a value added to the log probability of a token each time it occurs in the generated text. A higher frequency penalty will make the model more conservative about using repeated tokens.';
 $string['geniai:manage'] = 'Manage GeniAI';

@@ -28,6 +28,7 @@ use external_api;
 use external_value;
 use external_single_structure;
 use external_function_parameters;
+use local_geniai\markdown\parse_markdown;
 
 defined('MOODLE_INTERNAL') || die;
 global $CFG;
@@ -48,8 +49,7 @@ class history extends external_api {
      */
     public static function api_parameters() {
         return new external_function_parameters([
-            "courseid" => new external_value(PARAM_TEXT, "The Course ID"),
-            "action" => new external_value(PARAM_TEXT, "The action"),
+            "courseid" => new external_value(PARAM_TEXT, "The Course ID"), "action" => new external_value(PARAM_TEXT, "The action"),
         ]);
     }
 
@@ -74,6 +74,38 @@ class history extends external_api {
      * @return array
      */
     public static function api($courseid, $action) {
-        return api::history_api($courseid, $action);
+        global $USER;
+        if ($action == "clear") {
+            $USER->geniai[$courseid] = [];
+            return [
+                "result" => true,
+                "content" => "[]",
+            ];
+        }
+
+        if (isset($USER->geniai[$courseid])) {
+            $messages = $USER->geniai[$courseid];
+            unset($messages[0]);
+            unset($messages[1]);
+            unset($messages[2]);
+        } else {
+            $messages = [];
+        }
+
+        $returnmessage = [];
+        foreach ($messages as $message) {
+            $parsemarkdown = new parse_markdown();
+
+            if (strpos($message["content"], "<audio") === false) {
+                $message["content"] = $parsemarkdown->markdown_text($message["content"]);
+            }
+            $message["format"] = "html";
+
+            $returnmessage[] = $message;
+        }
+
+        return [
+            "result" => true, "content" => json_encode($returnmessage),
+        ];
     }
 }
