@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  auto-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (full history for tags)
@@ -55,7 +55,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
 
-  release-at-moodle-org:
+  deploy-to-moodle:
+    needs: auto-release
     runs-on: ubuntu-latest
     env:
       PLUGIN: local_geniai
