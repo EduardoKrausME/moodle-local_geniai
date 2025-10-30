@@ -29,7 +29,6 @@ if ($hassiteconfig) {
     global $CFG, $PAGE, $ADMIN;
 
     $settings = new admin_settingpage("local_geniai", get_string("pluginname", "local_geniai"));
-
     $ADMIN->add("localplugins", $settings);
 
     $models = [
