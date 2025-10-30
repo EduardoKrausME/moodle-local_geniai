@@ -108,4 +108,3 @@ jobs:
         run: |
           jq <<< ${RESPONSE}
           jq --exit-status ".id" <<< ${RESPONSE} > /dev/null
- 
