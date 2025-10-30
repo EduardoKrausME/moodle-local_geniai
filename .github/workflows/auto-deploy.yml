@@ -1,4 +1,4 @@
-name: Deploy Moodle Plugin on Release
+name: Auto-deploy Moodle Plugin on Release
 
 on:
   release:
