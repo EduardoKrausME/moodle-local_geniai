@@ -5,7 +5,6 @@ define(["jquery", "core/modal_factory"], function($, ModalFactory) {
 
             function createReadMore($lement) {
                 const fullText = $lement.text();
-                console.trace(fullText);
                 $lement.attr("data-fulltext", fullText);
                 const maxLength = $lement.attr("data-size");
 
@@ -23,7 +22,6 @@ define(["jquery", "core/modal_factory"], function($, ModalFactory) {
                     var readmore = `<span class="btn btn-link readmore-link">${M.util.get_string("h5p-readmore", "local_geniai")}</span>`;
                     $lement.html(truncatedText + readmore);
                     $lement.find(".readmore-link").click(function() {
-                        console.log($lement.attr("data-fulltext"));
                         $lement.html($lement.attr("data-fulltext"));
                     });
                 }
