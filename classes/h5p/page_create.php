@@ -25,10 +25,15 @@
 namespace local_geniai\h5p;
 
 use coding_exception;
+use context;
+use context_user;
+use core_contentbank\contentbank;
+use curl;
 use Exception;
 use local_geniai\editor\editor_tiny;
 use local_geniai\vo\local_geniai_h5p;
 use moodle_exception;
+use moodle_url;
 
 /**
  * Class page_create
@@ -57,7 +62,10 @@ class page_create {
 
         $USER->fullname = fullname($USER);
 
-        $curl = new \curl();
+        // The business rules are all in OTTFlix,
+        // and the processing occurs using the customer's key,
+        // which is not stored on the remote server.
+        $curl = new curl();
         $h5pjs = $curl->post("https://app.ottflix.com.br/api/v1/H5pjs", [
             "client_wwwroot" => $CFG->wwwroot,
             "client_fullname" => $SITE->fullname,
@@ -92,7 +100,10 @@ class page_create {
     public function edit() {
         global $OUTPUT, $CFG, $USER, $SITE, $DB, $SESSION;
 
-        $curl = new \curl();
+        // The business rules are all in OTTFlix,
+        // and the processing occurs using the customer's key,
+        // which is not stored on the remote server.
+        $curl = new curl();
         $h5pjs = $curl->post("https://app.ottflix.com.br/api/v1/H5pjs", [
             "client_wwwroot" => $CFG->wwwroot,
             "client_fullname" => $SITE->fullname,
@@ -219,7 +230,7 @@ class page_create {
 
         $fs = get_file_storage();
         $filerecord = [
-            "contextid" => \context_user::instance($USER->id)->id,
+            "contextid" => context_user::instance($USER->id)->id,
             "component" => "user",
             "filearea" => "draft",
             "itemid" => time(),
@@ -266,6 +277,8 @@ class page_create {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($h5p, "", "&"));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // I do not validate SSL because of Let's Encrypt, which can cause incompatibilities on some older servers.
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
@@ -281,7 +294,7 @@ class page_create {
         file_put_contents($tempzip, $response);
         $storedfile = $fs->create_file_from_pathname($filerecord, $tempzip);
 
-        $cb = new \core_contentbank\contentbank();
+        $cb = new contentbank();
 
         if ($this->h5p->contentbanktid) {
             $content = $cb->get_content_from_id($this->h5p->contentbanktid);
@@ -289,12 +302,12 @@ class page_create {
             $content = $contenttype->replace_content($storedfile, $content);
         } else {
             /** @var \contenttype_h5p\content $content */
-            $content = $cb->create_content_from_file(\context::instance_by_id($this->h5p->contextid), $USER->id, $storedfile);
+            $content = $cb->create_content_from_file(context::instance_by_id($this->h5p->contextid), $USER->id, $storedfile);
 
-            $DB->execute("UPDATE {local_geniai_h5p} SET contentbanktid = '{$content->get_id()}' WHERE id = {$this->h5p->id}");
+            $DB->set_field("local_geniai_h5p", "contentbanktid", $content->get_id(), ["id" => $this->h5p->id]);
         }
         $params = ["id" => $content->get_id(), "contextid" => $this->h5p->contextid];
-        $url = new \moodle_url("/contentbank/view.php", $params);
+        $url = new moodle_url("/contentbank/view.php", $params);
         redirect($url);
     }
 
