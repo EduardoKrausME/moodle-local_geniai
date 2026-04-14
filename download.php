@@ -25,40 +25,46 @@
 require_once("../../config.php");
 
 require_login();
+require_capability("local/geniai:manage", context_system::instance());
 
-if ($action = optional_param("action", false, PARAM_INT)) {
+$action = optional_param("action", 0, PARAM_INT);
 
-    if ($action == 1) {
-        header("Content-Type: text/csv");
-        header("Content-Disposition: attachment; filename=\"usage.csv\"");
+if ($action === 1) {
+    header("Content-Type: text/csv");
+    header("Content-Disposition: attachment; filename=\"usage.csv\"");
 
-        $usages = $DB->get_records("local_geniai_usage");
-        $output = fopen("php://output", "w");
+    $usages = $DB->get_records("local_geniai_usage");
+    $output = fopen("php://output", "w");
 
-        foreach ($usages as $usage) {
-            fputcsv($output, [
-                $usage->send,
-                $usage->receive,
-                $usage->model,
-                $usage->prompt_tokens,
-                $usage->completion_tokens,
-                $usage->datecreated,
-            ]);
-        }
-        fclose($output);
-        die;
-
-    } else if ($action == 2) {
-        $audios = glob("{$CFG->dataroot}/temp/*.mp3");
-
-        foreach ($audios as $audio) {
-            $filename = pathinfo($audio, PATHINFO_FILENAME);
-            $link = "{$CFG->wwwroot}/local/geniai/load-audio-temp.php?filename={$filename}";
-            echo "<p><a href=\"?action=1\">{$filename}.mp3</a></p>";
-        }
-        die;
+    foreach ($usages as $usage) {
+        fputcsv($output, [
+            $usage->send,
+            $usage->receive,
+            $usage->model,
+            $usage->prompt_tokens,
+            $usage->completion_tokens,
+            $usage->datecreated,
+        ]);
     }
-} else {
-    echo "<p><a href=\"?action=1\">Baixar uso do GPT</a></p>
-          <p><a href=\"?action=2\">Listar audios</a></p>";
+    fclose($output);
+    die;
 }
+
+if ($action == 2) {
+    $audios = glob("{$CFG->dataroot}/temp/*.mp3") ?: [];
+
+    foreach ($audios as $audio) {
+        $filename = pathinfo($audio, PATHINFO_FILENAME);
+        $url = new moodle_url("/local/geniai/load-audio-temp.php", [
+            "filename" => $filename,
+            "sesskey" => sesskey(),
+        ]);
+        echo html_writer::tag("p", html_writer::link($url, s("{$filename}.mp3")));
+    }
+    die;
+}
+
+echo html_writer::tag("p", html_writer::link(
+    new moodle_url("/local/geniai/download.php", ["action" => 1]), get_string("report_download","local_geniai" )));
+echo html_writer::tag("p", html_writer::link(
+    new moodle_url("/local/geniai/download.php", ["action" => 2]), get_string("report_list","local_geniai" )));
