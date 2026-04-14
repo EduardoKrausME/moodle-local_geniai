@@ -98,6 +98,7 @@ $string['online'] = 'Online';
 $string['pluginname'] = 'GeniAI';
 $string['presence_penalty'] = 'Presence Penalty';
 $string['presence_penalty_desc'] = 'This parameter is used to encourage the model to include a variety of tokens in the generated text. It is a value subtracted from the log probability of a token each time it is generated. A higher presence penalty value will make the model more likely to generate tokens not yet included in the generated text.';
+$string['privacy:metadata'] = 'The GeniAI plugin keeps temporary conversation history in the current session and stores only operational usage metadata without saving message bodies or personal data in its local reports.';
 $string['report_completion_tokens'] = 'Number of Tokens received';
 $string['report_datecreated'] = 'Day';
 $string['report_download'] = 'Download GPT usage';
