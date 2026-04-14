@@ -80,6 +80,11 @@ if ($hassiteconfig) {
     }
 
     $models = [
+        // GPT-5 family
+        "gpt-5.4" => "gpt-5.4",
+        "gpt-5.4-mini" => "gpt-5.4-mini",
+        "gpt-5.4-nano" => "gpt-5.4-nano",
+
         "gpt-4" => "gpt-4",
         "gpt-4o-mini" => "gpt-4o-mini",
         "gpt-4-32k" => "gpt-4-32k",
@@ -89,7 +94,8 @@ if ($hassiteconfig) {
         "local_geniai/model",
         get_string("model", "local_geniai"),
         get_string("model_desc", "local_geniai"),
-        "gpt-4o-mini", $models
+        "gpt-5.4-mini",
+        $models
     );
     $settings->add($setting);
 
