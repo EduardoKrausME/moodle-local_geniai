@@ -80,7 +80,7 @@ if ($hassiteconfig) {
     }
 
     $models = [
-        // GPT-5 family
+        // GPT-5 family.
         "gpt-5.4" => "gpt-5.4",
         "gpt-5.4-mini" => "gpt-5.4-mini",
         "gpt-5.4-nano" => "gpt-5.4-nano",
