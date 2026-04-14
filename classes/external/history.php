@@ -24,10 +24,11 @@
 
 namespace local_geniai\external;
 
+use context_course;
 use external_api;
-use external_value;
-use external_single_structure;
 use external_function_parameters;
+use external_single_structure;
+use external_value;
 use local_geniai\markdown\parse_markdown;
 
 defined('MOODLE_INTERNAL') || die;
@@ -43,69 +44,81 @@ require_once("{$CFG->dirroot}/lib/externallib.php");
  */
 class history extends external_api {
     /**
-     * Parâmetros recebidos pelo webservice
+     * Parameters received by the webservice.
      *
      * @return external_function_parameters
      */
     public static function api_parameters() {
         return new external_function_parameters([
-            "courseid" => new external_value(PARAM_TEXT, "The Course ID"), "action" => new external_value(PARAM_TEXT, "The action"),
+            "courseid" => new external_value(PARAM_INT, "The Course ID"),
+            "action" => new external_value(PARAM_ALPHA, "The action"),
         ]);
     }
 
     /**
-     * Identificador do retorno do webservice
+     * Return structure for the webservice.
      *
      * @return external_single_structure
      */
     public static function api_returns() {
         return new external_single_structure([
-            "result" => new external_value(PARAM_TEXT, "Sucesso da operação", VALUE_REQUIRED),
-            "content" => new external_value(PARAM_RAW, "The content result", VALUE_REQUIRED),
+            "result" => new external_value(PARAM_BOOL, "Operation status", VALUE_REQUIRED),
+            "content_html" => new external_value(PARAM_RAW, "The content result", VALUE_REQUIRED),
         ]);
     }
 
     /**
-     * API para contabilizar o tempo gasto na plataforma pelos usuários
+     * History API.
      *
      * @param int $courseid
      * @param string $action
-     *
      * @return array
      */
     public static function api($courseid, $action) {
-        global $USER;
-        if ($action == "clear") {
-            $USER->geniai[$courseid] = [];
+        global $DB, $USER;
+
+        $params = self::validate_parameters(self::api_parameters(), [
+            "courseid" => $courseid,
+            "action" => $action,
+        ]);
+
+        $course = $DB->get_record("course", ["id" => $params["courseid"]], "*", MUST_EXIST);
+        require_login($course);
+
+        $context = context_course::instance($course->id);
+        self::validate_context($context);
+
+        if ($params["action"] === "clear") {
+            $USER->geniai[$course->id] = [];
             return [
                 "result" => true,
-                "content" => "[]",
+                "content_html" => "[]",
             ];
         }
 
-        if (isset($USER->geniai[$courseid])) {
-            $messages = $USER->geniai[$courseid];
-            unset($messages[0]);
-            unset($messages[1]);
-            unset($messages[2]);
-        } else {
-            $messages = [];
-        }
+        $messages = $USER->geniai[$course->id] ?? [];
 
         $returnmessage = [];
         foreach ($messages as $message) {
             $parsemarkdown = new parse_markdown();
+            $content = "";
 
-            if (strpos($message["content"], "<audio") === false) {
-                $message["content"] = $parsemarkdown->markdown_text($message["content"]);
+            if (!empty($message["content_html"])) {
+                $content = $message["content_html"];
+            } else if (($message["role"] ?? "") === "system") {
+                $content = $parsemarkdown->markdown_text($message["content"] ?? "");
+            } else {
+                $content = s($message["content"] ?? "");
             }
-            $message["format"] = "html";
 
+            $message["content_html"] = $content;
+            $message["format"] = "html";
             $returnmessage[] = $message;
         }
 
         return [
-            "result" => true, "content" => json_encode($returnmessage),
+            "result" => true,
+            "content_html" => json_encode(array_values($returnmessage)),
         ];
     }
 }

@@ -16,11 +16,12 @@
 
 namespace local_geniai\external;
 
+use context_course;
 use Exception;
 use external_api;
-use external_value;
-use external_single_structure;
 use external_function_parameters;
+use external_single_structure;
+use external_value;
 use local_geniai\markdown\parse_markdown;
 use stdClass;
 
@@ -37,74 +38,97 @@ require_once("{$CFG->dirroot}/lib/externallib.php");
  */
 class chat extends external_api {
     /**
-     * Parâmetros recebidos pelo webservice
+     * Parameters received by the webservice.
      *
      * @return external_function_parameters
      */
     public static function api_parameters() {
         return new external_function_parameters([
             "message" => new external_value(PARAM_RAW, "The message value"),
-            "courseid" => new external_value(PARAM_TEXT, "The Course ID"),
+            "courseid" => new external_value(PARAM_INT, "The Course ID"),
             "audio" => new external_value(PARAM_RAW, "The message value", VALUE_DEFAULT, null, NULL_ALLOWED),
             "lang" => new external_value(PARAM_RAW, "The language value", VALUE_DEFAULT, null, NULL_ALLOWED),
         ]);
     }
 
     /**
-     * Identificador do retorno do webservice
+     * Return structure for the webservice.
      *
      * @return external_single_structure
      */
     public static function api_returns() {
         return new external_single_structure([
-            "result" => new external_value(PARAM_TEXT, "Sucesso da operação", VALUE_REQUIRED),
-            "format" => new external_value(PARAM_TEXT, "Formato da resposta", VALUE_REQUIRED),
+            "result" => new external_value(PARAM_BOOL, "Operation status", VALUE_REQUIRED),
+            "format" => new external_value(PARAM_TEXT, "Response format", VALUE_REQUIRED),
             "content" => new external_value(PARAM_RAW, "The content result", VALUE_REQUIRED),
+            "content_html" => new external_value(PARAM_RAW, "The content HTML result", VALUE_OPTIONAL),
             "transcription" => new external_value(PARAM_RAW, "The content transcription", VALUE_OPTIONAL),
+            "content_transcription" => new external_value(PARAM_RAW, "The content transcription", VALUE_OPTIONAL),
         ]);
     }
 
     /**
-     * API para contabilizar o tempo gasto na plataforma pelos usuários
+     * Chat API.
      *
      * @param string $message
      * @param int $courseid
-     * @param null $audio
-     * @param null $lang
+     * @param string|null $audio
+     * @param string|null $lang
      * @return array
      * @throws Exception
      */
     public static function api($message, $courseid, $audio = null, $lang = null) {
         global $DB, $CFG, $USER, $SITE;
 
-        if (isset($USER->geniai[$courseid][0])) {
-            $USER->geniai[$courseid] = [];
+        $params = self::validate_parameters(self::api_parameters(), [
+            "message" => $message,
+            "courseid" => $courseid,
+            "audio" => $audio,
+            "lang" => $lang,
+        ]);
+
+        $course = $DB->get_record("course", ["id" => $params["courseid"]], "*", MUST_EXIST);
+        require_login($course);
+
+        $context = context_course::instance($course->id);
+        self::validate_context($context);
+
+        if (empty($USER->geniai[$course->id]) || !is_array($USER->geniai[$course->id])) {
+            $USER->geniai[$course->id] = [];
         }
 
         $returntranscription = false;
-        if ($audio) {
-            $transcription = api::transcriptions_base64($audio, $lang);
+        if (!empty($params["audio"])) {
+            $transcription = api::transcriptions_base64($params["audio"], $params["lang"] ?: current_language());
+
+            if (!empty($transcription["error"])) {
+                return [
+                    "result" => false,
+                    "format" => "text",
+                    "content" => s($transcription["error"]),
+                ];
+            }
+
             $returntranscription = $transcription["text"];
+            $audiohtml = "<audio controls autoplay src='" .
+                $CFG->wwwroot . "/local/geniai/load-audio-temp.php?filename=" .
+                urlencode($transcription["filename"]) . "&sesskey=" . sesskey() . "'></audio>" .
+                "<div class='transcription'>" . s($transcription["text"]) . "</div>";
 
-            $audiolink = "<audio controls autoplay " .
-                "src='{$CFG->wwwroot}/local/geniai/load-audio-temp.php?filename={$transcription["filename"]}'>" .
-                "</audio><div class='transcription'>{$transcription["text"]}</div>";
-
-            $message = [
+            $messageforhistory = [
                 "role" => "user",
                 "content" => $transcription["text"],
                 "content_transcription" => $transcription["text"],
-                "content_html" => $audiolink,
+                "content_html" => $audiohtml,
             ];
         } else {
-            $message = [
+            $messageforhistory = [
                 "role" => "user",
-                "content" => strip_tags(trim($message)),
+                "content" => trim(strip_tags($params["message"])),
             ];
         }
-        $USER->geniai[$courseid][] = $message;
+        $USER->geniai[$course->id][] = $messageforhistory;
 
-        $course = $DB->get_record("course", ["id" => $courseid], "id, fullname");
         $textmodules = self::course_sections($course);
         $geniainame = get_config("local_geniai", "geniainame");
         $promptmessage = [
@@ -132,7 +156,7 @@ sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o
 * Responda somente em MARKDOWN e no Idioma {$USER->lang}",
         ];
 
-        $messages = array_slice($USER->geniai[$courseid], -9);
+        $messages = array_slice($USER->geniai[$course->id], -9);
         array_unshift($messages, $promptmessage);
 
         $gpt = api::chat_completions(array_values($messages));
@@ -144,7 +168,9 @@ sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o
                 "result" => false,
                 "format" => "text",
                 "content" => $content,
+                "content_html" => $content,
                 "transcription" => $returntranscription,
+                "content_transcription" => $returntranscription,
             ];
         }
 
@@ -152,19 +178,21 @@ sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o
             $content = $gpt["choices"][0]["message"]["content"];
 
             $parsemarkdown = new parse_markdown();
-            $content = $parsemarkdown->markdown_text($content);
+            $contenthtml = $parsemarkdown->markdown_text($content);
 
-            $USER->geniai[$courseid][] = [
+            $USER->geniai[$course->id][] = [
                 "role" => "system",
                 "content" => $content,
+                "content_html" => $contenthtml,
             ];
 
-            $format = "html";
             return [
                 "result" => true,
-                "format" => $format,
-                "content" => $content,
+                "format" => "html",
+                "content" => $contenthtml,
+                "content_html" => $contenthtml,
                 "transcription" => $returntranscription,
+                "content_transcription" => $returntranscription,
             ];
         }
 
@@ -178,12 +206,13 @@ sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o
     /**
      * course_sections
      *
-     * @param $course
+     * @param stdClass $course
      * @return string
      * @throws Exception
      */
     private static function course_sections($course) { // phpcs:disable moodle.Commenting.InlineComment.TypeHintingForeach
         global $USER;
+
         $textmodules = "";
         $modinfo = get_fast_modinfo($course->id, $USER->id);
         /** @var stdClass $sectioninfo */

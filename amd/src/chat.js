@@ -99,10 +99,10 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                         }
                     }])[0].done(function(data) {
                         if (data.result) {
-                            $(`#${geniaiServerId}`).html(data.content);
+                            $(`#${geniaiServerId}`).html(data.content_html);
 
-                            if (data.transcription) {
-                                $(`#${geniaiServerId}-transcription`).text(data.transcription);
+                            if (data.content_transcription) {
+                                $(`#${geniaiServerId}-transcription`).text(data.content_transcription);
                             }
 
                             $(`#${geniaiServerId} audio`).audioPlayer();
@@ -113,7 +113,7 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                                     .addClass("geniai-error");
                             } else {
                                 $(`#${geniaiServerId}`)
-                                    .html(data.content)
+                                    .html(data.content_html)
                                     .addClass("geniai-error");
                             }
                         }
@@ -204,13 +204,13 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                         action: "history"
                     }
                 }])[0].done(function(data) {
-                    var history = JSON.parse(data.content);
+                    var history = JSON.parse(data.content_html);
                     var iterate = $.each(history, function(id, message) {
                         var html = null;
                         if (message.role == "user") {
-                            html = $(`<div class="geniai-message geniai-history">${message.content}</div>`);
+                            html = $(`<div class="geniai-message geniai-history">${message.content_html}</div>`);
                         } else if (message.role == "system") {
-                            html = $(`<div class="geniai-message geniai-history geniai-server">${message.content}</div>`);
+                            html = $(`<div class="geniai-message geniai-history geniai-server">${message.content_html}</div>`);
                         }
 
                         html.find("audio").removeAttr("autoplay");
