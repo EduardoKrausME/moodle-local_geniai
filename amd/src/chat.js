@@ -47,7 +47,7 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
             document.getElementById("geniai-textarea").addEventListener("paste", function(e) {
                 e.preventDefault();
                 var text = e.clipboardData.getData("text/plain");
-                document.execCommand("insertHTML", false, text);
+                document.execCommand("insertText", false, text);
             });
 
             $("#geniai-icon-send").click(sendMessage);
@@ -85,7 +85,7 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
 
                         $(`#${geniaiServerId}-audio`).audioPlayer();
                     } else {
-                        $(`#${geniaiServerId}-send`).html(messagesend);
+                        $(`#${geniaiServerId}-send`).text(messagesend);
                     }
                     geniaiscrollarea.scrollTop = 10000000000000;
 
@@ -102,12 +102,11 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                             $(`#${geniaiServerId}`).html(data.content);
 
                             if (data.transcription) {
-                                $(`#${geniaiServerId}-transcription`).html(data.transcription);
+                                $(`#${geniaiServerId}-transcription`).text(data.transcription);
                             }
 
                             $(`#${geniaiServerId} audio`).audioPlayer();
                         } else {
-                            console.log(data);
                             if (data.message) {
                                 $(`#${geniaiServerId}`)
                                     .html(data.message)
@@ -142,7 +141,7 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
             $(window).resize(resizeScrollarea);
             resizeScrollarea();
 
-            $("#geniai-chat-btn,#geniai-icon-close").click(function() {
+            $("#geniai-chat-btn,#geniai-icon-close").click(function(event) {
                 event.stopPropagation();
                 event.preventDefault();
 
