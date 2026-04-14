@@ -25,13 +25,27 @@
 require_once("../../config.php");
 
 require_login();
+require_sesskey();
 
-$filename = required_param("filename", PARAM_TEXT);
-$filename = preg_replace('/[\W]/', "", $filename);
+$filename = required_param("filename", PARAM_ALPHANUMEXT);
+$allowedfiles = $USER->local_geniai_audiofiles ?? [];
+$canmanage = has_capability("local/geniai:manage", context_system::instance());
 
-ob_clean();
+if (!$canmanage && empty($allowedfiles[$filename])) {
+    throw new required_capability_exception(context_system::instance(), "local/geniai:manage", "nopermissions", "");
+}
+
+$filepath = "{$CFG->dataroot}/temp/{$filename}.mp3";
+if (!is_readable($filepath)) {
+    throw new moodle_exception("filenotfound");
+}
+
+while (ob_get_level()) {
+    ob_end_clean();
+}
 
 header("Content-Disposition: inline; filename=\"{$filename}.mp3\"");
-header("Content-type: audio/mp3");
-
-readfile("{$CFG->dataroot}/temp/{$filename}.mp3");
+header("Content-Type: audio/mpeg");
+header("Content-Length: " . filesize($filepath));
+readfile($filepath);
+exit;
