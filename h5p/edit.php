@@ -22,6 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use core\notification;
 use local_geniai\h5p\page_create;
 use local_geniai\h5p\page_header;
 use local_geniai\vo\local_geniai_h5p;
@@ -45,22 +46,22 @@ if ($id) {
     $h5p->type = $type;
     $h5p->contextid = $contextid;
 }
-$context = context::instance_by_id($contextid, MUST_EXIST);
+$context = context::instance_by_id($contextid);
 
 $apikey = get_config("local_geniai", "apikey");
 if (!isset($apikey[9])) {
     $PAGE->set_context(context_system::instance());
-    $PAGE->set_url(new moodle_url("/local/geniai/h5p/index.php", ["contextid" => $contextid, "type" => $type]));
+    $PAGE->set_url(new moodle_url("/local/geniai/h5p/index.php", ["contextid" => $context->id, "type" => $type]));
     echo $OUTPUT->header();
     $message = get_string("h5p-no-apikey", "local_geniai", "{$CFG->wwwroot}/admin/settings.php?section=local_geniai");
-    \core\notification::add($message, "error");
+    notification::add($message, "error");
     echo $OUTPUT->footer();
     die;
 }
 
 $cburl = new moodle_url("/local/geniai/h5p/edit.php", $_GET);
 $header = new page_header();
-$header->header($cburl, $contextid, $context, $type);
+$header->header($cburl, $context, $type);
 $PAGE->set_title($h5p->title);
 $PAGE->requires->jquery_plugin("ui");
 $PAGE->requires->jquery_plugin("ui-css");

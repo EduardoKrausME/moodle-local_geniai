@@ -47,13 +47,12 @@ class page_header {
      * Function header
      *
      * @param string $cburl
-     * @param int $contextid
      * @param \context $context
      * @param string|null $type
      *
      * @throws \Exception
      */
-    public function header($cburl, $contextid, $context, $type = null) {
+    public function header($cburl, $context, $type = null) {
         global $PAGE;
 
         $cb = new contentbank();
@@ -62,12 +61,7 @@ class page_header {
         }
 
         require_capability("moodle/contentbank:upload", $context);
-
-        if ($contextid == context_system::instance()->id) {
-            $PAGE->set_context(context_course::instance($contextid));
-        } else {
-            $PAGE->set_context($context);
-        }
+        $PAGE->set_context($context);
 
         $PAGE->add_body_class("h5p-manager-page");
         $PAGE->set_context($context);
@@ -80,7 +74,7 @@ class page_header {
             case CONTEXT_COURSE:
                 $courseid = $context->instanceid;
 
-                $url = new moodle_url("/local/geniai/h5p/", ["contextid" => $contextid]);
+                $url = new moodle_url("/local/geniai/h5p/", ["contextid" => $context->id]);
                 $PAGE->navbar->add(get_string("h5p-title", "local_geniai"), $url);
 
                 navigation_node::override_active_url(new moodle_url("/course/view.php", ["id" => $courseid]));
@@ -92,7 +86,7 @@ class page_header {
                 $PAGE->set_primary_active_tab("home");
                 $coursecat = $context->instanceid;
 
-                $url = new moodle_url("/local/geniai/h5p/", ["contextid" => $contextid]);
+                $url = new moodle_url("/local/geniai/h5p/", ["contextid" => $context->id]);
                 $PAGE->navbar->add(get_string("h5p-title", "local_geniai"), $url);
 
                 navigation_node::override_active_url(new moodle_url("/course/index.php", ["categoryid" => $coursecat]));

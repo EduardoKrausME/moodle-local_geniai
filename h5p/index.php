@@ -38,7 +38,7 @@ require_capability("moodle/contentbank:access", $context);
 
 $cburl = new moodle_url("/local/geniai/h5p/index.php", $_GET);
 $header = new page_header();
-$header->header($cburl, $contextid, $context);
+$header->header($cburl, $context);
 $PAGE->set_title($header->get_title());
 
 echo $OUTPUT->header();
@@ -47,8 +47,8 @@ echo $OUTPUT->heading($header->get_title(), 2);
 $PAGE->requires->strings_for_js(["h5p-readmore", "h5p-page-title", "h5p-readmore", "h5p-page-title"], "local_geniai");
 $PAGE->requires->js_call_amd("local_geniai/h5p-index", "readmore", []);
 echo $OUTPUT->render_from_template("local_geniai/h5p-index", [
-    "types" => types::get_types($contextid),
-    "itens" => itens::get_itens($contextid),
+    "types" => types::get_types($context->id),
+    "itens" => itens::get_itens($context->id),
     "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
 ]);
 
