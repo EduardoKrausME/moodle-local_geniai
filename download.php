@@ -64,7 +64,14 @@ if ($action == 2) {
     die;
 }
 
-echo html_writer::tag("p", html_writer::link(
-    new moodle_url("/local/geniai/download.php", ["action" => 1]), get_string("report_download","local_geniai" )));
-echo html_writer::tag("p", html_writer::link(
-    new moodle_url("/local/geniai/download.php", ["action" => 2]), get_string("report_list","local_geniai" )));
+$link = html_writer::link(
+    new moodle_url("/local/geniai/download.php", ["action" => 1]),
+    get_string("report_download", "local_geniai")
+);
+echo html_writer::tag("p", $link);
+
+$link = html_writer::link(
+    new moodle_url("/local/geniai/download.php", ["action" => 2]),
+    get_string("report_list", "local_geniai")
+);
+echo html_writer::tag("p", $link);
