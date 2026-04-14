@@ -99,14 +99,10 @@ define(["jquery", "core/ajax", "core/notification"], function($, ajax, notificat
                         }
                     }])[0].done(function(data) {
                         if (data.result) {
-                            if (data.content_html) {
-                                $(`#${geniaiServerId}`).html(data.content_html);
-                            }else{
-                                $(`#${geniaiServerId}`).html(data.content);
-                            }
+                            $(`#${geniaiServerId}`).html(data.content);
 
-                            if (data.content_transcription) {
-                                $(`#${geniaiServerId}-transcription`).html(data.content_transcription);
+                            if (data.transcription) {
+                                $(`#${geniaiServerId}-transcription`).html(data.transcription);
                             }
 
                             $(`#${geniaiServerId} audio`).audioPlayer();
