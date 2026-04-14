@@ -91,17 +91,17 @@ class api {
             ];
         }
 
-        $post = (object)[
+        $post = (object) [
             "model" => $model,
             "messages" => $messagesok,
             "temperature" => $temperature,
             "top_p" => $topp,
-            "frequency_penalty" => floatval($frequencypenalty),
-            "presence_penalty" => floatval($presencepenalty),
+            "frequency_penalty" => (float) $frequencypenalty,
+            "presence_penalty" => (float) $presencepenalty,
         ];
 
         if (!$ignoremaxtoken) {
-            $post->max_tokens = intval($maxtokens);
+            $post->max_tokens = (int) $maxtokens;
         }
 
         $ch = curl_init();
@@ -109,7 +109,7 @@ class api {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
-
+        curl_setopt($ch, CURLOPT_TIMEOUT, 120);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
             "Authorization: Bearer {$apikey}",
@@ -127,14 +127,28 @@ class api {
 
         $gpt = json_decode($result, true);
 
-        $usage = (object)[
-            "send" => json_encode($post, JSON_PRETTY_PRINT),
-            "receive" => $result,
+        $usage = (object) [
+            "send" => json_encode([
+                "model" => $model,
+                "messagecount" => count($messagesok),
+                "roles" => array_values(array_unique(array_column($messagesok, "role"))),
+                "temperature" => $temperature,
+                "top_p" => $topp,
+                "max_tokens" => $ignoremaxtoken ? null : (int) $maxtokens,
+            ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
+            "receive" => json_encode([
+                "id" => $gpt["id"] ?? null,
+                "object" => $gpt["object"] ?? null,
+                "model" => $gpt["model"] ?? $model,
+                "finish_reason" => $gpt["choices"][0]["finish_reason"] ?? null,
+                "usage" => $gpt["usage"] ?? null,
+                "error" => $gpt["error"]["message"] ?? null,
+            ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
             "model" => $model,
-            "prompt_tokens" => intval($gpt["usage"]["prompt_tokens"]),
-            "completion_tokens" => intval($gpt["usage"]["completion_tokens"]),
+            "prompt_tokens" => (int) ($gpt["usage"]["prompt_tokens"] ?? 0),
+            "completion_tokens" => (int) ($gpt["usage"]["completion_tokens"] ?? 0),
             "timecreated" => time(),
-            "datecreated" => date("Y-m-d", time()),
+            "datecreated" => date("Y-m-d"),
         ];
         try {
             $DB->insert_record("local_geniai_usage", $usage);
@@ -149,19 +163,37 @@ class api {
      * Function transcriptions
      *
      * @param string $audio
+     * @param string $lang
      * @return array
      * @throws dml_exception
      */
     public static function transcriptions_base64($audio, $lang) {
-        global $CFG;
+        global $CFG, $USER;
 
         $audio = str_replace("data:audio/mp3;base64,", "", $audio);
-        $audiodata = base64_decode($audio);
+        $audiodata = base64_decode($audio, true);
+        if ($audiodata === false) {
+            return [
+                "text" => "",
+                "language" => $lang,
+                "filename" => null,
+                "error" => "Invalid audio payload.",
+            ];
+        }
+
         $filename = uniqid();
         $filepath = "{$CFG->dataroot}/temp/{$filename}.mp3";
         file_put_contents($filepath, $audiodata);
 
-        return self::transcriptions($filepath, $lang);
+        if (!isset($USER->local_geniai_audiofiles) || !is_array($USER->local_geniai_audiofiles)) {
+            $USER->local_geniai_audiofiles = [];
+        }
+        $USER->local_geniai_audiofiles[$filename] = time();
+
+        $transcription = self::transcriptions($filepath, $lang);
+        $transcription["filename"] = $filename;
+
+        return $transcription;
     }
 
     /**
@@ -183,19 +215,30 @@ class api {
             "response_format" => "verbose_json",
             "language" => $lang,
         ]);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 120);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Content-Type: multipart/form-data",
             "Authorization: Bearer " . get_config("local_geniai", "apikey"),
         ]);
 
         $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $message = curl_error($ch);
+            curl_close($ch);
+
+            return [
+                "text" => "",
+                "language" => $lang,
+                "error" => "http error: {$message}",
+            ];
+        }
         curl_close($ch);
 
         $result = json_decode($result);
 
         return [
-            "text" => $result->text,
-            "language" => $result->language,
+            "text" => $result->text ?? "",
+            "language" => $result->language ?? $lang,
         ];
     }
 }
