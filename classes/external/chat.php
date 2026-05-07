@@ -181,7 +181,7 @@ sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o
             $contenthtml = $parsemarkdown->markdown_text($content);
 
             $USER->geniai[$course->id][] = [
-                "role" => "system",
+                "role" => "assistant",
                 "content" => $content,
                 "content_html" => $contenthtml,
             ];

@@ -138,7 +138,7 @@ if ($hassiteconfig) {
         "local_geniai/max_tokens",
         get_string("max_tokens", "local_geniai"),
         get_string("max_tokens_desc", "local_geniai"),
-        200, PARAM_INT);
+        2048, PARAM_INT);
     $settings->add($setting);
 
     $penalty = [
