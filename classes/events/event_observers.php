@@ -24,6 +24,8 @@
 
 namespace local_geniai\events;
 
+use core\event\base;
+
 /**
  * Class event_observers
  *
@@ -43,7 +45,7 @@ class event_observers {
      *
      * @param \core\event\base $event
      */
-    public static function course_viewed(\core\event\base $event) {
+    public static function course_viewed(base $event) {
         $data = $event->get_data();
         self::$courseid = $data["courseid"];
     }

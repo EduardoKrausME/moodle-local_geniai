@@ -18,27 +18,55 @@
  * services file.
  *
  * @package   local_geniai
- * @copyright 2024 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined("MOODLE_INTERNAL") || die;
 
 $functions = [
     "local_geniai_chat" => [
-        "classpath" => "local/geniai/classes/external/chat.php",
-        "classname" => "\\local_geniai\\external\\chat",
+        "classpath" => 'local/geniai/classes/external/chat.php',
+        "classname" => '\\local_geniai\\external\\chat',
         "methodname" => "api",
-        "description" => "ChatGPT API",
+        "description" => 'ChatGPT API',
         "type" => "write",
         "ajax" => true,
     ],
+
     "local_geniai_history" => [
-        "classpath" => "local/geniai/classes/external/history.php",
-        "classname" => "\\local_geniai\\external\\history",
+        "classpath" => 'local/geniai/classes/external/history.php',
+        "classname" => '\\local_geniai\\external\\history',
         "methodname" => "api",
-        "description" => "Brings the conversation history",
+        "description" => 'Brings the conversation history',
         "type" => "write",
+        "ajax" => true,
+    ],
+
+    "local_geniai_analyze_activity" => [
+        "classpath" => 'local/geniai/classes/external/analyze_activity.php',
+        "classname" => '\\local_geniai\\external\\analyze_activity',
+        "methodname" => "api",
+        "description" => 'Analyze a Moodle activity with GeniAI',
+        "type" => "read",
+        "ajax" => true,
+    ],
+
+    "local_geniai_analyze_course" => [
+        "classpath" => 'local/geniai/classes/external/analyze_course.php',
+        "classname" => '\local_geniai\external\analyze_course',
+        "methodname" => "api",
+        "description" => 'Analyze visible Moodle course activities with GeniAI',
+        "type" => "read",
+        "ajax" => true,
+    ],
+
+    "local_geniai_analysis_history" => [
+        "classpath" => 'local/geniai/classes/external/analysis_history.php',
+        "classname" => '\local_geniai\external\analysis_history',
+        "methodname" => "api",
+        "description" => 'Read GeniAI activity analysis history',
+        "type" => "read",
         "ajax" => true,
     ],
 ];

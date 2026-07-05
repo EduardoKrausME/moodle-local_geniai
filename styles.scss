@@ -339,7 +339,7 @@
             opacity: 1;
             // overflow: hidden;
             &:after {
-                content: '';
+                content: "";
                 width: 16px;
                 height: 32px;
                 position: absolute;
@@ -423,7 +423,7 @@
         }
     }
     &::after {
-        content: '';
+        content: "";
         width: 15px;
         height: 15px;
         border-radius: 9px !important;
@@ -436,7 +436,7 @@
         transform: scale(0, 0);
     }
     
-    @import "styles/audioplayer";
+    @import "scss/audioplayer";
 }
 .geniai-loader {
     @keyframes geniai-popup-walkingpoints {
@@ -599,8 +599,9 @@
         }
     }
     
-    @import "styles/jquery-ui";
-    @import "styles/radio-select";
-    @import "styles/el-switch";
+    @import "scss/jquery-ui";
+    @import "scss/radio-select";
+    @import "scss/el-switch";
 }
-@import "styles/bcp";
+@import "scss/bcp";
+@import "scss/analyzer";

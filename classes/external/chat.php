@@ -22,10 +22,11 @@ use external_api;
 use external_function_parameters;
 use external_single_structure;
 use external_value;
+use local_geniai\gpt\chatgpt;
 use local_geniai\markdown\parse_markdown;
 use stdClass;
 
-defined('MOODLE_INTERNAL') || die;
+defined("MOODLE_INTERNAL") || die;
 global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 
@@ -72,10 +73,16 @@ class chat extends external_api {
      *
      * @param string $message
      * @param int $courseid
-     * @param string|null $audio
-     * @param string|null $lang
+     * @param null $audio
+     * @param null $lang
      * @return array
-     * @throws Exception
+     * @throws \coding_exception
+     * @throws \core_external\restricted_context_exception
+     * @throws \dml_exception
+     * @throws \invalid_parameter_exception
+     * @throws \moodle_exception
+     * @throws \require_login_exception
+     * @throws \Exception
      */
     public static function api($message, $courseid, $audio = null, $lang = null) {
         global $DB, $CFG, $USER, $SITE;
@@ -113,7 +120,7 @@ class chat extends external_api {
             $audiohtml = "<audio controls autoplay src='" .
                 $CFG->wwwroot . "/local/geniai/load-audio-temp.php?filename=" .
                 urlencode($transcription["filename"]) . "&sesskey=" . sesskey() . "'></audio>" .
-                "<div class='transcription'>" . s($transcription["text"]) . "</div>";
+                "<div class="transcription">" . s($transcription["text"]) . "</div>";
 
             $messageforhistory = [
                 "role" => "user",
@@ -159,7 +166,7 @@ sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o
         $messages = array_slice($USER->geniai[$course->id], -9);
         array_unshift($messages, $promptmessage);
 
-        $gpt = api::chat_completions(array_values($messages));
+        $gpt = chatgpt::completions(array_values($messages));
         if (isset($gpt["error"])) {
             $parsemarkdown = new parse_markdown();
             $content = $parsemarkdown->markdown_text($gpt["error"]["message"]);
@@ -233,7 +240,7 @@ sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o
                 $summary = null;
                 if (isset($cm->summary)) {
                     $summary = format_string($cm->summary);
-                    $summary = preg_replace('/<img[^>]*>/', '', $summary);
+                    $summary = preg_replace('/<img[^>]*>/', "", $summary);
                     $summary = preg_replace('/\s+/', ' ', $summary);
                     $summary = trim(strip_tags($summary));
                 }

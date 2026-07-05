@@ -15,40 +15,39 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * base file.
+ * Activity content extractor contract.
  *
  * @package   local_geniai
  * @copyright 2024 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\h5p\type;
+namespace local_geniai\extractor;
 
-use local_kopere_dashboard\html\form;
-use local_kopere_dashboard\html\inputs\input_checkbox;
+
+use cm_info;
+use local_geniai\analyzer\activity_content;
+use stdClass;
 
 /**
- * Class Accordion
- *
- * @package local_geniai\h5p\type
+ * Interface activity_content_extractor
  */
-class Accordion implements h5p_base {
+interface activity_content_extractor {
+    /**
+     * Whether this extractor supports the provided course module.
+     *
+     * @param \cm_info $cm Course module info.
+     * @return bool
+     */
+    public function supports(cm_info $cm);
 
     /**
-     * Function form
+     * Extract text and metadata from the course module.
      *
-     * @param form $form
-     *
-     * @return mixed
-     * @throws \coding_exception
+     * @param \cm_info $cm Course module info.
+     * @param \stdClass $course Course record.
+     * @param int $userid User ID.
+     * @return activity_content
      */
-    public function form(form $form) {
-        $form->add_input(
-            input_checkbox::new_instance()
-                ->set_title( "Mostrar Glossário" )
-                ->set_name( "mostrar_glossario" )
-                ->set_value( 1 )
-                ->set_checked( 1 )
-        );
-    }
+    public function extract(cm_info $cm, stdClass $course, $userid);
 }

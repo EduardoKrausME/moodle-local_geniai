@@ -24,12 +24,14 @@
 
 namespace local_geniai\vo;
 
+use stdClass;
+
 /**
  * Class local_geniai_h5p
  *
  * @package local_geniai\vo
  */
-class local_geniai_h5p extends \stdClass {
+class local_geniai_h5p extends stdClass {
 
     /** @var int */
     public $id = 0;

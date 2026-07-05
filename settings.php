@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined("MOODLE_INTERNAL") || die;
 
 if ($hassiteconfig) {
 
@@ -133,13 +133,6 @@ if ($hassiteconfig) {
         ["glossary", "lesson", "forum", "scorm", "feedback", "survey", "quiz", "assign", "wiki", "lti", "workshop"],
         $modules
     ));
-
-    $setting = new admin_setting_configtext(
-        "local_geniai/max_tokens",
-        get_string("max_tokens", "local_geniai"),
-        get_string("max_tokens_desc", "local_geniai"),
-        2048, PARAM_INT);
-    $settings->add($setting);
 
     $penalty = [
         "-2.0" => "-2.0",

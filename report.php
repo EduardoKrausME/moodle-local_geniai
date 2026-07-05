@@ -22,13 +22,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_geniai\report\view;
+
 require_once("../../config.php");
 require_once($CFG->libdir . "/tablelib.php");
 
 require_login();
 require_capability("local/geniai:manage", context_system::instance());
 
-$table = new \local_geniai\report\view("geniai_report");
+$table = new view("geniai_report");
 
 if (!$table->is_downloading()) {
     $PAGE->set_context(context_system::instance());

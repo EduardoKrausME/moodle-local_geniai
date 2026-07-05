@@ -24,8 +24,6 @@
 
 namespace local_geniai\h5p;
 
-use context_course;
-use context_system;
 use core_contentbank\contentbank;
 use core_contentbank\helper;
 use global_navigation;
@@ -79,7 +77,7 @@ class page_header {
 
                 navigation_node::override_active_url(new moodle_url("/course/view.php", ["id" => $courseid]));
                 $PAGE->navbar->add(get_string("h5p-page-title", "local_geniai"), $cburl);
-                $PAGE->set_pagelayout('standard');
+                $PAGE->set_pagelayout("standard");
                 $PAGE->set_pagetype('course-view');
                 break;
             case CONTEXT_COURSECAT:

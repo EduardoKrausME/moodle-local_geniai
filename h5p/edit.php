@@ -39,7 +39,7 @@ if ($id) {
     $contextid = $h5p->contextid;
     $type = $h5p->type;
 } else {
-    $contextid = optional_param("contextid", \context_system::instance()->id, PARAM_INT);
+    $contextid = optional_param("contextid", context_system::instance()->id, PARAM_INT);
     $type = optional_param("type", "", PARAM_TEXT);
     $h5p = new local_geniai_h5p();
 

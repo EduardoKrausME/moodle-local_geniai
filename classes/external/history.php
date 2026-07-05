@@ -31,7 +31,7 @@ use external_single_structure;
 use external_value;
 use local_geniai\markdown\parse_markdown;
 
-defined('MOODLE_INTERNAL') || die;
+defined("MOODLE_INTERNAL") || die;
 global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 
@@ -73,6 +73,12 @@ class history extends external_api {
      * @param int $courseid
      * @param string $action
      * @return array
+     * @throws \coding_exception
+     * @throws \core_external\restricted_context_exception
+     * @throws \dml_exception
+     * @throws \invalid_parameter_exception
+     * @throws \moodle_exception
+     * @throws \require_login_exception
      */
     public static function api($courseid, $action) {
         global $DB, $USER;
@@ -101,7 +107,6 @@ class history extends external_api {
         $returnmessage = [];
         foreach ($messages as $message) {
             $parsemarkdown = new parse_markdown();
-            $content = "";
 
             if (!empty($message["content_html"])) {
                 $content = $message["content_html"];

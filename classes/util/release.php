@@ -26,7 +26,8 @@ namespace local_geniai\util;
 class release {
     /**
      * Version function.
-     * @return string
+     *
+     * @return float
      */
     public static function version() {
         global $CFG;

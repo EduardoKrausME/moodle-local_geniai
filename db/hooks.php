@@ -22,10 +22,12 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+use core\hook\output\before_footer_html_generation;
+
+defined("MOODLE_INTERNAL") || die;
 $callbacks = [
     [
-        "hook" => \core\hook\output\before_footer_html_generation::class,
-        "callback" => "\local_geniai\core_hook_output::before_footer_html_generation",
+        "hook" => before_footer_html_generation::class,
+        "callback" => "\\local_geniai\\core_hook_output::before_footer_html_generation",
     ],
 ];

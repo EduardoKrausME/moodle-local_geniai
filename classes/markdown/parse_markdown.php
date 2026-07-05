@@ -214,17 +214,13 @@ class parse_markdown {
      *
      * @param string $text
      *
-     * @return bool
+     * @return string
      */
     public function markdown_text(string $text) {
+        $text = $this->clean_chatgpt_text($text);
+
         // Make sure no definitions are set.
         $this->definitiondata = [];
-
-        // Standardize line breaks.
-        $text = str_replace(["\r\n", "\r"], "\n", $text);
-
-        // Remove surrounding line breaks.
-        $text = trim($text, "\n");
 
         // Split text into lines.
         $lines = explode("\n", $text);
@@ -236,6 +232,63 @@ class parse_markdown {
         $markup = trim($markup, "\n");
 
         return $markup;
+    }
+
+    /**
+     * Limpa texto vindo do ChatGPT (ou qualquer fonte):
+     * - Troca aspas “inteligentes”, travessões, reticências etc.
+     * - Remove caracteres invisíveis (zero-width, BOM) e controles
+     */
+    public function clean_chatgpt_text(string $text): string {
+        // Garante UTF-8 "válido" (evita preg_replace quebrar com bytes inválidos)
+        if (!mb_check_encoding($text, 'UTF-8')) {
+            $text = mb_convert_encoding($text, 'UTF-8', "auto");
+        }
+
+        // Remove surrounding line breaks.
+        $text = trim($text, "\n");
+
+        // Normaliza quebras de linha
+        $text = str_replace(["\r\n", "\r"], "\n", $text);
+
+        $map = [
+            // <hr>
+            "\n\n---\n\n" => "\n\n",
+
+            // Aspas e apóstrofos “inteligentes”
+            "“" => '"', "”" => '"', "„" => '"', "«" => '"', "»" => '"',
+            "’" => "'", "‘" => "'", "‚" => "'", "´" => "'", "`" => "'",
+
+            // Travessões / hífens / sinal de menos
+            "—" => "-", "–" => "-", "‒" => "-", "―" => "-", "−" => "-",
+
+            // Reticências
+            "…" => "...",
+
+            // Espaços estranhos
+            "\u{00A0}" => " ", // NBSP
+            "\u{2007}" => " ", // figure space
+            "\u{202F}" => " ", // narrow no-break space
+
+            // Caracteres invisíveis comuns
+            "\u{200B}" => "",  // zero width space
+            "\u{200C}" => "",  // zero width non-joiner
+            "\u{200D}" => "",  // zero width joiner
+            "\u{2060}" => "",  // word joiner
+            "\u{FEFF}" => "",  // BOM / zero width no-break space
+
+            // Pipes/barras (inclui variações). Você pode trocar por espaço em vez de remover.
+            "|" => "",
+            "¦" => "",
+            "‖" => "",
+            "⎪" => "",
+        ];
+        $text = strtr($text, $map);
+
+        // Remove caracteres de controle ASCII (mantém \n e \t)
+        $text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', "", $text);
+
+        return trim($text);
     }
 
     /**
@@ -369,7 +422,7 @@ class parse_markdown {
             }
 
             $markup .= "\n";
-            $markup .= isset($markdownblock["markup"]) ? $markdownblock["markup"] : $this->element($markdownblock["element"]);
+            $markup .= $markdownblock["markup"] ?? $this->element($markdownblock["element"]);
         }
 
         $markup .= "\n";
@@ -537,7 +590,7 @@ class parse_markdown {
      *
      * @param array $line
      *
-     * @return mixed
+     * @return array|null
      */
     protected function block_fencedcode(array $line) {
         if (preg_match('/^[' . $line["text"][0] . ']{3,}[ ]*([^`]+)?[ ]*$/', $line["text"], $matches)) {
@@ -731,7 +784,7 @@ class parse_markdown {
 
             unset($markdownblock["li"]);
 
-            $text = isset($matches[1]) ? $matches[1] : "";
+            $text = $matches[1] ?? "";
 
             $markdownblock["li"] = [
                 "name" => "li",
@@ -806,7 +859,7 @@ class parse_markdown {
                 "element" => [
                     "name" => "blockquote",
                     "handler" => "lines",
-                    "text" => (array)$matches[1],
+                    "text" => (array) $matches[1],
                 ],
             ];
 
@@ -967,7 +1020,7 @@ class parse_markdown {
         }
 
         // Close.
-        if (preg_match('/(.*?)<\/' . $markdownblock["name"] . '>[ ]*$/i', $line["text"], $matches)) {
+        if (preg_match('/(.*?)<\/' . $markdownblock["name"] . '>[ ]*$/i', $line["text"])) {
             if ($markdownblock["depth"] > 0) {
                 $markdownblock["depth"]--;
             } else {
@@ -1255,7 +1308,7 @@ class parse_markdown {
                 $markup .= $this->unmarked_text($unmarkedtext);
 
                 // Compile the inline.
-                $markup .= isset($inline["markup"]) ? $inline["markup"] : $this->element($inline["element"]);
+                $markup .= $inline["markup"] ?? $this->element($inline["element"]);
 
                 // Remove the examined text.
                 $text = substr($text, $inline["position"] + $inline["extent"]);
@@ -1647,7 +1700,7 @@ class parse_markdown {
      *
      * @param string $text
      *
-     * @return mixed|null|string|string[]
+     * @return string|string[]|null
      */
     protected function unmarked_text($text) {
         if ($this->breaksenabled) {
@@ -1745,7 +1798,7 @@ class parse_markdown {
      *
      * @param array $lines
      *
-     * @return bool|mixed|string
+     * @return array|string|string[]
      */
     protected function li($lines) {
         $markup = $this->lines($lines);
@@ -1769,7 +1822,7 @@ class parse_markdown {
      *
      * @param string $text
      *
-     * @return bool
+     * @return string
      */
     public function parse($text) {
         $markup = $this->markdown_text($text);

@@ -51,7 +51,7 @@
           }
         ]
       },
-      "tyni_editor_config": "{'toolbar': 'bold italic underline'}",
+      "tyni_editor_config": "{"toolbar": 'bold italic underline'}",
       "h5pjs": "new ModalFactory(h5ps + tyniEditorConfig + loadingIcon + $ui);"
     }
 }}
@@ -63,20 +63,20 @@
       data-action="edit.php?id={{h5p.id}}">
     <div class="displayErroForm alert alert-danger" style="display: none;"></div>
     <input name="POST" type="hidden" value="true">
-    <input type="hidden" name="sesskey" id="sesskey" value="{{config.sesskey}}">
-    <input type="hidden" name="user_lang" id="user_lang" value="{{user_lang}}">
+    <input type="hidden" name="sesskey" id="sesskey" value="{{{config.sesskey}}}">
+    <input type="hidden" name="user_lang" id="user_lang" value="{{{user_lang}}}">
 
-    <input type="hidden" name="contextid" id="contextid" value="{{h5p.contextid}}">
-    <input type="hidden" name="type" id="type" value="{{h5p.type}}">
-    <input type="hidden" name="h5p_data" id="h5p_data" value="{{h5p.data}}">
+    <input type="hidden" name="contextid" id="contextid" value="{{{h5p.contextid}}}">
+    <input type="hidden" name="type" id="type" value="{{{h5p.type}}}">
+    <input type="hidden" name="h5p_data" id="h5p_data" value="{{{h5p.data}}}">
 
-    <input type="hidden" name="textbase" id="h5p_data_textbase" value="{{h5p_data.textbase}}">
-    <input type="hidden" name="modulebase" id="h5p_data_modulebase" value="{{h5p_data.modulebase}}">
-    <input type="hidden" name="filebase" id="h5p_data_filebase" value="{{h5p_data.filebase}}">
+    <input type="hidden" name="textbase" id="h5p_data_textbase" value="{{{h5p_data.textbase}}}">
+    <input type="hidden" name="modulebase" id="h5p_data_modulebase" value="{{{h5p_data.modulebase}}}">
+    <input type="hidden" name="filebase" id="h5p_data_filebase" value="{{{h5p_data.filebase}}}">
 
     <div id="area_title" class="form-group area_title type_text">
         <label for="title">{{#str}}h5p-create-title, local_geniai{{/str}}</label>
-        <input id="title" name="title" type="text" value="{{h5p.title}}">
+        <input id="title" name="title" type="text" value="{{{h5p.title}}}">
         <div class="help-block form-text with-errors">{{#str}}h5p-create-title-desc, local_geniai{{/str}}</div>
     </div>
 
@@ -86,7 +86,7 @@
         <ul {{^show-pages}}style="display:none"{{/show-pages}}>
             {{#pages}}
                 <li>
-                    <a href="#h5ps-pages-{{id}}" title="{{title}}" data-type="{{type}}">
+                    <a href="#h5ps-pages-{{id}}" title="{{{title}}}" data-type="{{{type}}}">
                         {{#pix}}h5p/{{type}},local_geniai{{/pix}}
                         <span class="title">{{title}}</span>
                     </a>
@@ -96,17 +96,17 @@
         {{#pages}}
             <div id="h5ps-pages-{{id}}"
                  class="h5ps-pages {{#show-pages}}top-50{{/show-pages}}"
-                 data-id="{{id}}" data-type="{{type}}">
+                 data-id="{{{id}}}" data-type="{{{type}}}">
 
                 <div id="area_page_title-{{id}}" class="form-group area_title type_text">
                     <label for="pages-{{id}}-title">{{#str}}h5p-block-title, local_geniai{{/str}}</label>
-                    <input id="pages-{{id}}-title" name="pages[{{id}}][title]" type="text" value="{{title}}">
+                    <input id="pages-{{id}}-title" name="pages[{{id}}][title]" type="text" value="{{{title}}}">
                 </div>
 
                 <div id="pages-{{id}}-config" class="pages-inputs"></div>
 
-                <input type="hidden" class="page-type" name="pages[{{id}}][type]" value="{{type}}">
-                <input type="hidden" class="page-data" value="{{data}}">
+                <input type="hidden" class="page-type" name="pages[{{id}}][type]" value="{{{type}}}">
+                <input type="hidden" class="page-data" value="{{{data}}}">
             </div>
         {{/pages}}
     </div>

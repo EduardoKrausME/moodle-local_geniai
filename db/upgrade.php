@@ -15,99 +15,71 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * upgrade file.
+ * Upgrade file.
  *
  * @package   local_geniai
- * @copyright 2024 Eduardo Kraus {@link https://eduardokraus.com}
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
- * Upgrade file.
+ * Upgrade local_geniai database.
  *
- * @param int $oldversion
+ * @param int $oldversion Old plugin version.
  * @return bool
- * @throws Exception
+ * @throws \ddl_exception
+ * @throws \ddl_table_missing_exception
+ * @throws \downgrade_exception
+ * @throws \moodle_exception
+ * @throws \upgrade_exception
  */
 function xmldb_local_geniai_upgrade($oldversion) {
     global $DB;
 
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2024020501) {
-        $table = new xmldb_table("local_geniai_usage");
-        $field = new xmldb_field("model", XMLDB_TYPE_CHAR, "40", null, true, null, null, "receive");
+    if ($oldversion < 2026051000) {
+        $table = new xmldb_table("local_geniai_analysis");
 
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
+        if (!$dbman->table_exists($table)) {
+            $table->add_field("id", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+            $table->add_field("courseid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
+            $table->add_field("cmid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
+            $table->add_field("userid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
+            $table->add_field("analysis_type", XMLDB_TYPE_CHAR, "50", null, XMLDB_NOTNULL, null, "full");
+            $table->add_field("contenthash", XMLDB_TYPE_CHAR, "40", null, XMLDB_NOTNULL, null, "");
+            $table->add_field("status", XMLDB_TYPE_CHAR, "80");
+            $table->add_field("statuskey", XMLDB_TYPE_CHAR, "30");
+            $table->add_field("bloomlevel", XMLDB_TYPE_CHAR, "30");
+            $table->add_field("model", XMLDB_TYPE_CHAR, "100");
+            $table->add_field("prompttokens", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
+            $table->add_field("completiontokens", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
+            $table->add_field("recommendations", XMLDB_TYPE_TEXT);
+            $table->add_field("resulttext", XMLDB_TYPE_TEXT);
+            $table->add_field("resultjson", XMLDB_TYPE_TEXT);
+            $table->add_field("timecreated", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
+            $table->add_field("timemodified", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
+
+            $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
+            $table->add_index("courseid", XMLDB_INDEX_NOTUNIQUE, ["courseid"]);
+            $table->add_index("cmid", XMLDB_INDEX_NOTUNIQUE, ["cmid"]);
+            $table->add_index("cm_hash", XMLDB_INDEX_NOTUNIQUE, ["cmid", "contenthash"]);
+            $table->add_index("course_type_time", XMLDB_INDEX_NOTUNIQUE, ["courseid", "analysis_type", "timecreated"]);
+
+            $dbman->create_table($table);
+        } else {
+            $field = new xmldb_field("statuskey", XMLDB_TYPE_CHAR, "30", null, null, null, null, "status");
+            if (!$dbman->field_exists($table, $field)) {
+                $dbman->add_field($table, $field);
+            }
+
+            $field = new xmldb_field("recommendations", XMLDB_TYPE_TEXT, null, null, null, null, null, "completiontokens");
+            if (!$dbman->field_exists($table, $field)) {
+                $dbman->add_field($table, $field);
+            }
         }
 
-        $model = get_config("local_geniai", "model");
-        $sql = "UPDATE {local_geniai_usage} SET model = '{$model}'";
-        $DB->execute($sql);
-
-        upgrade_plugin_savepoint(true, 2024020501, "local", "geniai");
-    }
-
-    if ($oldversion < 2024040500) {
-        $table = new xmldb_table("local_geniai_usage");
-        $field = new xmldb_field("datecreated", XMLDB_TYPE_CHAR, "10", null, true, null, null, "timecreated");
-
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        $usages = $DB->get_records("local_geniai_usage");
-        foreach ($usages as $usage) {
-            $usage->datecreated = date("Y-m-d", $usage->timecreated);
-            $DB->update_record("local_geniai_usage", $usage);
-        }
-
-        upgrade_plugin_savepoint(true, 2024040500, "local", "geniai");
-    }
-
-    if ($oldversion < 2025011400) {
-        // Criação da tabela local_geniai_h5p.
-        $table = new xmldb_table("local_geniai_h5p");
-
-        // Definindo os campos da tabela local_geniai_h5p.
-        $table->add_field("id", XMLDB_TYPE_INTEGER, "10", true, XMLDB_NOTNULL, XMLDB_SEQUENCE);
-        $table->add_field("contextid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
-        $table->add_field("contentbanktid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
-        $table->add_field("title", XMLDB_TYPE_CHAR, "255", null, XMLDB_NOTNULL);
-        $table->add_field("type", XMLDB_TYPE_CHAR, "40", null, XMLDB_NOTNULL);
-        $table->add_field("data", XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL);
-        $table->add_field("timecreated", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
-
-        // Definindo a chave primária.
-        $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
-
-        // Verificando se a tabela existe e criando-a se não.
-        if (!$DB->get_manager()->table_exists($table)) {
-            $DB->get_manager()->create_table($table);
-        }
-
-        // Criação da tabela local_geniai_h5ppages.
-        $table = new xmldb_table("local_geniai_h5ppages");
-
-        // Definindo os campos da tabela local_geniai_h5ppages.
-        $table->add_field("id", XMLDB_TYPE_INTEGER, "10", true, XMLDB_NOTNULL, XMLDB_SEQUENCE);
-        $table->add_field("h5pid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL);
-        $table->add_field("title", XMLDB_TYPE_CHAR, "255", null, XMLDB_NOTNULL);
-        $table->add_field("type", XMLDB_TYPE_CHAR, "40", null, XMLDB_NOTNULL);
-        $table->add_field("data", XMLDB_TYPE_TEXT, null, XMLDB_NOTNULL);
-        $table->add_field("timecreated", XMLDB_TYPE_INTEGER, "20", null, XMLDB_NOTNULL);
-
-        // Definindo a chave primária.
-        $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
-
-        // Verificando se a tabela existe e criando-a se não.
-        if (!$DB->get_manager()->table_exists($table)) {
-            $DB->get_manager()->create_table($table);
-        }
-
-        // Atualizando a versão para 2025011400.
-        upgrade_plugin_savepoint(true, 2025011400, "local", "geniai");
+        upgrade_plugin_savepoint(true, 2026051000, "local", "geniai");
     }
 
     return true;

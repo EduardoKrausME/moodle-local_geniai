@@ -16,7 +16,9 @@
 
 namespace local_geniai\report;
 
-defined('MOODLE_INTERNAL') || die;
+use table_sql;
+
+defined("MOODLE_INTERNAL") || die;
 global $CFG;
 require_once("{$CFG->libdir}/tablelib.php");
 
@@ -27,7 +29,7 @@ require_once("{$CFG->libdir}/tablelib.php");
  * @copyright   2024 Eduardo Kraus https://eduardokraus.com/
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class view extends \table_sql {
+class view extends table_sql {
 
     /**
      * local_view constructor.

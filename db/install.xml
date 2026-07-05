@@ -45,5 +45,36 @@
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
             </KEYS>
         </TABLE>
+
+        <TABLE NAME="local_geniai_analysis" COMMENT="Stores AI pedagogical activity analysis history">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="analysis_type" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="full" SEQUENCE="false"/>
+                <FIELD NAME="contenthash" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="status" TYPE="char" LENGTH="80" SEQUENCE="false" NOTNULL="false"/>
+                <FIELD NAME="statuskey" TYPE="char" LENGTH="30" SEQUENCE="false" NOTNULL="false"/>
+                <FIELD NAME="bloomlevel" TYPE="char" LENGTH="30" SEQUENCE="false" NOTNULL="false"/>
+                <FIELD NAME="model" TYPE="char" LENGTH="100" SEQUENCE="false" NOTNULL="false"/>
+                <FIELD NAME="prompttokens" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="completiontokens" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="recommendations" TYPE="text" SEQUENCE="false" NOTNULL="false"/>
+                <FIELD NAME="resulttext" TYPE="text" SEQUENCE="false" NOTNULL="false"/>
+                <FIELD NAME="resultjson" TYPE="text" SEQUENCE="false" NOTNULL="false"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+                <INDEX NAME="cmid" UNIQUE="false" FIELDS="cmid"/>
+                <INDEX NAME="cm_hash" UNIQUE="false" FIELDS="cmid, contenthash"/>
+                <INDEX NAME="course_type_time" UNIQUE="false" FIELDS="courseid, analysis_type, timecreated"/>
+            </INDEXES>
+        </TABLE>
     </TABLES>
 </XMLDB>

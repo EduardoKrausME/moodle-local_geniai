@@ -71,7 +71,7 @@ class page_create {
             "client_fullname" => $SITE->fullname,
             "user_fullname" => fullname($USER),
             "user_email" => $USER->email,
-            "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
+            "user_lang" => $SESSION->lang ?? $USER->lang,
             "case" => get_config("local_geniai", "case"),
             "frequency_penalty" => get_config("local_geniai", "frequency_penalty"),
             "presence_penalty" => get_config("local_geniai", "presence_penalty"),
@@ -84,10 +84,10 @@ class page_create {
         echo $OUTPUT->render_from_template("local_geniai/h5p-create", [
             "h5p" => $this->h5p,
             "user" => $USER,
-            "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
+            "user_lang" => $SESSION->lang ?? $USER->lang,
             "h5pjs" => $h5pjs,
             "types" => $types,
-            "baseColor" => $basecolor ? $basecolor : "#1768c4",
+            "baseColor" => $basecolor ?: "#1768c4",
         ]);
     }
 
@@ -109,7 +109,7 @@ class page_create {
             "client_fullname" => $SITE->fullname,
             "user_fullname" => fullname($USER),
             "user_email" => $USER->email,
-            "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
+            "user_lang" => $SESSION->lang ?? $USER->lang,
             "case" => get_config("local_geniai", "case"),
             "frequency_penalty" => get_config("local_geniai", "frequency_penalty"),
             "presence_penalty" => get_config("local_geniai", "presence_penalty"),
@@ -124,7 +124,7 @@ class page_create {
             "h5p" => $this->h5p,
             "h5p_data" => json_decode($this->h5p->data),
             "user" => $USER,
-            "user_lang" => isset($SESSION->lang) ? $SESSION->lang : $USER->lang,
+            "user_lang" => $SESSION->lang ?? $USER->lang,
             "h5pjs" => $h5pjs,
             "types" => $types,
             "show-pages" => $this->h5p->type == "InteractiveBook",
@@ -248,7 +248,7 @@ class page_create {
         $h5p = (array)$DB->get_record("local_geniai_h5p",
             ["id" => $this->h5p->id], "id, contextid, contentbanktid, title, type, data");
         $data = json_decode($h5p["data"], true);
-        $h5p["user_lang"] = isset($SESSION->lang) ? $SESSION->lang : $USER->lang;
+        $h5p["user_lang"] = $SESSION->lang ?? $USER->lang;
         $h5p["config"] = $data["config"];
 
         $h5p["pages"] = [];

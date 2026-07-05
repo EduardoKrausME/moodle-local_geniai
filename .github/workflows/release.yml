@@ -34,12 +34,12 @@ jobs:
           fi
 
       - name: Close if there is no version.
-        if: steps.ver.outputs.version == ''
+        if: steps.ver.outputs.version == ""
         run: |
           echo "Ignoring: commit is not a release."
 
       - name: Create annotated tag
-        if: steps.ver.outputs.version != ''
+        if: steps.ver.outputs.version != ""
         run: |
           VERSION="${{ steps.ver.outputs.version }}"
           git config user.name  "github-actions[bot]"
@@ -49,7 +49,7 @@ jobs:
           git push origin "$VERSION"
 
       - name: Create a Release on GitHub
-        if: steps.ver.outputs.version != ''
+        if: steps.ver.outputs.version != ""
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.ver.outputs.version }}
@@ -65,7 +65,7 @@ jobs:
       auto-release
 
     if:
-      needs.auto-release.outputs.tag != ''
+      needs.auto-release.outputs.tag != ""
 
     runs-on:
       ubuntu-latest

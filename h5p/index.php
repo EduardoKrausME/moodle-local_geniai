@@ -31,7 +31,7 @@ require("../../../config.php");
 
 require_login();
 
-$contextid = optional_param("contextid", \context_system::instance()->id, PARAM_INT);
+$contextid = optional_param("contextid", context_system::instance()->id, PARAM_INT);
 $context = context::instance_by_id($contextid, MUST_EXIST);
 
 require_capability("moodle/contentbank:access", $context);

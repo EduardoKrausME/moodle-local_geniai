@@ -1,0 +1,61 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+}}
+{{!
+    @template local_geniai/activity_analyzer_modal
+
+    Modal used to display the AI pedagogical analysis.
+
+    Example context (json):
+    {
+        "courseid": 2
+    }
+}}
+<div class="modal fade local-geniai-activity-analysis-modal"
+     id="local-geniai-activity-analysis-modal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="local-geniai-activity-analysis-title"
+     aria-hidden="true"
+     data-courseid="{{{courseid}}}">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="local-geniai-activity-analysis-title">
+                    {{#str}}analysis_result, local_geniai{{/str}}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="{{#str}}analysis_close, local_geniai{{/str}}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="local-geniai-analysis-activity-name text-muted small mb-3"></div>
+
+                <div class="local-geniai-analysis-loading text-center py-5 d-none">
+                    <div class="spinner-border" role="status" aria-hidden="true"></div>
+                    <div class="mt-3">{{#str}}analyzing_activity, local_geniai{{/str}}</div>
+                </div>
+
+                <div class="alert alert-danger local-geniai-analysis-error d-none" role="alert"></div>
+
+                <div class="local-geniai-analysis-result"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">
+                    {{#str}}analysis_close, local_geniai{{/str}}
+                </button>
+                <button type="button" class="btn btn-outline-secondary local-geniai-analysis-print" disabled>
+                    {{#str}}analysis_print_analysis, local_geniai{{/str}}
+                </button>
+                <button type="button" class="btn btn-primary local-geniai-analysis-reanalyze" disabled>
+                    {{#str}}analysis_reanalyze, local_geniai{{/str}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -24,12 +24,15 @@
 
 namespace local_geniai\editor;
 
+use context;
+use editor_tiny\editor;
+
 /**
  * Class editor_tiny
  *
  * @package local_geniai\editor
  */
-class editor_tiny extends \editor_tiny\editor {
+class editor_tiny extends editor {
     /**
      * Use this editor for given element.
      *
@@ -42,7 +45,7 @@ class editor_tiny extends \editor_tiny\editor {
         $options = ["noclean" => true];
         $context = $PAGE->context;
 
-        if (isset($options["context"]) && ($options["context"] instanceof \context)) {
+        if (isset($options["context"]) && $options["context"] instanceof context) {
             // A different context was provided.
             // Use that instead.
             $context = $options["context"];
@@ -62,7 +65,7 @@ class editor_tiny extends \editor_tiny\editor {
 
             "currentLanguage" => current_language(),
 
-            "branding" => property_exists($siteconfig, "branding") ? !empty($siteconfig->branding) : true,
+            "branding" => !property_exists($siteconfig, "branding") || !empty($siteconfig->branding),
 
             // Language options.
             "language" => [
