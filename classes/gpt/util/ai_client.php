@@ -69,17 +69,12 @@ class ai_client {
         if (!empty($messages)) {
             $last = count($messages) - 1;
             $schemajson = json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-            $messages[$last]["content"] .= "\n\nRetorne também um bloco técnico final em JSON válido entre ```json e ```.";
+            $messages[$last]["content"] .= get_string("prompt_json_block_instruction", "local_geniai");
             if ($schemajson !== false) {
-                $messages[$last]["content"] .= "\nUse este formato de referência:\n{$schemajson}";
+                $messages[$last]["content"] .= get_string("prompt_json_block_schema", "local_geniai", $schemajson);
             }
 
-            $messages[$last]["content"] .= "
-Estilo:
-- Evite listas; só use se for indispensável;
-- Use `:` apenas quando for realmente necessário; prefira reescrever com frases completas;
-- Não faça conclusão nem síntese final. Proibido encerrar com fórmulas como `Por fim`, `No fim`, `Em suma`, `No conjunto`, `Em conclusão` ou equivalentes;
-- Cuidado para não parecer IA, Criado por IA ou com características de IA.";
+            $messages[$last]["content"] .= get_string("prompt_json_style", "local_geniai");
         }
 
         return self::generate_text($messages);

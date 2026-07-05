@@ -58,13 +58,13 @@ class prompt_builder {
      */
     public static function structured_schema() {
         return [
-            "status_key" => 'ok | ok_minor | needs_review | insufficient',
-            "status" => 'OK | OK com ajustes leves | Precisa revisão | Inadequado ou insuficiente',
-            "bloom_level" => 'lembrar | compreender | aplicar | analisar | avaliar | criar',
-            "diagnosis" => 'Resumo curto do diagnóstico geral.',
+            "status_key" => get_string("prompt_activity_schema_status_key", "local_geniai"),
+            "status" => get_string("prompt_activity_schema_status", "local_geniai"),
+            "bloom_level" => get_string("prompt_activity_schema_bloom_level", "local_geniai"),
+            "diagnosis" => get_string("prompt_activity_schema_diagnosis", "local_geniai"),
             "recommendations" => [
-                'Ação prática 1.',
-                'Ação prática 2.',
+                get_string("prompt_activity_schema_recommendation_1", "local_geniai"),
+                get_string("prompt_activity_schema_recommendation_2", "local_geniai"),
             ],
         ];
     }
@@ -76,41 +76,13 @@ class prompt_builder {
      * @return string
      */
     private static function system_prompt($analysis) {
-        $focus = self::analysis_focus($analysis);
+        $promptdata = (object) [
+            "focus" => self::analysis_focus($analysis),
+            "analysis" => $analysis,
+            "lang" => current_language(),
+        ];
 
-        return "Você é um especialista em design instrucional, revisão textual e Moodle.\n\n" .
-            "Sua tarefa é analisar uma atividade existente de um curso Moodle.\n" .
-            "Responda sempre em português do Brasil.\n" .
-            "Não invente informações que não estejam no material enviado.\n" .
-            "Se o conteúdo for insuficiente para análise, diga isso claramente.\n" .
-            "Não reescreva toda a atividade, a menos que seja necessário para explicar uma melhoria pontual.\n" .
-            "Mantenha a resposta objetiva, útil para professor, coordenador ou designer instrucional.\n\n" .
-            "Critérios obrigatórios de análise:\n" .
-            "1. Ortografia, gramática e clareza textual.\n" .
-            "2. Coerência entre título da atividade, seção do curso e conteúdo da atividade.\n" .
-            "3. Taxonomia de Bloom, usando exatamente um destes níveis predominantes:" .
-            " lembrar, compreender, aplicar, analisar, avaliar, criar.\n" .
-            "4. Adequação pedagógica da atividade.\n" .
-            "5. Sugestões práticas de melhoria.\n\n" .
-            "Foco adicional desta análise: {$focus}\n\n" .
-            "Formato obrigatório da resposta em Markdown:\n\n" .
-            "## Diagnóstico geral\n" .
-            "Diga se a atividade está ok ou se precisa de ajustes.\n\n" .
-            "## Ortografia e clareza\n" .
-            "Informe problemas encontrados ou diga que está adequado.\n\n" .
-            "## Coerência com a seção\n" .
-            "Compare título, seção e conteúdo.\n\n" .
-            "## Taxonomia de Bloom\n" .
-            "Indique o nível predominante e explique por quê.\n\n" .
-            "## Melhorias recomendadas\n" .
-            "Liste ações práticas, sem reescrever toda a atividade.\n\n" .
-            "## Parecer final\n" .
-            "Use exatamente uma destas classificações:" .
-            " OK, OK com ajustes leves, Precisa revisão, Inadequado ou insuficiente.\n\n" .
-            "Ao final da resposta, adicione um bloco técnico em JSON válido entre ```json e ```.\n" .
-            "Este bloco será usado pelo Moodle e não deve conter comentários fora do JSON.\n" .
-            "Campos obrigatórios: status_key, status, bloom_level, diagnosis, recommendations.\n" .
-            "Tipo de análise solicitado: {$analysis}";
+        return get_string("prompt_activity_system", "local_geniai", $promptdata);
     }
 
     /**
@@ -120,7 +92,7 @@ class prompt_builder {
      * @return string
      */
     private static function user_prompt(activity_content $content) {
-        return "Analise a atividade Moodle abaixo.\n\n" . $content->to_prompt_text();
+        return get_string("prompt_activity_user", "local_geniai", $content->to_prompt_text());
     }
 
     /**
@@ -133,11 +105,11 @@ class prompt_builder {
         $analysis = trim($analysis);
 
         $focus = [
-            "full" => 'análise completa da atividade.',
-            "spelling" => 'priorize ortografia, gramática, clareza e tom instrucional.',
-            "alignment" => 'priorize coerência entre curso, seção, título e conteúdo da atividade.',
-            "bloom" => 'priorize a Taxonomia de Bloom e a profundidade cognitiva da proposta.',
-            "pedagogy" => 'priorize adequação pedagógica, instruções ao estudante e qualidade da aprendizagem.',
+            "full" => get_string("prompt_activity_focus_full", "local_geniai"),
+            "spelling" => get_string("prompt_activity_focus_spelling", "local_geniai"),
+            "alignment" => get_string("prompt_activity_focus_alignment", "local_geniai"),
+            "bloom" => get_string("prompt_activity_focus_bloom", "local_geniai"),
+            "pedagogy" => get_string("prompt_activity_focus_pedagogy", "local_geniai"),
         ];
 
         return $focus[$analysis] ?? $focus["full"];

@@ -119,8 +119,11 @@ class result_parser {
      */
     public static function detect_status($content) {
         $statuses = [
+            'Inadequate or insufficient',
             'Inadequado ou insuficiente',
+            'Needs review',
             'Precisa revisão',
+            'OK with minor adjustments',
             'OK com ajustes leves',
             "OK",
         ];
@@ -156,9 +159,22 @@ class result_parser {
      */
     private static function normalize_bloom_level($level) {
         $level = strtolower(trim($level));
-        $allowed = ["lembrar", "compreender", "aplicar", "analisar", "avaliar", "criar"];
+        $map = [
+            "remember" => "remember",
+            "understand" => "understand",
+            "apply" => "apply",
+            "analyze" => "analyze",
+            "evaluate" => "evaluate",
+            "create" => "create",
+            "lembrar" => "remember",
+            "compreender" => "understand",
+            "aplicar" => "apply",
+            "analisar" => "analyze",
+            "avaliar" => "evaluate",
+            "criar" => "create",
+        ];
 
-        return in_array($level, $allowed, true) ? $level : "";
+        return $map[$level] ?? "";
     }
 
     /**
@@ -174,11 +190,13 @@ class result_parser {
         $map = [
             "ok" => "ok",
             "ok_com_ajustes_leves" => "ok_minor",
+            "ok_with_minor_adjustments" => "ok_minor",
             "ok_minor" => "ok_minor",
             "precisa_revisao" => "needs_review",
             'precisa_revisão' => "needs_review",
             "needs_review" => "needs_review",
             "inadequado_ou_insuficiente" => "insufficient",
+            "inadequate_or_insufficient" => "insufficient",
             "insufficient" => "insufficient",
         ];
 
@@ -206,9 +224,9 @@ class result_parser {
     private static function status_label_from_key($key) {
         $labels = [
             "ok" => "OK",
-            "ok_minor" => 'OK com ajustes leves',
-            "needs_review" => 'Precisa revisão',
-            "insufficient" => 'Inadequado ou insuficiente',
+            "ok_minor" => get_string("analysis_status_ok_minor", "local_geniai"),
+            "needs_review" => get_string("analysis_status_needs_review", "local_geniai"),
+            "insufficient" => get_string("analysis_status_insufficient", "local_geniai"),
         ];
 
         return $labels[$key] ?? "";

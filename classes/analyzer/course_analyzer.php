@@ -117,6 +117,12 @@ class course_analyzer {
         ];
 
         $bloommap = [
+            "remember" => "bloom_remember",
+            "understand" => "bloom_understand",
+            "apply" => "bloom_apply",
+            "analyze" => "bloom_analyze",
+            "evaluate" => "bloom_evaluate",
+            "create" => "bloom_create",
             "lembrar" => "bloom_remember",
             "compreender" => "bloom_understand",
             "aplicar" => "bloom_apply",

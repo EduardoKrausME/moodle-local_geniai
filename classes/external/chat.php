@@ -120,7 +120,7 @@ class chat extends external_api {
             $audiohtml = "<audio controls autoplay src='" .
                 $CFG->wwwroot . "/local/geniai/load-audio-temp.php?filename=" .
                 urlencode($transcription["filename"]) . "&sesskey=" . sesskey() . "'></audio>" .
-                "<div class="transcription">" . s($transcription["text"]) . "</div>";
+                "<div class=\"transcription\">" . s($transcription["text"]) . "</div>";
 
             $messageforhistory = [
                 "role" => "user",
@@ -138,29 +138,18 @@ class chat extends external_api {
 
         $textmodules = self::course_sections($course);
         $geniainame = get_config("local_geniai", "geniainame");
+        $promptdata = (object) [
+            "geniainame" => $geniainame,
+            "sitename" => $SITE->fullname,
+            "coursename" => $course->fullname,
+            "courseurl" => "{$CFG->wwwroot}/course/view.php?id={$course->id}",
+            "modules" => $textmodules,
+            "userlang" => $USER->lang,
+        ];
+
         $promptmessage = [
             "role" => "system",
-            "content" => "Você é um chatbot chamado **{$geniainame}**.
-Seu papel é ser um **superprofessor do Moodle \"{$SITE->fullname}\"**,
-para o curso **[**{$course->fullname}**]({$CFG->wwwroot}/course/view.php?id={$course->id})**,
-sempre prestativo e dedicado e você é especialista em apoiar e explicar tudo o que envolve o aprendizado.
-
-## Módulos do curso:
-{$textmodules}
-
-### Suas respostas devem sempre seguir estas diretrizes:
-* Seja **detalhado, claro e inspirador**, com um tom **amigável e motivador**.
-* Dê atenção aos detalhes, oferecendo **exemplos práticos e explicações passo a passo** sempre que fizer sentido.
-* Se a pergunta for ambígua, peça mais detalhes.
-* Caso não souber, responda que não sabe, mas não crie algo que não lhe passei.
-* Mantenha o **foco no Curso {$course->fullname}** e caso o usuário pedir fora do escopo, responda que não pode e nunca poderá.
-* Use **somente formatação em MARKDOWN**.
-* **SEMPRE** responda em **{$USER->lang}**, (nunca em outro idioma).
-
-### Regras importantes:
-* Nunca quebre o personagem de **professor do Moodle**.
-* Jamais utilize linguagem neutra e mantenha sempre o tom acolhedor e professoral.
-* Responda somente em MARKDOWN e no Idioma {$USER->lang}",
+            "content" => get_string("prompt_chat_system", "local_geniai", $promptdata),
         ];
 
         $messages = array_slice($USER->geniai[$course->id], -9);
