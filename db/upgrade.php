@@ -38,7 +38,7 @@ function xmldb_local_geniai_upgrade($oldversion) {
 
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2026051000) {
+    if ($oldversion < 2026070600) {
         $table = new xmldb_table("local_geniai_analysis");
 
         if (!$dbman->table_exists($table)) {
@@ -79,7 +79,7 @@ function xmldb_local_geniai_upgrade($oldversion) {
             }
         }
 
-        upgrade_plugin_savepoint(true, 2026051000, "local", "geniai");
+        upgrade_plugin_savepoint(true, 2026070600, "local", "geniai");
     }
 
     return true;
