@@ -134,6 +134,14 @@ if ($hassiteconfig) {
         $modules
     ));
 
+    $settings->add(new admin_setting_configmultiselect(
+        "local_geniai/analysis_excluded_plugins",
+        get_string("analysis_excluded_plugins", "local_geniai"),
+        get_string("analysis_excluded_plugins_desc", "local_geniai"),
+        ["chat"],
+        $modules
+    ));
+
     $penalty = [
         "-2.0" => "-2.0",
         "-1.9" => "-1.9",

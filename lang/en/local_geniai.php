@@ -34,6 +34,9 @@ $string['analysis_bloom_understand'] = 'Understand';
 $string['analysis_cached'] = 'Cached analysis';
 $string['analysis_close'] = 'Close';
 $string['analysis_error'] = 'Could not analyze this activity.';
+$string['analysis_excluded_plugins'] = 'Módulos ignorados pela análise de atividades';
+$string['analysis_excluded_plugins_desc'] = 'Os módulos selecionados não receberão botões de análise e serão ignorados na análise do curso.';
+
 $string['analysis_force_new'] = 'Run a new analysis';
 $string['analysis_history'] = 'Analysis history';
 $string['analysis_last'] = 'Last analysis';

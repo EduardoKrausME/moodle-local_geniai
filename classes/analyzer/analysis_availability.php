@@ -37,6 +37,8 @@ class analysis_availability {
      *
      * @param \cm_info $cm Course module info.
      * @return bool
+     * @throws \coding_exception
+     * @throws \dml_exception
      */
     public static function can_analyze_cm(cm_info $cm) {
         if (empty($cm->uservisible)) {
@@ -84,11 +86,16 @@ class analysis_availability {
      *
      * @param string $modname Module name, with or without mod_ prefix.
      * @return bool
+     * @throws \coding_exception
      */
     public static function plugin_supports_analysis($modname) {
         $modname = self::normalize_plugin_name($modname);
 
         if ($modname === "") {
+            return false;
+        }
+
+        if (plugin_supports("mod", $modname, FEATURE_MOD_ARCHETYPE) === MOD_ARCHETYPE_SYSTEM) {
             return false;
         }
 
@@ -100,6 +107,7 @@ class analysis_availability {
      *
      * @param string $modname Module name, with or without mod_ prefix.
      * @return bool
+     * @throws \dml_exception
      */
     public static function is_excluded_plugin($modname) {
         $modname = self::normalize_plugin_name($modname);
@@ -115,8 +123,14 @@ class analysis_availability {
      * Get the normalized plugin names excluded by configuration.
      *
      * @return string[]
+     * @throws \dml_exception
      */
     public static function get_excluded_plugins() {
+        static $analysisexcludedplugins;
+        if ($analysisexcludedplugins) {
+            return $analysisexcludedplugins;
+        }
+
         $analysisexcludedplugins = [
             "chat",
             "certificatebeautiful",
@@ -131,6 +145,9 @@ class analysis_availability {
             "feedback",
         ];
 
+        $configanalysisexcludedplugins = get_config("local_geniai", "analysis_excluded_plugins");
+        $analysisexcludedplugins += explode(",", $configanalysisexcludedplugins);
+
         $clean = [];
         foreach ($analysisexcludedplugins as $plugin) {
             $plugin = self::normalize_plugin_name($plugin);
@@ -139,7 +156,8 @@ class analysis_availability {
             }
         }
 
-        return array_keys($clean);
+        $analysisexcludedplugins = array_keys($clean);
+        return $analysisexcludedplugins;
     }
 
     /**
