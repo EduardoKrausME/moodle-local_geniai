@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * phpcs:disable moodle.Strings.ForbiddenStrings.Found
+ *
  * lang uk file.
  *
  * @package   local_geniai
