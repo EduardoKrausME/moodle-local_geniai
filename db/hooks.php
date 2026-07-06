@@ -24,7 +24,7 @@
 
 use core\hook\output\before_footer_html_generation;
 
-defined("MOODLE_INTERNAL") || die;
+defined('MOODLE_INTERNAL') || die;
 $callbacks = [
     [
         "hook" => before_footer_html_generation::class,

@@ -18,7 +18,7 @@ namespace local_geniai\report;
 
 use table_sql;
 
-defined("MOODLE_INTERNAL") || die;
+defined('MOODLE_INTERNAL') || die;
 global $CFG;
 require_once("{$CFG->libdir}/tablelib.php");
 

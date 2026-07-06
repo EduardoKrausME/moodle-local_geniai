@@ -34,7 +34,7 @@ use external_value;
 use local_geniai\analyzer\activity_analyzer;
 use local_geniai\markdown\parse_markdown;
 
-defined("MOODLE_INTERNAL") || die;
+defined('MOODLE_INTERNAL') || die;
 global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 

@@ -24,7 +24,7 @@
 
 namespace local_geniai;
 
-defined("MOODLE_INTERNAL") || die;
+defined('MOODLE_INTERNAL') || die;
 require_once(__DIR__ . "/../lib.php");
 
 use context_course;

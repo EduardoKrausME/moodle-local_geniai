@@ -26,7 +26,7 @@ use local_geniai\gpt\chatgpt;
 use local_geniai\markdown\parse_markdown;
 use stdClass;
 
-defined("MOODLE_INTERNAL") || die;
+defined('MOODLE_INTERNAL') || die;
 global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 

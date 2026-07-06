@@ -31,7 +31,7 @@ use external_single_structure;
 use external_value;
 use local_geniai\markdown\parse_markdown;
 
-defined("MOODLE_INTERNAL") || die;
+defined('MOODLE_INTERNAL') || die;
 global $CFG;
 require_once("{$CFG->dirroot}/lib/externallib.php");
 
