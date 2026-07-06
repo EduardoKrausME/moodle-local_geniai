@@ -30,6 +30,7 @@ require_once(__DIR__ . "/../lib.php");
 use context_course;
 use context_system;
 use Exception;
+use local_geniai\analyzer\analysis_availability;
 use local_geniai\util\release;
 use moodle_url;
 
@@ -203,10 +204,15 @@ class core_hook_output {
             "analysis_print",
         ], "local_geniai");
 
+        $analyzablecmids = analysis_availability::get_analyzable_cmids($COURSE, $USER->id);
+        if (empty($analyzablecmids)) {
+            return;
+        }
+
         echo $OUTPUT->render_from_template('local_geniai/activity_analyzer_modal', [
             "courseid" => (int) $COURSE->id,
         ]);
 
-        $PAGE->requires->js_call_amd('local_geniai/activity-analyzer', "init", [(int) $COURSE->id]);
+        $PAGE->requires->js_call_amd('local_geniai/activity-analyzer', "init", [(int) $COURSE->id, $analyzablecmids]);
     }
 }

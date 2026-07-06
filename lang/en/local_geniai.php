@@ -40,6 +40,7 @@ $string['analysis_last'] = 'Last analysis';
 $string['analysis_latest'] = 'Latest analysis';
 $string['analysis_model_warning'] = 'This analysis used a mini/nano model. For better analysis, configure <a href="{$a}/admin/settings.php?section=local_geniai" target="_blank">The API Model</a> without mini or nano.';
 $string['analysis_no_content'] = 'No analysis content was returned.';
+$string['analysis_not_supported'] = 'This activity type is not available for GeniAI analysis.';
 $string['analysis_print'] = 'Print';
 $string['analysis_print_analysis'] = 'Print analysis';
 $string['analysis_print_popup_blocked'] = 'The browser blocked the print tab. Allow pop-ups and try again.';

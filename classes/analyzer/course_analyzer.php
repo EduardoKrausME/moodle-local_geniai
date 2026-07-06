@@ -154,19 +154,6 @@ class course_analyzer {
      * @return bool
      */
     private function can_analyze_cm(cm_info $cm) {
-        if (empty($cm->uservisible)) {
-            return false;
-        }
-
-        if (!empty($cm->deletioninprogress)) {
-            return false;
-        }
-
-        $skip = ["subsection"];
-        if (in_array($cm->modname, $skip, true)) {
-            return false;
-        }
-
-        return true;
+        return analysis_availability::can_analyze_cm($cm);
     }
 }

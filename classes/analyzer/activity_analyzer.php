@@ -50,6 +50,10 @@ class activity_analyzer {
 
         [$course, $cm] = get_course_and_cm_from_cmid($cmid, "", 0, false);
 
+        if (!analysis_availability::can_analyze_cm($cm)) {
+            return activity_analysis_result::error(get_string("analysis_not_supported", "local_geniai"));
+        }
+
         $content = extractor_manager::extract($cm, $course, $userid);
         $contenthash = $content->content_hash();
 

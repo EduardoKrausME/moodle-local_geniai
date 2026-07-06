@@ -28,6 +28,7 @@ define(["jquery", "core/ajax", "core/notification", "core/templates", "core/str"
     var currentPlainText = "";
     var currentPrintHtml = "";
     var initialized = false;
+    var analyzableCmids = null;
 
     var selectors = {
         activity: ".activity[id^=\"module-\"]",
@@ -49,14 +50,16 @@ define(["jquery", "core/ajax", "core/notification", "core/templates", "core/str"
      * Initialize the activity analyzer UI.
      *
      * @param {Number} courseid Current course ID.
+     * @param {Number[]} allowedCmids Course module IDs that may be analyzed.
      */
-    function init(courseid) {
+    function init(courseid, allowedCmids) {
         if (initialized) {
             return;
         }
 
         initialized = true;
         currentCourseId = parseInt(courseid, 10) || 0;
+        setAnalyzableCmids(allowedCmids);
 
         if ($("body.pagelayout-embedded, body.pagelayout-maintenance").length) {
             return;
@@ -80,7 +83,7 @@ define(["jquery", "core/ajax", "core/notification", "core/templates", "core/str"
             currentCmid = parseInt($(this).attr("data-cmid"), 10);
             currentActivityName = getActivityName($(this).closest(selectors.activity));
 
-            if (!currentCmid) {
+            if (!currentCmid || !canAnalyzeCmid(currentCmid)) {
                 return;
             }
 
@@ -95,7 +98,7 @@ define(["jquery", "core/ajax", "core/notification", "core/templates", "core/str"
             currentCmid = parseInt($(this).attr("data-cmid"), 10);
             currentActivityName = getActivityName($(this).closest(selectors.activity));
 
-            if (!currentCmid) {
+            if (!currentCmid || !canAnalyzeCmid(currentCmid)) {
                 return;
             }
 
@@ -106,7 +109,7 @@ define(["jquery", "core/ajax", "core/notification", "core/templates", "core/str"
         $(selectors.modal).on("click", selectors.reanalyze, function (e) {
             e.preventDefault();
 
-            if (currentCmid) {
+            if (currentCmid && canAnalyzeCmid(currentCmid)) {
                 analyze(courseid, currentCmid);
             }
         });
@@ -118,6 +121,37 @@ define(["jquery", "core/ajax", "core/notification", "core/templates", "core/str"
     }
 
     /**
+     * Store the server-side list of activities that may be analyzed.
+     *
+     * @param {Number[]} allowedCmids Course module IDs.
+     */
+    function setAnalyzableCmids(allowedCmids) {
+        if (!Array.isArray(allowedCmids)) {
+            analyzableCmids = null;
+            return;
+        }
+
+        analyzableCmids = {};
+        allowedCmids.forEach(function (cmid) {
+            cmid = parseInt(cmid, 10) || 0;
+            if (cmid) {
+                analyzableCmids[cmid] = true;
+            }
+        });
+    }
+
+    /**
+     * Check whether the course module can receive analyzer controls.
+     *
+     * @param {Number} cmid Course module ID.
+     * @returns {Boolean}
+     */
+    function canAnalyzeCmid(cmid) {
+        cmid = parseInt(cmid, 10) || 0;
+        return analyzableCmids === null || !!analyzableCmids[cmid];
+    }
+
+    /**
      * Inject analyzer buttons into activities.
      */
     function injectButtons() {
@@ -125,7 +159,7 @@ define(["jquery", "core/ajax", "core/notification", "core/templates", "core/str"
             var activity = $(this);
             var cmid = getCmid(activity);
 
-            if (!cmid || activity.find(selectors.controls).length) {
+            if (!cmid || !canAnalyzeCmid(cmid) || activity.find(selectors.controls).length) {
                 return;
             }
 
