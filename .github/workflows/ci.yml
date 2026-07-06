@@ -101,7 +101,7 @@ jobs:
       run: moodle-plugin-ci behat --profile chrome
 
     - name: Upload Behat Faildump
-      if: ${{ failure() && steps.behat.outcome == "failure" }}
+      if: ${{ failure() && steps.behat.outcome == 'failure' }}
       uses: actions/upload-artifact@v4
       with:
         name: Behat Faildump (${{ join(matrix.*, ', ') }})
