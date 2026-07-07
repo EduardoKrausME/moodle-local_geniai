@@ -8,13 +8,13 @@ It is a solution designed for institutions that want to experiment with or adopt
 
 ### Virtual assistant in Moodle
 
-The plugin can display a chat bubble on course pages. The assistant uses information from the Moodle environment, such as the course name, the user’s language, and the available modules, to provide more contextualized answers.
+The plugin can display a chat bubble on course pages. The assistant uses information from the Moodle environment, such as the course name, the user's language, and the available modules, to provide more contextualized answers.
 
 The chat was designed to act as an educational tutor. It guides students, answers questions about the course, and keeps the focus on the subject content.
 
 ### Course-contextualized answers
 
-The assistant’s internal prompt considers the course the user is currently browsing. This way, the AI is instructed to respond as a Moodle teacher, keeping the focus on the current course and on the student’s language.
+The assistant's internal prompt considers the course the user is currently browsing. This way, the AI is instructed to respond as a Moodle teacher, keeping the focus on the current course and on the student's language.
 
 This helps avoid generic answers and makes the experience closer to real pedagogical support.
 
@@ -32,7 +32,7 @@ The content types planned in the project include:
 * Drag-the-words activities;
 * Other H5P formats, depending on implementation and availability.
 
-The integration allows users to create, edit, delete, and send content to Moodle’s Content Bank.
+The integration allows users to create, edit, delete, and send content to Moodle's Content Bank.
 
 ### Pedagogical activity analysis
 
@@ -40,7 +40,7 @@ The plugin includes resources for analyzing Moodle activities with AI. The analy
 
 * Spelling, grammar, and textual clarity;
 * Coherence between the activity title, section, and content;
-* Predominant level of Bloom’s Taxonomy;
+* Predominant level of Bloom's Taxonomy;
 * Pedagogical suitability;
 * Practical improvement recommendations.
 
@@ -79,12 +79,12 @@ Users with management permissions can use additional resources, such as:
 
 ## H5P with GeniAI
 
-The H5P feature allows users to create interactive content using AI and send it to Moodle’s Content Bank.
+The H5P feature allows users to create interactive content using AI and send it to Moodle's Content Bank.
 
 Basic flow:
 
-1. Access Moodle’s Content Bank area.
-2. Open GeniAI’s H5P management/creation area.
+1. Access Moodle's Content Bank area.
+2. Open GeniAI's H5P management/creation area.
 3. Choose the desired content type.
 4. Enter the topic, title, or base content.
 5. Generate the content with AI.
@@ -92,7 +92,7 @@ Basic flow:
 7. Send the H5P to the Content Bank.
 8. Use the H5P in a Moodle activity.
 
-Note: part of the H5P generation flow uses an external integration with a support service from the project. Before using it in production, review the institution’s privacy, security, and data processing policies.
+Note: part of the H5P generation flow uses an external integration with a support service from the project. Before using it in production, review the institution's privacy, security, and data processing policies.
 
 ## Activity analysis with AI
 
@@ -103,7 +103,7 @@ The analysis considers:
 * Textual clarity;
 * Spelling and grammar;
 * Alignment between activity, section, and course;
-* Bloom’s Taxonomy;
+* Bloom's Taxonomy;
 * Pedagogical suitability;
 * Practical improvement suggestions.
 
