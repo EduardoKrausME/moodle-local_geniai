@@ -47,7 +47,7 @@ function xmldb_local_geniai_upgrade($oldversion) {
             $table->add_field("cmid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
             $table->add_field("userid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
             $table->add_field("analysis_type", XMLDB_TYPE_CHAR, "50", null, XMLDB_NOTNULL, null, "full");
-            $table->add_field("contenthash", XMLDB_TYPE_CHAR, "40", null, XMLDB_NOTNULL, null, "");
+            $table->add_field("contenthash", XMLDB_TYPE_CHAR, "40", null, XMLDB_NOTNULL);
             $table->add_field("status", XMLDB_TYPE_CHAR, "80");
             $table->add_field("statuskey", XMLDB_TYPE_CHAR, "30");
             $table->add_field("bloomlevel", XMLDB_TYPE_CHAR, "30");
