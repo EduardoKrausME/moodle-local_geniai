@@ -1,0 +1,19 @@
+# (RFC §4.1). Authors update their listing with an ordinary commit; camp
+# ingests and hash-pins it at each tagged release. Listing for local_geniai.
+
+name: "GeniAI"
+summary: "Artificial intelligence features that support content creation and learning."
+description: |
+  Artificial intelligence features that support content creation and learning.
+
+  The GeniAI plugin was developed as an extension aimed at enhancing the educational experience in the Moodle online environment. The purpose of this interactive assistant is to support students by clarifying doubts related to both the Moodle platform's functioning and course content, thus promoting effective communication and facilitating autonomous learning.
+
+  Supported Moodle versions in the supplied plugin list: 4.1 - 5.0.
+
+labels:
+  - external-account
+  - paid-service
+category: "integrations"
+links:
+  docs: https://github.com/EduardoKrausME/moodle-local_geniai#readme
+  issues: https://github.com/EduardoKrausME/moodle-local_geniai/issues
