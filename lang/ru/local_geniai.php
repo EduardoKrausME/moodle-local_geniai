@@ -24,6 +24,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['agentphoto'] = 'Фото ИИ-агента';
 $string['agentphoto_desc'] = 'Изображение, отображаемое как аватар ИИ-агента во время чат-бесед.';
 $string['analysis_ai_block'] = 'Анализ ИИ';

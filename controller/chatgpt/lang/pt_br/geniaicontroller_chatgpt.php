@@ -15,29 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Backwards-compatible ChatGPT facade.
+ * geniaicontroller_chatgpt.php
  *
- * @package   local_geniai
- * @copyright 2026 Eduardo Kraus
+ * @package   geniaicontroller_chatgpt
+ * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_geniai\gpt;
+defined('MOODLE_INTERNAL') || die;
 
-use local_geniai\controller;
-
-/**
- * Keeps existing callers working while the implementation lives in a controller subplugin.
- */
-class chatgpt {
-    /**
-     * Delegate to the selected GeniAI controller.
-     *
-     * @param array $messages
-     * @param string $replacemodel
-     * @return array
-     */
-    public static function completions($messages, $replacemodel = "") {
-        return controller::completions(array_values($messages), $replacemodel);
-    }
-}
+$string['controller'] = 'Controlador de IA';
+$string['controller_desc'] = 'Selecione o controlador usado pelo GeniAI. Depois de salvar, esta página carrega o settings.php do subplugin selecionado.';
+$string['pluginname'] = 'ChatGPT / OpenAI';
+$string['settings_desc'] = 'Configurações de conexão e geração do controlador OpenAI.';

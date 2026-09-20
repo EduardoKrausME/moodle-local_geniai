@@ -24,6 +24,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['agentphoto'] = 'صورة وكيل الذكاء الاصطناعي';
 $string['agentphoto_desc'] = 'الصورة المعروضة كصورة رمزية لوكيل الذكاء الاصطناعي أثناء محادثات الدردشة.';
 $string['analysis_ai_block'] = 'تحليل الذكاء الاصطناعي';

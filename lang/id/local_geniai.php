@@ -24,6 +24,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 $string['agentphoto'] = 'Foto agen AI';
 $string['agentphoto_desc'] = 'Gambar yang ditampilkan sebagai avatar agen AI selama percakapan chat.';
 $string['analysis_ai_block'] = 'Analisis AI';

@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_geniai\controller;
+
 defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) {
@@ -43,6 +45,21 @@ if ($hassiteconfig) {
     );
     $settings->add($setting);
 
+    $controllers = controller::get_options();
+    if (!empty($controllers)) {
+        $defaultcontroller = isset($controllers["chatgpt"]) ? "chatgpt" : (string) key($controllers);
+        $settings->add(new admin_setting_configselect(
+            "local_geniai/controller",
+            get_string("controller", "geniaicontroller_chatgpt"),
+            get_string("controller_desc", "geniaicontroller_chatgpt"),
+            $defaultcontroller,
+            $controllers
+        ));
+
+        // The selected controller is responsible for its own connection/generation settings.
+        controller::load_settings($settings);
+    }
+
     // Tutor name.
     $geniainame = get_config("local_geniai", "geniainame");
     if (!isset($geniainame[2])) {
@@ -61,61 +78,6 @@ if ($hassiteconfig) {
         get_string("agentphoto_desc", "local_geniai"),
         "agentphoto", 0, ["maxfiles" => 1, "accepted_types" => [".jpeg .jpg .png .svg .tif .tiff .webm"]]);
     $settings->add($setting);
-
-    $apikey = get_config("local_geniai", "apikey");
-    if (isset($apikey[12])) {
-        $setting = new admin_setting_configpasswordunmask(
-            "local_geniai/apikey",
-            get_string("apikey", "local_geniai"),
-            get_string("apikey_desc", "local_geniai"),
-            "");
-        $settings->add($setting);
-    } else {
-        $setting = new admin_setting_configtext(
-            "local_geniai/apikey",
-            get_string("apikey", "local_geniai"),
-            get_string("apikey_desc", "local_geniai"),
-            "");
-        $settings->add($setting);
-    }
-
-    $models = [
-        // GPT-5 family.
-        "gpt-5.4" => "gpt-5.4",
-        "gpt-5.4-mini" => "gpt-5.4-mini",
-        "gpt-5.4-nano" => "gpt-5.4-nano",
-
-        "gpt-4" => "gpt-4",
-        "gpt-4o-mini" => "gpt-4o-mini",
-        "gpt-4-32k" => "gpt-4-32k",
-        "gpt-4-turbo" => "gpt-4-turbo",
-    ];
-    $setting = new admin_setting_configselect(
-        "local_geniai/model",
-        get_string("model", "local_geniai"),
-        get_string("model_desc", "local_geniai"),
-        "gpt-5.4-mini",
-        $models
-    );
-    $settings->add($setting);
-
-    $cases = [
-        "chatbot" => get_string("caseuse_chatbot", "local_geniai"),
-        "creative" => get_string("caseuse_creative", "local_geniai"),
-        "balanced" => get_string("caseuse_balanced", "local_geniai"),
-        "precise" => get_string("caseuse_precise", "local_geniai"),
-        "exploration" => get_string("caseuse_exploration", "local_geniai"),
-        "formal" => get_string("caseuse_formal", "local_geniai"),
-        "informal" => get_string("caseuse_informal", "local_geniai"),
-    ];
-    $casedesc = $OUTPUT->render_from_template("local_geniai/settings_casedesc", []);
-    $settings->add(new admin_setting_configselect(
-        "local_geniai/case",
-        get_string("case", "local_geniai"),
-        $casedesc,
-        "chatbot",
-        $cases
-    ));
 
     $modules = [];
     $records = $DB->get_records("modules", ["visible" => 1], "name", "name");
@@ -141,61 +103,4 @@ if ($hassiteconfig) {
         ["chat"],
         $modules
     ));
-
-    $penalty = [
-        "-2.0" => "-2.0",
-        "-1.9" => "-1.9",
-        "-1.8" => "-1.8",
-        "-1.7" => "-1.7",
-        "-1.6" => "-1.6",
-        "-1.5" => "-1.5",
-        "-1.4" => "-1.4",
-        "-1.3" => "-1.3",
-        "-1.2" => "-1.2",
-        "-1.1" => "-1.1",
-        "-1.0" => "-1.0",
-        "-0.9" => "-0.9",
-        "-0.8" => "-0.8",
-        "-0.7" => "-0.7",
-        "-0.6" => "-0.6",
-        "-0.5" => "-0.5",
-        "-0.4" => "-0.4",
-        "-0.3" => "-0.3",
-        "-0.2" => "-0.2",
-        "-0.1" => "-0.1",
-        "0.0" => "0.0",
-        "0.1" => "0.1",
-        "0.2" => "0.2",
-        "0.3" => "0.3",
-        "0.4" => "0.4",
-        "0.5" => "0.5",
-        "0.6" => "0.6",
-        "0.7" => "0.7",
-        "0.8" => "0.8",
-        "0.9" => "0.9",
-        "1.0" => "1.0",
-        "1.1" => "1.1",
-        "1.2" => "1.2",
-        "1.3" => "1.3",
-        "1.4" => "1.4",
-        "1.5" => "1.5",
-        "1.6" => "1.6",
-        "1.7" => "1.7",
-        "1.8" => "1.8",
-        "1.9" => "1.9",
-        "2.0" => "2.0",
-    ];
-    $setting = new admin_setting_configselect(
-        "local_geniai/frequency_penalty",
-        get_string("frequency_penalty", "local_geniai"),
-        get_string("frequency_penalty_desc", "local_geniai"),
-        "0.0", $penalty);
-    $settings->add($setting);
-
-    $setting = new admin_setting_configselect(
-        "local_geniai/presence_penalty",
-        get_string("presence_penalty", "local_geniai"),
-        get_string("presence_penalty_desc", "local_geniai"),
-        "0.0", $penalty);
-    $settings->add($setting);
 }

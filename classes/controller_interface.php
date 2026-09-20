@@ -14,30 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace local_geniai;
+
 /**
- * Backwards-compatible ChatGPT facade.
+ * Contract implemented by GeniAI controller subplugins.
  *
  * @package   local_geniai
  * @copyright 2026 Eduardo Kraus
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-namespace local_geniai\gpt;
-
-use local_geniai\controller;
-
-/**
- * Keeps existing callers working while the implementation lives in a controller subplugin.
- */
-class chatgpt {
+interface controller_interface {
     /**
-     * Delegate to the selected GeniAI controller.
+     * Generate a completion.
      *
      * @param array $messages
      * @param string $replacemodel
      * @return array
      */
-    public static function completions($messages, $replacemodel = "") {
-        return controller::completions(array_values($messages), $replacemodel);
-    }
+    public function completions(array $messages, $replacemodel = "");
+
+    /**
+     * Return whether this controller has the minimum required configuration.
+     *
+     * @return bool
+     */
+    public function is_configured();
 }

@@ -1,0 +1,8 @@
+{
+    "subplugintypes": {
+        "geniaicontroller": "controller"
+    },
+    "plugintypes": {
+        "geniaicontroller": "local/geniai/controller"
+    }
+}
