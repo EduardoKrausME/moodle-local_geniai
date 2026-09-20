@@ -29,3 +29,6 @@ $plugin->requires = 2020110900;
 $plugin->component = "geniaicontroller_chatgpt";
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = "1.0.0";
+$plugin->dependencies = [
+    "local_geniai" => 2026092000,
+];

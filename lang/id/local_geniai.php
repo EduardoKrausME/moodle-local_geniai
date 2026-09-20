@@ -160,7 +160,7 @@ $string['prompt_chat_system'] = 'Anda adalah chatbot bernama **{$a->geniainame}*
 ## Modul kursus:
 {$a->modules}
 
-Jawablah dengan jelas, ramah, dan memotivasi. Jika pertanyaan ambigu, minta detail. Jika tidak tahu jawabannya, katakan dengan jujur dan jangan mengarang. Tetap fokus pada kursus **{$a->coursename}**. Gunakan hanya MARKDOWN dan selalu jawab dalam bahasa **{$a->userlang}**.';
+Jawablah dengan jelas, ramah, dan memotivasi. Jika pertanyaan ambigu, minta detail. Jika tidak tahu jawabannya, katakan dengan jujur dan jangan mengarang. Tetap fokus pada kursus **{$a->coursename}**. Gunakan hanya MARKDOWN dan selalu jawab dalam bahasa **{$a->userlang}**. Jangan gunakan bahasa selain {$a->userlang}.';
 $string['prompt_json_block_instruction'] = '
 
 Kembalikan juga blok teknis akhir dengan JSON valid di antara ```json dan ```.';

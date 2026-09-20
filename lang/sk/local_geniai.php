@@ -160,7 +160,7 @@ $string['prompt_chat_system'] = 'Ste chatbot s názvom **{$a->geniainame}**. Va�
 ## Moduly kurzu:
 {$a->modules}
 
-Odpovedajte jasne, priateľsky a motivačne. Ak je otázka nejasná, požiadajte o podrobnosti. Ak odpoveď nepoznáte, povedzte to a nevymýšľajte informácie. Držte sa kurzu **{$a->coursename}**. Používajte iba MARKDOWN a vždy odpovedajte v jazyku **{$a->userlang}**.';
+Odpovedajte jasne, priateľsky a motivačne. Ak je otázka nejasná, požiadajte o podrobnosti. Ak odpoveď nepoznáte, povedzte to a nevymýšľajte informácie. Držte sa kurzu **{$a->coursename}**. Používajte iba MARKDOWN a vždy odpovedajte v jazyku **{$a->userlang}**. Neodpovedajte v inom jazyku ako {$a->userlang}.';
 $string['prompt_json_block_instruction'] = '
 
 Vráťte aj záverečný technický blok s platným JSON medzi ```json a ```.';
