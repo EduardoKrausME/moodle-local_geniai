@@ -24,7 +24,5 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$string['c'] = 'AI controller';
-$string['controller_desc'] = 'Select the controller used by GeniAI. After saving, this page loads the settings.php file from the selected controller subplugin.';
 $string['pluginname'] = 'ChatGPT / OpenAI';
 $string['settings_desc'] = 'Connection and generation settings for the OpenAI controller.';

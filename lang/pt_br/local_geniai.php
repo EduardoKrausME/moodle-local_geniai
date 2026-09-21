@@ -73,6 +73,8 @@ $string['caseuse_informal'] = 'Tom informal => Temperature 0.7 - 0.9, Top_p 0.8'
 $string['caseuse_precise'] = 'Respostas precisas => Temperature 0.0 - 0.3, Top_p 1.0';
 $string['clear_history_title'] = 'Limpar todo o histórico';
 $string['close_title'] = 'Fechar chat';
+$string['controller'] = 'Controlador de IA';
+$string['controller_desc'] = 'Selecione o controlador usado pelo GeniAI. Depois de salvar, esta página carrega o settings.php do subplugin selecionado.';
 $string['frequency_penalty'] = 'Penalização de frequência';
 $string['frequency_penalty_desc'] = 'Este parâmetro é usado para desencorajar o modelo a repetir as mesmas palavras ou frases com muita frequência no texto gerado. É um valor adicionado à probabilidade logarítmica de um token cada vez que ele ocorre no texto gerado. Uma penalização maior torna o modelo mais conservador no uso de tokens repetidos.';
 $string['geniai:analyzeactivity'] = 'Analisar atividades Moodle com GeniAI';

@@ -50,8 +50,8 @@ if ($hassiteconfig) {
         $defaultcontroller = isset($controllers["chatgpt"]) ? "chatgpt" : (string) key($controllers);
         $settings->add(new admin_setting_configselect(
             "local_geniai/controller",
-            get_string("controller", "geniaicontroller_chatgpt"),
-            get_string("controller_desc", "geniaicontroller_chatgpt"),
+            get_string("controller", "local_geniai"),
+            get_string("controller_desc", "local_geniai"),
             $defaultcontroller,
             $controllers
         ));

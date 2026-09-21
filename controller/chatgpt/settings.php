@@ -77,14 +77,16 @@ $cases = [
     "formal" => get_string("caseuse_formal", "local_geniai"),
     "informal" => get_string("caseuse_informal", "local_geniai"),
 ];
-$casedesc = $OUTPUT->render_from_template("local_geniai/settings_casedesc", []);
-$settings->add(new admin_setting_configselect(
-    "local_geniai/case",
-    get_string("case", "local_geniai"),
-    $casedesc,
-    "chatbot",
-    $cases
-));
+if (isset($OUTPUT)) {
+    $casedesc = $OUTPUT->render_from_template("local_geniai/settings_casedesc", []);
+    $settings->add(new admin_setting_configselect(
+        "local_geniai/case",
+        get_string("case", "local_geniai"),
+        $casedesc,
+        "chatbot",
+        $cases
+    ));
+}
 
 $penalty = [];
 for ($value = -20; $value <= 20; $value++) {
