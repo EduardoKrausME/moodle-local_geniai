@@ -182,6 +182,10 @@ class core_hook_output {
             return;
         }
 
+        if (!$PAGE->user_is_editing()) {
+            return;
+        }
+
         if (!$PAGE->get_popup_notification_allowed()) {
             return;
         }
