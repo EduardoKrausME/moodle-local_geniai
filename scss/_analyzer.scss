@@ -24,13 +24,15 @@
 }
 .local-geniai-analysis-controls {
     align-items: flex-start;
+    align-self: flex-end;
     background: linear-gradient(135deg, rgba(15, 108, 191, .08), rgba(124, 58, 237, .06));
     border: 1px solid rgba(15, 108, 191, .18);
     border-radius: .75rem;
     display: inline-flex;
     flex-direction: column;
+    float: right;
     gap: .35rem;
-    margin: .25rem 0 .25rem .5rem;
+    margin: .25rem 0 .25rem auto;
     padding: .45rem .55rem;
     width: calc(100% - 16px);
     &-header {
