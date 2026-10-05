@@ -29,6 +29,7 @@ require_once(__DIR__ . "/../lib.php");
 
 use context_course;
 use context_system;
+use core\hook\output\before_footer_html_generation;
 use Exception;
 use local_geniai\analyzer\analysis_availability;
 use local_geniai\util\release;
@@ -41,9 +42,12 @@ use moodle_url;
  */
 class core_hook_output {
     /**
-     * Function before_footer_html_generation
+     * Function before_footer_html_generation.
+     *
+     * @param before_footer_html_generation $hook Hook instance.
+     * @return void
      */
-    public static function before_footer_html_generation() {
+    public static function before_footer_html_generation(before_footer_html_generation $hook): void {
         self::local_geniai_addchat();
         self::local_geniai_addh5p();
         self::local_geniai_add_activity_analyzer();
