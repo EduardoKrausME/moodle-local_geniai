@@ -44,7 +44,6 @@ $string['controller'] = 'Controlador de IA';
 $string['controller_desc'] = 'Selecione o controlador usado pelo GeniAI. Depois de salvar, esta página carrega o settings.php do subplugin selecionado.';
 $string['frequency_penalty'] = 'Penalização de frequência';
 $string['frequency_penalty_desc'] = 'Este parâmetro é usado para desencorajar o modelo a repetir as mesmas palavras ou frases com muita frequência no texto gerado. É um valor adicionado à probabilidade logarítmica de um token cada vez que ele ocorre no texto gerado. Uma penalização maior torna o modelo mais conservador no uso de tokens repetidos.';
-$string['geniai:analyzeactivity'] = 'Analisar atividades Moodle com GeniAI';
 $string['geniai:manage'] = 'Gerenciar GeniAI';
 $string['geniai:view'] = 'Visualizar GeniAI';
 $string['geniainame'] = 'Nome do assistente';

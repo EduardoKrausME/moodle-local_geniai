@@ -42,7 +42,6 @@ $string['clear_history_title'] = 'Effacer tout l\'historique';
 $string['close_title'] = 'Fermer le chat';
 $string['frequency_penalty'] = 'Pénalité de fréquence';
 $string['frequency_penalty_desc'] = 'Ce paramètre sert à décourager le modèle de répéter trop souvent les mêmes mots ou expressions dans le texte généré. Il est ajouté à la probabilité logarithmique d\'un token chaque fois qu\'il apparaît. Une pénalité plus élevée rend le modèle plus prudent avec les tokens répétés.';
-$string['geniai:analyzeactivity'] = 'Analyser les activités Moodle avec GeniAI';
 $string['geniai:manage'] = 'Gérer GeniAI';
 $string['geniai:view'] = 'Voir GeniAI';
 $string['geniainame'] = 'Nom de l\'assistant';
