@@ -39,35 +39,12 @@ function xmldb_local_geniai_upgrade($oldversion) {
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2026070600) {
+        // Activity analysis moved to local_courseaudit. Do not create the legacy
+        // table during upgrades; only normalize one that already exists so its
+        // historical records can still be migrated safely.
         $table = new xmldb_table("local_geniai_analysis");
 
-        if (!$dbman->table_exists($table)) {
-            $table->add_field("id", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
-            $table->add_field("courseid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
-            $table->add_field("cmid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
-            $table->add_field("userid", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
-            $table->add_field("analysis_type", XMLDB_TYPE_CHAR, "50", null, XMLDB_NOTNULL, null, "full");
-            $table->add_field("contenthash", XMLDB_TYPE_CHAR, "40", null, XMLDB_NOTNULL);
-            $table->add_field("status", XMLDB_TYPE_CHAR, "80");
-            $table->add_field("statuskey", XMLDB_TYPE_CHAR, "30");
-            $table->add_field("bloomlevel", XMLDB_TYPE_CHAR, "30");
-            $table->add_field("model", XMLDB_TYPE_CHAR, "100");
-            $table->add_field("prompttokens", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
-            $table->add_field("completiontokens", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
-            $table->add_field("recommendations", XMLDB_TYPE_TEXT);
-            $table->add_field("resulttext", XMLDB_TYPE_TEXT);
-            $table->add_field("resultjson", XMLDB_TYPE_TEXT);
-            $table->add_field("timecreated", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
-            $table->add_field("timemodified", XMLDB_TYPE_INTEGER, "10", null, XMLDB_NOTNULL, null, "0");
-
-            $table->add_key("primary", XMLDB_KEY_PRIMARY, ["id"]);
-            $table->add_index("courseid", XMLDB_INDEX_NOTUNIQUE, ["courseid"]);
-            $table->add_index("cmid", XMLDB_INDEX_NOTUNIQUE, ["cmid"]);
-            $table->add_index("cm_hash", XMLDB_INDEX_NOTUNIQUE, ["cmid", "contenthash"]);
-            $table->add_index("course_type_time", XMLDB_INDEX_NOTUNIQUE, ["courseid", "analysis_type", "timecreated"]);
-
-            $dbman->create_table($table);
-        } else {
+        if ($dbman->table_exists($table)) {
             $field = new xmldb_field("statuskey", XMLDB_TYPE_CHAR, "30", null, null, null, null, "status");
             if (!$dbman->field_exists($table, $field)) {
                 $dbman->add_field($table, $field);
@@ -111,13 +88,17 @@ function xmldb_local_geniai_upgrade($oldversion) {
                 $DB->insert_record('local_courseaudit_analysis', $record);
             }
 
+            $dbman->drop_table($oldtable);
+        }
+
+        // Move the old setting once Course Audit is present, even when there is
+        // no legacy analysis table left to copy.
+        if ($dbman->table_exists($newtable)) {
             $oldconfig = get_config('local_geniai', 'analysis_excluded_plugins');
             if ($oldconfig !== false && get_config('local_courseaudit', 'analysis_excluded_plugins') === false) {
                 set_config('analysis_excluded_plugins', $oldconfig, 'local_courseaudit');
             }
-
             unset_config('analysis_excluded_plugins', 'local_geniai');
-            $dbman->drop_table($oldtable);
         }
 
         upgrade_plugin_savepoint(true, 2026100601, 'local', 'geniai');

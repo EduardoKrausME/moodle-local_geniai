@@ -2,7 +2,7 @@
 
 `local_geniai` turns Moodle into a smarter and more interactive environment by adding a contextual virtual assistant, H5P content generation, and AI usage reports.
 
-It is a solution designed for institutions that want to experiment with or adopt Artificial Intelligence in Moodle in a way that is integrated into the educational workflow, with a focus on student support, teacher productivity, and continuous course improvement.
+It is a solution designed for institutions that want to experiment with or adopt Artificial Intelligence in Moodle in a way that is integrated into the educational workflow, with a focus on student support and teacher productivity.
 
 ## Main features
 
@@ -91,7 +91,6 @@ Records may include:
 * Number of tokens received;
 * Record creation date;
 * Operational metadata from the request;
-* Analysis data, when applicable.
 
 The project also includes a route for downloading reports in CSV format, allowing external analysis in spreadsheets or administrative tools.
 
