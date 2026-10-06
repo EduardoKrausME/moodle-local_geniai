@@ -42,7 +42,6 @@ $string['clear_history_title'] = 'Vymazať celú históriu';
 $string['close_title'] = 'Zavrieť chat';
 $string['frequency_penalty'] = 'Penalizácia frekvencie';
 $string['frequency_penalty_desc'] = 'Tento parameter sa používa na obmedzenie príliš častého opakovania rovnakých slov alebo fráz v generovanom texte. Vyššia hodnota robí model konzervatívnejším pri opakovaní.';
-$string['geniai:analyzeactivity'] = 'Analyzovať aktivity Moodle s GeniAI';
 $string['geniai:manage'] = 'Spravovať GeniAI';
 $string['geniai:view'] = 'Zobraziť GeniAI';
 $string['geniainame'] = 'Názov asistenta';

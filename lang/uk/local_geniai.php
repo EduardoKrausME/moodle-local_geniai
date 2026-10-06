@@ -42,7 +42,6 @@ $string['clear_history_title'] = 'Очистити всю історію';
 $string['close_title'] = 'Закрити чат';
 $string['frequency_penalty'] = 'Штраф за частоту';
 $string['frequency_penalty_desc'] = 'Цей параметр використовується, щоб зменшити надто часте повторення тих самих слів або фраз у згенерованому тексті. Вища величина робить модель обережнішою щодо повторів.';
-$string['geniai:analyzeactivity'] = 'Аналізувати активності Moodle з GeniAI';
 $string['geniai:manage'] = 'Керувати GeniAI';
 $string['geniai:view'] = 'Переглянути GeniAI';
 $string['geniainame'] = 'Ім\'я асистента';

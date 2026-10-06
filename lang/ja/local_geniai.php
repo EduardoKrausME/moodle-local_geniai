@@ -42,7 +42,6 @@ $string['clear_history_title'] = 'すべての履歴を消去';
 $string['close_title'] = 'チャットを閉じる';
 $string['frequency_penalty'] = '頻度ペナルティ';
 $string['frequency_penalty_desc'] = 'このパラメータは、生成されたテキストで同じ単語やフレーズが頻繁に繰り返されることを抑えるために使用されます。値が高いほど、モデルは繰り返しに対してより慎重になります。';
-$string['geniai:analyzeactivity'] = 'GeniAIでMoodle活動を分析';
 $string['geniai:manage'] = '管理 GeniAI';
 $string['geniai:view'] = '表示 GeniAI';
 $string['geniainame'] = 'アシスタント名';

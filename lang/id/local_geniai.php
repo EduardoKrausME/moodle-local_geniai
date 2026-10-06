@@ -42,7 +42,6 @@ $string['clear_history_title'] = 'Hapus semua riwayat';
 $string['close_title'] = 'Tutup chat';
 $string['frequency_penalty'] = 'Penalti frekuensi';
 $string['frequency_penalty_desc'] = 'Parameter ini digunakan untuk mencegah model terlalu sering mengulang kata atau frasa yang sama dalam teks yang dihasilkan. Nilai yang lebih tinggi membuat model lebih konservatif terhadap pengulangan.';
-$string['geniai:analyzeactivity'] = 'Analisis aktivitas Moodle dengan GeniAI';
 $string['geniai:manage'] = 'Kelola GeniAI';
 $string['geniai:view'] = 'Lihat GeniAI';
 $string['geniainame'] = 'Nama asisten';

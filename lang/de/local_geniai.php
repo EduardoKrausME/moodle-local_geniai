@@ -42,7 +42,6 @@ $string['clear_history_title'] = 'Gesamten Verlauf löschen';
 $string['close_title'] = 'Chat schließen';
 $string['frequency_penalty'] = 'Frequenzstrafe';
 $string['frequency_penalty_desc'] = 'Dieser Parameter soll verhindern, dass das Modell dieselben Wörter oder Phrasen im erzeugten Text zu häufig wiederholt. Er wird jedes Mal zur Log-Wahrscheinlichkeit eines Tokens addiert, wenn dieses im Text vorkommt. Eine höhere Frequenzstrafe macht das Modell vorsichtiger bei wiederholten Tokens.';
-$string['geniai:analyzeactivity'] = 'Moodle-Aktivitäten mit GeniAI analysieren';
 $string['geniai:manage'] = 'Verwalten GeniAI';
 $string['geniai:view'] = 'Anzeigen GeniAI';
 $string['geniainame'] = 'Name des Assistenten';
