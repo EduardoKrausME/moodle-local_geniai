@@ -82,5 +82,13 @@ function xmldb_local_geniai_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026070600, "local", "geniai");
     }
 
+    if ($oldversion < 2026100600) {
+        // Activity analysis moved to local_courseaudit. Keep the legacy table, if any,
+        // until Course Audit migrates its history; its upgrade step removes the table
+        // after a successful copy.
+        unset_config('analysis_excluded_plugins', 'local_geniai');
+        upgrade_plugin_savepoint(true, 2026100600, 'local', 'geniai');
+    }
+
     return true;
 }

@@ -28,39 +28,6 @@ defined('MOODLE_INTERNAL') || die;
 
 $string['agentphoto'] = 'Foto des KI-Agenten';
 $string['agentphoto_desc'] = 'Bild, das während der Chat-Unterhaltungen als Avatar des KI-Agenten angezeigt wird.';
-$string['analysis_ai_block'] = 'KI-Analyse';
-$string['analysis_bloom_analyze'] = 'Analysieren';
-$string['analysis_bloom_apply'] = 'Anwenden';
-$string['analysis_bloom_create'] = 'Erstellen';
-$string['analysis_bloom_evaluate'] = 'Bewerten';
-$string['analysis_bloom_remember'] = 'Merken';
-$string['analysis_bloom_understand'] = 'Verstehen';
-$string['analysis_cached'] = 'Zwischengespeicherte Analyse';
-$string['analysis_close'] = 'Schließen';
-$string['analysis_error'] = 'Diese Aktivität konnte nicht analysiert werden.';
-$string['analysis_excluded_plugins'] = 'Von der Aktivitätsanalyse ausgeschlossene Module';
-$string['analysis_excluded_plugins_desc'] = 'In den ausgewählten Modulen werden keine Analyseschaltflächen angezeigt; außerdem werden sie von der Kursanalyse ausgeschlossen.';
-$string['analysis_force_new'] = 'Neue Analyse ausführen';
-$string['analysis_history'] = 'Analyseverlauf';
-$string['analysis_last'] = 'Letzte Analyse';
-$string['analysis_latest'] = 'Neueste Analyse';
-$string['analysis_model_warning'] = 'Diese Analyse verwendete ein mini/nano-Modell. Für eine bessere Analyse konfiguriere <a href="{$a}/admin/settings.php?section=local_geniai" target="_blank">das API-Modell</a> ohne mini oder nano.';
-$string['analysis_no_content'] = 'Es wurde kein Analyseinhalt zurückgegeben.';
-$string['analysis_not_supported'] = 'Dieser Aktivitätstyp ist für die Analyse mit GeniAI nicht verfügbar.';
-$string['analysis_print'] = 'Drucken';
-$string['analysis_print_analysis'] = 'Analyse drucken';
-$string['analysis_print_popup_blocked'] = 'Der Browser hat den Druck-Tab blockiert. Erlaube Pop-ups und versuche es erneut.';
-$string['analysis_reanalyze'] = 'Erneut analysieren';
-$string['analysis_recommendations'] = 'Empfehlungen';
-$string['analysis_result'] = 'Aktivitätsanalyse';
-$string['analysis_status_insufficient'] = 'Unzureichend';
-$string['analysis_status_needs_review'] = 'Überprüfung erforderlich';
-$string['analysis_status_ok'] = 'OK';
-$string['analysis_status_ok_minor'] = 'OK mit kleinen Anpassungen';
-$string['analyze_activity'] = 'Analysieren mit KI';
-$string['analyze_course'] = 'Analysieren Kurs mit KI';
-$string['analyzing_activity'] = 'Rechtschreibung, pädagogische Kohärenz und Bloom-Taxonomie werden analysiert...';
-$string['analyzing_course'] = 'Kursaktivitäten werden analysiert...';
 $string['apikey'] = 'OpenAI API Key';
 $string['apikey_desc'] = 'Der API-Schlüssel deines OpenAI-Kontos';
 $string['case'] = 'Anwendungsfälle';
@@ -136,45 +103,6 @@ $string['pluginname'] = 'GeniAI';
 $string['presence_penalty'] = 'Präsenzstrafe';
 $string['presence_penalty_desc'] = 'Dieser Parameter soll das Modell dazu anregen, im erzeugten Text eine größere Vielfalt an Tokens zu verwenden. Er wird jedes Mal von der Log-Wahrscheinlichkeit eines Tokens abgezogen, wenn dieses erzeugt wird. Ein höherer Wert erhöht die Wahrscheinlichkeit, dass noch nicht verwendete Tokens erzeugt werden.';
 $string['privacy:metadata'] = 'Das GeniAI-Plugin behält den temporären Gesprächsverlauf in der aktuellen Sitzung und speichert nur operative Nutzungsmetadaten, ohne Nachrichteninhalte oder personenbezogene Daten in seinen lokalen Berichten zu speichern.';
-$string['prompt_activity_focus_alignment'] = 'priorisiere die Kohärenz zwischen Kurs, Abschnitt, Titel und Aktivitätsinhalt.';
-$string['prompt_activity_focus_bloom'] = 'priorisiere die Bloom-Taxonomie und die kognitive Tiefe des Vorschlags.';
-$string['prompt_activity_focus_full'] = 'vollständige Aktivitätsanalyse.';
-$string['prompt_activity_focus_pedagogy'] = 'priorisiere pädagogische Angemessenheit, Anweisungen für Lernende und Lernqualität.';
-$string['prompt_activity_focus_spelling'] = 'priorisiere Rechtschreibung, Grammatik, Klarheit und didaktischen Ton.';
-$string['prompt_activity_schema_bloom_level'] = 'remember | understand | apply | analyze | evaluate | create';
-$string['prompt_activity_schema_diagnosis'] = 'Kurze Zusammenfassung der allgemeinen Diagnose.';
-$string['prompt_activity_schema_recommendation_1'] = 'Praktische Maßnahme 1.';
-$string['prompt_activity_schema_recommendation_2'] = 'Praktische Maßnahme 2.';
-$string['prompt_activity_schema_status'] = 'OK | OK with minor adjustments | Needs review | Inadequate or insufficient';
-$string['prompt_activity_schema_status_key'] = 'ok | ok_minor | needs_review | insufficient';
-$string['prompt_activity_system'] = 'Du bist Expertin oder Experte für Instructional Design, Textprüfung und Moodle.
-
-Deine Aufgabe ist es, eine vorhandene Aktivität aus einem Moodle-Kurs zu analysieren.
-Schreibe die sichtbare Markdown-Analyse in der aktuellen Moodle-Sprache des Nutzers: {$a->lang}.
-Belasse technische JSON-Felder und Enum-Werte exakt auf Englisch.
-Erfinde keine Informationen, die im eingereichten Material nicht vorhanden sind.
-Wenn der Inhalt für eine Analyse nicht ausreicht, sage das klar.
-Schreibe nicht die gesamte Aktivität neu, außer wenn es nötig ist, um eine konkrete Verbesserung zu erklären.
-Halte die Antwort objektiv und nützlich für Lehrkräfte, Koordination oder Instructional Design.
-
-Pflichtkriterien:
-1. Rechtschreibung, Grammatik und textliche Klarheit.
-2. Kohärenz zwischen Aktivitätstitel, Kursabschnitt und Aktivitätsinhalt.
-3. Bloom-Taxonomie mit genau einem dieser dominanten Niveaus: remember, understand, apply, analyze, evaluate, create.
-4. Pädagogische Angemessenheit der Aktivität.
-5. Praktische Verbesserungsvorschläge.
-
-Zusätzlicher Fokus: {$a->focus}
-
-Erforderliches Antwortformat in Markdown. Übersetze sichtbare Überschriften bei Bedarf in die angeforderte Sprache.
-
-Am Ende der Antwort muss ein technischer Block mit gültigem JSON zwischen ```json und ``` stehen.
-Dieser Block wird von Moodle verwendet und darf keine Kommentare außerhalb des JSON enthalten.
-Pflichtfelder: status_key, status, bloom_level, diagnosis, recommendations.
-Angeforderter Analysetyp: {$a->analysis}';
-$string['prompt_activity_user'] = 'Analysiere die folgende Moodle-Aktivität.
-
-{$a}';
 $string['prompt_chat_system'] = 'Du bist ein Chatbot namens **{$a->geniainame}**.
 Deine Aufgabe ist es, als **besonders hilfreiche Moodle-Lehrkraft für "{$a->sitename}"** im Kurs **[**{$a->coursename}**]({$a->courseurl})** zu handeln. Du unterstützt Lernende freundlich, klar und engagiert.
 
@@ -194,18 +122,6 @@ Deine Aufgabe ist es, als **besonders hilfreiche Moodle-Lehrkraft für "{$a->sit
 * Bleibe immer in der Rolle einer **Moodle-Lehrkraft**.
 * Verwende einen warmen, lehrenden Ton.
 * Antworte nur in MARKDOWN und in der Sprache {$a->userlang}.';
-$string['prompt_json_block_instruction'] = '
-
-Gib außerdem am Ende einen technischen Block mit gültigem JSON zwischen ```json und ``` zurück.';
-$string['prompt_json_block_schema'] = '
-Verwende dieses Referenzformat:
-{$a}';
-$string['prompt_json_style'] = '
-Stil:
-- Vermeide Listen; nutze sie nur, wenn sie wesentlich sind;
-- Verwende `:` nur, wenn es wirklich notwendig ist; formuliere lieber vollständige Sätze;
-- Füge keine Schlussfolgerung oder abschließende Zusammenfassung hinzu. Ende nicht mit Formeln wie `Finally`, `In the end`, `In summary`, `Overall`, `In conclusion` oder entsprechenden Übersetzungen;
-- Achte darauf, nicht wie KI-generierter Text zu klingen oder KI-typische Merkmale zu zeigen.';
 $string['report_completion_tokens'] = 'Anzahl empfangener Tokens';
 $string['report_datecreated'] = 'Tag';
 $string['report_download'] = 'GPT-Nutzung herunterladen';

@@ -1,6 +1,6 @@
 # GeniAI (`local_geniai`)
 
-`local_geniai` turns Moodle into a smarter and more interactive environment by adding a contextual virtual assistant, H5P content generation, pedagogical activity analysis, and AI usage reports.
+`local_geniai` turns Moodle into a smarter and more interactive environment by adding a contextual virtual assistant, H5P content generation, and AI usage reports.
 
 It is a solution designed for institutions that want to experiment with or adopt Artificial Intelligence in Moodle in a way that is integrated into the educational workflow, with a focus on student support, teacher productivity, and continuous course improvement.
 
@@ -34,18 +34,6 @@ The content types planned in the project include:
 
 The integration allows users to create, edit, delete, and send content to Moodle's Content Bank.
 
-### Pedagogical activity analysis
-
-The plugin includes resources for analyzing Moodle activities with AI. The analysis considers aspects such as:
-
-* Spelling, grammar, and textual clarity;
-* Coherence between the activity title, section, and content;
-* Predominant level of Bloom's Taxonomy;
-* Pedagogical suitability;
-* Practical improvement recommendations.
-
-The analysis can be used by teachers, coordinators, and instructional designers to review activities before or after publication.
-
 ### Usage reports
 
 The project records operational metadata related to AI usage, such as the model used, the number of tokens sent, the number of tokens received, and the execution date.
@@ -70,8 +58,6 @@ Students can:
 
 Users with management permissions can use additional resources, such as:
 
-* Analyze activities with AI;
-* View analysis history;
 * Create H5P content with AI;
 * Manage created H5P content;
 * Access usage reports;
@@ -94,29 +80,6 @@ Basic flow:
 
 Note: part of the H5P generation flow uses an external integration with a support service from the project. Before using it in production, review the institution's privacy, security, and data processing policies.
 
-## Activity analysis with AI
-
-The plugin can analyze Moodle activities to support pedagogical review.
-
-The analysis considers:
-
-* Textual clarity;
-* Spelling and grammar;
-* Alignment between activity, section, and course;
-* Bloom's Taxonomy;
-* Pedagogical suitability;
-* Practical improvement suggestions.
-
-The AI response is presented in a user-readable format and may also include a technical JSON block for logging and internal processing.
-
-This feature is useful for:
-
-* Reviewing activities before publication;
-* Supporting course coordinators;
-* Standardizing pedagogical quality;
-* Diagnosing activities that are too simple, confusing, or misaligned;
-* Continuously improving online courses.
-
 ## Reports
 
 GeniAI includes a report area for monitoring AI usage.
@@ -138,7 +101,6 @@ GeniAI can be used in different educational scenarios:
 
 * Virtual tutor for students in online courses;
 * Student support outside human service hours;
-* Pedagogical review of activities;
 * Fast creation of H5P content;
 * Support for teachers in improving materials;
 * Administrative monitoring of AI consumption;

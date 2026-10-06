@@ -28,39 +28,6 @@ defined('MOODLE_INTERNAL') || die;
 
 $string['agentphoto'] = 'Fotografia AI agenta';
 $string['agentphoto_desc'] = 'Obrázok zobrazený ako avatar AI agenta počas chatových konverzácií.';
-$string['analysis_ai_block'] = 'AI analýza';
-$string['analysis_bloom_analyze'] = 'Analyzovať';
-$string['analysis_bloom_apply'] = 'Použiť';
-$string['analysis_bloom_create'] = 'Vytvoriť';
-$string['analysis_bloom_evaluate'] = 'Vyhodnotiť';
-$string['analysis_bloom_remember'] = 'Zapamätať';
-$string['analysis_bloom_understand'] = 'Porozumieť';
-$string['analysis_cached'] = 'Analýza v cache';
-$string['analysis_close'] = 'Zavrieť';
-$string['analysis_error'] = 'Túto aktivitu sa nepodarilo analyzovať.';
-$string['analysis_excluded_plugins'] = 'Moduly vylúčené z analýzy aktivít';
-$string['analysis_excluded_plugins_desc'] = 'Vybrané moduly nebudú zobrazovať tlačidlá analýzy a budú vylúčené z analýzy kurzu.';
-$string['analysis_force_new'] = 'Spustiť novú analýzu';
-$string['analysis_history'] = 'História analýz';
-$string['analysis_last'] = 'Posledná analýza';
-$string['analysis_latest'] = 'Najnovšia analýza';
-$string['analysis_model_warning'] = 'Táto analýza použila model mini/nano. Pre lepšiu analýzu nastavte <a href="{$a}/admin/settings.php?section=local_geniai" target="_blank">model API</a> bez mini alebo nano.';
-$string['analysis_no_content'] = 'Nebol vrátený žiadny obsah analýzy.';
-$string['analysis_not_supported'] = 'Tento typ aktivity nie je dostupný pre analýzu pomocou GeniAI.';
-$string['analysis_print'] = 'Tlačiť';
-$string['analysis_print_analysis'] = 'Tlačiť analýza';
-$string['analysis_print_popup_blocked'] = 'Prehliadač zablokoval kartu tlače. Povoľte vyskakovacie okná a skúste to znova.';
-$string['analysis_reanalyze'] = 'Analyzovať znova';
-$string['analysis_recommendations'] = 'Odporúčania';
-$string['analysis_result'] = 'Analýza aktivity';
-$string['analysis_status_insufficient'] = 'Nedostatočné';
-$string['analysis_status_needs_review'] = 'Vyžaduje kontrolu';
-$string['analysis_status_ok'] = 'OK';
-$string['analysis_status_ok_minor'] = 'OK s menšími úpravami';
-$string['analyze_activity'] = 'Analyzovať s AI';
-$string['analyze_course'] = 'Analyzovať kurz s AI';
-$string['analyzing_activity'] = 'Analýza pravopisu, pedagogickej súdržnosti a Bloomovej taxonómie...';
-$string['analyzing_course'] = 'Analýza aktivít kurzu...';
 $string['apikey'] = 'OpenAI API Key';
 $string['apikey_desc'] = 'Kľúč API vášho účtu OpenAI';
 $string['case'] = 'Prípady použitia';
@@ -134,45 +101,12 @@ $string['pluginname'] = 'GeniAI';
 $string['presence_penalty'] = 'Penalizácia prítomnosti';
 $string['presence_penalty_desc'] = 'Tento parameter podporuje väčšiu rozmanitosť tokenov v generovanom texte. Vyššia hodnota zvyšuje pravdepodobnosť použitia nových tokenov.';
 $string['privacy:metadata'] = 'Plugin GeniAI uchováva dočasnú históriu konverzácie v aktuálnej relácii a ukladá iba prevádzkové metadáta používania bez ukladania tiel správ alebo osobných údajov v lokálnych prehľadoch.';
-$string['prompt_activity_focus_alignment'] = 'uprednostnite súdržnosť medzi kurzom, sekciou, názvom a obsahom aktivity.';
-$string['prompt_activity_focus_bloom'] = 'uprednostnite Bloomovu taxonómiu a kognitívnu hĺbku návrhu.';
-$string['prompt_activity_focus_full'] = 'úplná analýza aktivity.';
-$string['prompt_activity_focus_pedagogy'] = 'uprednostnite pedagogickú primeranosť, pokyny pre študenta a kvalitu učenia.';
-$string['prompt_activity_focus_spelling'] = 'uprednostnite pravopis, gramatiku, jasnosť a inštruktážny tón.';
-$string['prompt_activity_schema_bloom_level'] = 'remember | understand | apply | analyze | evaluate | create';
-$string['prompt_activity_schema_diagnosis'] = 'Krátke zhrnutie všeobecnej diagnózy.';
-$string['prompt_activity_schema_recommendation_1'] = 'Praktická akcia 1.';
-$string['prompt_activity_schema_recommendation_2'] = 'Praktická akcia 2.';
-$string['prompt_activity_schema_status'] = 'OK | OK with minor adjustments | Needs review | Inadequate or insufficient';
-$string['prompt_activity_schema_status_key'] = 'ok | ok_minor | needs_review | insufficient';
-$string['prompt_activity_system'] = 'Ste expert na inštruktážny dizajn, kontrolu textu a Moodle. Analyzujte existujúcu aktivitu z kurzu Moodle v aktuálnom jazyku používateľa: {$a->lang}. Technické polia JSON a enum hodnoty ponechajte presne v angličtine. Nevymýšľajte informácie a pri nedostatočnom obsahu to jasne uveďte.
-
-Povinné kritériá: pravopis a jasnosť, súdržnosť medzi názvom, sekciou a obsahom, Bloomova taxonómia s jednou hodnotou remember, understand, apply, analyze, evaluate alebo create, pedagogická primeranosť a praktické odporúčania.
-
-Dodatočný fokus: {$a->focus}
-
-Na konci pridajte technický blok s platným JSON medzi ```json a ```. Povinné polia: status_key, status, bloom_level, diagnosis, recommendations. Typ analýzy: {$a->analysis}';
-$string['prompt_activity_user'] = 'Analyzujte nižšie uvedenú aktivitu Moodle.
-
-{$a}';
 $string['prompt_chat_system'] = 'Ste chatbot s názvom **{$a->geniainame}**. Vašou úlohou je pôsobiť ako oddaný učiteľ Moodle pre kurz **[**{$a->coursename}**]({$a->courseurl})** na stránke "{$a->sitename}".
 
 ## Moduly kurzu:
 {$a->modules}
 
 Odpovedajte jasne, priateľsky a motivačne. Ak je otázka nejasná, požiadajte o podrobnosti. Ak odpoveď nepoznáte, povedzte to a nevymýšľajte informácie. Držte sa kurzu **{$a->coursename}**. Používajte iba MARKDOWN a vždy odpovedajte v jazyku **{$a->userlang}**. Neodpovedajte v inom jazyku ako {$a->userlang}.';
-$string['prompt_json_block_instruction'] = '
-
-Vráťte aj záverečný technický blok s platným JSON medzi ```json a ```.';
-$string['prompt_json_block_schema'] = '
-Použite tento referenčný formát:
-{$a}';
-$string['prompt_json_style'] = '
-Štýl:
-- Vyhýbajte sa zoznamom; používajte ich len vtedy, keď sú nevyhnutné;
-- Používajte `:` iba vtedy, keď je to skutočne potrebné; uprednostnite celé vety;
-- Nepridávajte záver ani záverečné zhrnutie;
-- Dajte pozor, aby text nepôsobil ako generovaný AI.';
 $string['report_completion_tokens'] = 'Počet prijatých tokenov';
 $string['report_datecreated'] = 'Deň';
 $string['report_download'] = 'Stiahnuť použitie GPT';

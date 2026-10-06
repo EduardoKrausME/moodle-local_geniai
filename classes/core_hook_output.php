@@ -31,7 +31,6 @@ use context_course;
 use context_system;
 use core\hook\output\before_footer_html_generation;
 use Exception;
-use local_geniai\analyzer\analysis_availability;
 use local_geniai\util\release;
 use moodle_url;
 
@@ -50,7 +49,6 @@ class core_hook_output {
     public static function before_footer_html_generation(before_footer_html_generation $hook): void {
         self::local_geniai_addchat();
         self::local_geniai_addh5p();
-        self::local_geniai_add_activity_analyzer();
     }
 
     /**
@@ -154,73 +152,5 @@ class core_hook_output {
         ], "local_geniai");
 
         $PAGE->requires->js_call_amd('local_geniai/h5p', "init", [$contextid]);
-    }
-
-    /**
-     * Add the activity analyzer UI to course pages.
-     *
-     * The buttons are injected by AMD because course formats may render activities differently.
-     * This keeps the feature compatible with topics, weeks and most custom formats that keep
-     * Moodle's standard module id attribute, for example id="module-123".
-     *
-     * @return void
-     */
-    private static function local_geniai_add_activity_analyzer() {
-        global $OUTPUT, $PAGE, $COURSE, $USER;
-
-        $apikey = (string) get_config("local_geniai", "apikey");
-
-        if (!isset($apikey[5])) {
-            return;
-        }
-
-        if (empty($COURSE->id) || $COURSE->id < 2) {
-            return;
-        }
-
-        if (empty($USER->id) || $USER->id < 2) {
-            return;
-        }
-
-        if (strpos($PAGE->pagetype, 'course-view-') !== 0) {
-            return;
-        }
-
-        if (!$PAGE->user_is_editing()) {
-            return;
-        }
-
-        if (!$PAGE->get_popup_notification_allowed()) {
-            return;
-        }
-
-        $context = context_course::instance($COURSE->id);
-
-        if (!has_capability('local/geniai:analyzeactivity', $context)) {
-            return;
-        }
-
-        $PAGE->requires->strings_for_js([
-            "analyzing_activity",
-            "analysis_result",
-            "analysis_error",
-            "analysis_print_popup_blocked",
-            "analysis_no_content",
-            "analysis_recommendations",
-            "analysis_model_warning",
-            "analysis_last",
-            "analysis_print",
-        ], "local_geniai");
-
-        $analyzablecmids = analysis_availability::get_analyzable_cmids($COURSE, $USER->id);
-        if (empty($analyzablecmids)) {
-            return;
-        }
-
-        echo $OUTPUT->render_from_template('local_geniai/activity_analyzer_modal', [
-            "courseid" => (int) $COURSE->id,
-        ]);
-
-        $PAGE->requires->js_call_amd('local_geniai/activity-analyzer', "init", [(int) $COURSE->id, $analyzablecmids]);
     }
 }

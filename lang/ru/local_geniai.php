@@ -28,39 +28,6 @@ defined('MOODLE_INTERNAL') || die;
 
 $string['agentphoto'] = 'Фото ИИ-агента';
 $string['agentphoto_desc'] = 'Изображение, отображаемое как аватар ИИ-агента во время чат-бесед.';
-$string['analysis_ai_block'] = 'Анализ ИИ';
-$string['analysis_bloom_analyze'] = 'Анализировать';
-$string['analysis_bloom_apply'] = 'Применить';
-$string['analysis_bloom_create'] = 'Создать';
-$string['analysis_bloom_evaluate'] = 'Оценить';
-$string['analysis_bloom_remember'] = 'Запомнить';
-$string['analysis_bloom_understand'] = 'Понять';
-$string['analysis_cached'] = 'Кэшированный анализ';
-$string['analysis_close'] = 'Закрыть';
-$string['analysis_error'] = 'Не удалось проанализировать эту активность.';
-$string['analysis_excluded_plugins'] = 'Модули, исключённые из анализа активностей';
-$string['analysis_excluded_plugins_desc'] = 'В выбранных модулях не будут отображаться кнопки анализа, и эти модули будут исключены из анализа курса.';
-$string['analysis_force_new'] = 'Запустить новый анализ';
-$string['analysis_history'] = 'История анализов';
-$string['analysis_last'] = 'Последний анализ';
-$string['analysis_latest'] = 'Последний анализ';
-$string['analysis_model_warning'] = 'В этом анализе использована модель mini/nano. Для лучшего анализа настройте <a href="{$a}/admin/settings.php?section=local_geniai" target="_blank">модель API</a> без mini или nano.';
-$string['analysis_no_content'] = 'Содержимое анализа не было возвращено.';
-$string['analysis_not_supported'] = 'Этот тип активности недоступен для анализа с помощью GeniAI.';
-$string['analysis_print'] = 'Печать';
-$string['analysis_print_analysis'] = 'Печать анализ';
-$string['analysis_print_popup_blocked'] = 'Браузер заблокировал вкладку печати. Разрешите всплывающие окна и попробуйте снова.';
-$string['analysis_reanalyze'] = 'Проанализировать снова';
-$string['analysis_recommendations'] = 'Рекомендации';
-$string['analysis_result'] = 'Анализ активности';
-$string['analysis_status_insufficient'] = 'Недостаточно';
-$string['analysis_status_needs_review'] = 'Требует проверки';
-$string['analysis_status_ok'] = 'OK';
-$string['analysis_status_ok_minor'] = 'OK с небольшими корректировками';
-$string['analyze_activity'] = 'Анализировать с ИИ';
-$string['analyze_course'] = 'Анализировать курс с ИИ';
-$string['analyzing_activity'] = 'Анализ орфографии, педагогической согласованности и таксономии Блума...';
-$string['analyzing_course'] = 'Анализ активностей курса...';
 $string['apikey'] = 'OpenAI API Key';
 $string['apikey_desc'] = 'API-ключ вашей учетной записи OpenAI';
 $string['case'] = 'Сценарии использования';
@@ -134,45 +101,12 @@ $string['pluginname'] = 'GeniAI';
 $string['presence_penalty'] = 'Штраф за присутствие';
 $string['presence_penalty_desc'] = 'Этот параметр побуждает модель использовать большее разнообразие токенов в сгенерированном тексте. Более высокое значение повышает вероятность появления новых токенов.';
 $string['privacy:metadata'] = 'Плагин GeniAI хранит временную историю беседы в текущей сессии и только операционные метаданные использования, не сохраняя тела сообщений или персональные данные в локальных отчетах.';
-$string['prompt_activity_focus_alignment'] = 'сделайте приоритетом согласованность между курсом, разделом, названием и содержанием активности.';
-$string['prompt_activity_focus_bloom'] = 'сделайте приоритетом таксономию Блума и когнитивную глубину предложения.';
-$string['prompt_activity_focus_full'] = 'полный анализ активности.';
-$string['prompt_activity_focus_pedagogy'] = 'сделайте приоритетом педагогическую уместность, инструкции для студента и качество обучения.';
-$string['prompt_activity_focus_spelling'] = 'сделайте приоритетом орфографию, грамматику, ясность и инструктивный тон.';
-$string['prompt_activity_schema_bloom_level'] = 'remember | understand | apply | analyze | evaluate | create';
-$string['prompt_activity_schema_diagnosis'] = 'Краткое резюме общего диагноза.';
-$string['prompt_activity_schema_recommendation_1'] = 'Практическое действие 1.';
-$string['prompt_activity_schema_recommendation_2'] = 'Практическое действие 2.';
-$string['prompt_activity_schema_status'] = 'OK | OK with minor adjustments | Needs review | Inadequate or insufficient';
-$string['prompt_activity_schema_status_key'] = 'ok | ok_minor | needs_review | insufficient';
-$string['prompt_activity_system'] = 'Вы эксперт по instructional design, проверке текстов и Moodle. Проанализируйте существующую активность Moodle на текущем языке пользователя: {$a->lang}. Технические поля JSON и значения enum оставляйте точно на английском. Не выдумывайте информацию и ясно указывайте, если содержимого недостаточно.
-
-Обязательные критерии: орфография и ясность, согласованность между названием, разделом и содержимым, таксономия Блума с одним значением remember, understand, apply, analyze, evaluate или create, педагогическая уместность и практические рекомендации.
-
-Дополнительный фокус: {$a->focus}
-
-В конце добавьте технический блок с валидным JSON между ```json и ```. Обязательные поля: status_key, status, bloom_level, diagnosis, recommendations. Тип анализа: {$a->analysis}';
-$string['prompt_activity_user'] = 'Проанализируйте активность Moodle ниже.
-
-{$a}';
 $string['prompt_chat_system'] = 'Вы чатбот по имени **{$a->geniainame}**. Ваша роль — быть полезным преподавателем Moodle для курса **[**{$a->coursename}**]({$a->courseurl})** на сайте "{$a->sitename}".
 
 ## Модули курса:
 {$a->modules}
 
 Отвечайте ясно, дружелюбно и мотивирующе. Если вопрос неоднозначен, попросите детали. Если ответа не знаете, скажите об этом и не выдумывайте информацию. Держите фокус на курсе **{$a->coursename}**. Используйте только MARKDOWN и всегда отвечайте на языке **{$a->userlang}**. Не отвечайте на языке, отличном от {$a->userlang}.';
-$string['prompt_json_block_instruction'] = '
-
-Также верните финальный технический блок с валидным JSON между ```json и ```.';
-$string['prompt_json_block_schema'] = '
-Используйте этот справочный формат:
-{$a}';
-$string['prompt_json_style'] = '
-Стиль:
-- Избегайте списков; используйте их только при необходимости;
-- Используйте `:` только когда это действительно нужно; лучше переписывайте полными предложениями;
-- Не добавляйте вывод или итоговое резюме;
-- Следите, чтобы текст не звучал как сгенерированный ИИ.';
 $string['report_completion_tokens'] = 'Количество полученных токенов';
 $string['report_datecreated'] = 'День';
 $string['report_download'] = 'Скачать использование GPT';

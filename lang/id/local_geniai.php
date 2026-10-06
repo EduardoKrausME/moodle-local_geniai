@@ -28,39 +28,6 @@ defined('MOODLE_INTERNAL') || die;
 
 $string['agentphoto'] = 'Foto agen AI';
 $string['agentphoto_desc'] = 'Gambar yang ditampilkan sebagai avatar agen AI selama percakapan chat.';
-$string['analysis_ai_block'] = 'Analisis AI';
-$string['analysis_bloom_analyze'] = 'Analisis';
-$string['analysis_bloom_apply'] = 'Terapkan';
-$string['analysis_bloom_create'] = 'Buat';
-$string['analysis_bloom_evaluate'] = 'Evaluasi';
-$string['analysis_bloom_remember'] = 'Ingat';
-$string['analysis_bloom_understand'] = 'Pahami';
-$string['analysis_cached'] = 'Analisis tersimpan cache';
-$string['analysis_close'] = 'Tutup';
-$string['analysis_error'] = 'Aktivitas ini tidak dapat dianalisis.';
-$string['analysis_excluded_plugins'] = 'Modul yang dikecualikan dari analisis aktivitas';
-$string['analysis_excluded_plugins_desc'] = 'Modul yang dipilih tidak akan menampilkan tombol analisis dan akan dikecualikan dari analisis kursus.';
-$string['analysis_force_new'] = 'Jalankan analisis baru';
-$string['analysis_history'] = 'Riwayat analisis';
-$string['analysis_last'] = 'Analisis terakhir';
-$string['analysis_latest'] = 'Analisis terbaru';
-$string['analysis_model_warning'] = 'Analisis ini menggunakan model mini/nano. Untuk analisis yang lebih baik, konfigurasikan <a href="{$a}/admin/settings.php?section=local_geniai" target="_blank">Model API</a> tanpa mini atau nano.';
-$string['analysis_no_content'] = 'Tidak ada konten analisis yang dikembalikan.';
-$string['analysis_not_supported'] = 'Jenis aktivitas ini tidak tersedia untuk analisis dengan GeniAI.';
-$string['analysis_print'] = 'Cetak';
-$string['analysis_print_analysis'] = 'Cetak analisis';
-$string['analysis_print_popup_blocked'] = 'Browser memblokir tab cetak. Izinkan pop-up dan coba lagi.';
-$string['analysis_reanalyze'] = 'Analisis lagi';
-$string['analysis_recommendations'] = 'Rekomendasi';
-$string['analysis_result'] = 'Analisis aktivitas';
-$string['analysis_status_insufficient'] = 'Tidak mencukupi';
-$string['analysis_status_needs_review'] = 'Perlu ditinjau';
-$string['analysis_status_ok'] = 'OK';
-$string['analysis_status_ok_minor'] = 'OK dengan penyesuaian kecil';
-$string['analyze_activity'] = 'Analisis dengan AI';
-$string['analyze_course'] = 'Analisis kursus dengan AI';
-$string['analyzing_activity'] = 'Menganalisis ejaan, koherensi pedagogis, dan taksonomi Bloom...';
-$string['analyzing_course'] = 'Menganalisis aktivitas kursus...';
 $string['apikey'] = 'OpenAI API Key';
 $string['apikey_desc'] = 'Kunci API akun OpenAI Anda';
 $string['case'] = 'Kasus penggunaan';
@@ -134,45 +101,12 @@ $string['pluginname'] = 'GeniAI';
 $string['presence_penalty'] = 'Penalti kehadiran';
 $string['presence_penalty_desc'] = 'Parameter ini mendorong model memasukkan variasi token yang lebih luas dalam teks yang dihasilkan. Nilai yang lebih tinggi membuat token baru lebih mungkin muncul.';
 $string['privacy:metadata'] = 'Plugin GeniAI menyimpan riwayat percakapan sementara pada sesi saat ini dan hanya menyimpan metadata penggunaan operasional tanpa menyimpan isi pesan atau data pribadi dalam laporan lokalnya.';
-$string['prompt_activity_focus_alignment'] = 'prioritaskan koherensi antara kursus, bagian, judul, dan konten aktivitas.';
-$string['prompt_activity_focus_bloom'] = 'prioritaskan taksonomi Bloom dan kedalaman kognitif proposal.';
-$string['prompt_activity_focus_full'] = 'analisis aktivitas lengkap.';
-$string['prompt_activity_focus_pedagogy'] = 'prioritaskan kesesuaian pedagogis, instruksi siswa, dan kualitas pembelajaran.';
-$string['prompt_activity_focus_spelling'] = 'prioritaskan ejaan, tata bahasa, kejelasan, dan nada instruksional.';
-$string['prompt_activity_schema_bloom_level'] = 'remember | understand | apply | analyze | evaluate | create';
-$string['prompt_activity_schema_diagnosis'] = 'Ringkasan singkat diagnosis umum.';
-$string['prompt_activity_schema_recommendation_1'] = 'Tindakan praktis 1.';
-$string['prompt_activity_schema_recommendation_2'] = 'Tindakan praktis 2.';
-$string['prompt_activity_schema_status'] = 'OK | OK with minor adjustments | Needs review | Inadequate or insufficient';
-$string['prompt_activity_schema_status_key'] = 'ok | ok_minor | needs_review | insufficient';
-$string['prompt_activity_system'] = 'Anda adalah ahli desain instruksional, peninjauan teks, dan Moodle. Analisis aktivitas Moodle yang ada dalam bahasa Moodle pengguna saat ini: {$a->lang}. Pertahankan field teknis JSON dan nilai enum tepat dalam bahasa Inggris. Jangan mengarang informasi dan nyatakan dengan jelas jika konten tidak cukup.
-
-Kriteria wajib: ejaan dan kejelasan, koherensi antara judul, bagian, dan konten, taksonomi Bloom dengan salah satu nilai remember, understand, apply, analyze, evaluate, create, kesesuaian pedagogis, dan saran praktis.
-
-Fokus tambahan: {$a->focus}
-
-Di akhir, tambahkan blok teknis dengan JSON valid antara ```json dan ```. Field wajib: status_key, status, bloom_level, diagnosis, recommendations. Jenis analisis: {$a->analysis}';
-$string['prompt_activity_user'] = 'Analisis aktivitas Moodle di bawah ini.
-
-{$a}';
 $string['prompt_chat_system'] = 'Anda adalah chatbot bernama **{$a->geniainame}**. Peran Anda adalah bertindak sebagai guru Moodle yang membantu untuk kursus **[**{$a->coursename}**]({$a->courseurl})** di "{$a->sitename}".
 
 ## Modul kursus:
 {$a->modules}
 
 Jawablah dengan jelas, ramah, dan memotivasi. Jika pertanyaan ambigu, minta detail. Jika tidak tahu jawabannya, katakan dengan jujur dan jangan mengarang. Tetap fokus pada kursus **{$a->coursename}**. Gunakan hanya MARKDOWN dan selalu jawab dalam bahasa **{$a->userlang}**. Jangan gunakan bahasa selain {$a->userlang}.';
-$string['prompt_json_block_instruction'] = '
-
-Kembalikan juga blok teknis akhir dengan JSON valid di antara ```json dan ```.';
-$string['prompt_json_block_schema'] = '
-Gunakan format referensi ini:
-{$a}';
-$string['prompt_json_style'] = '
-Gaya:
-- Hindari daftar; gunakan hanya jika penting;
-- Gunakan `:` hanya jika benar-benar diperlukan; lebih baik menulis ulang dengan kalimat lengkap;
-- Jangan tambahkan kesimpulan atau sintesis akhir;
-- Berhati-hatilah agar tidak terdengar seperti teks yang dibuat AI.';
 $string['report_completion_tokens'] = 'Jumlah token diterima';
 $string['report_datecreated'] = 'Hari';
 $string['report_download'] = 'Unduh penggunaan GPT';

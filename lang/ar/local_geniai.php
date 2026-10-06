@@ -28,39 +28,6 @@ defined('MOODLE_INTERNAL') || die;
 
 $string['agentphoto'] = 'صورة وكيل الذكاء الاصطناعي';
 $string['agentphoto_desc'] = 'الصورة المعروضة كصورة رمزية لوكيل الذكاء الاصطناعي أثناء محادثات الدردشة.';
-$string['analysis_ai_block'] = 'تحليل الذكاء الاصطناعي';
-$string['analysis_bloom_analyze'] = 'تحليل';
-$string['analysis_bloom_apply'] = 'تطبيق';
-$string['analysis_bloom_create'] = 'إنشاء';
-$string['analysis_bloom_evaluate'] = 'تقييم';
-$string['analysis_bloom_remember'] = 'تذكّر';
-$string['analysis_bloom_understand'] = 'فهم';
-$string['analysis_cached'] = 'تحليل مخزن مؤقتًا';
-$string['analysis_close'] = 'إغلاق';
-$string['analysis_error'] = 'تعذر تحليل هذا النشاط.';
-$string['analysis_excluded_plugins'] = 'الوحدات المستبعدة من تحليل الأنشطة';
-$string['analysis_excluded_plugins_desc'] = 'لن تعرض الوحدات المحددة أزرار التحليل، وسيتم استبعادها من تحليل المقرر.';
-$string['analysis_force_new'] = 'تشغيل تحليل جديد';
-$string['analysis_history'] = 'سجل التحليلات';
-$string['analysis_last'] = 'آخر تحليل';
-$string['analysis_latest'] = 'أحدث تحليل';
-$string['analysis_model_warning'] = 'استخدم هذا التحليل نموذج mini/nano. لتحليل أفضل، اضبط <a href="{$a}/admin/settings.php?section=local_geniai" target="_blank">نموذج API</a> بدون mini أو nano.';
-$string['analysis_no_content'] = 'لم يتم إرجاع أي محتوى تحليل.';
-$string['analysis_not_supported'] = 'هذا النوع من الأنشطة غير متاح للتحليل باستخدام GeniAI.';
-$string['analysis_print'] = 'طباعة';
-$string['analysis_print_analysis'] = 'طباعة تحليل';
-$string['analysis_print_popup_blocked'] = 'حظر المتصفح تبويب الطباعة. اسمح بالنوافذ المنبثقة وحاول مرة أخرى.';
-$string['analysis_reanalyze'] = 'تحليل مرة أخرى';
-$string['analysis_recommendations'] = 'توصيات';
-$string['analysis_result'] = 'تحليل النشاط';
-$string['analysis_status_insufficient'] = 'غير كافٍ';
-$string['analysis_status_needs_review'] = 'يحتاج إلى مراجعة';
-$string['analysis_status_ok'] = 'OK';
-$string['analysis_status_ok_minor'] = 'جيد مع تعديلات بسيطة';
-$string['analyze_activity'] = 'تحليل بالذكاء الاصطناعي';
-$string['analyze_course'] = 'تحليل مقرر بالذكاء الاصطناعي';
-$string['analyzing_activity'] = 'يتم تحليل الإملاء والاتساق التربوي وتصنيف بلوم...';
-$string['analyzing_course'] = 'يتم تحليل أنشطة المقرر...';
 $string['apikey'] = 'OpenAI API Key';
 $string['apikey_desc'] = 'مفتاح API لحسابك في OpenAI';
 $string['case'] = 'حالات الاستخدام';
@@ -134,45 +101,12 @@ $string['pluginname'] = 'GeniAI';
 $string['presence_penalty'] = 'عقوبة الحضور';
 $string['presence_penalty_desc'] = 'يُستخدم هذا المعامل لتشجيع النموذج على إدراج تنوع أكبر من الرموز في النص الناتج. كلما زادت القيمة زادت احتمالية ظهور رموز جديدة.';
 $string['privacy:metadata'] = 'يحتفظ ملحق GeniAI بسجل المحادثة المؤقت في الجلسة الحالية، ويخزن فقط بيانات استخدام تشغيلية دون حفظ محتوى الرسائل أو البيانات الشخصية في تقاريره المحلية.';
-$string['prompt_activity_focus_alignment'] = 'أعط الأولوية للاتساق بين المقرر والقسم والعنوان ومحتوى النشاط.';
-$string['prompt_activity_focus_bloom'] = 'أعط الأولوية لتصنيف بلوم والعمق المعرفي للمقترح.';
-$string['prompt_activity_focus_full'] = 'تحليل كامل للنشاط.';
-$string['prompt_activity_focus_pedagogy'] = 'أعط الأولوية للملاءمة التربوية وتعليمات الطالب وجودة التعلم.';
-$string['prompt_activity_focus_spelling'] = 'أعط الأولوية للإملاء والقواعد والوضوح والنبرة التعليمية.';
-$string['prompt_activity_schema_bloom_level'] = 'remember | understand | apply | analyze | evaluate | create';
-$string['prompt_activity_schema_diagnosis'] = 'ملخص قصير للتشخيص العام.';
-$string['prompt_activity_schema_recommendation_1'] = 'إجراء عملي 1.';
-$string['prompt_activity_schema_recommendation_2'] = 'إجراء عملي 2.';
-$string['prompt_activity_schema_status'] = 'OK | OK with minor adjustments | Needs review | Inadequate or insufficient';
-$string['prompt_activity_schema_status_key'] = 'ok | ok_minor | needs_review | insufficient';
-$string['prompt_activity_system'] = 'أنت خبير في التصميم التعليمي ومراجعة النصوص وMoodle. حلّل نشاط Moodle موجودًا بلغة المستخدم الحالية في Moodle: {$a->lang}. أبقِ حقول JSON التقنية وقيم enum باللغة الإنجليزية تمامًا. لا تخترع معلومات، وإذا كان المحتوى غير كافٍ فاذكر ذلك بوضوح.
-
-معايير التحليل الإلزامية: الإملاء والوضوح، الاتساق بين العنوان والقسم والمحتوى، تصنيف بلوم باستخدام قيمة واحدة من remember, understand, apply, analyze, evaluate, create، الملاءمة التربوية، واقتراحات عملية.
-
-التركيز الإضافي: {$a->focus}
-
-في النهاية أضف كتلة تقنية تحتوي على JSON صالح بين ```json و ```. الحقول المطلوبة: status_key, status, bloom_level, diagnosis, recommendations. نوع التحليل المطلوب: {$a->analysis}';
-$string['prompt_activity_user'] = 'حلّل نشاط Moodle أدناه.
-
-{$a}';
 $string['prompt_chat_system'] = 'أنت روبوت دردشة اسمه **{$a->geniainame}**. دورك هو العمل كمدرس Moodle مساعد ومخلص للمقرر **[**{$a->coursename}**]({$a->courseurl})** في "{$a->sitename}".
 
 ## وحدات المقرر:
 {$a->modules}
 
 أجب بوضوح وود وتحفيز. إذا كان السؤال غامضًا، اطلب تفاصيل إضافية. إذا كنت لا تعرف الإجابة، قل ذلك ولا تخترع معلومات. حافظ على التركيز على المقرر **{$a->coursename}**. استخدم MARKDOWN فقط وأجب دائمًا باللغة **{$a->userlang}**. ولا تستخدم لغة أخرى غير {$a->userlang}.';
-$string['prompt_json_block_instruction'] = '
-
-أرجع أيضًا كتلة تقنية نهائية تحتوي على JSON صالح بين ```json و ```.';
-$string['prompt_json_block_schema'] = '
-استخدم هذا التنسيق المرجعي:
-{$a}';
-$string['prompt_json_style'] = '
-النمط:
-- تجنب القوائم؛ استخدمها فقط عند الضرورة؛
-- استخدم `:` فقط عندما يكون ذلك ضروريًا حقًا؛ وفضّل الجمل الكاملة؛
-- لا تضف خاتمة أو ملخصًا نهائيًا؛
-- احرص على ألا يبدو النص مولدًا بالذكاء الاصطناعي.';
 $string['report_completion_tokens'] = 'عدد الرموز المستلمة';
 $string['report_datecreated'] = 'اليوم';
 $string['report_download'] = 'تنزيل استخدام GPT';
