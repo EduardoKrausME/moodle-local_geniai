@@ -42,7 +42,6 @@ $string['clear_history_title'] = 'مسح كل السجل';
 $string['close_title'] = 'إغلاق الدردشة';
 $string['frequency_penalty'] = 'عقوبة التكرار';
 $string['frequency_penalty_desc'] = 'يُستخدم هذا المعامل لتقليل تكرار الكلمات أو العبارات نفسها كثيرًا في النص الناتج. كلما زادت القيمة أصبح النموذج أكثر تحفظًا تجاه التكرار.';
-$string['geniai:analyzeactivity'] = 'تحليل أنشطة Moodle باستخدام GeniAI';
 $string['geniai:manage'] = 'إدارة GeniAI';
 $string['geniai:view'] = 'عرض GeniAI';
 $string['geniainame'] = 'اسم المساعد';
