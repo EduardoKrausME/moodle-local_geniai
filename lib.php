@@ -22,19 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_geniai\core_hook_output;
-
-/**
- * Before footer.
- *
- * @throws coding_exception
- * @throws dml_exception
- * @throws moodle_exception
- */
-function local_geniai_before_footer() {
-    core_hook_output::before_footer_html_generation();
-}
-
 /**
  * Serve the files from the geniai file areas
  *
