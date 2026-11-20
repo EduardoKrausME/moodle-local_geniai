@@ -63,11 +63,10 @@ class controller implements controller_interface {
             "store" => false,
         ];
 
-        if ($this->is_reasoning_model($model)) {
-            $post["reasoning"] = [
-                "effort" => "low",
-            ];
-        } else {
+        // Sampling controls are only sent for known compatible, non-reasoning
+        // model families. Unknown and future model IDs use API defaults, rather
+        // than causing a 400 response due to unsupported options.
+        if ($this->supports_sampling_parameters($model)) {
             switch (get_config("local_geniai", "case")) {
                 case "creative":
                     $temperature = .7;
@@ -261,12 +260,15 @@ class controller implements controller_interface {
     }
 
     /**
-     * Detect models that should avoid legacy sampling parameters.
+     * Only known GPT-4 chat families accept the full sampling configuration.
      *
-     * @param string $model
+     * New models and reasoning variants can reject temperature, top_p and
+     * penalty values. Let the Responses API choose defaults for these models.
+     *
+     * @param string $model Model identifier (including dated snapshots).
      * @return bool
      */
-    private function is_reasoning_model($model) {
-        return (bool) preg_match('/^(gpt-5|o[0-9])/i', $model);
+    private function supports_sampling_parameters($model): bool {
+        return (bool) preg_match('/^gpt-4(?:o|\.1|\.5|-turbo|-32k)?(?:$|[-.])/i', $model);
     }
 }
