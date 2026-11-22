@@ -59,20 +59,12 @@ function xmldb_local_geniai_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026070600, "local", "geniai");
     }
 
-    if ($oldversion < 2026100600) {
-        // Activity analysis moved to local_courseaudit. Keep legacy data until the
-        // destination table exists so plugin upgrade order cannot lose history.
-        upgrade_plugin_savepoint(true, 2026100600, 'local', 'geniai');
-    }
-
-    if ($oldversion < 2026100601) {
-        // The destination plugin may not have installed yet. A scheduled task
-        // will retry after it becomes available, including on already-upgraded sites.
+    if ($oldversion < 2026112200) {
+        // Course Audit owns the destination table. Keep historical data until
+        // that plugin is installed; the scheduled task can retry the migration.
         \local_geniai\local\analysis_migration::migrate();
-        $newtable = new xmldb_table('local_courseaudit_analysis');
 
-        // Move the old setting once Course Audit is present, even when there is
-        // no legacy analysis table left to copy.
+        $newtable = new xmldb_table('local_courseaudit_analysis');
         if ($dbman->table_exists($newtable)) {
             $oldconfig = get_config('local_geniai', 'analysis_excluded_plugins');
             if ($oldconfig !== false && get_config('local_courseaudit', 'analysis_excluded_plugins') === false) {
@@ -81,13 +73,7 @@ function xmldb_local_geniai_upgrade($oldversion) {
             unset_config('analysis_excluded_plugins', 'local_geniai');
         }
 
-        upgrade_plugin_savepoint(true, 2026100601, 'local', 'geniai');
-    }
-
-    if ($oldversion < 2026112000) {
-        // Recheck sites which already passed the original migration savepoint.
-        \local_geniai\local\analysis_migration::migrate();
-        upgrade_plugin_savepoint(true, 2026112000, 'local', 'geniai');
+        upgrade_plugin_savepoint(true, 2026112200, 'local', 'geniai');
     }
 
     return true;
