@@ -7,6 +7,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out GeniAI
+      uses: actions/checkout@v4
+      with:
+        path: plugin
+
+    - name: Check out Course Audit schema
+      uses: actions/checkout@v4
+      with:
+        repository: EduardoKrausME/moodle-local_courseaudit
+        path: courseaudit
+        persist-credentials: false
+
+    - name: Verify versions, upgrade savepoints and XMLDB tables
+      run: php plugin/ci/check-schema.php courseaudit/db/install.xml
+
   test:
     runs-on: ubuntu-22.04
 
