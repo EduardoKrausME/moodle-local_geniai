@@ -2,6 +2,14 @@
 
 This changelog documents only the two most recent published GitHub releases. Each entry is based on the differences between that release tag and the immediately preceding published release; changes made afterward on `master` are excluded.
 
+## 4.0.12 - 2026-11-23
+
+- Consolidated legacy activity-analysis migration steps under upgrade version `2026112200`, preserving deferred migration handling.
+- Added a standalone CI schema checker and checks for XMLDB, upgrades and legacy migrations, with updated migration tests.
+- Added a security reporting policy and normalized localized documentation text.
+
+**Comparison:** [4.0.11...4.0.12](https://github.com/EduardoKrausME/moodle-local_geniai/compare/4.0.11...4.0.12)
+
 ## 4.0.11 - 2026-11-20
 
 ### Fixed
