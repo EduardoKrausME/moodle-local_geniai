@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Independent CI check for GeniAI version, upgrades, and shared analysis schema.
@@ -20,8 +20,11 @@
  * Usage: php ci/check-schema.php path/to/local_courseaudit/db/install.xml
  *
  * @package local_geniai
+ * @copyright 2026 Eduardo Kraus
+ * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+// phpcs:ignore moodle.Files.MoodleInternal.MoodleInternalGlobalState -- Standalone CLI script without Moodle bootstrap.
 $root = dirname(__DIR__);
 $courseauditpath = $argv[1] ?? '';
 $errors = [];

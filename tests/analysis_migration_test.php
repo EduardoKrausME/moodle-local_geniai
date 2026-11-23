@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 namespace local_geniai;
 
@@ -20,6 +20,8 @@ namespace local_geniai;
  * Safety tests for the repeatable migration of historical activity analyses.
  *
  * @package local_geniai
+ * @copyright 2026 Eduardo Kraus
+ * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers \local_geniai\local\analysis_migration
  */
 final class analysis_migration_test extends \advanced_testcase {
